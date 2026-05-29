@@ -32,6 +32,22 @@ filesToUpdate.forEach(file => {
     if (!fs.existsSync(file)) return;
     let content = fs.readFileSync(file, 'utf8');
     
+    // Normalize assets & stylesheets to root-relative absolute paths
+    content = content.replace(/href="style\.css"/g, 'href="/style.css"');
+    content = content.replace(/href="assets\/images\/icons\/favicon\.png"/g, 'href="/assets/images/icons/favicon.png"');
+    content = content.replace(/src="assets\/images\/icons\/reading\.png"/g, 'src="/assets/images/icons/reading.png"');
+    content = content.replace(/src="assets\/images\/icons\/hello\.png"/g, 'src="/assets/images/icons/hello.png"');
+    
+    // Normalize menu & footer navigation links to root-relative absolute paths
+    content = content.replace(/href="index\.html"/g, 'href="/index.html"');
+    content = content.replace(/href="gallery\.html"/g, 'href="/gallery.html"');
+    content = content.replace(/href="columns\.html"/g, 'href="/columns.html"');
+    content = content.replace(/href="test\.html"/g, 'href="/test.html"');
+    content = content.replace(/href="about\.html"/g, 'href="/about.html"');
+    content = content.replace(/href="contact\.html"/g, 'href="/contact.html"');
+    content = content.replace(/href="terms\.html"/g, 'href="/terms.html"');
+    content = content.replace(/href="privacy\.html"/g, 'href="/privacy.html"');
+    
     // Remove existing footers and orbs to avoid duplicates
     content = content.replace(/<!-- Footer -->[\s\S]*?<\/footer>/g, '');
     content = content.replace(/<footer class="footer">[\s\S]*?<\/footer>/g, '');
