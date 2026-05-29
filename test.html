@@ -481,28 +481,46 @@
                     </div>
 
                     <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); border-radius: var(--radius-md); padding: 16px;">
-                        <p style="font-size: 0.85rem; color: var(--text-dim); margin-bottom: 8px;">MBTI로 빠른 예측 결과 보기</p>
-                        <div style="display: flex; gap: 8px;">
-                            <select id="mbtiSelectTest" style="flex: 1; padding: 10px; border-radius: var(--radius-sm); border: 1px solid var(--glass-border); background: var(--bg-card); color: var(--text-main); font-size: 0.9rem; outline: none; cursor: pointer;">
-                                <option value="" disabled selected>선택</option>
-                                <option value="INTJ">INTJ</option>
-                                <option value="INTP">INTP</option>
-                                <option value="ENTJ">ENTJ</option>
-                                <option value="ENTP">ENTP</option>
-                                <option value="INFJ">INFJ</option>
-                                <option value="INFP">INFP</option>
-                                <option value="ENFJ">ENFJ</option>
-                                <option value="ENFP">ENFP</option>
-                                <option value="ISTJ">ISTJ</option>
-                                <option value="ISFJ">ISFJ</option>
-                                <option value="ESTJ">ESTJ</option>
-                                <option value="ESFJ">ESFJ</option>
-                                <option value="ISTP">ISTP</option>
-                                <option value="ISFP">ISFP</option>
-                                <option value="ESTP">ESTP</option>
-                                <option value="ESFP">ESFP</option>
-                            </select>
-                            <button class="btn btn--secondary" onclick="previewMBTI()" style="padding: 10px 16px; font-size:0.9rem;">보기</button>
+                        <p style="font-size: 0.85rem; color: var(--text-dim); margin-bottom: 12px;">원하는 방식으로 결과 미리보기</p>
+                        
+                        <div style="display: flex; flex-direction: column; gap: 10px;">
+                            <div style="display: flex; gap: 8px;">
+                                <select id="mbtiSelectTest" style="flex: 1; padding: 10px; border-radius: var(--radius-sm); border: 1px solid var(--glass-border); background: var(--bg-card); color: var(--text-main); font-size: 0.9rem; outline: none; cursor: pointer;">
+                                    <option value="" disabled selected>MBTI로 찾기</option>
+                                    <option value="INTJ">INTJ</option>
+                                    <option value="INTP">INTP</option>
+                                    <option value="ENTJ">ENTJ</option>
+                                    <option value="ENTP">ENTP</option>
+                                    <option value="INFJ">INFJ</option>
+                                    <option value="INFP">INFP</option>
+                                    <option value="ENFJ">ENFJ</option>
+                                    <option value="ENFP">ENFP</option>
+                                    <option value="ISTJ">ISTJ</option>
+                                    <option value="ISFJ">ISFJ</option>
+                                    <option value="ESTJ">ESTJ</option>
+                                    <option value="ESFJ">ESFJ</option>
+                                    <option value="ISTP">ISTP</option>
+                                    <option value="ISFP">ISFP</option>
+                                    <option value="ESTP">ESTP</option>
+                                    <option value="ESFP">ESFP</option>
+                                </select>
+                                <button class="btn btn--secondary" onclick="previewMBTI()" style="padding: 10px 16px; font-size:0.9rem;">보기</button>
+                            </div>
+
+                            <div style="display: flex; gap: 8px;">
+                                <select id="personaSelectTest" style="flex: 1; padding: 10px; border-radius: var(--radius-sm); border: 1px solid var(--glass-border); background: var(--bg-card); color: var(--text-main); font-size: 0.9rem; outline: none; cursor: pointer;">
+                                    <option value="" disabled selected>유형 직접 선택</option>
+                                    <option value="warm">빛나는 온기의 부모</option>
+                                    <option value="structured">신뢰의 설계자 부모</option>
+                                    <option value="free">자유로운 탐험가 부모</option>
+                                    <option value="wise">지혜로운 등대 부모</option>
+                                    <option value="balanced">균형의 마에스트로 부모</option>
+                                    <option value="empathetic">마음을 읽는 거울 부모</option>
+                                    <option value="creative">창의적 놀이터 부모</option>
+                                    <option value="resilient">회복탄력의 봄 부모</option>
+                                </select>
+                                <button class="btn btn--secondary" onclick="previewPersonaTest()" style="padding: 10px 16px; font-size:0.9rem;">보기</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -541,6 +559,15 @@
                 window.location.href = 'result.html?mbti=' + mbti;
             } else {
                 alert('MBTI를 선택해주세요.');
+            }
+        }
+
+        function previewPersonaTest() {
+            const persona = document.getElementById('personaSelectTest').value;
+            if(persona) {
+                window.location.href = 'result.html?preview=' + persona;
+            } else {
+                alert('유형을 선택해주세요.');
             }
         }
 
