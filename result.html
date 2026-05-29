@@ -793,6 +793,8 @@
 
             wrapper.innerHTML = `
                 ${noticeBanner}
+                <!-- Floating emoji particles -->
+                <div class="emoji-float-layer" id="emojiLayer"></div>
                 <!-- Hero -->
                 <section class="result-hero" id="captureHero">
                     <div class="result-hero__glow"></div>
@@ -950,7 +952,29 @@
                         .accordion-item.active { border-color: var(--primary); background: rgba(30, 41, 59, 0.6); }
                         .accordion-item.active .accordion-header i { transform: rotate(180deg); }
                         .accordion-item.active .accordion-content { max-height: 500px; }
-                    </style>
+                
+        /* ===== Floating Emoji Particles ===== */
+        .emoji-float-layer {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .emoji-particle {
+            position: absolute;
+            opacity: 0;
+            animation: emojiFloat linear infinite;
+            user-select: none;
+            filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
+        }
+        @keyframes emojiFloat {
+            0%   { transform: translateY(105vh) rotate(0deg) scale(0.5); opacity: 0; }
+            6%   { opacity: 0.6; }
+            88%  { opacity: 0.3; }
+            100% { transform: translateY(-140px) rotate(400deg) scale(1.2); opacity: 0; }
+        }
+    </style>
                 </section>
 
                 <!-- Affiliate Curation -->
@@ -1018,15 +1042,46 @@
             }, 100);
         }
 
+        // ============================================================
+        // Floating Emoji Particles
+        // ============================================================
+        const PERSONA_EMOJIS = {
+            warm:       ['💛','🌸','🤗','☀️','🫶','💝','🌻','💖'],
+            structured: ['📐','✅','📋','🗂️','⏰','📏','🔑','📼'],
+            free:       ['🌊','🌿','🦋','🌈','🗺️','🛩','⛵','🌬️'],
+            wise:       ['🔭','📚','🦉','💡','🧭','🌙','⭐','🔍'],
+            balanced:   ['⚖️','🎯','🌏','🪴','🤝','🔄','🧘','💎'],
+            empathetic: ['🪞','💜','🫂','🌙','✨','🫀','🫁','🌷'],
+            creative:   ['🎨','🎪','🦄','🌈','🎭','🪄','🎉','🎠'],
+            resilient:  ['🌸','💪','🌱','🛡️','🔥','🌅','⚡','🦅'],
+        };
+
+        function spawnEmojiParticles(combo) {
+            const layer = document.getElementById('emojiLayer');
+            if (!layer) return;
+            const emojis = PERSONA_EMOJIS[combo] || PERSONA_EMOJIS['balanced'];
+            const count = 22;
+            layer.innerHTML = '';
+            for (let i = 0; i < count; i++) {
+                const el = document.createElement('span');
+                el.className = 'emoji-particle';
+                el.textContent = emojis[i % emojis.length];
+                const leftPct  = Math.random() * 98;
+                const duration = 9 + Math.random() * 16;
+                const delay    = Math.random() * 14;
+                const size     = 1.3 + Math.random() * 1.8;
+                el.style.cssText = `left:${leftPct}%; font-size:${size}rem; animation-duration:${duration}s; animation-delay:${delay}s;`;
+                layer.appendChild(el);
+            }
+        }
+
         function preparePhotocard(overallPersona, dimensionTypes) {
             const pcArea = document.createElement('div');
             pcArea.id = 'photocardArea';
             
-            const strengthsHtml = overallPersona.strengths.slice(0, 3).map(s => `<li style="margin-bottom: 24px; padding-left: 45px; position: relative; font-size: 1.8rem; color: #f8fafc; line-height: 1.5; font-weight: 500; letter-spacing: -1px;"><i class="fas fa-check" style="position: absolute; left: 0; top: 6px; color: #34d399; font-size: 2.2rem;"></i>${s}</li>`).join('');
-            
-            // Map the best/worst match IDs to their names
-            const bestMatchPersona = OVERALL_TITLES.find(p => p.combo === overallPersona.bestMatch);
-            const worstMatchPersona = OVERALL_TITLES.find(p => p.combo === overallPersona.worstMatch);
+            // Generate Strengths and Anxieties HTML
+            const strengthsHtml = overallPersona.strengths.slice(0, 3).map(s => `<li style="margin-bottom: 24px; padding-left: 45px; position: relative; font-size: 2rem; color: #f8fafc; line-height: 1.5; font-weight: 500; letter-spacing: -1px;"><i class="fas fa-check" style="position: absolute; left: 0; top: 6px; color: #34d399; font-size: 2.2rem;"></i>${s}</li>`).join('');
+            const anxietiesHtml = overallPersona.anxieties.slice(0, 2).map(a => `<li style="margin-bottom: 24px; padding-left: 45px; position: relative; font-size: 2rem; color: #f8fafc; line-height: 1.5; font-weight: 500; letter-spacing: -1px;"><i class="fas fa-exclamation-triangle" style="position: absolute; left: 0; top: 6px; color: #fbbf24; font-size: 2.2rem;"></i>${a}</li>`).join('');
 
             pcArea.style.cssText = 'position:fixed; top:-9999px; left:-9999px; width:1080px; height:1920px; background:linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color:#ffffff; font-family:"Pretendard", sans-serif; display:flex; flex-direction:column; align-items:center; box-sizing:border-box; z-index:-100;';
             
@@ -1035,7 +1090,7 @@
                 <div style="position:absolute; top:-200px; left:-200px; width:800px; height:800px; background:var(--primary); filter:blur(300px); opacity:0.15; border-radius:50%;"></div>
                 <div style="position:absolute; bottom:-300px; right:-300px; width:1000px; height:1000px; background:var(--secondary); filter:blur(400px); opacity:0.15; border-radius:50%;"></div>
 
-                <div style="width:100%; height:100%; position:relative; z-index:10; padding:100px 80px 60px; display:flex; flex-direction:column; justify-content:space-between;">
+                <div style="width:100%; height:100%; position:relative; z-index:10; padding:100px 80px 80px; display:flex; flex-direction:column; justify-content:space-between;">
                     
                     <!-- 헤더 -->
                     <div style="text-align:center;">
@@ -1046,46 +1101,35 @@
                     </div>
 
                     <!-- 캐릭터 이미지 & 타이틀 -->
-                    <div style="text-align:center; margin-top:20px;">
-                        <div style="width:420px; height:420px; margin:0 auto 30px; border-radius:50%; overflow:hidden; border:10px solid rgba(255,255,255,0.08); box-shadow:0 40px 80px rgba(0,0,0,0.6); position:relative; background:#000;">
+                    <div style="text-align:center; margin-top:40px;">
+                        <div style="width:480px; height:480px; margin:0 auto 40px; border-radius:50%; overflow:hidden; border:12px solid rgba(255,255,255,0.08); box-shadow:0 40px 80px rgba(0,0,0,0.6); position:relative; background:#000;">
                             <img src="${overallPersona.imageUrl}" style="width:100%; height:100%; object-fit:cover;" crossorigin="anonymous">
                         </div>
-                        <div style="margin-bottom:20px; color:#34d399; font-size:2rem; font-weight:700;">${overallPersona.hashtags.join(' ')}</div>
-                        <h1 style="font-size:6rem; font-weight:900; margin:0 0 20px; line-height:1.1; color:#ffffff; text-shadow:0 10px 30px rgba(0,0,0,0.5); letter-spacing:-2px;">${overallPersona.name}</h1>
-                        <p style="font-size:2.2rem; line-height:1.6; color:#cbd5e1; margin:0; padding:0 20px; word-break:keep-all; font-weight:500;">"${overallPersona.desc}"</p>
+                        <h1 style="font-size:6.5rem; font-weight:900; margin:0 0 30px; line-height:1.1; color:#ffffff; text-shadow:0 10px 30px rgba(0,0,0,0.5); letter-spacing:-2px;">${overallPersona.name}</h1>
+                        <p style="font-size:2.5rem; line-height:1.6; color:#cbd5e1; margin:0; padding:0 20px; word-break:keep-all; font-weight:500;">"${overallPersona.desc}"</p>
                     </div>
 
                     <!-- 분석 내용 박스들 -->
-                    <div style="display:flex; flex-direction:column; gap:30px; margin-top:40px;">
+                    <div style="display:flex; flex-direction:column; gap:40px; margin-top:60px;">
                         <!-- 강점 -->
-                        <div style="background:rgba(255,255,255,0.05); backdrop-filter:blur(20px); border:2px solid rgba(255,255,255,0.1); border-radius:40px; padding:50px;">
-                            <h3 style="font-size:2.4rem; color:var(--primary); margin:0 0 24px; font-weight:800; letter-spacing:-1px;">✨ 나만의 압도적 무기</h3>
+                        <div style="background:rgba(255,255,255,0.05); backdrop-filter:blur(20px); border:2px solid rgba(255,255,255,0.1); border-radius:40px; padding:60px 50px;">
+                            <h3 style="font-size:2.6rem; color:var(--primary); margin:0 0 30px; font-weight:800; letter-spacing:-1px;">✨ 나만의 압도적 무기</h3>
                             <ul style="list-style:none; padding:0; margin:0;">
                                 ${strengthsHtml}
                             </ul>
                         </div>
 
-                        <!-- 팩폭 -->
-                        <div style="background:rgba(255, 68, 68, 0.08); backdrop-filter:blur(20px); border:2px solid rgba(255, 68, 68, 0.2); border-radius:40px; padding:50px; text-align:center;">
-                            <h3 style="font-size:2.4rem; color:#ff4444; margin:0 0 16px; font-weight:800; letter-spacing:-1px;">🔥 뼈 때리는 팩폭 한 줄</h3>
-                            <div style="font-size:2.2rem; line-height:1.5; color:#f8fafc; font-weight:700;">"${overallPersona.factBomb}"</div>
-                        </div>
-                        
-                        <!-- 궁합 -->
-                        <div style="display:flex; gap:20px;">
-                            <div style="flex:1; background:rgba(255,255,255,0.05); backdrop-filter:blur(20px); border:2px solid rgba(255,255,255,0.1); border-radius:30px; padding:30px; text-align:center;">
-                                <div style="font-size:1.6rem; color:#34d399; font-weight:700; margin-bottom:10px;">💖 환상의 짝꿍</div>
-                                <div style="font-size:2.2rem; font-weight:800; color:#fff;">${bestMatchPersona ? bestMatchPersona.name : '데이터 없음'}</div>
-                            </div>
-                            <div style="flex:1; background:rgba(255,255,255,0.05); backdrop-filter:blur(20px); border:2px solid rgba(255,255,255,0.1); border-radius:30px; padding:30px; text-align:center;">
-                                <div style="font-size:1.6rem; color:#fbbf24; font-weight:700; margin-bottom:10px;">⚡ 환장의 짝꿍</div>
-                                <div style="font-size:2.2rem; font-weight:800; color:#fff;">${worstMatchPersona ? worstMatchPersona.name : '데이터 없음'}</div>
-                            </div>
+                        <!-- 불안/걱정 -->
+                        <div style="background:rgba(255,255,255,0.05); backdrop-filter:blur(20px); border:2px solid rgba(255,255,255,0.1); border-radius:40px; padding:60px 50px;">
+                            <h3 style="font-size:2.6rem; color:#fbbf24; margin:0 0 30px; font-weight:800; letter-spacing:-1px;">☁️ 내가 남몰래 느끼는 불안</h3>
+                            <ul style="list-style:none; padding:0; margin:0;">
+                                ${anxietiesHtml}
+                            </ul>
                         </div>
                     </div>
 
-                    <!-- 푸터 -->
-                    <div style="text-align:center; margin-top:40px; padding-top:40px; border-top:2px solid rgba(255,255,255,0.1);">
+                    <!-- 푸터 (레이더 차트는 생략하고 깔끔하게 텍스트만) -->
+                    <div style="text-align:center; margin-top:50px; padding-top:50px; border-top:2px solid rgba(255,255,255,0.1);">
                         <div style="font-size:2.2rem; color:#94a3b8; font-weight:700; letter-spacing:1px;">
                             🔍 내 안의 진짜 부모 찾기 👉 <span style="color:#ffffff;">aikiugihimdulda.vercel.app</span>
                         </div>

@@ -388,6 +388,7 @@
             100% { transform: rotate(360deg); }
         }
 
+
         .ai-text-box {
             min-height: 80px;
         }
@@ -403,6 +404,113 @@
 
         .ai-step-text.active {
             display: block;
+        }
+
+        /* ===== Preview Pick Buttons ===== */
+        .preview-pick-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 18px 12px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.25s ease;
+            color: var(--text-main);
+        }
+        .preview-pick-btn:hover {
+            background: var(--glass-strong);
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(52,211,153,0.15);
+        }
+        .preview-pick-btn__icon { font-size: 2rem; }
+        .preview-pick-btn__label { font-size: 0.85rem; font-weight: 700; text-align: center; line-height: 1.4; }
+
+        /* ===== Picker Modal ===== */
+        .picker-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(12px);
+            z-index: 9000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .picker-modal.active { display: flex; animation: fadeInUp 0.3s ease both; }
+        .picker-modal__box {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            max-width: 520px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+        }
+        .picker-modal__header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .picker-modal__title { font-size: 1.2rem; font-weight: 800; color: var(--text-main); }
+        .picker-modal__close {
+            background: none; border: none; font-size: 1.4rem;
+            color: var(--text-dim); cursor: pointer; padding: 4px 8px;
+            border-radius: 8px; transition: all 0.2s;
+        }
+        .picker-modal__close:hover { background: var(--glass); color: var(--text-main); }
+        .picker-modal__desc { color: var(--text-body); font-size: 0.9rem; margin-bottom: 24px; }
+
+        /* MBTI Grid */
+        .mbti-grid { display: flex; flex-direction: column; gap: 20px; }
+        .mbti-group__label {
+            font-size: 0.8rem; font-weight: 800; color: var(--text-dim);
+            text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px;
+        }
+        .mbti-group__items { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .mbti-chip {
+            display: flex; flex-direction: column; align-items: flex-start;
+            padding: 12px 14px;
+            background: var(--glass); border: 1px solid var(--glass-border);
+            border-radius: 12px; cursor: pointer; transition: all 0.2s;
+            text-align: left; color: var(--text-main);
+        }
+        .mbti-chip:hover {
+            border-color: var(--primary); background: rgba(52,211,153,0.08);
+            transform: translateY(-2px); box-shadow: 0 4px 16px rgba(52,211,153,0.15);
+        }
+        .mbti-chip span { font-size: 1.15rem; font-weight: 900; font-family: 'Outfit', sans-serif; }
+        .mbti-chip small { font-size: 0.72rem; color: var(--text-dim); margin-top: 2px; }
+
+        /* Persona Grid */
+        .persona-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .persona-chip {
+            display: flex; flex-direction: column; align-items: center; gap: 8px;
+            padding: 16px 10px;
+            background: var(--glass); border: 1px solid var(--glass-border);
+            border-radius: 16px; cursor: pointer; transition: all 0.25s;
+            color: var(--text-main); position: relative; overflow: hidden;
+        }
+        .persona-chip:hover {
+            border-color: var(--primary); background: rgba(52,211,153,0.06);
+            transform: translateY(-4px); box-shadow: 0 8px 24px rgba(52,211,153,0.2);
+        }
+        .persona-chip__img {
+            width: 64px; height: 64px; border-radius: 50%;
+            object-fit: cover; border: 2px solid var(--glass-border);
+        }
+        .persona-chip__emoji { font-size: 1.5rem; }
+        .persona-chip__name { font-size: 0.8rem; font-weight: 800; text-align: center; line-height: 1.4; }
+        .persona-chip__rarity {
+            font-size: 0.7rem; font-weight: 700; color: var(--primary);
+            background: rgba(52,211,153,0.12); padding: 2px 8px; border-radius: 20px;
         }
     </style>
     <!-- Search & AdSense 인증 -->
@@ -471,58 +579,25 @@
                     </div>
                 </div>
 
-                <div style="display: flex; flex-direction: column; gap: 16px; width: 100%; max-width: 320px; margin: 0 auto;">
+                <div style="display: flex; flex-direction: column; gap: 16px; width: 100%; max-width: 360px; margin: 0 auto;">
                     <button class="btn btn--primary btn--large btn--glow" id="startTestBtn" onclick="startTest()">
-                        <i class="fas fa-play"></i> 정식 진단 시작하기
+                        <i class="fas fa-dna"></i> 지금 바로 분석하기 (무료)
                     </button>
                     
-                    <div style="position: relative; text-align: center; margin: 16px 0;">
+                    <div style="position: relative; text-align: center; margin: 8px 0;">
                         <div style="border-top: 1px solid var(--glass-border); position: absolute; top: 50%; width: 100%; z-index: 1;"></div>
-                        <span style="background: var(--bg-main); padding: 0 16px; color: var(--text-dim); font-size: 0.9rem; position: relative; z-index: 2;">또는</span>
+                        <span style="background: var(--bg-main); padding: 0 16px; color: var(--text-dim); font-size: 0.85rem; position: relative; z-index: 2;">결과 미리 구경하기</span>
                     </div>
 
-                    <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); border-radius: var(--radius-md); padding: 16px;">
-                        <p style="font-size: 0.85rem; color: var(--text-dim); margin-bottom: 12px;">원하는 방식으로 결과 미리보기</p>
-                        
-                        <div style="display: flex; flex-direction: column; gap: 10px;">
-                            <div style="display: flex; gap: 8px;">
-                                <select id="mbtiSelectTest" style="flex: 1; padding: 10px; border-radius: var(--radius-sm); border: 1px solid var(--glass-border); background: var(--bg-card); color: var(--text-main); font-size: 0.9rem; outline: none; cursor: pointer;">
-                                    <option value="" disabled selected>MBTI로 찾기</option>
-                                    <option value="INTJ">INTJ</option>
-                                    <option value="INTP">INTP</option>
-                                    <option value="ENTJ">ENTJ</option>
-                                    <option value="ENTP">ENTP</option>
-                                    <option value="INFJ">INFJ</option>
-                                    <option value="INFP">INFP</option>
-                                    <option value="ENFJ">ENFJ</option>
-                                    <option value="ENFP">ENFP</option>
-                                    <option value="ISTJ">ISTJ</option>
-                                    <option value="ISFJ">ISFJ</option>
-                                    <option value="ESTJ">ESTJ</option>
-                                    <option value="ESFJ">ESFJ</option>
-                                    <option value="ISTP">ISTP</option>
-                                    <option value="ISFP">ISFP</option>
-                                    <option value="ESTP">ESTP</option>
-                                    <option value="ESFP">ESFP</option>
-                                </select>
-                                <button class="btn btn--secondary" onclick="previewMBTI()" style="padding: 10px 16px; font-size:0.9rem;">보기</button>
-                            </div>
-
-                            <div style="display: flex; gap: 8px;">
-                                <select id="personaSelectTest" style="flex: 1; padding: 10px; border-radius: var(--radius-sm); border: 1px solid var(--glass-border); background: var(--bg-card); color: var(--text-main); font-size: 0.9rem; outline: none; cursor: pointer;">
-                                    <option value="" disabled selected>유형 직접 선택</option>
-                                    <option value="warm">빛나는 온기의 부모</option>
-                                    <option value="structured">신뢰의 설계자 부모</option>
-                                    <option value="free">자유로운 탐험가 부모</option>
-                                    <option value="wise">지혜로운 등대 부모</option>
-                                    <option value="balanced">균형의 마에스트로 부모</option>
-                                    <option value="empathetic">마음을 읽는 거울 부모</option>
-                                    <option value="creative">창의적 놀이터 부모</option>
-                                    <option value="resilient">회복탄력의 봄 부모</option>
-                                </select>
-                                <button class="btn btn--secondary" onclick="previewPersonaTest()" style="padding: 10px 16px; font-size:0.9rem;">보기</button>
-                            </div>
-                        </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <button class="preview-pick-btn" onclick="openMbtiModal()">
+                            <span class="preview-pick-btn__icon">🧬</span>
+                            <span class="preview-pick-btn__label">MBTI로<br>예측해보기</span>
+                        </button>
+                        <button class="preview-pick-btn" onclick="openPersonaModal()">
+                            <span class="preview-pick-btn__icon">🦁</span>
+                            <span class="preview-pick-btn__label">페르소나<br>직접 선택</span>
+                        </button>
                     </div>
                 </div>
 
@@ -541,6 +616,116 @@
         </div>
     </div>
 
+    <!-- MBTI Modal -->
+    <div id="mbtiModal" class="picker-modal" onclick="closeMbtiModal(event)">
+        <div class="picker-modal__box">
+            <div class="picker-modal__header">
+                <span class="picker-modal__title">🧬 MBTI로 내 유형 예측하기</span>
+                <button class="picker-modal__close" onclick="closeMbtiModalDirect()">✕</button>
+            </div>
+            <p class="picker-modal__desc">당신의 MBTI를 선택하면 가장 잘 맞는 육아 페르소나를 미리 볼 수 있어요!</p>
+            <div class="mbti-grid">
+                <div class="mbti-group">
+                    <div class="mbti-group__label">분석가형 🔵</div>
+                    <div class="mbti-group__items">
+                        <button class="mbti-chip" onclick="goMbti('INTJ')"><span>INTJ</span><small>용의주도한 전략가</small></button>
+                        <button class="mbti-chip" onclick="goMbti('INTP')"><span>INTP</span><small>논리적인 사색가</small></button>
+                        <button class="mbti-chip" onclick="goMbti('ENTJ')"><span>ENTJ</span><small>대담한 통솔자</small></button>
+                        <button class="mbti-chip" onclick="goMbti('ENTP')"><span>ENTP</span><small>뜨거운 논쟁가</small></button>
+                    </div>
+                </div>
+                <div class="mbti-group">
+                    <div class="mbti-group__label">외교관형 💚</div>
+                    <div class="mbti-group__items">
+                        <button class="mbti-chip" onclick="goMbti('INFJ')"><span>INFJ</span><small>선의의 옹호자</small></button>
+                        <button class="mbti-chip" onclick="goMbti('INFP')"><span>INFP</span><small>열정적인 중재자</small></button>
+                        <button class="mbti-chip" onclick="goMbti('ENFJ')"><span>ENFJ</span><small>정의로운 사회운동가</small></button>
+                        <button class="mbti-chip" onclick="goMbti('ENFP')"><span>ENFP</span><small>재기발랄한 활동가</small></button>
+                    </div>
+                </div>
+                <div class="mbti-group">
+                    <div class="mbti-group__label">관리자형 🟡</div>
+                    <div class="mbti-group__items">
+                        <button class="mbti-chip" onclick="goMbti('ISTJ')"><span>ISTJ</span><small>청렴결백한 논리주의자</small></button>
+                        <button class="mbti-chip" onclick="goMbti('ISFJ')"><span>ISFJ</span><small>용감한 수호자</small></button>
+                        <button class="mbti-chip" onclick="goMbti('ESTJ')"><span>ESTJ</span><small>엄격한 관리자</small></button>
+                        <button class="mbti-chip" onclick="goMbti('ESFJ')"><span>ESFJ</span><small>사교적인 외교관</small></button>
+                    </div>
+                </div>
+                <div class="mbti-group">
+                    <div class="mbti-group__label">탐험가형 🔴</div>
+                    <div class="mbti-group__items">
+                        <button class="mbti-chip" onclick="goMbti('ISTP')"><span>ISTP</span><small>만능 재주꾼</small></button>
+                        <button class="mbti-chip" onclick="goMbti('ISFP')"><span>ISFP</span><small>호기심 많은 예술가</small></button>
+                        <button class="mbti-chip" onclick="goMbti('ESTP')"><span>ESTP</span><small>모험을 즐기는 사업가</small></button>
+                        <button class="mbti-chip" onclick="goMbti('ESFP')"><span>ESFP</span><small>자유로운 연예인</small></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Persona Modal -->
+    <div id="personaModal" class="picker-modal" onclick="closePersonaModal(event)">
+        <div class="picker-modal__box">
+            <div class="picker-modal__header">
+                <span class="picker-modal__title">🦁 육아 페르소나 직접 선택</span>
+                <button class="picker-modal__close" onclick="closePersonaModalDirect()">✕</button>
+            </div>
+            <p class="picker-modal__desc">8가지 육아 페르소나 중 하나를 골라 결과를 미리 확인해보세요!</p>
+            <div class="persona-grid">
+                <button class="persona-chip" onclick="goPersona('warm')">
+                    <img src="assets/images/personas/animal_warm.png" alt="온기" class="persona-chip__img">
+                    <span class="persona-chip__emoji">☀️</span>
+                    <span class="persona-chip__name">빛나는 온기의 부모</span>
+                    <span class="persona-chip__rarity">상위 12%</span>
+                </button>
+                <button class="persona-chip" onclick="goPersona('structured')">
+                    <img src="assets/images/personas/animal_structured.png" alt="설계자" class="persona-chip__img">
+                    <span class="persona-chip__emoji">📐</span>
+                    <span class="persona-chip__name">신뢰의 설계자 부모</span>
+                    <span class="persona-chip__rarity">상위 8%</span>
+                </button>
+                <button class="persona-chip" onclick="goPersona('free')">
+                    <img src="assets/images/personas/animal_free.png" alt="탐험가" class="persona-chip__img">
+                    <span class="persona-chip__emoji">🌊</span>
+                    <span class="persona-chip__name">자유로운 탐험가 부모</span>
+                    <span class="persona-chip__rarity">단 5%</span>
+                </button>
+                <button class="persona-chip" onclick="goPersona('wise')">
+                    <img src="assets/images/personas/animal_wise.png" alt="등대" class="persona-chip__img">
+                    <span class="persona-chip__emoji">🔭</span>
+                    <span class="persona-chip__name">지혜로운 등대 부모</span>
+                    <span class="persona-chip__rarity">상위 3%</span>
+                </button>
+                <button class="persona-chip" onclick="goPersona('balanced')">
+                    <img src="assets/images/personas/animal_balanced.png" alt="마에스트로" class="persona-chip__img">
+                    <span class="persona-chip__emoji">⚖️</span>
+                    <span class="persona-chip__name">균형의 마에스트로 부모</span>
+                    <span class="persona-chip__rarity">상위 15%</span>
+                </button>
+                <button class="persona-chip" onclick="goPersona('empathetic')">
+                    <img src="assets/images/personas/animal_empathetic.png" alt="거울" class="persona-chip__img">
+                    <span class="persona-chip__emoji">🪞</span>
+                    <span class="persona-chip__name">마음을 읽는 거울 부모</span>
+                    <span class="persona-chip__rarity">상위 7%</span>
+                </button>
+                <button class="persona-chip" onclick="goPersona('creative')">
+                    <img src="assets/images/personas/animal_creative.png" alt="놀이터" class="persona-chip__img">
+                    <span class="persona-chip__emoji">🎨</span>
+                    <span class="persona-chip__name">창의적 놀이터 부모</span>
+                    <span class="persona-chip__rarity">단 4%</span>
+                </button>
+                <button class="persona-chip" onclick="goPersona('resilient')">
+                    <img src="assets/images/personas/animal_resilient.png" alt="봄" class="persona-chip__img">
+                    <span class="persona-chip__emoji">🌸</span>
+                    <span class="persona-chip__name">회복탄력의 봄 부모</span>
+                    <span class="persona-chip__rarity">상위 2%</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script src="data.js"></script>
     <script>
         // === State ===
@@ -554,8 +739,34 @@
             document.getElementById('resumeNotice').style.display = 'block';
         }
 
+        // === Modal Controls ===
+        function openMbtiModal() {
+            document.getElementById('mbtiModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeMbtiModal(e) {
+            if (e.target === document.getElementById('mbtiModal')) closeMbtiModalDirect();
+        }
+        function closeMbtiModalDirect() {
+            document.getElementById('mbtiModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        function openPersonaModal() {
+            document.getElementById('personaModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closePersonaModal(e) {
+            if (e.target === document.getElementById('personaModal')) closePersonaModalDirect();
+        }
+        function closePersonaModalDirect() {
+            document.getElementById('personaModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        function goMbti(mbti) { window.location.href = 'result.html?mbti=' + mbti; }
+        function goPersona(persona) { window.location.href = 'result.html?preview=' + persona; }
+
         function previewMBTI() {
-            const mbti = document.getElementById('mbtiSelectTest').value;
+            const mbti = document.getElementById('mbtiSelectTest')?.value;
             if(mbti) {
                 window.location.href = 'result.html?mbti=' + mbti;
             } else {
