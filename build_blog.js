@@ -546,7 +546,7 @@ if (fs.existsSync('columns.html')) {
         </a>
     `).join('\n');
     
-    colHtml = colHtml.replace(/<div class="article-grid">[\s\S]*?<\/section>/, `<div class="article-grid">\n${linksHtml}\n</div>\n</div>\n</section>`);
+    colHtml = colHtml.replace(/<div class="article-grid">[\s\S]*?<!-- AdSense Space/, `<div class="article-grid">\n${linksHtml}\n</div>\n</div>\n\n    <!-- AdSense Space`);
     
     // Inject Microsoft & Google High-Speed Search Box and Category Filter Tabs
     const searchAndTabsHTML = `
