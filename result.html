@@ -605,6 +605,17 @@
         .no-result h2 { margin-bottom: 20px; }
         .no-result p { color: var(--text-body); margin-bottom: 32px; }
 
+        .notice-banner {
+            text-align: center;
+            padding: 12px 24px;
+            font-size: 0.95rem;
+            color: #fff;
+            position: relative;
+            z-index: 10;
+        }
+        .notice-banner--mbti { background: linear-gradient(135deg, var(--secondary), #f43f5e); }
+        .notice-banner--preview { background: linear-gradient(135deg, #8b5cf6, #c084fc); }
+
         @media (max-width: 768px) {
             .dim-result-card { padding: 28px; }
             .dim-result-card__header { flex-direction: column; gap: 12px; }
@@ -625,8 +636,9 @@
             </a>
             <ul class="nav__links">
                 <li><a href="index.html" class="nav__link">홈</a></li>
+                <li><a href="gallery.html" class="nav__link">기록/갤러리</a></li>
                 <li><a href="columns.html" class="nav__link">육아 인사이트</a></li>
-                <li><a href="test.html" class="nav__cta"><i class="fas fa-redo"></i> 다시 진단</a></li>
+                <li><a href="test.html" class="nav__cta"><i class="fas fa-redo"></i> 진단 시작</a></li>
             </ul>
         </div>
     </nav>
@@ -638,7 +650,25 @@
     <script src="data.js"></script>
     <script>
         // === Load Results ===
-        const results = loadResults();
+        let results = null;
+        let noticeBanner = '';
+        const params = new URLSearchParams(window.location.search);
+
+        if (params.has('mbti')) {
+            const mbti = params.get('mbti').toUpperCase();
+            const combo = MBTI_MAPPING[mbti] || 'balanced';
+            results = generateMockResult(combo);
+            noticeBanner = `<div class="notice-banner notice-banner--mbti">본 결과는 <strong>${mbti}</strong> 성향을 바탕으로 예측한 가상의 육아 페르소나입니다. 정확한 결과는 <a href="test.html" style="text-decoration:underline; color:#fff;">정식 테스트</a>로 확인하세요.</div>`;
+        } else if (params.has('preview')) {
+            const combo = params.get('preview');
+            results = generateMockResult(combo);
+            noticeBanner = `<div class="notice-banner notice-banner--preview">현재 <strong>미리보기 모드</strong>입니다. 나의 진짜 육아 페르소나를 찾고 싶다면 <a href="test.html" style="text-decoration:underline; color:#fff;">진단하기</a>를 눌러주세요.</div>`;
+        } else if (params.has('id')) {
+            const history = loadHistory();
+            results = history.find(item => item.id === params.get('id'));
+        } else {
+            results = loadResults();
+        }
 
         if (!results) {
             document.getElementById('resultWrapper').innerHTML = `
@@ -665,6 +695,7 @@
             const topDimData = DIMENSIONS.find(d => d.id === topDim);
 
             wrapper.innerHTML = `
+                ${noticeBanner}
                 <!-- Hero -->
                 <section class="result-hero" id="captureHero">
                     <div class="result-hero__glow"></div>

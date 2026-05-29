@@ -849,13 +849,34 @@ function determineOverallPersona(dimensionTypes) {
 
 // 결과를 LocalStorage에 저장/로드
 function saveResults(results) {
+  // 기존 방식 호환
   localStorage.setItem('mirrorInsideResults', JSON.stringify(results));
-  localStorage.setItem('mirrorInsideTimestamp', new Date().toISOString());
+  
+  const timestamp = new Date().toISOString();
+  localStorage.setItem('mirrorInsideTimestamp', timestamp);
+
+  // 히스토리 배열에 누적 저장
+  let history = [];
+  try {
+    const historyData = localStorage.getItem('mirrorInsideHistory');
+    if (historyData) history = JSON.parse(historyData);
+  } catch (e) {}
+
+  results.id = timestamp;
+  results.date = new Date().toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+  
+  history.unshift(results); // 최신 결과가 맨 앞에 오도록
+  localStorage.setItem('mirrorInsideHistory', JSON.stringify(history));
 }
 
 function loadResults() {
   const data = localStorage.getItem('mirrorInsideResults');
   return data ? JSON.parse(data) : null;
+}
+
+function loadHistory() {
+  const data = localStorage.getItem('mirrorInsideHistory');
+  return data ? JSON.parse(data) : [];
 }
 
 function saveProgress(answers, currentIndex) {
@@ -869,4 +890,62 @@ function loadProgress() {
 
 function clearProgress() {
   localStorage.removeItem('mirrorInsideProgress');
+}
+
+// ============================================================
+// MBTI 기반 매핑 및 갤러리/미리보기용 가상 데이터 생성
+// ============================================================
+
+const MBTI_MAPPING = {
+  'ENFJ': 'warm', 'ESFJ': 'warm', 'ISFJ': 'warm',
+  'ESTJ': 'structured', 'ISTJ': 'structured',
+  'ENFP': 'free', 'ESFP': 'free', 'ESTP': 'free',
+  'INTJ': 'wise', 'INTP': 'wise', 'ENTJ': 'wise',
+  'ISFP': 'empathetic', 'INFJ': 'empathetic',
+  'INFP': 'creative', 'ENTP': 'creative',
+  'ISTP': 'resilient'
+};
+
+function generateMockResult(combo) {
+  const overallPersona = OVERALL_TITLES.find(t => t.combo === combo) || OVERALL_TITLES.find(t => t.combo === 'balanced');
+  
+  const dimensionTypes = {};
+  const dimensionScores = {};
+  
+  // 콤보별 특징을 살린 차원별 대표 타입 매핑
+  const comboTraits = {
+    'warm': { emotional: 0, discipline: 3, autonomy: 3, growth: 3, resilience: 2 },
+    'structured': { emotional: 3, discipline: 0, autonomy: 4, growth: 1, resilience: 3 },
+    'free': { emotional: 4, discipline: 5, autonomy: 0, growth: 4, resilience: 3 },
+    'wise': { emotional: 2, discipline: 3, autonomy: 3, growth: 3, resilience: 6 },
+    'balanced': { emotional: 1, discipline: 1, autonomy: 1, growth: 1, resilience: 1 },
+    'empathetic': { emotional: 3, discipline: 4, autonomy: 3, growth: 3, resilience: 5 },
+    'creative': { emotional: 4, discipline: 3, autonomy: 2, growth: 2, resilience: 3 },
+    'resilient': { emotional: 3, discipline: 3, autonomy: 6, growth: 4, resilience: 4 }
+  };
+  
+  const traits = comboTraits[combo] || comboTraits['balanced'];
+
+  DIMENSIONS.forEach(dim => {
+    const tIdx = traits[dim.id] || 0;
+    dimensionScores[dim.id] = [5, 5, 5, 5, 5, 5, 5];
+    dimensionScores[dim.id][tIdx] = 15;
+    
+    dimensionTypes[dim.id] = {
+      typeIndex: tIdx,
+      type: PERSONA_TYPES[dim.id][tIdx],
+      scores: dimensionScores[dim.id],
+      maxScore: 15,
+      normalizedScore: Math.floor(85 - (Math.random() * 15)) // 70~85
+    };
+  });
+  
+  return {
+    dimensionTypes,
+    dimensionScores,
+    overallPersona,
+    lowestDimId: 'emotional',
+    simulation: SIMULATIONS['emotional'],
+    isMock: true
+  };
 }

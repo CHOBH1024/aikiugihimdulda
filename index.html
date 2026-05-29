@@ -232,6 +232,7 @@
             <ul class="nav__links" id="navLinks">
                 <li><a href="#dimensions" class="nav__link">5대 분석 차원</a></li>
                 <li><a href="#how" class="nav__link">진단 과정</a></li>
+                <li><a href="gallery.html" class="nav__link">기록/갤러리</a></li>
                 <li><a href="columns.html" class="nav__link">육아 인사이트</a></li>
                 <li><a href="about.html" class="nav__link">기술 소개</a></li>
                 <li><a href="test.html" class="nav__cta"><i class="fas fa-play"></i> 진단 시작</a></li>
@@ -272,6 +273,42 @@
             <a href="#dimensions" class="btn btn--secondary btn--large">
                 <i class="fas fa-info-circle"></i> 자세히 알아보기
             </a>
+        </div>
+
+        <div class="hero__mbti-box" style="margin-top: 40px; padding: 24px; background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); border-radius: var(--radius-md); max-width: 400px; margin-left: auto; margin-right: auto; position: relative; z-index: 2; backdrop-filter: blur(10px);">
+            <p style="font-size: 0.9rem; color: var(--text-dim); margin-bottom: 12px; font-weight: 700;">내 MBTI로 나의 예상 육아 페르소나 미리보기</p>
+            <div style="display: flex; gap: 8px;">
+                <select id="mbtiSelect" style="flex: 1; padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--glass-border); background: var(--bg-card); color: var(--text-main); font-size: 1rem; outline: none; cursor: pointer;">
+                    <option value="" disabled selected>MBTI 선택</option>
+                    <option value="INTJ">INTJ</option>
+                    <option value="INTP">INTP</option>
+                    <option value="ENTJ">ENTJ</option>
+                    <option value="ENTP">ENTP</option>
+                    <option value="INFJ">INFJ</option>
+                    <option value="INFP">INFP</option>
+                    <option value="ENFJ">ENFJ</option>
+                    <option value="ENFP">ENFP</option>
+                    <option value="ISTJ">ISTJ</option>
+                    <option value="ISFJ">ISFJ</option>
+                    <option value="ESTJ">ESTJ</option>
+                    <option value="ESFJ">ESFJ</option>
+                    <option value="ISTP">ISTP</option>
+                    <option value="ISFP">ISFP</option>
+                    <option value="ESTP">ESTP</option>
+                    <option value="ESFP">ESFP</option>
+                </select>
+                <button class="btn btn--secondary" onclick="previewMBTI()" style="padding: 12px 20px;">결과 보기</button>
+            </div>
+            <script>
+                function previewMBTI() {
+                    const mbti = document.getElementById('mbtiSelect').value;
+                    if(mbti) {
+                        window.location.href = 'result.html?mbti=' + mbti;
+                    } else {
+                        alert('MBTI를 선택해주세요.');
+                    }
+                }
+            </script>
         </div>
 
         <div class="hero__stats">
@@ -379,7 +416,7 @@
     <footer class="footer">
         <p>&copy; 2026 Mirror Inside Parenting. All rights reserved.</p>
         <p class="mt-1">
-            <a href="index.html">홈</a> · <a href="columns.html">육아 인사이트</a> · <a href="about.html">기술 소개</a> · <a href="test.html">진단 시작</a>
+            <a href="index.html">홈</a> · <a href="gallery.html">기록/갤러리</a> · <a href="columns.html">육아 인사이트</a> · <a href="about.html">기술 소개</a> · <a href="test.html">진단 시작</a>
         </p>
     </footer>
 

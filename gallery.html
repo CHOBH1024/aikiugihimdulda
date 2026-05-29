@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>기록 & 갤러리 | Mirror Inside Parenting</title>
+    <meta name="description" content="과거 진단 기록을 확인하고 전체 육아 페르소나 갤러리를 탐색해보세요.">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .gallery-page {
+            padding-top: 120px;
+            padding-bottom: 80px;
+            min-height: 100vh;
+        }
+
+        .gallery-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        /* Tabs */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .tab-btn {
+            padding: 12px 32px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 100px;
+            color: var(--text-dim);
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition-base);
+        }
+
+        .tab-btn:hover {
+            color: var(--text-main);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: var(--bg-main);
+            border-color: var(--primary);
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            animation: fadeInUp 0.4s ease both;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* History List */
+        .history-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .history-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            transition: var(--transition-base);
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .history-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            background: rgba(52, 211, 153, 0.05);
+        }
+
+        .history-card__date {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            margin-bottom: 8px;
+        }
+
+        .history-card__title {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--text-main);
+        }
+
+        .history-card__icon {
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-dim);
+        }
+
+        /* Gallery Grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .gallery-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 32px 24px;
+            text-align: center;
+            transition: var(--transition-base);
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .gallery-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-6px);
+            box-shadow: 0 10px 30px rgba(52, 211, 153, 0.1);
+        }
+
+        .gallery-card__combo {
+            font-size: 0.8rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .gallery-card__name {
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .gallery-card__desc {
+            font-size: 0.95rem;
+            color: var(--text-body);
+            line-height: 1.6;
+            word-break: keep-all;
+            margin-bottom: 24px;
+            flex: 1;
+        }
+
+        .gallery-card__btn {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav scrolled" id="mainNav">
+        <div class="nav__inner">
+            <a href="index.html" class="nav__logo">
+                Mirror Inside <span class="nav__logo-sub">Parenting</span>
+            </a>
+            <ul class="nav__links" id="navLinks">
+                <li><a href="index.html" class="nav__link">홈</a></li>
+                <li><a href="gallery.html" class="nav__link active">기록/갤러리</a></li>
+                <li><a href="columns.html" class="nav__link">육아 인사이트</a></li>
+                <li><a href="test.html" class="nav__cta"><i class="fas fa-play"></i> 진단 시작</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="gallery-page container">
+        <div class="gallery-header">
+            <span class="section-tag">Explore & History</span>
+            <h2>나의 기록과 페르소나 갤러리</h2>
+            <p class="text-body mt-2">과거 진단 결과를 확인하거나, 전체 육아 페르소나를 미리 탐색해보세요.</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('history')">나의 진단 기록</button>
+            <button class="tab-btn" onclick="switchTab('gallery')">전체 페르소나 갤러리</button>
+        </div>
+
+        <!-- History Tab -->
+        <div class="tab-content active" id="tab-history">
+            <div class="history-list" id="historyList">
+                <!-- JS Populated -->
+            </div>
+        </div>
+
+        <!-- Gallery Tab -->
+        <div class="tab-content" id="tab-gallery">
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- JS Populated -->
+            </div>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script>
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(`tab-${tabId}`).classList.add('active');
+        }
+
+        function renderHistory() {
+            const history = loadHistory();
+            const container = document.getElementById('historyList');
+
+            if (history.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-folder-open mb-3" style="font-size: 3rem; opacity: 0.5;"></i>
+                        <h3>아직 진단 기록이 없습니다.</h3>
+                        <p class="mt-2">테스트를 진행하여 나만의 육아 DNA를 발견해보세요!</p>
+                        <a href="test.html" class="btn btn--primary mt-4">진단 시작하기</a>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = history.map(item => `
+                <a href="result.html?id=${item.id}" class="history-card">
+                    <div>
+                        <div class="history-card__date">${item.date}</div>
+                        <div class="history-card__title">${item.overallPersona.name}</div>
+                    </div>
+                    <i class="fas fa-chevron-right history-card__icon"></i>
+                </a>
+            `).join('');
+        }
+
+        function renderGallery() {
+            const container = document.getElementById('galleryGrid');
+            container.innerHTML = OVERALL_TITLES.map(t => `
+                <a href="result.html?preview=${t.combo}" class="gallery-card">
+                    <div class="gallery-card__combo">${t.rarity}</div>
+                    <div class="gallery-card__name">${t.name}</div>
+                    <div class="gallery-card__desc">${t.desc}</div>
+                    <div class="gallery-card__btn">미리보기 <i class="fas fa-arrow-right"></i></div>
+                </a>
+            `).join('');
+        }
+
+        // Initialize
+        renderHistory();
+        renderGallery();
+    </script>
+</body>
+</html>
