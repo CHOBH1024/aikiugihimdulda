@@ -621,6 +621,95 @@
             .dim-result-card__header { flex-direction: column; gap: 12px; }
             .share-section { padding: 40px 24px; }
         }
+
+        /* --- New UI Elements (Images & Insights) --- */
+        .result-hero__image-wrapper {
+            width: 280px;
+            height: 280px;
+            margin: 0 auto 32px;
+            animation: float 6s ease-in-out infinite;
+        }
+        .result-hero__image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+            border: 4px solid var(--glass-border);
+        }
+        
+        .insights-section {
+            padding: 20px 0 60px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            animation: fadeInUp 0.8s ease both;
+            animation-delay: 0.4s;
+        }
+        .insight-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            transition: var(--transition-base);
+        }
+        .insight-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--glass-border-hover);
+            box-shadow: var(--shadow-glow);
+        }
+        .insight-card--strength { border-top: 4px solid var(--primary); }
+        .insight-card--weakness { border-top: 4px solid #ef4444; }
+        .insight-card--anxiety { border-top: 4px solid #a855f7; }
+        
+        .insight-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        .insight-icon {
+            font-size: 1.8rem;
+        }
+        .insight-header h3 {
+            font-size: 1.3rem;
+            margin: 0;
+            color: var(--text-main);
+            font-weight: 800;
+        }
+        .insight-card ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .insight-card li {
+            position: relative;
+            padding-left: 28px;
+            margin-bottom: 16px;
+            color: var(--text-body);
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+        .insight-card li:last-child { margin-bottom: 0; }
+        .insight-card li::before {
+            content: '•';
+            position: absolute;
+            left: 8px;
+            top: -2px;
+            color: var(--primary);
+            font-size: 1.4rem;
+        }
+        
+        /* New Simulation Refinements */
+        .sim-content-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .sim-icon {
+            font-size: 1.4rem;
+        }
     </style>
     <!-- Search & AdSense 인증 -->
     <meta name="google-site-verification" content="Tb_LmHczAZCjYOkU4RJh-m02RB4srmXHH4OFI3dxxGs" />
@@ -699,11 +788,45 @@
                 <!-- Hero -->
                 <section class="result-hero" id="captureHero">
                     <div class="result-hero__glow"></div>
+                    <div class="result-hero__image-wrapper">
+                        <img src="${overallPersona.imageUrl}" alt="${overallPersona.name}" class="result-hero__image">
+                    </div>
                     <div class="result-hero__overline">Your Parenting Archetype · <span style="color:var(--secondary)">${overallPersona.rarity}</span></div>
                     <h1 class="result-hero__title">
                         <span class="text-gradient">${overallPersona.name}</span>
                     </h1>
                     <p class="result-hero__desc">${overallPersona.desc}</p>
+                </section>
+
+                <!-- Emotional/Practical Insights -->
+                <section class="insights-section">
+                    <div class="insight-card insight-card--strength">
+                        <div class="insight-header">
+                            <span class="insight-icon">✨</span>
+                            <h3>나의 빛나는 장점 (강점)</h3>
+                        </div>
+                        <ul>
+                            ${overallPersona.strengths.map(s => `<li>${s}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <div class="insight-card insight-card--weakness">
+                        <div class="insight-header">
+                            <span class="insight-icon">🌪️</span>
+                            <h3>육아하며 주로 겪는 어려움 (취약점)</h3>
+                        </div>
+                        <ul>
+                            ${overallPersona.weaknesses.map(s => `<li>${s}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <div class="insight-card insight-card--anxiety">
+                        <div class="insight-header">
+                            <span class="insight-icon">🥺</span>
+                            <h3>내 마음속 깊은 불안과 걱정</h3>
+                        </div>
+                        <ul>
+                            ${overallPersona.anxieties.map(s => `<li>${s}</li>`).join('')}
+                        </ul>
+                    </div>
                 </section>
 
                 <!-- Radar Chart -->
@@ -740,12 +863,26 @@
 
                 <!-- Actionable Advice (Simulation) -->
                 <section class="simulation-section">
-                    <div class="simulation-title">${results.simulation.title}</div>
-                    <div class="simulation-card">
-                        <div class="simulation-wrong">${results.simulation.wrong}</div>
-                        <div class="simulation-correct">${results.simulation.correct}</div>
+                    <div class="text-center mb-5">
+                        <span class="section-tag">Practical Solution</span>
+                        <h2>💡 이렇게 하면 더 쉬워져요 (처방전)</h2>
                     </div>
-                    <p style="font-size:0.85rem; color:var(--text-dim); text-align:right;">* 당신의 가장 취약한 '${DIMENSIONS.find(d => d.id === results.lowestDimId).name}' 차원 보완을 위한 시뮬레이션입니다.</p>
+                    <div class="simulation-card">
+                        <div class="simulation-title">
+                            <span class="sim-icon">🚨</span> ${results.simulation.title}
+                        </div>
+                        <div class="sim-content-wrapper">
+                            <div class="simulation-wrong">
+                                <strong><i class="fas fa-times-circle" style="color: #ef4444;"></i> 무의식적인 반응:</strong><br>
+                                ${results.simulation.wrong}
+                            </div>
+                            <div class="simulation-correct">
+                                <strong><i class="fas fa-check-circle" style="color: #10b981;"></i> 추천하는 솔루션:</strong><br>
+                                ${results.simulation.correct}
+                            </div>
+                        </div>
+                    </div>
+                    <p style="font-size:0.85rem; color:var(--text-dim); text-align:right; margin-top:10px;">* 당신이 가장 취약함을 느낄 수 있는 '${DIMENSIONS.find(d => d.id === results.lowestDimId).name}' 상황에 대한 팁입니다.</p>
                 </section>
 
                 <!-- Do's and Don'ts (금쪽처방) -->
@@ -901,7 +1038,6 @@
                             <div class="dim-result-card__dim-name">${dim.nameEn}</div>
                             <div class="dim-result-card__type-name">${persona.name}</div>
                         </div>
-                        <div class="dim-result-card__score-label">${score}%</div>
                     </div>
 
                     <div class="dim-result-card__bar">
