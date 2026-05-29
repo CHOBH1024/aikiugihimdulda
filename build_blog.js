@@ -16,18 +16,39 @@ const footerHTML = `
     </footer>
 `;
 
-// 2. 메인 페이지들 푸터 자동 주입
+// Drifting Glow Orbs Background HTML
+const glowOrbsHTML = `
+    <!-- Drifting Glow Orbs Background -->
+    <div class="glow-orb-container">
+        <div class="glow-orb glow-orb--1"></div>
+        <div class="glow-orb glow-orb--2"></div>
+        <div class="glow-orb glow-orb--3"></div>
+    </div>
+`;
+
+// 2. 메인 페이지들 푸터 및 백그라운드 오브 자동 주입
 const filesToUpdate = ['index.html', 'test.html', 'gallery.html', 'about.html', 'contact.html', 'terms.html', 'privacy.html', 'columns.html'];
 filesToUpdate.forEach(file => {
     if (!fs.existsSync(file)) return;
     let content = fs.readFileSync(file, 'utf8');
+    
+    // Remove existing footers and orbs to avoid duplicates
     content = content.replace(/<!-- Footer -->[\s\S]*?<\/footer>/, '');
+    content = content.replace(/<!-- Drifting Glow Orbs Background -->[\s\S]*?<\/div>[\s\S]*?<\/div>[\s\S]*?<\/div>[\s\S]*?<\/div>/g, '');
     
     const pageFooter = footerHTML.replace(/\.\.\//g, '');
+    const pageOrbs = glowOrbsHTML.replace(/\.\.\//g, '');
+    
+    // Inject Orbs right after <body>
+    if (content.includes('<body>')) {
+        content = content.replace('<body>', `<body>\n${pageOrbs}`);
+    }
+    
+    // Inject Footer right before </body>
     if (content.includes('</body>')) {
         content = content.replace('</body>', `${pageFooter}\n</body>`);
         fs.writeFileSync(file, content);
-        console.log(`Updated footer for ${file}`);
+        console.log(`Updated footer and orbs for ${file}`);
     }
 });
 
@@ -117,6 +138,16 @@ const template = `<!DOCTYPE html>
     </style>
 </head>
 <body>
+    <!-- Scroll Progress Indicator -->
+    <div id="scrollIndicator" style="position:fixed; top:0; left:0; height:4px; width:0%; background:linear-gradient(90deg, var(--primary), var(--secondary)); z-index:9999; transition:width 0.15s ease;"></div>
+
+    <!-- Drifting Glow Orbs Background -->
+    <div class="glow-orb-container">
+        <div class="glow-orb glow-orb--1"></div>
+        <div class="glow-orb glow-orb--2"></div>
+        <div class="glow-orb glow-orb--3"></div>
+    </div>
+
     <!-- Navbar -->
     <nav class="nav scrolled">
         <div class="nav__inner">
@@ -147,6 +178,29 @@ const template = `<!DOCTYPE html>
         <article class="article-content">
             {{CONTENT}}
         </article>
+
+        <!-- Instagram-style Reaction Dock -->
+        <div class="reaction-dock" style="margin-top: 60px; display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 28px; background: var(--bg-card); border: 1px solid var(--glass-border); border-radius: var(--radius-md); box-shadow: var(--shadow-card); text-align:center;">
+            <h4 style="font-size:1.1rem; font-weight:800; color:var(--text-main); margin:0;">이 칼럼이 도움이 되셨나요? 공감을 남겨보세요!</h4>
+            <p style="font-size:0.85rem; color:var(--text-dim); margin:-8px 0 8px;">실시간 이모지 공감 터치 시 화려한 폭죽 효과가 펑 터집니다 💫</p>
+            <div style="display:flex; gap:16px; flex-wrap:wrap; justify-content:center;">
+                <button class="reaction-btn" data-emoji="❤️" style="font-size:1.6rem; padding:10px 20px; border-radius:30px; border:1px solid var(--glass-border); background:rgba(255,255,255,0.03); transition:all 0.2s; position:relative; overflow:visible; display:inline-flex; align-items:center;">
+                    ❤️ <span class="react-count" style="font-size:0.9rem; color:var(--text-dim); margin-left:6px; font-weight:700;">0</span>
+                </button>
+                <button class="reaction-btn" data-emoji="👍" style="font-size:1.6rem; padding:10px 20px; border-radius:30px; border:1px solid var(--glass-border); background:rgba(255,255,255,0.03); transition:all 0.2s; position:relative; overflow:visible; display:inline-flex; align-items:center;">
+                    👍 <span class="react-count" style="font-size:0.9rem; color:var(--text-dim); margin-left:6px; font-weight:700;">0</span>
+                </button>
+                <button class="reaction-btn" data-emoji="💡" style="font-size:1.6rem; padding:10px 20px; border-radius:30px; border:1px solid var(--glass-border); background:rgba(255,255,255,0.03); transition:all 0.2s; position:relative; overflow:visible; display:inline-flex; align-items:center;">
+                    💡 <span class="react-count" style="font-size:0.9rem; color:var(--text-dim); margin-left:6px; font-weight:700;">0</span>
+                </button>
+                <button class="reaction-btn" data-emoji="🥺" style="font-size:1.6rem; padding:10px 20px; border-radius:30px; border:1px solid var(--glass-border); background:rgba(255,255,255,0.03); transition:all 0.2s; position:relative; overflow:visible; display:inline-flex; align-items:center;">
+                    🥺 <span class="react-count" style="font-size:0.9rem; color:var(--text-dim); margin-left:6px; font-weight:700;">0</span>
+                </button>
+                <button class="reaction-btn" data-emoji="😮" style="font-size:1.6rem; padding:10px 20px; border-radius:30px; border:1px solid var(--glass-border); background:rgba(255,255,255,0.03); transition:all 0.2s; position:relative; overflow:visible; display:inline-flex; align-items:center;">
+                    😮 <span class="react-count" style="font-size:0.9rem; color:var(--text-dim); margin-left:6px; font-weight:700;">0</span>
+                </button>
+            </div>
+        </div>
         
         <div class="cta-banner">
             <h3>나는 어떤 육아 스타일일까?</h3>
@@ -160,6 +214,110 @@ const template = `<!DOCTYPE html>
     </main>
 
     ${footerHTML}
+
+    <!-- High-Performance Script Blocks -->
+    <script>
+        // 1. Google-Style Scroll Progress Bar logic
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+            document.getElementById('scrollIndicator').style.width = scrolled + '%';
+        });
+
+        // 2. Instagram-Style Reaction & Particle Burst logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const pageId = window.location.pathname.split('/').pop() || 'index.html';
+            const reactionBtns = document.querySelectorAll('.reaction-btn');
+            
+            reactionBtns.forEach(btn => {
+                const emoji = btn.getAttribute('data-emoji');
+                const countSpan = btn.querySelector('.react-count');
+                const storageKey = 'reaction_' + pageId + '_' + emoji;
+                const userReactedKey = 'reacted_' + pageId + '_' + emoji;
+                
+                // Set reasonable default mock counts + storage lookup
+                let count = parseInt(localStorage.getItem(storageKey));
+                if (isNaN(count)) {
+                    count = Math.floor(Math.random() * 45) + 8;
+                    localStorage.setItem(storageKey, count);
+                }
+                countSpan.textContent = count;
+                
+                if (localStorage.getItem(userReactedKey)) {
+                    btn.style.borderColor = 'var(--primary)';
+                    btn.style.background = 'rgba(52, 211, 153, 0.08)';
+                }
+                
+                btn.addEventListener('click', () => {
+                    if (localStorage.getItem(userReactedKey)) {
+                        count--;
+                        localStorage.setItem(storageKey, count);
+                        countSpan.textContent = count;
+                        localStorage.removeItem(userReactedKey);
+                        btn.style.borderColor = 'var(--glass-border)';
+                        btn.style.background = 'rgba(255,255,255,0.03)';
+                    } else {
+                        count++;
+                        localStorage.setItem(storageKey, count);
+                        countSpan.textContent = count;
+                        localStorage.setItem(userReactedKey, 'true');
+                        btn.style.borderColor = 'var(--primary)';
+                        btn.style.background = 'rgba(52, 211, 153, 0.08)';
+                        
+                        // Spawn 15 colorful physics emoji particles
+                        for(let i=0; i<15; i++) {
+                            createParticle(btn, emoji);
+                        }
+                    }
+                });
+            });
+            
+            function createParticle(parentBtn, emoji) {
+                const p = document.createElement('span');
+                p.textContent = emoji;
+                p.style.position = 'absolute';
+                p.style.pointerEvents = 'none';
+                p.style.fontSize = '1.3rem';
+                p.style.zIndex = '999';
+                
+                const rect = parentBtn.getBoundingClientRect();
+                const startX = rect.left + rect.width / 2 + window.scrollX;
+                const startY = rect.top + rect.height / 2 + window.scrollY;
+                
+                document.body.appendChild(p);
+                
+                const angle = Math.random() * Math.PI * 2;
+                const speed = 4 + Math.random() * 7;
+                const vx = Math.cos(angle) * speed;
+                const vy = Math.sin(angle) * speed - 3; // strong upward force
+                
+                let posX = startX;
+                let posY = startY;
+                let opacity = 1.0;
+                let scale = 1.0;
+                
+                function frame() {
+                    posX += vx;
+                    posY += vy;
+                    opacity -= 0.02;
+                    scale -= 0.015;
+                    
+                    p.style.left = posX + 'px';
+                    p.style.top = posY + 'px';
+                    p.style.opacity = opacity;
+                    p.style.transform = 'scale(' + scale + ')';
+                    
+                    if (opacity > 0) {
+                        requestAnimationFrame(frame);
+                    } else {
+                        p.remove();
+                    }
+                }
+                requestAnimationFrame(frame);
+            }
+        });
+    </script>
 </body>
 </html>`;
 
@@ -235,7 +393,7 @@ const METADATA_MAPPING = {
     icon: '☕',
     gradient: 'linear-gradient(135deg, #6366f1 0%, #4338ca 100%)',
     readTime: '9 min read',
-    excerpt: '아이를 사랑하지만 육아가 너무 힘들어 밤마다 죄책감의 눈물을 흘리는 부모님들을 위한 힐링 에세이. 크리스틴 네프의 자기자비(Self-Compassion) 이론을 통해 번아웃을 예방하고 주양육자의 마음을 돌보는 방법을 배워봅니다.'
+    excerpt: '아이을 사랑하지만 육아가 너무 힘들어 밤마다 죄책감의 눈물을 흘리는 부모님들을 위한 힐링 에세이. 크리스틴 네프의 자기자비(Self-Compassion) 이론을 통해 번아웃을 예방하고 주양육자의 마음을 돌보는 방법을 배워봅니다.'
   },
   // Basic Posts
   'site_introduction.md': {
@@ -322,7 +480,6 @@ const METADATA_MAPPING = {
 const blogDirs = ['blog_posts', 'blog_posts/personas'];
 const allPosts = [];
 
-// Ensure columns/ directory exists
 if (!fs.existsSync('columns')) {
     fs.mkdirSync('columns');
 }
@@ -335,11 +492,9 @@ blogDirs.forEach(dir => {
         const mdContent = fs.readFileSync(path.join(dir, file), 'utf8');
         const htmlContent = marked.parse(mdContent);
         
-        // Extract title from H1
         const titleMatch = mdContent.match(/^#\s+(.*)/m);
         const title = titleMatch ? titleMatch[1] : '육아 칼럼';
         
-        // Map high-fidelity metadata
         const meta = METADATA_MAPPING[file] || {
             category: '육아 칼럼',
             icon: '📚',
@@ -348,7 +503,6 @@ blogDirs.forEach(dir => {
             excerpt: title
         };
         
-        // Build individual post HTML
         const finalHtml = template
             .replace(/{{TITLE}}/g, title)
             .replace(/{{CATEGORY}}/g, meta.category)
@@ -373,11 +527,10 @@ blogDirs.forEach(dir => {
     });
 });
 
-// 6. columns.html 동적 업데이트 & 필터링 탭 주입
+// 6. columns.html 동적 업데이트 & 실시간 검색 & 카테고리 탭 주입
 if (fs.existsSync('columns.html')) {
     let colHtml = fs.readFileSync('columns.html', 'utf8');
     
-    // Generate static cards with category tags for sorting
     const linksHtml = allPosts.map(post => `
         <a href="${post.url}" class="article-card" data-category="${post.category}">
             <div class="article-card__img" style="background: ${post.gradient};">${post.icon}</div>
@@ -393,13 +546,18 @@ if (fs.existsSync('columns.html')) {
         </a>
     `).join('\n');
     
-    // Replace the article-grid with all 18 posts
     colHtml = colHtml.replace(/<div class="article-grid">[\s\S]*?<\/section>/, `<div class="article-grid">\n${linksHtml}\n</div>\n</div>\n</section>`);
     
-    // Inject Category Filter Tabs HTML (Tabs interface) before article-grid
-    const filterTabsHTML = `
+    // Inject Microsoft & Google High-Speed Search Box and Category Filter Tabs
+    const searchAndTabsHTML = `
+        <!-- Microsoft & Google High-Speed Search Bar -->
+        <div class="search-bar-container" style="max-width:550px; margin:0 auto 36px; position:relative; z-index:10; padding:0 12px;">
+            <input type="text" id="columnSearch" placeholder="어떤 육아 고민이 있으신가요? 키워드로 즉시 검색..." style="width:100%; padding:16px 20px 16px 52px; border-radius:30px; border:1px solid var(--glass-border); background:var(--glass); color:var(--text-main); font-size:1.05rem; outline:none; transition:all 0.3s; box-shadow:var(--shadow-card);">
+            <i class="fas fa-search" style="position:absolute; left:28px; top:19px; color:var(--primary); font-size:1.2rem;"></i>
+        </div>
+
         <!-- Category Filter Tabs -->
-        <div class="category-tabs" style="display:flex; justify-content:center; gap:12px; margin-bottom:48px; flex-wrap:wrap; position:relative; z-index:10;">
+        <div class="category-tabs" style="display:flex; justify-content:center; gap:12px; margin-bottom:48px; flex-wrap:wrap; position:relative; z-index:10; padding:0 12px;">
             <button class="tab-btn active" data-filter="all" style="padding:10px 24px; border-radius:30px; border:1px solid var(--glass-border); background:var(--glass); color:var(--text-main); font-weight:700; cursor:pointer; transition:all 0.3s; font-size:0.95rem;">전체</button>
             <button class="tab-btn" data-filter="5대 양육차원" style="padding:10px 24px; border-radius:30px; border:1px solid var(--glass-border); background:var(--glass); color:var(--text-dim); font-weight:700; cursor:pointer; transition:all 0.3s; font-size:0.95rem;">5대 양육차원</button>
             <button class="tab-btn" data-filter="부모 페르소나" style="padding:10px 24px; border-radius:30px; border:1px solid var(--glass-border); background:var(--glass); color:var(--text-dim); font-weight:700; cursor:pointer; transition:all 0.3s; font-size:0.95rem;">부모 페르소나</button>
@@ -408,34 +566,67 @@ if (fs.existsSync('columns.html')) {
         </div>
     `;
     
-    // Put Filter Tabs in if they are not already there
-    if (!colHtml.includes('class="category-tabs"')) {
-        colHtml = colHtml.replace('<div class="article-grid">', `${filterTabsHTML}\n<div class="article-grid">`);
-    }
+    // Clean old tab markup
+    colHtml = colHtml.replace(/<!-- Category Filter Tabs -->[\s\S]*?<\/div>/g, '');
+    colHtml = colHtml.replace(/<!-- Microsoft & Google High-Speed Search Bar -->[\s\S]*?<\/div>/g, '');
     
-    // Inject CSS styles for active tabs and card animation transitions if they don't exist
-    const styleBlock = `
+    colHtml = colHtml.replace('<div class="article-grid">', `${searchAndTabsHTML}\n<div class="article-grid">`);
+    
+    // Inject Tab transitions and search focus glow styling
+    const styles = `
     <style>
         .tab-btn:hover { border-color: var(--primary); color: var(--text-main); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(52, 211, 153, 0.15); }
         .tab-btn.active { background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%) !important; color: #ffffff !important; border-color: transparent !important; box-shadow: var(--shadow-glow); }
-        .article-card { transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
-        .article-card.hidden { opacity: 0; transform: scale(0.9) translateY(20px); pointer-events: none; position: absolute; width: 0; height: 0; padding: 0; border: none; margin: 0; overflow: hidden; }
+        #columnSearch:focus { border-color: var(--primary); box-shadow: 0 0 20px rgba(52, 211, 153, 0.25); }
+        .article-card { transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); }
+        .article-card.hidden { opacity: 0; transform: scale(0.92) translateY(15px); pointer-events: none; position: absolute; width: 0; height: 0; padding: 0; border: none; margin: 0; overflow: hidden; }
     </style>
     `;
-    if (!colHtml.includes('.tab-btn.active')) {
-        colHtml = colHtml.replace('</head>', `${styleBlock}\n</head>`);
+    
+    if (!colHtml.includes('#columnSearch:focus')) {
+        colHtml = colHtml.replace('</head>', `${styles}\n</head>`);
     }
 
-    // Inject active JS code for dynamic filtering before </body>
+    // Inject combined live filter/search JS logic
     const filterJS = `
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const tabs = document.querySelectorAll('.tab-btn');
             const cards = document.querySelectorAll('.article-card');
+            const searchInput = document.getElementById('columnSearch');
+            
+            let activeFilter = 'all';
+            let searchQuery = '';
+            
+            function filterColumns() {
+                cards.forEach(card => {
+                    const category = card.getAttribute('data-category');
+                    const title = card.querySelector('.article-card__title').textContent.toLowerCase();
+                    const excerpt = card.querySelector('.article-card__excerpt').textContent.toLowerCase();
+                    
+                    const matchesCategory = (activeFilter === 'all' || category === activeFilter);
+                    const matchesSearch = (title.includes(searchQuery) || excerpt.includes(searchQuery));
+                    
+                    if (matchesCategory && matchesSearch) {
+                        card.classList.remove('hidden');
+                        card.style.display = 'flex';
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'scale(1) translateY(0)';
+                        }, 50);
+                    } else {
+                        card.style.opacity = '0';
+                        card.style.transform = 'scale(0.92) translateY(15px)';
+                        setTimeout(() => {
+                            card.classList.add('hidden');
+                            card.style.display = 'none';
+                        }, 250);
+                    }
+                });
+            }
             
             tabs.forEach(tab => {
                 tab.addEventListener('click', () => {
-                    // Update active tab styling
                     tabs.forEach(t => {
                         t.classList.remove('active');
                         t.style.color = 'var(--text-dim)';
@@ -443,34 +634,20 @@ if (fs.existsSync('columns.html')) {
                     tab.classList.add('active');
                     tab.style.color = '#ffffff';
                     
-                    const filter = tab.getAttribute('data-filter');
-                    
-                    // Filter cards with animations
-                    cards.forEach(card => {
-                        const category = card.getAttribute('data-category');
-                        if (filter === 'all' || category === filter) {
-                            card.classList.remove('hidden');
-                            card.style.display = 'flex';
-                            setTimeout(() => {
-                                card.style.opacity = '1';
-                                card.style.transform = 'scale(1) translateY(0)';
-                            }, 50);
-                        } else {
-                            card.style.opacity = '0';
-                            card.style.transform = 'scale(0.9) translateY(20px)';
-                            setTimeout(() => {
-                                card.classList.add('hidden');
-                                card.style.display = 'none';
-                            }, 300);
-                        }
-                    });
+                    activeFilter = tab.getAttribute('data-filter');
+                    filterColumns();
                 });
+            });
+            
+            searchInput.addEventListener('input', (e) => {
+                searchQuery = e.target.value.toLowerCase().trim();
+                filterColumns();
             });
         });
     </script>
     `;
     
-    // Remove existing scripts if we've written them to avoid duplications
+    // Clear old filter script
     colHtml = colHtml.replace(/<script>[\s\S]*?const tabs = document\.querySelectorAll\('\.tab-btn'\)[\s\S]*?<\/script>/, '');
     
     if (colHtml.includes('</body>')) {
@@ -478,5 +655,5 @@ if (fs.existsSync('columns.html')) {
     }
     
     fs.writeFileSync('columns.html', colHtml);
-    console.log('Successfully compiled 18 posts and updated columns.html with premium filtering and animations!');
+    console.log('Successfully updated columns.html with dynamic Search & category filters!');
 }

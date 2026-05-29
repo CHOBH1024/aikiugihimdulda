@@ -966,3 +966,55 @@ h3 { font-size: clamp(1.2rem, 3vw, 1.6rem); font-weight: 800; }
   .btn { padding: 14px 28px; font-size: 0.95rem; }
   .btn--large { padding: 16px 36px; font-size: 1rem; }
 }
+
+/* ============================================================
+   Big Tech Innovation: Instagram Drifting Glow Orbs
+   ============================================================ */
+.glow-orb-container {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  z-index: -2;
+  pointer-events: none;
+}
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(130px);
+  opacity: 0.12;
+  mix-blend-mode: screen;
+  animation: floatOrb 30s ease-in-out infinite alternate;
+}
+.glow-orb--1 {
+  width: 450px;
+  height: 450px;
+  background: radial-gradient(circle, var(--primary) 0%, transparent 80%);
+  top: -10%;
+  left: -10%;
+  animation-duration: 25s;
+}
+.glow-orb--2 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, var(--secondary) 0%, transparent 80%);
+  bottom: -10%;
+  right: -5%;
+  animation-duration: 35s;
+  animation-delay: -5s;
+}
+.glow-orb--3 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, var(--accent) 0%, transparent 80%);
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation-duration: 40s;
+  animation-delay: -10s;
+}
+@keyframes floatOrb {
+  0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  50% { transform: translate(80px, 50px) scale(1.15) rotate(180deg); }
+  100% { transform: translate(-50px, -70px) scale(0.85) rotate(360deg); }
+}
+

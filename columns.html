@@ -140,8 +140,25 @@
         .article-card.hidden { opacity: 0; transform: scale(0.9) translateY(20px); pointer-events: none; position: absolute; width: 0; height: 0; padding: 0; border: none; margin: 0; overflow: hidden; }
     </style>
     
+
+    <style>
+        .tab-btn:hover { border-color: var(--primary); color: var(--text-main); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(52, 211, 153, 0.15); }
+        .tab-btn.active { background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%) !important; color: #ffffff !important; border-color: transparent !important; box-shadow: var(--shadow-glow); }
+        #columnSearch:focus { border-color: var(--primary); box-shadow: 0 0 20px rgba(52, 211, 153, 0.25); }
+        .article-card { transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); }
+        .article-card.hidden { opacity: 0; transform: scale(0.92) translateY(15px); pointer-events: none; position: absolute; width: 0; height: 0; padding: 0; border: none; margin: 0; overflow: hidden; }
+    </style>
+    
 </head>
 <body>
+
+    <!-- Drifting Glow Orbs Background -->
+    <div class="glow-orb-container">
+        <div class="glow-orb glow-orb--1"></div>
+        <div class="glow-orb glow-orb--2"></div>
+        <div class="glow-orb glow-orb--3"></div>
+    </div>
+
     <nav class="nav scrolled">
         <div class="nav__inner">
             <a href="index.html" class="nav__logo">Mirror Inside <span class="nav__logo-sub">Parenting</span></a>
@@ -163,8 +180,17 @@
         </div>
 
         
+        
+    
+
+        <!-- Microsoft & Google High-Speed Search Bar -->
+        <div class="search-bar-container" style="max-width:550px; margin:0 auto 36px; position:relative; z-index:10; padding:0 12px;">
+            <input type="text" id="columnSearch" placeholder="어떤 육아 고민이 있으신가요? 키워드로 즉시 검색..." style="width:100%; padding:16px 20px 16px 52px; border-radius:30px; border:1px solid var(--glass-border); background:var(--glass); color:var(--text-main); font-size:1.05rem; outline:none; transition:all 0.3s; box-shadow:var(--shadow-card);">
+            <i class="fas fa-search" style="position:absolute; left:28px; top:19px; color:var(--primary); font-size:1.2rem;"></i>
+        </div>
+
         <!-- Category Filter Tabs -->
-        <div class="category-tabs" style="display:flex; justify-content:center; gap:12px; margin-bottom:48px; flex-wrap:wrap; position:relative; z-index:10;">
+        <div class="category-tabs" style="display:flex; justify-content:center; gap:12px; margin-bottom:48px; flex-wrap:wrap; position:relative; z-index:10; padding:0 12px;">
             <button class="tab-btn active" data-filter="all" style="padding:10px 24px; border-radius:30px; border:1px solid var(--glass-border); background:var(--glass); color:var(--text-main); font-weight:700; cursor:pointer; transition:all 0.3s; font-size:0.95rem;">전체</button>
             <button class="tab-btn" data-filter="5대 양육차원" style="padding:10px 24px; border-radius:30px; border:1px solid var(--glass-border); background:var(--glass); color:var(--text-dim); font-weight:700; cursor:pointer; transition:all 0.3s; font-size:0.95rem;">5대 양육차원</button>
             <button class="tab-btn" data-filter="부모 페르소나" style="padding:10px 24px; border-radius:30px; border:1px solid var(--glass-border); background:var(--glass); color:var(--text-dim); font-weight:700; cursor:pointer; transition:all 0.3s; font-size:0.95rem;">부모 페르소나</button>
@@ -281,6 +307,12 @@
     
 
 
+    
+
+
+    
+    
+
     <!-- Footer -->
     <footer class="footer">
         <p>&copy; 2026 Mirror Inside Parenting. All rights reserved.</p>
@@ -297,10 +329,40 @@
         document.addEventListener('DOMContentLoaded', () => {
             const tabs = document.querySelectorAll('.tab-btn');
             const cards = document.querySelectorAll('.article-card');
+            const searchInput = document.getElementById('columnSearch');
+            
+            let activeFilter = 'all';
+            let searchQuery = '';
+            
+            function filterColumns() {
+                cards.forEach(card => {
+                    const category = card.getAttribute('data-category');
+                    const title = card.querySelector('.article-card__title').textContent.toLowerCase();
+                    const excerpt = card.querySelector('.article-card__excerpt').textContent.toLowerCase();
+                    
+                    const matchesCategory = (activeFilter === 'all' || category === activeFilter);
+                    const matchesSearch = (title.includes(searchQuery) || excerpt.includes(searchQuery));
+                    
+                    if (matchesCategory && matchesSearch) {
+                        card.classList.remove('hidden');
+                        card.style.display = 'flex';
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'scale(1) translateY(0)';
+                        }, 50);
+                    } else {
+                        card.style.opacity = '0';
+                        card.style.transform = 'scale(0.92) translateY(15px)';
+                        setTimeout(() => {
+                            card.classList.add('hidden');
+                            card.style.display = 'none';
+                        }, 250);
+                    }
+                });
+            }
             
             tabs.forEach(tab => {
                 tab.addEventListener('click', () => {
-                    // Update active tab styling
                     tabs.forEach(t => {
                         t.classList.remove('active');
                         t.style.color = 'var(--text-dim)';
@@ -308,28 +370,14 @@
                     tab.classList.add('active');
                     tab.style.color = '#ffffff';
                     
-                    const filter = tab.getAttribute('data-filter');
-                    
-                    // Filter cards with animations
-                    cards.forEach(card => {
-                        const category = card.getAttribute('data-category');
-                        if (filter === 'all' || category === filter) {
-                            card.classList.remove('hidden');
-                            card.style.display = 'flex';
-                            setTimeout(() => {
-                                card.style.opacity = '1';
-                                card.style.transform = 'scale(1) translateY(0)';
-                            }, 50);
-                        } else {
-                            card.style.opacity = '0';
-                            card.style.transform = 'scale(0.9) translateY(20px)';
-                            setTimeout(() => {
-                                card.classList.add('hidden');
-                                card.style.display = 'none';
-                            }, 300);
-                        }
-                    });
+                    activeFilter = tab.getAttribute('data-filter');
+                    filterColumns();
                 });
+            });
+            
+            searchInput.addEventListener('input', (e) => {
+                searchQuery = e.target.value.toLowerCase().trim();
+                filterColumns();
             });
         });
     </script>
