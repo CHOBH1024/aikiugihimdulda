@@ -839,6 +839,23 @@
                     </div>
                 </section>
 
+                <!-- Academic Backing (학술적 이론 배경) -->
+                <section class="academic-section" style="margin: 40px 0; animation: fadeInUp 0.8s ease both; animation-delay: 0.4s;">
+                    <div style="background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.9) 100%); border: 1px solid var(--primary); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-glow); position: relative; overflow: hidden;">
+                        <div style="position: absolute; right: -20px; bottom: -20px; font-size: 8rem; opacity: 0.05; pointer-events: none;"><i class="fas fa-graduation-cap"></i></div>
+                        <span class="section-tag" style="background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #fff; margin-bottom: 16px; display: inline-block;">Academic Validation</span>
+                        <h3 style="font-size: 1.6rem; font-weight: 800; color: var(--text-main); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                            <i class="fas fa-university" style="color: var(--primary);"></i> 학술적 이론 배경 & 분석
+                        </h3>
+                        <div style="font-size: 1.05rem; font-weight: 700; color: var(--primary); margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.08);">
+                            기반 이론: ${overallPersona.academicBacking ? overallPersona.academicBacking.theory : '발달 심리학 기반 양육 이론'}
+                        </div>
+                        <p style="font-size: 1.02rem; line-height: 1.85; color: var(--text-body); word-break: keep-all; margin: 0; text-align: justify; letter-spacing: -0.2px;">
+                            ${overallPersona.academicBacking ? overallPersona.academicBacking.analysis : '양육 스타일 분석 데이터가 준비 중입니다.'}
+                        </p>
+                    </div>
+                </section>
+
                 <!-- Radar Chart -->
                 <section class="radar-section">
                     <div class="radar-wrapper">

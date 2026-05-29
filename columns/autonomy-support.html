@@ -3,114 +3,223 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>스스로 하는 아이로 키우는 '자율성' 부여의 3단계 | 칼럼</title>
-    <meta name="description" content="매번 부모가 대신 해주는 것에 익숙해진 아이. 마이크로 매니징을 멈추고 아이 스스로 결정하고 책임지도록 돕는 3가지 스텝을 알아봅니다.">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://aikiugihimdulda.vercel.app/columns/autonomy-support.html">
-    <meta property="og:title" content="스스로 하는 아이로 키우는 '자율성' 부여의 3단계">
-    <meta property="og:description" content="마이크로 매니징을 멈추고 아이 스스로 결정하고 책임지도록 돕는 3가지 스텝을 알아봅니다.">
-    <meta property="og:type" content="article">
-    <meta property="og:url" content="https://aikiugihimdulda.vercel.app/columns/autonomy-support.html">
-    <meta property="og:locale" content="ko_KR">
-    <meta property="og:site_name" content="Mirror Inside Parenting">
-    
-    <!-- Search & AdSense 인증 -->
-    <meta name="google-site-verification" content="Tb_LmHczAZCjYOkU4RJh-m02RB4srmXHH4OFI3dxxGs" />
-    <meta name="google-adsense-account" content="ca-pub-9992037844935954">
-    <meta name="naver-site-verification" content="16578f8f79a3870985d38cddf217b1c67a4c4dad" />
-
+    <title>스스로 하는 아이로 키우는 '자율성' 부여의 3단계 | Mirror Inside Parenting</title>
+    <link rel="icon" href="../assets/images/icons/favicon.png" type="image/png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../style.css">
     <style>
-        .article-wrap { padding-top: 120px; padding-bottom: 80px; max-width: 800px; margin: 0 auto; }
+        .article-wrap { padding-top: 120px; padding-bottom: 80px; max-width: 800px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
         .article-header { text-align: center; margin-bottom: 48px; }
         .article-category { font-size: 0.9rem; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px; display: block; }
-        .article-title { font-size: clamp(2rem, 5vw, 3rem); font-weight: 900; line-height: 1.3; margin-bottom: 24px; word-break: keep-all; }
+        .article-title { font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 900; line-height: 1.35; margin-bottom: 24px; word-break: keep-all; color: var(--text-main); }
         .article-meta { font-size: 0.9rem; color: var(--text-dim); display: flex; justify-content: center; gap: 16px; align-items: center; }
-        .article-hero-img { width: 100%; height: 300px; border-radius: var(--radius-xl); background: radial-gradient(circle, #34d399 0%, #059669 100%); display: flex; align-items: center; justify-content: center; font-size: 5rem; margin-bottom: 60px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
-        .article-content { font-size: 1.1rem; line-height: 1.9; color: var(--text-body); word-break: keep-all; }
-        .article-content h2 { font-size: 1.6rem; color: var(--text-main); margin: 48px 0 24px; font-weight: 800; }
-        .article-content h3 { font-size: 1.3rem; color: var(--text-main); margin: 32px 0 16px; font-weight: 700; }
+        .article-hero-img { 
+            width: 100%; 
+            height: 280px; 
+            border-radius: var(--radius-xl); 
+            background: radial-gradient(circle, #34d399 0%, #059669 100%); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 5rem; 
+            margin-bottom: 60px; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border: 1px solid var(--glass-border);
+            text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        .article-content { font-size: 1.08rem; line-height: 1.9; color: var(--text-body); word-break: keep-all; text-align: justify; }
+        .article-content h2 { font-size: 1.6rem; color: var(--text-main); margin: 56px 0 24px; font-weight: 800; border-bottom: 1px solid var(--glass-border); padding-bottom: 12px; }
+        .article-content h3 { font-size: 1.25rem; color: var(--secondary); margin: 36px 0 16px; font-weight: 700; }
         .article-content p { margin-bottom: 24px; }
-        .article-content ul, .article-content ol { padding-left: 24px; margin-bottom: 24px; }
-        .article-content li { margin-bottom: 12px; }
-        .article-content strong { color: var(--text-main); }
-        .article-content blockquote { border-left: 4px solid var(--primary); padding-left: 20px; font-style: italic; color: var(--text-dim); margin: 32px 0; background: rgba(255,255,255,0.02); padding: 24px; border-radius: 0 var(--radius-md) var(--radius-md) 0; }
-        .cta-banner { margin-top: 60px; padding: 40px; background: var(--glass); border: 1px solid var(--primary); border-radius: var(--radius-lg); text-align: center; }
-        .cta-banner h3 { margin-bottom: 16px; color: var(--text-main); }
-        .cta-banner p { margin-bottom: 24px; font-size: 1rem; }
+        .article-content ul, .article-content ol { padding-left: 24px; margin-bottom: 28px; }
+        .article-content li { margin-bottom: 12px; line-height: 1.7; }
+        .article-content strong { color: var(--text-main); font-weight: 700; }
+        .article-content blockquote { 
+            border-left: 4px solid var(--primary); 
+            padding: 24px; 
+            font-style: italic; 
+            color: var(--text-dim); 
+            margin: 36px 0; 
+            background: rgba(255,255,255,0.02); 
+            border-radius: 0 var(--radius-md) var(--radius-md) 0; 
+            box-shadow: inset 2px 0 10px rgba(0,0,0,0.1);
+        }
+        .article-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 32px 0;
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+        }
+        .article-content th, .article-content td {
+            padding: 14px 18px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.95rem;
+        }
+        .article-content th {
+            background: rgba(255,255,255,0.05);
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .article-content tr:last-child td {
+            border-bottom: none;
+        }
+        .cta-banner { 
+            margin-top: 80px; 
+            padding: 40px; 
+            background: var(--glass); 
+            border: 1px solid var(--primary); 
+            border-radius: var(--radius-lg); 
+            text-align: center; 
+            box-shadow: var(--shadow-glow);
+        }
+        .cta-banner h3 { margin-bottom: 16px; color: var(--text-main); font-weight: 800; font-size: 1.4rem; }
+        .cta-banner p { margin-bottom: 24px; font-size: 1rem; color: var(--text-body); }
     </style>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9992037844935954" crossorigin="anonymous"></script>\n</head>
+</head>
 <body>
+    <!-- Navbar -->
     <nav class="nav scrolled">
         <div class="nav__inner">
-            <a href="../index.html" class="nav__logo">Mirror Inside <span class="nav__logo-sub">Parenting</span></a>
-            <ul class="nav__links" id="navLinks">
+            <a href="../index.html" class="nav__logo">
+                Mirror Inside <span class="nav__logo-sub">Parenting</span>
+            </a>
+            <ul class="nav__links">
+                <li><a href="../index.html" class="nav__link">홈</a></li>
+                <li><a href="../gallery.html" class="nav__link">갤러리</a></li>
                 <li><a href="../columns.html" class="nav__link active">칼럼</a></li>
-                <li><a href="../about.html" class="nav__link">기술 소개</a></li>
                 <li><a href="../test.html" class="nav__cta"><i class="fas fa-play"></i> 진단 시작</a></li>
             </ul>
-            <div class="nav__burger" onclick="document.getElementById('navLinks').classList.toggle('open')"><span></span><span></span><span></span></div>
         </div>
     </nav>
 
     <main class="article-wrap container">
         <header class="article-header">
-            <span class="article-category">자율성 지원 (Autonomy Support)</span>
+            <span class="article-category">5대 양육차원</span>
             <h1 class="article-title">스스로 하는 아이로 키우는 '자율성' 부여의 3단계</h1>
             <div class="article-meta">
                 <span><i class="far fa-calendar-alt"></i> 2026.05.29</span>
-                <span><i class="far fa-clock"></i> 5 min read</span>
+                <span><i class="far fa-clock"></i> 8 min read</span>
             </div>
         </header>
 
         <div class="article-hero-img">🌱</div>
 
-        <div class="article-content">
-            <p>아침마다 유치원 갈 준비로 전쟁을 치르고 계신가요? 옷 입기, 밥 먹기, 양치하기... 부모가 하나부터 열까지 챙겨주고 다그치지 않으면 아무것도 진행되지 않는 아이를 보며 답답함을 느끼는 분들이 많습니다. 우리는 왜 아이가 스스로 하도록 두지 못할까요?</p>
-            <p>가장 큰 이유는 **'부모의 조급함'**입니다. 아이가 혼자 하면 흘리고, 서툴고, 무엇보다 속도가 너무 느리기 때문입니다. 바쁜 일상 속에서 부모가 대신 해주는 것이 당장은 훨씬 효율적입니다. 하지만 이러한 마이크로 매니징(Micro-managing)은 아이가 평생 가져가야 할 '자율성'의 새싹을 짓밟는 행동입니다.</p>
+        <article class="article-content">
+            <h1>스스로 하는 아이로 키우는 &#39;자율성&#39; 부여의 3단계</h1>
+<p>아침마다 유치원 갈 준비로 전쟁을 치르고 계신가요? 옷 입기, 밥 먹기, 양치하기... 부모가 하나부터 열까지 손수 챙겨주고 다그치지 않으면 아무것도 제 손으로 하지 못하는 아이를 보며 많은 부모들이 깊은 피로감과 막막함을 호소합니다. 우리는 왜 아이가 스스로 자립적으로 행동하도록 놔두지 못할까요?</p>
+<p>가장 큰 원인은 **&#39;부모의 조급함과 완벽주의&#39;**에 있습니다. 아이가 혼자 하도록 놔두면 밥을 다 흘리며 먹고, 신발을 짝짝이로 신고, 무엇보다 속도가 너무 느려 일정이 지체되기 때문입니다. 바쁘고 지친 현대 일상 속에서 부모가 대신 후다닥 해치우는 것이 당장은 훨씬 효율적으로 보입니다. 하지만 이러한 부모의 사소한 과잉 개입과 **마이크로 매니징(Micro-managing)**은 아이가 자율적으로 세상을 살아갈 수 있는 평생의 근력을 싹부터 잘라버리는 치명적인 습관입니다.</p>
+<p>본 칼럼에서는 현대 심리학에서 가장 강력하게 지지받는 **자기결정성 이론(Self-Determination Theory)**을 기반으로, 헬리콥터 육아에서 벗어나 아이의 주체성과 자율성을 키워주는 3단계 실천 로드맵을 제안합니다.</p>
+<hr>
+<h2>1. 자율성의 학술적 가치: 자기결정성 이론(SDT)으로 본 독립심의 비밀</h2>
+<p>심리학자 에드워드 데시(Edward Deci)와 리처드 라이언(Richard Ryan)이 집대성한 **자기결정성 이론(Self-Determination Theory, SDT)**에 따르면, 인간은 스스로 자신의 행동을 선택하고 주도하려는 선천적인 심리적 욕구를 지닌 주체입니다. 
+인간의 건강한 발달과 행복을 위해 필수적인 3대 기본 심리적 욕구는 다음과 같습니다:</p>
+<ol>
+<li><strong>자율성(Autonomy):</strong> 자신의 행동과 인생을 스스로 조율하고 선택한다는 감각.</li>
+<li><strong>유능성(Competence):</strong> 자신이 유용한 능력이 있고 과제를 성공적으로 완수해 낼 수 있다는 효능감.</li>
+<li><strong>관계성(Relatedness):</strong> 타인과 깊은 신뢰와 사랑의 유대감을 나누고 있다는 소속감.</li>
+</ol>
+<p>이 중 **&#39;자율성&#39;**은 모든 내재적 동기(Intrinsic Motivation)의 뿌리입니다. 부모가 통제와 지시 대신 자율성을 충분히 지원(Autonomy Support)해 줄 때, 아동은 공부나 학습, 일상생활의 의무들을 타인의 강요 때문이 아니라 **&quot;나 스스로 결정한 가치 있는 일&quot;**로 여기는 내면화(Internalization) 과정을 거치게 됩니다. </p>
+<p>자율성 지원을 받고 자란 아이들은 외적 보상(상벌, 칭찬 스티커) 없이도 자기 주도적으로 학습에 몰두하며, 실패에 직면했을 때 쉽게 좌절하지 않고 스스로 극복하려는 높은 회복탄력성을 지닙니다. 반면 부모가 사사건건 통제하는 환경에서 자란 아이들은 매사에 무기력하거나 타인의 눈치만 살피는 수동적인 성인으로 자라나기 쉽습니다.</p>
+<hr>
+<h2>2. 헬리콥터 육아에서 탈출하는 실전 자율성 지원 3단계</h2>
+<p>그렇다면 부모는 어떤 구체적인 단계를 밟아 아이에게 자율성을 부여해야 안전하고 효과적일까요? </p>
+<h3>1단계: 부모의 완벽주의를 내려놓고 &#39;서툰 기다림&#39; 세팅하기</h3>
+<p>자율성 훈련의 위대한 출발은 부모의 태도 변화입니다. 아이가 처음 스스로 바지를 입을 때, 엉덩이에 걸쳐서 낑낑대거나 앞뒤를 뒤집어 입을 수 있습니다. 이때 부모가 답답한 마음에 <em>&quot;어휴, 답답해. 이리 줘봐, 내가 입혀줄게!&quot;</em> 하고 뺏어 입히는 순간, 아이의 뇌에는 **&quot;나는 혼자서는 이걸 제대로 할 수 없는 서툰 사람이구나&quot;**라는 무력감이 각인됩니다.</p>
+<ul>
+<li><strong>실전 지침:</strong> 아이가 서툴고 엉망진창으로 도전할 때, 그 과정을 가만히 지켜보며 기다릴 &#39;인내심&#39;이 필요합니다. 아침 등원 준비로 바쁘다면, 평소 준비 시간보다 <strong>15분 일찍 일어나는 시스템</strong>을 구축하여 시간적 여유를 물리적으로 확보해 주세요. 서툰 옷차림으로 나가더라도 그것이 학습의 숭고한 과정임을 인정해야 합니다.</li>
+</ul>
+<h3>2단계: 안전한 테두리 속 &#39;통제된 선택지(Guided Choices)&#39; 제공하기</h3>
+<p>아무런 가이드라인 없이 갑자기 *&quot;지훈이가 알아서 다 고르고 해봐&quot;*라고 방임하는 것은 자율성이 아닌 방임이며, 아동에게 혼란과 선택 마비를 유발합니다. 자율성은 부모가 정성껏 설계한 <strong>안전하고 합리적인 한계 내에서 주도권을 행사</strong>하게 돕는 것입니다.</p>
+<ul>
+<li><strong>통제된 선택지(Guided Choices)의 마법:</strong><ul>
+<li><strong>나쁜 예:</strong> <em>&quot;오늘 무슨 옷 입고 나갈래?&quot;</em> (수많은 옷 중 고르기는 인지적 부하를 유발해 등원을 더 지체시킵니다.)</li>
+<li><strong>좋은 예:</strong> <em>&quot;오늘 유치원 갈 때, 이 따뜻한 초록색 골덴바지 입을래, 아니면 편한 청바지 입을래? 지훈이가 골라줄래?&quot;</em>
+아이는 자신이 직접 선택했다는 강력한 통제감과 만족감을 느끼면서도, 부모는 날씨와 격식에 맞는 양육 목표를 완벽하게 지킬 수 있습니다.</li>
+</ul>
+</li>
+</ul>
+<h3>3단계: 지시 명령어 대신 &#39;질문으로 실행 기능 자극하기&#39; (Scaffolding)</h3>
+<p>*&quot;양치질해!&quot;, &quot;가방 챙겨!&quot;*와 같은 일방적인 지시와 명령어는 아이를 생각하지 않는 기계로 만듭니다. 지시 대신 아이의 뇌를 활성화하는 질문을 건네보세요.</p>
+<ul>
+<li><strong>발화의 혁신:</strong><ul>
+<li><strong>명령:</strong> <em>&quot;시간 없어, 빨리 신발 신어!&quot;</em></li>
+<li><strong>질문:</strong> <em>&quot;지훈아, 긴 바늘이 6을 가리키고 있네. 유치원 버스가 오기 전에 우리 몸에 양말과 신발을 신어야 하는데, 지금 스스로 할 수 있는 건 뭐가 있을까?&quot;</em>
+이처럼 질문을 받으면 아이의 뇌(전두엽)는 작동을 시작하여 다음 행동을 스스로 계획하고 실행하는 실행 기능(Executive Function)을 발달시킵니다.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2>👶 연령별 자율성 지원 실전 스크립트</h2>
+<h3>🍼 영아기 (0~18개월): 손가락 가리키기와 이유식 탐색 존중</h3>
+<ul>
+<li><strong>특징:</strong> 소근육이 발달하며 자신의 선호를 비언어적으로 표현하기 시작합니다.</li>
+<li><strong>코칭 초점:</strong> 아이의 손가락질(Pointing)에 즉각 반응하고, 촉감 놀이를 허용하기.</li>
+<li><strong>실전 대화:</strong> 아이가 이유식 스푼을 직접 쥐겠다고 고집을 부리고 밥상을 난장판으로 만들 때, 화를 내거나 뺏지 마세요.<blockquote>
+<p><em>&quot;지훈이가 숟가락 직접 쥐고 먹고 싶구나? 그래, 얼굴이랑 손에 다 묻어도 괜찮아. 이렇게 숟가락으로 밥을 떠보니까 재밌지? 스스로 해보려고 하니 정말 멋지네!&quot;</em> <em>(이때 흘리는 것을 최소화하기 위해 주도식 이유식 매트를 깔고 인내합니다.)</em></p>
+</blockquote>
+</li>
+</ul>
+<h3>🧒 유아기 (19개월~5세): 일상의 작은 과제들 직접 완수하게 돕기</h3>
+<ul>
+<li><strong>특징:</strong> 무엇이든 &quot;내가! 내가 할 거야!&quot;를 입에 달고 사는 시기입니다. 이 열정이 자율성 발달의 황금기입니다.</li>
+<li><strong>코칭 초점:</strong> 위험하지 않은 모든 일상 과제에 참여시키기.</li>
+<li><strong>실전 대화:</strong> 마트에서 장을 보고 온 뒤, 짐을 직접 들고 가겠다고 무거운 봉투를 붙잡고 늘어질 때:<blockquote>
+<p><em>&quot;와, 우리 지훈이가 무거운 마트 봉투를 집까지 번쩍 들고 가고 싶구나! 도와주려고 해서 정말 고마워. 이 큰 봉투는 너무 무거우니까, 대신 이 가볍고 귀여운 대파 봉투를 지훈이가 든든하게 들어서 집까지 배달해 줄 수 있을까?&quot;</em></p>
+</blockquote>
+</li>
+</ul>
+<h3>🎒 아동기 (6세~초등 저학년): 개인 영역의 선택 존중과 책임 학습</h3>
+<ul>
+<li><strong>특징:</strong> 용돈 관리, 방 정리, 학업 스케줄링 등 스스로 결정한 약속의 결과를 몸소 책임지는 단계입니다.</li>
+<li><strong>코칭 초점:</strong> 결과가 마음에 들지 않더라도 부모가 먼저 대신 수습해 주지 않기.</li>
+<li><strong>실전 대화:</strong> 아이가 내일 소풍 때 가져갈 가방을 직접 챙기겠다고 한 뒤, 좋아하는 장난감만 잔뜩 넣고 물통이나 돋보기를 빼놓았을 때:<blockquote>
+<p><em>&quot;가방을 네 힘으로 멋지게 다 쌌구나! 혹시 소풍가서 목이 마르거나 관찰 놀이를 할 때 필요한 게 빠지지는 않았는지 가방 속을 한 번만 리스트와 함께 크로스체크해 볼까? 네가 직접 점검해 줘.&quot;</em></p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<h2>❓ 자주 묻는 질문 (FAQ)</h2>
+<p><strong>Q1. 자율성을 준다고 아이 뜻대로 다 내버려 두면, 버릇이 없어지거나 방임이 되는 것 아닌가요?</strong></p>
+<blockquote>
+<p><strong>A.</strong> 아주 중요한 지적입니다. 발달심리학에서 경고하는 &#39;방임&#39;은 아무런 울타리도 기준도 없이 아이의 요구를 무제한으로 허용하는 상태를 말합니다. 반면 &#39;자율성 지원&#39;은 <strong>부모가 세운 안전하고 도덕적인 &#39;한계(Structure)&#39;라는 테두리 안에서</strong> 아동에게 적절한 자유와 주도권을 보장하는 것입니다. 즉, &quot;친구를 때려서는 안 된다&quot;는 단호한 규칙을 유지하되, 그 안에서 &quot;화난 감정을 말로 할지, 그림으로 그릴지&quot; 선택하게 돕는 것이 진정한 자율성 지원입니다. 단단한 구조가 먼저 바로 서 있어야 그 안에서 자율성이 안전하게 꽃피울 수 있습니다.</p>
+</blockquote>
+<p><strong>Q2. 아이가 스스로 해보겠다고 고집을 부려 가만히 두었더니, 결국 실패하고 크게 짜증을 내며 울어버립니다. 어떻게 반응해야 하나요?</strong></p>
+<blockquote>
+<p><strong>A.</strong> 이 좌절과 실패의 순간이야말로 자율성 발달의 결정적인 기회입니다. 이때 부모가 *&quot;거봐, 엄마가 해준다고 했잖아! 못 하면서 고집부리니까 그렇지&quot;*라고 비난하는 것은 최악의 피드백입니다. 실패의 감정을 수용해 준 뒤, 격려를 건네세요.
+<em>&quot;직접 해보려고 정말 열심히 노력했는데, 뜻대로 잘 안 돼서 너무 분하고 속상하지? 괜찮아, 처음부터 잘하는 사람은 없어. 지훈이가 이만큼이나 혼자 힘으로 시도해 본 것 자체가 엄마는 너무 자랑스러워. 다시 한 번 해볼래, 아니면 이 부분만 엄마가 아주 살짝 힌트를 줄까?&quot;</em>
+이러한 피드백은 아동에게 &#39;실패는 배움의 단계일 뿐이며, 스스로 해보려는 고집은 가치 있다&#39;는 위대한 내적 신념을 심어줍니다.</p>
+</blockquote>
 
-            <h2>1. 자율성이란 무엇인가?</h2>
-            <p>자율성(Autonomy)은 단순히 '혼자 밥을 먹는 것'을 넘어, 내 삶의 주인이 나 자신이라는 감각, 즉 **'자기 주도성'**의 근간입니다. 스스로 선택하고 그 결과에 책임을 져보는 경험이 누적될 때 아이는 강한 내적 동기와 자존감을 갖게 됩니다.</p>
-
-            <h2>2. 헬리콥터 부모에서 벗어나는 자율성 부여 3단계</h2>
-            
-            <h3>1단계: 완벽주의 버리고 '기다림' 세팅하기</h3>
-            <p>자율성 훈련의 첫걸음은 부모의 마음가짐을 바꾸는 것입니다. 아이가 처음 스스로 옷을 입을 때 바지를 뒤집어 입거나 단추를 짝짝이로 꿰맬 수 있습니다. 이때 "어휴, 줘봐 내가 해줄게"하고 개입하는 순간 아이의 도전 의식은 꺾입니다.</p>
-            <p>약간의 서투름과 엉망진창을 허용할 마음의 준비를 하세요. 그리고 아이가 스스로 해낼 수 있는 절대적인 '시간'을 확보해 주어야 합니다. 아침에 10분만 더 일찍 일어나도 아이를 다그치지 않고 기다려줄 수 있는 여유가 생깁니다.</p>
-
-            <h3>2단계: 통제된 선택지(Guided Choices) 제공하기</h3>
-            <p>갑자기 "네가 알아서 다 해!"라고 하면 아이도 당황합니다. 자율성은 무한한 자유가 아니라, 부모가 설정한 안전한 틀 안에서 선택권을 주는 것에서 시작합니다.</p>
-            <ul>
-                <li><strong>나쁜 예:</strong> "무슨 옷 입을래?" (옷장 안의 수백 가지 옷 중 하나를 고르기는 너무 어렵습니다.)</li>
-                <li><strong>좋은 예:</strong> "오늘은 파란색 티셔츠 입을래, 노란색 티셔츠 입을래?"</li>
-            </ul>
-            <p>이처럼 2~3가지의 통제된 선택지를 주면 아이는 자기가 선택했다는 통제감을 느끼면서도, 부모는 원하는 방향으로 아이를 이끌 수 있습니다.</p>
-
-            <h3>3단계: 지시 대신 '질문'으로 사고력 자극하기</h3>
-            <p>"빨리 신발 신어!"라는 지시어 대신 "유치원 버스 오려면 5분 남았네, 지금 우리가 뭘 해야 할까?"라고 질문해 보세요. 아이가 다음 행동을 스스로 생각하게 만드는 질문은 뇌의 실행 기능(Executive function)을 발달시킵니다.</p>
-
-            <h2>3. 넘어질 기회를 빼앗지 마세요</h2>
-            <blockquote>
-                "우리가 아이를 위해 할 수 있는 최선은, 아이가 우리 없이도 세상을 잘 살아갈 수 있도록 준비시키는 것입니다."
-            </blockquote>
-            <p>부모는 아이가 걷다 넘어질까 봐 평생 업고 다닐 수는 없습니다. 안전한 곳에서 넘어지고 스스로 툴툴 털고 일어나는 법을 배우게 해야 합니다. 아이의 서툰 시도를 지켜보는 부모의 인내심이 아이를 독립적이고 단단한 어른으로 성장시킵니다.</p>
+        </article>
+        
+        <div class="cta-banner">
+            <h3>나는 어떤 육아 스타일일까?</h3>
+            <p>단 3분 만에 나의 육아 유전자와 종합 페르소나를 측정하고, 오은영 박사님 부럽지 않은 맞춤 솔루션을 확인해보세요.</p>
+            <a href="../test.html" class="btn btn--primary btn--large btn--glow" style="display:inline-flex; align-items:center; gap:8px;"><i class="fas fa-play"></i> 무료 양육 DNA 진단 시작하기</a>
         </div>
 
-        <div class="cta-banner">
-            <h3>나는 아이에게 충분한 자율성을 주고 있을까?</h3>
-            <p>부모 주도형인가요, 아이 주도형인가요? 당신의 양육 스타일을 진단하고 우리 아이에게 맞는 최적의 자율성 부여 방법을 알아보세요.</p>
-            <a href="../test.html" class="btn btn--primary btn--large btn--glow"><i class="fas fa-play"></i> 무료 양육 진단 시작하기</a>
+        <div style="margin-top: 60px; text-align:center;">
+            <a href="../columns.html" class="btn btn--outline" style="padding: 12px 30px;"><i class="fas fa-arrow-left"></i> 목록으로 돌아가기</a>
         </div>
     </main>
 
+    
+    <!-- Footer -->
     <footer class="footer">
         <p>&copy; 2026 Mirror Inside Parenting. All rights reserved.</p>
-        <p class="mt-1">
-            <a href="../index.html">홈</a> · <a href="../columns.html">칼럼</a> · <a href="../about.html">기술 소개</a>
+        <p class="mt-1" style="font-size:0.9rem; margin-top:12px;">
+            <a href="../index.html">홈</a> · <a href="../gallery.html">기록/갤러리</a> · <a href="../columns.html">육아 인사이트</a> · <a href="../about.html">기술 소개</a> · <a href="../test.html">진단 시작</a>
+        </p>
+        <p class="mt-1" style="font-size:0.8rem; margin-top:8px; color:var(--text-dim);">
+            <a href="../terms.html">이용약관</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의하기</a>
         </p>
     </footer>
+
 </body>
 </html>

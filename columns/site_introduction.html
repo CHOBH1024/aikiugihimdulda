@@ -10,30 +10,107 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../style.css">
     <style>
-        .post-container { max-width: 800px; margin: 120px auto 60px; padding: 0 24px; }
-        .post-content h1 { font-size: 2.2rem; color: var(--primary); margin-bottom: 24px; line-height:1.3; }
-        .post-content h2 { font-size: 1.5rem; color: var(--text-main); margin-top: 40px; margin-bottom: 16px; border-bottom: 1px solid var(--glass-border); padding-bottom: 8px;}
-        .post-content h3 { font-size: 1.2rem; color: var(--secondary); margin-top: 24px; margin-bottom: 12px; }
-        .post-content p { font-size: 1.05rem; line-height: 1.7; color: var(--text-body); margin-bottom: 20px; word-break: keep-all; }
-        .post-content ul { margin-left: 20px; margin-bottom: 20px; }
-        .post-content li { margin-bottom: 8px; line-height: 1.6; color: var(--text-body); }
-        .post-content strong { color: var(--text-main); }
+        .article-wrap { padding-top: 120px; padding-bottom: 80px; max-width: 800px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+        .article-header { text-align: center; margin-bottom: 48px; }
+        .article-category { font-size: 0.9rem; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px; display: block; }
+        .article-title { font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 900; line-height: 1.35; margin-bottom: 24px; word-break: keep-all; color: var(--text-main); }
+        .article-meta { font-size: 0.9rem; color: var(--text-dim); display: flex; justify-content: center; gap: 16px; align-items: center; }
+        .article-hero-img { 
+            width: 100%; 
+            height: 280px; 
+            border-radius: var(--radius-xl); 
+            background: linear-gradient(135deg, #4b5563 0%, #1f2937 100%); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 5rem; 
+            margin-bottom: 60px; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border: 1px solid var(--glass-border);
+            text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        .article-content { font-size: 1.08rem; line-height: 1.9; color: var(--text-body); word-break: keep-all; text-align: justify; }
+        .article-content h2 { font-size: 1.6rem; color: var(--text-main); margin: 56px 0 24px; font-weight: 800; border-bottom: 1px solid var(--glass-border); padding-bottom: 12px; }
+        .article-content h3 { font-size: 1.25rem; color: var(--secondary); margin: 36px 0 16px; font-weight: 700; }
+        .article-content p { margin-bottom: 24px; }
+        .article-content ul, .article-content ol { padding-left: 24px; margin-bottom: 28px; }
+        .article-content li { margin-bottom: 12px; line-height: 1.7; }
+        .article-content strong { color: var(--text-main); font-weight: 700; }
+        .article-content blockquote { 
+            border-left: 4px solid var(--primary); 
+            padding: 24px; 
+            font-style: italic; 
+            color: var(--text-dim); 
+            margin: 36px 0; 
+            background: rgba(255,255,255,0.02); 
+            border-radius: 0 var(--radius-md) var(--radius-md) 0; 
+            box-shadow: inset 2px 0 10px rgba(0,0,0,0.1);
+        }
+        .article-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 32px 0;
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+        }
+        .article-content th, .article-content td {
+            padding: 14px 18px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.95rem;
+        }
+        .article-content th {
+            background: rgba(255,255,255,0.05);
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .article-content tr:last-child td {
+            border-bottom: none;
+        }
+        .cta-banner { 
+            margin-top: 80px; 
+            padding: 40px; 
+            background: var(--glass); 
+            border: 1px solid var(--primary); 
+            border-radius: var(--radius-lg); 
+            text-align: center; 
+            box-shadow: var(--shadow-glow);
+        }
+        .cta-banner h3 { margin-bottom: 16px; color: var(--text-main); font-weight: 800; font-size: 1.4rem; }
+        .cta-banner p { margin-bottom: 24px; font-size: 1rem; color: var(--text-body); }
     </style>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9992037844935954" crossorigin="anonymous"></script>\n</head>
+</head>
 <body>
     <!-- Navbar -->
-    <nav class="navbar" id="mainNav">
-        <a href="../index.html" class="logo">
-            <i class="fas fa-mirror"></i> <span>Mirror Inside</span>
-        </a>
-        <div class="nav-links" id="navLinks">
-            <a href="../columns.html">육아 칼럼</a>
-            <a href="../test.html" class="btn btn--primary" style="padding: 8px 20px; margin-left: 10px;">진단하기</a>
+    <nav class="nav scrolled">
+        <div class="nav__inner">
+            <a href="../index.html" class="nav__logo">
+                Mirror Inside <span class="nav__logo-sub">Parenting</span>
+            </a>
+            <ul class="nav__links">
+                <li><a href="../index.html" class="nav__link">홈</a></li>
+                <li><a href="../gallery.html" class="nav__link">갤러리</a></li>
+                <li><a href="../columns.html" class="nav__link active">칼럼</a></li>
+                <li><a href="../test.html" class="nav__cta"><i class="fas fa-play"></i> 진단 시작</a></li>
+            </ul>
         </div>
     </nav>
 
-    <main class="post-container">
-        <article class="post-content">
+    <main class="article-wrap container">
+        <header class="article-header">
+            <span class="article-category">플랫폼 안내</span>
+            <h1 class="article-title">Mirror Inside Parenting: 발달심리학과 데이터가 만난 '육아 DNA' 테스트의 모든 것</h1>
+            <div class="article-meta">
+                <span><i class="far fa-calendar-alt"></i> 2026.05.29</span>
+                <span><i class="far fa-clock"></i> 4 min read</span>
+            </div>
+        </header>
+
+        <div class="article-hero-img">📢</div>
+
+        <article class="article-content">
             <h1>Mirror Inside Parenting: 발달심리학과 데이터가 만난 &#39;육아 DNA&#39; 테스트의 모든 것</h1>
 <p>인터넷에 넘쳐나는 흔한 &#39;MBTI식 육아 테스트&#39;를 해보신 적 있나요? 대부분 &quot;당신은 따뜻한 곰돌이 같은 엄마입니다&quot;, &quot;당신은 원칙주의자 호랑이 아빠입니다&quot;와 같이 재미 위주의 가벼운 결과만 제공하고 끝납니다. 그래서 막상 돌아서면 &quot;아, 재미있었다&quot; 외에는 내 육아에 아무런 변화를 가져다주지 못합니다. </p>
 <p>이러한 한계를 극복하기 위해 탄생한 것이 바로 <strong>Mirror Inside Parenting(미러 인사이드 패런팅)</strong> 입니다. 이 프로젝트는 단순한 성격 테스트가 아닙니다. 철저한 발달심리학 이론을 기반으로, 부모의 행동 패턴 데이터를 분석해 나의 &#39;진짜 육아 무의식&#39;을 거울처럼 비춰주는 강력한 양육 성찰 도구입니다. </p>
@@ -77,8 +154,14 @@
 
         </article>
         
+        <div class="cta-banner">
+            <h3>나는 어떤 육아 스타일일까?</h3>
+            <p>단 3분 만에 나의 육아 유전자와 종합 페르소나를 측정하고, 오은영 박사님 부럽지 않은 맞춤 솔루션을 확인해보세요.</p>
+            <a href="../test.html" class="btn btn--primary btn--large btn--glow" style="display:inline-flex; align-items:center; gap:8px;"><i class="fas fa-play"></i> 무료 양육 DNA 진단 시작하기</a>
+        </div>
+
         <div style="margin-top: 60px; text-align:center;">
-            <a href="../columns.html" class="btn btn--outline">목록으로 돌아가기</a>
+            <a href="../columns.html" class="btn btn--outline" style="padding: 12px 30px;"><i class="fas fa-arrow-left"></i> 목록으로 돌아가기</a>
         </div>
     </main>
 
@@ -87,34 +170,12 @@
     <footer class="footer">
         <p>&copy; 2026 Mirror Inside Parenting. All rights reserved.</p>
         <p class="mt-1" style="font-size:0.9rem; margin-top:12px;">
-            <a href="../index.html">홈</a> · <a href="../gallery.html">갤러리</a> · <a href="../columns.html">칼럼</a> · <a href="../about.html">기술 소개</a> · <a href="../test.html">진단 시작</a>
+            <a href="../index.html">홈</a> · <a href="../gallery.html">기록/갤러리</a> · <a href="../columns.html">육아 인사이트</a> · <a href="../about.html">기술 소개</a> · <a href="../test.html">진단 시작</a>
         </p>
         <p class="mt-1" style="font-size:0.8rem; margin-top:8px; color:var(--text-dim);">
             <a href="../terms.html">이용약관</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의하기</a>
         </p>
     </footer>
 
-    
-    <!-- Mobile Bottom Navigation -->
-    <nav class="bottom-nav">
-        <div class="bottom-nav__inner">
-            <a href="../index.html" class="bottom-nav__item">
-                <i class="fas fa-home"></i>
-                <span>홈</span>
-            </a>
-            <a href="../test.html" class="bottom-nav__item">
-                <i class="fas fa-clipboard-check"></i>
-                <span>진단</span>
-            </a>
-            <a href="../columns.html" class="bottom-nav__item">
-                <i class="fas fa-book-open"></i>
-                <span>칼럼</span>
-            </a>
-            <a href="../gallery.html" class="bottom-nav__item">
-                <i class="fas fa-images"></i>
-                <span>기록</span>
-            </a>
-        </div>
-    </nav>
 </body>
 </html>

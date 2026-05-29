@@ -3,112 +3,213 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>상처 주지 않고 단호해지는 법: 일관성 있는 규칙 수립 가이드 | 칼럼</title>
-    <meta name="description" content="'안 돼!'라는 말을 하면서도 마음 한구석이 불편한 부모님들을 위해. 아이에게 상처를 주지 않으면서도 가정 내 건강한 경계선(Boundary)을 설정하는 방법.">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://aikiugihimdulda.vercel.app/columns/discipline-boundaries.html">
-    <meta property="og:title" content="상처 주지 않고 단호해지는 법: 일관성 있는 규칙 수립 가이드">
-    <meta property="og:description" content="아이에게 상처를 주지 않으면서도 가정 내 건강한 경계선(Boundary)을 설정하는 방법을 단계별로 소개합니다.">
-    <meta property="og:type" content="article">
-    <meta property="og:url" content="https://aikiugihimdulda.vercel.app/columns/discipline-boundaries.html">
-    <meta property="og:locale" content="ko_KR">
-    <meta property="og:site_name" content="Mirror Inside Parenting">
-    
-    <!-- Search & AdSense 인증 -->
-    <meta name="google-site-verification" content="Tb_LmHczAZCjYOkU4RJh-m02RB4srmXHH4OFI3dxxGs" />
-    <meta name="google-adsense-account" content="ca-pub-9992037844935954">
-    <meta name="naver-site-verification" content="16578f8f79a3870985d38cddf217b1c67a4c4dad" />
-
+    <title>상처 주지 않고 단호해지는 법: 일관성 있는 규칙 수립 가이드 | Mirror Inside Parenting</title>
+    <link rel="icon" href="../assets/images/icons/favicon.png" type="image/png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../style.css">
     <style>
-        .article-wrap { padding-top: 120px; padding-bottom: 80px; max-width: 800px; margin: 0 auto; }
+        .article-wrap { padding-top: 120px; padding-bottom: 80px; max-width: 800px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
         .article-header { text-align: center; margin-bottom: 48px; }
         .article-category { font-size: 0.9rem; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px; display: block; }
-        .article-title { font-size: clamp(2rem, 5vw, 3rem); font-weight: 900; line-height: 1.3; margin-bottom: 24px; word-break: keep-all; }
+        .article-title { font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 900; line-height: 1.35; margin-bottom: 24px; word-break: keep-all; color: var(--text-main); }
         .article-meta { font-size: 0.9rem; color: var(--text-dim); display: flex; justify-content: center; gap: 16px; align-items: center; }
-        .article-hero-img { width: 100%; height: 300px; border-radius: var(--radius-xl); background: radial-gradient(circle, #60a5fa 0%, #2563eb 100%); display: flex; align-items: center; justify-content: center; font-size: 5rem; margin-bottom: 60px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
-        .article-content { font-size: 1.1rem; line-height: 1.9; color: var(--text-body); word-break: keep-all; }
-        .article-content h2 { font-size: 1.6rem; color: var(--text-main); margin: 48px 0 24px; font-weight: 800; }
-        .article-content h3 { font-size: 1.3rem; color: var(--text-main); margin: 32px 0 16px; font-weight: 700; }
+        .article-hero-img { 
+            width: 100%; 
+            height: 280px; 
+            border-radius: var(--radius-xl); 
+            background: radial-gradient(circle, #60a5fa 0%, #2563eb 100%); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 5rem; 
+            margin-bottom: 60px; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border: 1px solid var(--glass-border);
+            text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        .article-content { font-size: 1.08rem; line-height: 1.9; color: var(--text-body); word-break: keep-all; text-align: justify; }
+        .article-content h2 { font-size: 1.6rem; color: var(--text-main); margin: 56px 0 24px; font-weight: 800; border-bottom: 1px solid var(--glass-border); padding-bottom: 12px; }
+        .article-content h3 { font-size: 1.25rem; color: var(--secondary); margin: 36px 0 16px; font-weight: 700; }
         .article-content p { margin-bottom: 24px; }
-        .article-content ul, .article-content ol { padding-left: 24px; margin-bottom: 24px; }
-        .article-content li { margin-bottom: 12px; }
-        .article-content strong { color: var(--text-main); }
-        .article-content blockquote { border-left: 4px solid var(--primary); padding-left: 20px; font-style: italic; color: var(--text-dim); margin: 32px 0; background: rgba(255,255,255,0.02); padding: 24px; border-radius: 0 var(--radius-md) var(--radius-md) 0; }
-        .cta-banner { margin-top: 60px; padding: 40px; background: var(--glass); border: 1px solid var(--primary); border-radius: var(--radius-lg); text-align: center; }
-        .cta-banner h3 { margin-bottom: 16px; color: var(--text-main); }
-        .cta-banner p { margin-bottom: 24px; font-size: 1rem; }
+        .article-content ul, .article-content ol { padding-left: 24px; margin-bottom: 28px; }
+        .article-content li { margin-bottom: 12px; line-height: 1.7; }
+        .article-content strong { color: var(--text-main); font-weight: 700; }
+        .article-content blockquote { 
+            border-left: 4px solid var(--primary); 
+            padding: 24px; 
+            font-style: italic; 
+            color: var(--text-dim); 
+            margin: 36px 0; 
+            background: rgba(255,255,255,0.02); 
+            border-radius: 0 var(--radius-md) var(--radius-md) 0; 
+            box-shadow: inset 2px 0 10px rgba(0,0,0,0.1);
+        }
+        .article-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 32px 0;
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+        }
+        .article-content th, .article-content td {
+            padding: 14px 18px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.95rem;
+        }
+        .article-content th {
+            background: rgba(255,255,255,0.05);
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .article-content tr:last-child td {
+            border-bottom: none;
+        }
+        .cta-banner { 
+            margin-top: 80px; 
+            padding: 40px; 
+            background: var(--glass); 
+            border: 1px solid var(--primary); 
+            border-radius: var(--radius-lg); 
+            text-align: center; 
+            box-shadow: var(--shadow-glow);
+        }
+        .cta-banner h3 { margin-bottom: 16px; color: var(--text-main); font-weight: 800; font-size: 1.4rem; }
+        .cta-banner p { margin-bottom: 24px; font-size: 1rem; color: var(--text-body); }
     </style>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9992037844935954" crossorigin="anonymous"></script>\n</head>
+</head>
 <body>
+    <!-- Navbar -->
     <nav class="nav scrolled">
         <div class="nav__inner">
-            <a href="../index.html" class="nav__logo">Mirror Inside <span class="nav__logo-sub">Parenting</span></a>
-            <ul class="nav__links" id="navLinks">
+            <a href="../index.html" class="nav__logo">
+                Mirror Inside <span class="nav__logo-sub">Parenting</span>
+            </a>
+            <ul class="nav__links">
+                <li><a href="../index.html" class="nav__link">홈</a></li>
+                <li><a href="../gallery.html" class="nav__link">갤러리</a></li>
                 <li><a href="../columns.html" class="nav__link active">칼럼</a></li>
-                <li><a href="../about.html" class="nav__link">기술 소개</a></li>
                 <li><a href="../test.html" class="nav__cta"><i class="fas fa-play"></i> 진단 시작</a></li>
             </ul>
-            <div class="nav__burger" onclick="document.getElementById('navLinks').classList.toggle('open')"><span></span><span></span><span></span></div>
         </div>
     </nav>
 
     <main class="article-wrap container">
         <header class="article-header">
-            <span class="article-category">규칙과 훈육 (Discipline & Boundaries)</span>
+            <span class="article-category">5대 양육차원</span>
             <h1 class="article-title">상처 주지 않고 단호해지는 법: 일관성 있는 규칙 수립 가이드</h1>
             <div class="article-meta">
                 <span><i class="far fa-calendar-alt"></i> 2026.05.29</span>
-                <span><i class="far fa-clock"></i> 6 min read</span>
+                <span><i class="far fa-clock"></i> 8 min read</span>
             </div>
         </header>
 
         <div class="article-hero-img">⚖️</div>
 
-        <div class="article-content">
-            <p>"안 돼!"라는 말을 하고 나서 아이가 시무룩해지거나 눈물을 흘리면 마음 한구석이 불편해지는 부모님들이 많습니다. '내가 너무 엄격했나?', '애 기죽이는 건 아닐까?' 하는 죄책감에 시달리다 결국 규칙을 철회하기도 합니다.</p>
-            <p>하지만 아이의 발달 과정에서 명확한 **경계선(Boundary)**은 아이를 억압하는 철창이 아니라, 안전하게 뛰어놀 수 있는 울타리 역할을 합니다. 어떻게 하면 상처 주지 않고 건강하게 단호해질 수 있을까요?</p>
+        <article class="article-content">
+            <h1>상처 주지 않고 단호해지는 법: 일관성 있는 규칙 수립 가이드</h1>
+<p>많은 부모들이 &#39;공감 육아&#39;의 흐름 속에서 깊은 혼란을 느낍니다. <em>&quot;아이의 기를 죽이지 말라&quot;</em>, *&quot;눈물을 흘리게 하지 말라&quot;*는 육아 조언을 따르다 보니, 정작 밥상에서 떼를 쓰고 공공장소에서 소리를 지르는 아이에게조차 제대로 통제하지 못하고 쩔쩔매는 자신을 발견하곤 합니다. 사랑이라는 이름으로 아이의 모든 요구를 수용해 주는 양육은 과연 아이에게 행복을 줄까요?</p>
+<p>발달심리학의 대답은 강력한 **&quot;아니오(No)&quot;**입니다. 아동의 정서 발달에 부드러운 흙(공감)만큼이나 필수적인 것이 바로 단단한 울타리인 **규칙과 훈육(Discipline &amp; Boundaries)**입니다. 본 칼럼에서는 아이에게 깊은 상처나 정서적 상흔을 남기지 않으면서도 가정 내 건강하고 확고한 경계선을 설정하는 과학적 방법론을 심층 분석합니다.</p>
+<hr>
+<h2>1. 규칙과 한계 설정의 학술적 근거: 왜 경계가 필요한가?</h2>
+<p>부모가 단호하게 &quot;안 돼&quot;라고 말할 때, 마음 한구석이 찌릿하게 아파오며 미안함을 느끼는 부모들이 많습니다. 그러나 한계 설정(Limit-setting)은 아동을 구속하거나 처벌하는 행위가 아닙니다. 오히려 <strong>아이의 건강한 생존과 성장을 돕는 가장 수준 높은 사랑의 기술</strong>입니다.</p>
+<h3>🏠 불안을 낮추는 예측 가능성과 울타리 효과</h3>
+<p>아동의 세상은 너무나 크고, 복잡하며, 자극으로 가득 차 있습니다. 아직 스스로 통제할 수 있는 힘이 미약한 아동에게 규칙과 경계선이 없는 상태는 광활하고 깜깜한 절벽 끝에 홀로 서 있는 듯한 극심한 실존적 불안감을 유발합니다. 
+부모가 명확하고 일관된 행동의 선을 그어줄 때, 아동은 역설적으로 **&quot;이 선 안에서는 내가 온전히 안전하고 보호받고 있구나&quot;**라는 깊은 심리적 안정감과 **예측 가능성(Predictability)**을 획득하게 됩니다. 심리학에서는 이를 **&#39;울타리 효과(Fence Effect)&#39;**라고 칭합니다.</p>
+<h3>📊 다이애나 바움린드(Diana Baumrind)의 양육 스타일 연구</h3>
+<p>양육 행동 연구의 거장 다이애나 바움린드 박사는 부모의 양육 방식을 **반응성(Warmth/Sensitivity)**과 **요구성(Demandingness/Control)**이라는 두 가지 핵심 축으로 나누어 분석했습니다.</p>
+<ol>
+<li><strong>권위주의적 양육(Authoritarian):</strong> 반응성은 낮고 요구성만 높은 유형. 군대식 통제와 일방적 복종을 요구합니다. 이 환경의 아동은 겉으로는 말을 잘 듣는 것 같지만, 불안과 반항심이 내면에 잠재하며 자존감이 극히 낮아집니다.</li>
+<li><strong>허용적 양육(Permissive):</strong> 반응성은 높고 요구성은 매우 낮은 유형. &quot;네가 다 알아서 해&quot;라며 어떤 규칙도 세우지 않습니다. 이 환경의 아동은 정서적으로 지지를 받지만, 자기조절 능력을 배우지 못해 또래 관계에서 이기적으로 행동하고 사회적 규칙에 쉽게 적응하지 못합니다.</li>
+<li><strong>민주적/권위 있는 양육(Authoritative):</strong> <strong>반응성도 높고 요구성도 일치하게 높은 이상적인 유형.</strong> 아이의 감정을 존중하고 깊이 공감하는 동시에, 사회적 행동 규범과 한계에 있어서는 타협 없이 일관된 통제를 유지합니다.</li>
+</ol>
+<p>수많은 장기 추적 연구에 따르면, <strong>민주적(Authoritative) 양육</strong> 방식 하에 자란 아이들이 자아존중감, 정서 조절 능력, 학업 성취도, 그리고 사회적 적응력에서 가장 탁월한 성과를 보였습니다. 규칙을 일관되게 적용하되 그 과정에서 아동의 주관적 감정을 존중하는 태도가 건강한 성장의 핵심인 것입니다.</p>
+<hr>
+<h2>2. 상처를 주지 않고 단호함을 유지하는 4대 원칙</h2>
+<p>단호해지는 것과 아이를 다그쳐 상처 주는 것은 명백히 구분되어야 합니다. 아이의 인격을 훼손하지 않으면서 규칙의 힘을 세우는 4가지 핵심 원칙을 제안합니다.</p>
+<h3>① 감정적 비난이 아닌 &#39;행동 중심&#39;으로 말하기 (Be Specific)</h3>
+<p>아이가 잘못된 행동을 했을 때, 아이의 정체성이나 인격을 단정 짓는 표현은 치명적인 내면의 상처와 수치심을 유발합니다.</p>
+<ul>
+<li><strong>나쁜 예:</strong> <em>&quot;너는 도대체 왜 그렇게 이기적이니?&quot;, &quot;맨날 이 모양이지!&quot;</em> (수치심과 분노 유발)</li>
+<li><strong>좋은 예:</strong> <em>&quot;지훈아, 장난감을 친구에게서 빼앗아 오는 행동은 잘못된 거야. 친구가 속상해하잖아.&quot;</em> (행동을 객관적으로 명시)</li>
+</ul>
+<h3>② 부모의 감정 분리하기 (Emotional Neutrality)</h3>
+<p>훈육의 목적은 규칙을 학습시키는 것이지, 부모가 느끼는 피로와 분노를 아이에게 쏟아붓는(Vent) 것이 아닙니다. 목소리의 데시벨을 높이거나 얼굴을 붉히며 화를 내면, 아이의 뇌는 공포 상태로 진입하여 부모가 하려는 교육적 메시지를 완전히 잊어버리고 오직 부모의 &#39;위협적인 표정&#39;에만 집중합니다.</p>
+<ul>
+<li><strong>행동 지침:</strong> 나직하고, 차분하며, 흔들림 없는 단호한 톤(Neutral Pitch)으로 말해야 합니다. 부드럽지만 단단한 벽(Solid Wall)처럼 다가가야 합니다.</li>
+</ul>
+<h3>③ &#39;안 돼(No)&#39; 뒤에는 반드시 합리적 이유와 대안 제시하기 (Why &amp; Alternative)</h3>
+<p>무조건 억누르는 금지는 아동의 반발심만을 극대화합니다. 안 되는 이유를 아이의 수준에 맞게 1문장으로 간결하게 설명한 뒤, 아이가 에너지를 돌릴 수 있는 선택지를 제공해 주세요.</p>
+<ul>
+<li><strong>행동 지침:</strong> <em>&quot;소파 위에서 뛰는 건 머리를 다칠 수 있어서 안 돼. 뛰고 싶다면 바닥에 매트 위에서 뛰거나, 엄마랑 트램펄린 카페에 갈까?&quot;</em></li>
+</ul>
+<h3>④ 규칙의 일관성 유지하기 (Consistency)</h3>
+<p>규칙의 힘은 일관성에서 나옵니다. 부모의 기분이 좋을 때는 허용해 주다가, 피곤하고 화가 날 때는 엄격하게 혼내는 태도는 아동에게 극심한 정서적 혼란과 배신감을 선사합니다. </p>
+<ul>
+<li><strong>행동 지침:</strong> 한 번 세운 규칙은 어떤 상황에서도 동일한 강도로 지켜져야 합니다. 부모의 피곤함이나 아이의 극심한 눈물에 흔들려 중간에 굴복하는 태도는 아이에게 **&quot;울부짖고 버티면 결국 부모는 포기한다&quot;**는 잘못된 학습을 안겨줍니다.</li>
+</ul>
+<hr>
+<h2>👶 연령별 훈육 및 규칙 설정 실전 가이드</h2>
+<h3>🍼 영아기 (0~18개월): 물리적 환경 통제와 주의 전환</h3>
+<ul>
+<li><strong>특징:</strong> 이 시기에는 논리적 훈육이 거의 불가능합니다. &quot;하지 마&quot;라는 언어적 강제보다는 아이의 시선과 신체를 안전한 곳으로 유연하게 전환하는 것이 과학적입니다.</li>
+<li><strong>실전 처방:</strong> 아이가 뜨거운 냄비나 콘센트를 만지려 할 때, 큰 소리로 혼내는 대신 나직하게 *&quot;위험해&quot;*라고 외친 뒤 안아 올립니다. 안전한 다른 장난감을 주어 주의를 돌리는 것(Redirection)이 가장 효과적입니다.</li>
+</ul>
+<h3>🧒 유아기 (19개월~5세): 단순한 규칙의 시각화와 일관된 적용</h3>
+<ul>
+<li><strong>특징:</strong> 고집이 매우 강해지며 행동 반경이 넓어집니다. 밥 먹기, 양치질, 취침 시간 등 일상의 기본 규칙을 루틴화해야 합니다.</li>
+<li><strong>실전 처방:</strong> 규칙을 복잡하게 설명하지 말고, 시각적인 일정표나 타이머를 적극적으로 활용합니다.<blockquote>
+<p><em>&quot;타이머가 삑삑 소리를 내면 장난감을 제자리에 넣고 잠잘 준비를 하는 거야. 자, 지훈이가 타이머 시작 버튼 직접 눌러볼까?&quot;</em></p>
+</blockquote>
+</li>
+</ul>
+<h3>🎒 아동기 (6세~초등 저학년): 사전 합의와 논리적 결과</h3>
+<ul>
+<li><strong>특징:</strong> 규칙을 수립하는 과정에 아이를 능동적으로 참여시켜 주체적인 책임감을 학습시킬 수 있습니다.</li>
+<li><strong>실전 처방:</strong> 규칙을 어겼을 때 일어날 논리적 결과(Logical Consequences)를 평온한 상태에서 사전에 함께 약속합니다.<blockquote>
+<p><em>&quot;장난감을 정리하지 않으면, 내일 하루 동안 그 장난감은 상자 속에 넣어두고 가지고 놀지 않기로 약속하자. 네가 정리를 안 해서 내일은 이 블록을 가지고 놀 수 없게 되었단다. 속상하겠지만 규칙이니까 지켜야 해.&quot;</em></p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<h2>❓ 자주 묻는 질문 (FAQ)</h2>
+<p><strong>Q1. 아이가 눈물을 펑펑 흘리며 불쌍하게 빌면 마음이 약해져서 결국 규칙을 어기게 됩니다. 어떻게 마인드 컨트롤을 해야 할까요?</strong></p>
+<blockquote>
+<p><strong>A.</strong> 부모가 마음을 다잡지 못하는 이유는 &quot;내가 지금 아이를 고통스럽게 만들고 있다&quot;는 무의식적인 죄책감 때문입니다. 그러나 관점을 완전히 전환하셔야 합니다. 지금 일관성 있게 규칙을 지키는 것은, 훗날 아이가 유치원, 학교, 더 나아가 거친 사회라는 정글로 나갔을 때 겪게 될 훨씬 더 가혹하고 큰 좌절(또래 관계 실패, 부적응)로부터 아이를 보호할 수 있는 **&#39;사회적 예방접종&#39;**을 맞히는 과정입니다. 지금 아프더라도 올바르게 한계를 알려주는 것이 아이의 장래를 위한 든든한 방어벽을 세워주는 유일한 길임을 가슴 깊이 새기셔야 합니다.</p>
+</blockquote>
+<p><strong>Q2. 조부모님이나 배우자가 제가 세운 규칙을 자꾸 깨버려요. 양육자 간의 불일치는 어떻게 해결하나요?</strong></p>
+<blockquote>
+<p><strong>A.</strong> 양육자 간의 규칙 불일치는 아동에게 가장 치명적인 인지적 부조화를 유발합니다. 아이는 본능적으로 규칙이 약한 양육자(예: 할머니, 아빠)에게만 달라붙어 응석을 부리게 되고, 엄격한 양육자(엄마)를 미워하게 될 수 있습니다. 양육자들은 반드시 <strong>아이 앞에서는 100% 동일한 메시지</strong>를 내야 합니다. 이견이 있다면 절대로 아이 앞이 아닌, 부부가 단둘이 있을 때 깊은 논의를 통해 단 3가지의 핵심 약속이라도 통일해야 합니다. 조부모님께는 *&quot;어머님, 지훈이가 유치원 규칙에 잘 적응하도록 돕기 위해 집에서도 이 규칙만큼은 지키기로 소아과 의사 선생님과 약속했어요. 지훈이를 위해 꼭 도와주세요&quot;*라고 정중하게 협조를 구하는 것이 좋습니다.</p>
+</blockquote>
 
-            <h2>1. 단호함에 대한 오해 풀기</h2>
-            <p>단호하다는 것은 소리를 지르거나 윽박지르는 것을 의미하지 않습니다. 심리학에서 말하는 건강한 단호함(Assertiveness)은 **목소리 톤은 차분하게 유지하되, 메시지는 명확하고 흔들림 없이 전달하는 것**을 뜻합니다.</p>
-            <p>감정을 실어서 화를 내는 것은 부모 스스로 통제력을 잃었다는 증거입니다. 화를 내며 규칙을 강요하면 아이는 규칙의 타당성을 배우는 대신 '부모의 분노'에 대한 공포만 학습하게 됩니다.</p>
-
-            <h2>2. 일관성이 중요한 진짜 이유</h2>
-            <p>어제는 피곤해서 허락했던 스마트폰을 오늘은 안 된다고 화를 낸다면 어떻게 될까요? 아이의 뇌는 혼란에 빠집니다. 규칙이 부모의 기분에 따라 고무줄처럼 변한다고 느끼면, 아이는 규칙을 지키기 위해 노력하는 대신 **'부모의 눈치'**를 살피거나 떼를 써서 부모의 기분을 꺾으려는 테스트를 시작합니다.</p>
-            <blockquote>
-                "일관성 없는 훈육은 차라리 규칙이 없는 것보다 아이를 더 불안하게 만듭니다. 아이는 예측 가능한 환경에서 가장 크게 안정감을 느낍니다."
-            </blockquote>
-
-            <h2>3. 건강한 경계선을 세우는 3가지 원칙</h2>
-            
-            <h3>규칙은 최소한으로, 그러나 반드시 지켜야 할 것만</h3>
-            <p>집안에 안 되는 것이 너무 많으면 아이는 숨이 막히고, 부모는 하루 종일 잔소리꾼이 됩니다. '생명과 안전에 직결된 것', '타인에게 심각한 피해를 주는 것' 등 절대 타협할 수 없는 핵심 규칙 3~5가지만 정하세요. 그 외의 사소한 것들은 자율성에 맡기는 유연성이 필요합니다.</p>
-
-            <h3>사전 고지와 약속</h3>
-            <p>상황이 발생한 후 화를 내며 제지하기보다, 상황 전에 미리 약속을 하는 것이 훨씬 효과적입니다. "식당에 들어가면 뛰지 않고 자리에 앉아 있어야 해. 만약 뛰면 우리는 밥을 다 못 먹어도 밖으로 나와야 해."라고 명확한 결과를 미리 알려주세요.</p>
-
-            <h3>친절하되 단호하게 (Kind but Firm)</h3>
-            <p>아이의 속상한 마음은 친절하게 읽어주되, 안 되는 행동은 단호하게 끊어냅니다. "더 놀고 싶은 마음 알아. 하지만 시계 바늘이 여기에 왔으니 이제 잘 시간이야. 내일 다시 놀자." 이때 목소리 끝을 올리지 않고 마침표를 찍듯 단호하게 마무리하는 것이 중요합니다.</p>
-
-            <h2>4. 실패해도 괜찮습니다, 다시 시작하세요</h2>
-            <p>부모도 사람인지라 매번 완벽하게 일관성을 유지할 수는 없습니다. 화를 냈거나 일관성을 잃었다면 아이에게 솔직하게 사과하고 다시 기준을 세우면 됩니다. 완벽한 부모가 되려 하지 마세요. 아이에게 필요한 것은 완벽한 부모가 아니라, 실수하더라도 다시 중심을 잡으려 노력하는 '성장하는 부모'입니다.</p>
+        </article>
+        
+        <div class="cta-banner">
+            <h3>나는 어떤 육아 스타일일까?</h3>
+            <p>단 3분 만에 나의 육아 유전자와 종합 페르소나를 측정하고, 오은영 박사님 부럽지 않은 맞춤 솔루션을 확인해보세요.</p>
+            <a href="../test.html" class="btn btn--primary btn--large btn--glow" style="display:inline-flex; align-items:center; gap:8px;"><i class="fas fa-play"></i> 무료 양육 DNA 진단 시작하기</a>
         </div>
 
-        <div class="cta-banner">
-            <h3>나의 규칙과 훈육 점수는 몇 점일까?</h3>
-            <p>나는 흔들리는 갈대형일까요, 아니면 엄격한 통제형일까요? 객관적인 데이터로 나의 훈육 성향을 점검해보세요.</p>
-            <a href="../test.html" class="btn btn--primary btn--large btn--glow"><i class="fas fa-play"></i> 무료 양육 진단 시작하기</a>
+        <div style="margin-top: 60px; text-align:center;">
+            <a href="../columns.html" class="btn btn--outline" style="padding: 12px 30px;"><i class="fas fa-arrow-left"></i> 목록으로 돌아가기</a>
         </div>
     </main>
 
+    
+    <!-- Footer -->
     <footer class="footer">
         <p>&copy; 2026 Mirror Inside Parenting. All rights reserved.</p>
-        <p class="mt-1">
-            <a href="../index.html">홈</a> · <a href="../columns.html">칼럼</a> · <a href="../about.html">기술 소개</a>
+        <p class="mt-1" style="font-size:0.9rem; margin-top:12px;">
+            <a href="../index.html">홈</a> · <a href="../gallery.html">기록/갤러리</a> · <a href="../columns.html">육아 인사이트</a> · <a href="../about.html">기술 소개</a> · <a href="../test.html">진단 시작</a>
+        </p>
+        <p class="mt-1" style="font-size:0.8rem; margin-top:8px; color:var(--text-dim);">
+            <a href="../terms.html">이용약관</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의하기</a>
         </p>
     </footer>
+
 </body>
 </html>

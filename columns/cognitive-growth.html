@@ -3,116 +3,227 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>스마트폰 시대, 아이의 인지 성장을 돕는 부모의 '질문법' | 칼럼</title>
-    <meta name="description" content="짧고 자극적인 콘텐츠 속에서 아이의 사고력과 문해력을 지켜내기 위해, 일상 속에서 부모가 던질 수 있는 '열린 질문'의 마법을 알아봅니다.">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://aikiugihimdulda.vercel.app/columns/cognitive-growth.html">
-    <meta property="og:title" content="스마트폰 시대, 아이의 인지 성장을 돕는 부모의 '질문법'">
-    <meta property="og:description" content="짧고 자극적인 콘텐츠 속에서 아이의 사고력을 지켜내기 위한 질문의 마법을 알아봅니다.">
-    <meta property="og:type" content="article">
-    <meta property="og:url" content="https://aikiugihimdulda.vercel.app/columns/cognitive-growth.html">
-    <meta property="og:locale" content="ko_KR">
-    <meta property="og:site_name" content="Mirror Inside Parenting">
-    
-    <!-- Search & AdSense 인증 -->
-    <meta name="google-site-verification" content="Tb_LmHczAZCjYOkU4RJh-m02RB4srmXHH4OFI3dxxGs" />
-    <meta name="google-adsense-account" content="ca-pub-9992037844935954">
-    <meta name="naver-site-verification" content="16578f8f79a3870985d38cddf217b1c67a4c4dad" />
-
+    <title>스마트폰 시대, 아이의 인지 성장을 돕는 부모의 '질문법' | Mirror Inside Parenting</title>
+    <link rel="icon" href="../assets/images/icons/favicon.png" type="image/png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../style.css">
     <style>
-        .article-wrap { padding-top: 120px; padding-bottom: 80px; max-width: 800px; margin: 0 auto; }
+        .article-wrap { padding-top: 120px; padding-bottom: 80px; max-width: 800px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
         .article-header { text-align: center; margin-bottom: 48px; }
         .article-category { font-size: 0.9rem; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px; display: block; }
-        .article-title { font-size: clamp(2rem, 5vw, 3rem); font-weight: 900; line-height: 1.3; margin-bottom: 24px; word-break: keep-all; }
+        .article-title { font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 900; line-height: 1.35; margin-bottom: 24px; word-break: keep-all; color: var(--text-main); }
         .article-meta { font-size: 0.9rem; color: var(--text-dim); display: flex; justify-content: center; gap: 16px; align-items: center; }
-        .article-hero-img { width: 100%; height: 300px; border-radius: var(--radius-xl); background: radial-gradient(circle, #c084fc 0%, #9333ea 100%); display: flex; align-items: center; justify-content: center; font-size: 5rem; margin-bottom: 60px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
-        .article-content { font-size: 1.1rem; line-height: 1.9; color: var(--text-body); word-break: keep-all; }
-        .article-content h2 { font-size: 1.6rem; color: var(--text-main); margin: 48px 0 24px; font-weight: 800; }
-        .article-content h3 { font-size: 1.3rem; color: var(--text-main); margin: 32px 0 16px; font-weight: 700; }
+        .article-hero-img { 
+            width: 100%; 
+            height: 280px; 
+            border-radius: var(--radius-xl); 
+            background: radial-gradient(circle, #c084fc 0%, #9333ea 100%); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 5rem; 
+            margin-bottom: 60px; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border: 1px solid var(--glass-border);
+            text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        .article-content { font-size: 1.08rem; line-height: 1.9; color: var(--text-body); word-break: keep-all; text-align: justify; }
+        .article-content h2 { font-size: 1.6rem; color: var(--text-main); margin: 56px 0 24px; font-weight: 800; border-bottom: 1px solid var(--glass-border); padding-bottom: 12px; }
+        .article-content h3 { font-size: 1.25rem; color: var(--secondary); margin: 36px 0 16px; font-weight: 700; }
         .article-content p { margin-bottom: 24px; }
-        .article-content ul, .article-content ol { padding-left: 24px; margin-bottom: 24px; }
-        .article-content li { margin-bottom: 12px; }
-        .article-content strong { color: var(--text-main); }
-        .article-content blockquote { border-left: 4px solid var(--primary); padding-left: 20px; font-style: italic; color: var(--text-dim); margin: 32px 0; background: rgba(255,255,255,0.02); padding: 24px; border-radius: 0 var(--radius-md) var(--radius-md) 0; }
-        .cta-banner { margin-top: 60px; padding: 40px; background: var(--glass); border: 1px solid var(--primary); border-radius: var(--radius-lg); text-align: center; }
-        .cta-banner h3 { margin-bottom: 16px; color: var(--text-main); }
-        .cta-banner p { margin-bottom: 24px; font-size: 1rem; }
+        .article-content ul, .article-content ol { padding-left: 24px; margin-bottom: 28px; }
+        .article-content li { margin-bottom: 12px; line-height: 1.7; }
+        .article-content strong { color: var(--text-main); font-weight: 700; }
+        .article-content blockquote { 
+            border-left: 4px solid var(--primary); 
+            padding: 24px; 
+            font-style: italic; 
+            color: var(--text-dim); 
+            margin: 36px 0; 
+            background: rgba(255,255,255,0.02); 
+            border-radius: 0 var(--radius-md) var(--radius-md) 0; 
+            box-shadow: inset 2px 0 10px rgba(0,0,0,0.1);
+        }
+        .article-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 32px 0;
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+        }
+        .article-content th, .article-content td {
+            padding: 14px 18px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.95rem;
+        }
+        .article-content th {
+            background: rgba(255,255,255,0.05);
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .article-content tr:last-child td {
+            border-bottom: none;
+        }
+        .cta-banner { 
+            margin-top: 80px; 
+            padding: 40px; 
+            background: var(--glass); 
+            border: 1px solid var(--primary); 
+            border-radius: var(--radius-lg); 
+            text-align: center; 
+            box-shadow: var(--shadow-glow);
+        }
+        .cta-banner h3 { margin-bottom: 16px; color: var(--text-main); font-weight: 800; font-size: 1.4rem; }
+        .cta-banner p { margin-bottom: 24px; font-size: 1rem; color: var(--text-body); }
     </style>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9992037844935954" crossorigin="anonymous"></script>\n</head>
+</head>
 <body>
+    <!-- Navbar -->
     <nav class="nav scrolled">
         <div class="nav__inner">
-            <a href="../index.html" class="nav__logo">Mirror Inside <span class="nav__logo-sub">Parenting</span></a>
-            <ul class="nav__links" id="navLinks">
+            <a href="../index.html" class="nav__logo">
+                Mirror Inside <span class="nav__logo-sub">Parenting</span>
+            </a>
+            <ul class="nav__links">
+                <li><a href="../index.html" class="nav__link">홈</a></li>
+                <li><a href="../gallery.html" class="nav__link">갤러리</a></li>
                 <li><a href="../columns.html" class="nav__link active">칼럼</a></li>
-                <li><a href="../about.html" class="nav__link">기술 소개</a></li>
                 <li><a href="../test.html" class="nav__cta"><i class="fas fa-play"></i> 진단 시작</a></li>
             </ul>
-            <div class="nav__burger" onclick="document.getElementById('navLinks').classList.toggle('open')"><span></span><span></span><span></span></div>
         </div>
     </nav>
 
     <main class="article-wrap container">
         <header class="article-header">
-            <span class="article-category">학습과 성장 (Cognitive Growth)</span>
+            <span class="article-category">5대 양육차원</span>
             <h1 class="article-title">스마트폰 시대, 아이의 인지 성장을 돕는 부모의 '질문법'</h1>
             <div class="article-meta">
                 <span><i class="far fa-calendar-alt"></i> 2026.05.29</span>
-                <span><i class="far fa-clock"></i> 7 min read</span>
+                <span><i class="far fa-clock"></i> 9 min read</span>
             </div>
         </header>
 
         <div class="article-hero-img">📚</div>
 
-        <div class="article-content">
-            <p>식당에 가면 스마트폰이나 태블릿에 시선을 고정한 채 밥을 먹는 아이들을 쉽게 볼 수 있습니다. 쇼츠(Shorts), 틱톡, 릴스 등 1분을 넘지 않는 빠르고 자극적인 영상들이 아이들의 일상을 지배하고 있습니다. 이른바 '팝콘 브레인(Popcorn Brain)' 현상, 즉 크고 강렬한 자극에만 반응하고 일상적이고 느린 자극에는 무감각해지는 뇌 구조로 변해가는 것을 우려하는 목소리가 높습니다.</p>
-            <p>이러한 시대에 우리 아이의 사고력, 문해력, 그리고 깊이 있는 인지 능력을 지켜주기 위해 부모는 무엇을 할 수 있을까요? 정답은 학원 뺑뺑이가 아니라, 일상 속에서 부모가 던지는 **'질문의 질(Quality of Questions)'**을 바꾸는 데 있습니다.</p>
+        <article class="article-content">
+            <h1>스마트폰 시대, 아이의 인지 성장을 돕는 부모의 &#39;질문법&#39;</h1>
+<p>유튜브 쇼츠, 인스타그램 릴스, 틱톡... 터치 한 번으로 세상의 모든 정보가 도파민 폭탄과 함께 화려하게 펼쳐지는 디지털 네이티브 스마트폰 시대입니다. 자극적이고 짧은 영상 콘텐츠에 익숙해진 아이들은 글을 읽기 싫어하고, 스스로 곰곰이 생각하는 과정을 극도로 지루해하곤 합니다. 많은 부모들이 이러한 자녀들의 급격한 문해력 저하와 수동적인 인지 성향을 바라보며 깊은 불안감에 휩싸입니다.</p>
+<p>우리는 인공지능과 스마트 미디어가 일상이 된 이 혁신적인 시대에 어떻게 아이의 잠재력을 지켜내고 스스로 생각할 줄 아는 능동적인 뇌로 키워낼 수 있을까요? </p>
+<p>해답은 생각보다 간단한 일상 속에 숨겨져 있습니다. 바로 **부모가 건네는 일상적이고 고품질의 &#39;질문&#39;**입니다. 부모의 언어 자극은 아이의 생각 주머니를 깨우고 뉴런을 역동적으로 발달시키는 최고의 학습 처방전입니다. 본 칼럼에서는 아동 발달의 거장 <strong>레브 비고츠키(Lev Vygotsky)의 인지발달 이론</strong>을 기반으로, 아이의 메타인지와 사고력을 3배 이상 확장해 주는 실전 질문법의 비밀을 과학적으로 파헤쳐 봅니다.</p>
+<hr>
+<h2>1. 인지 성장의 학술적 기둥: 비고츠키의 ZPD와 비계 설정(Scaffolding)</h2>
+<p>아이가 혼자 공부하고 세상의 원리를 깨달아야 한다고 생각하는 것은 피아제식 인지주의의 일부 모델입니다. 반면 러시아의 위대한 발달심리학자 레브 비고츠키(Lev Vygotsky)는 **&quot;인간의 인지는 독립적으로 성장하는 것이 아니라, 더 유능한 타인(부모, 교사)과의 사회적 상호작용을 통해 고차원적으로 도약한다&quot;**는 사회문화적 인지발달 이론을 정립했습니다.</p>
+<p>비고츠키 인지 이론의 핵심 개념 2가지는 다음과 같습니다:</p>
+<h3>① 근접발달영역 (Zone of Proximal Development, ZPD)</h3>
+<p>ZPD는 **&quot;아이가 혼자 힘으로 해결할 수 있는 실제적 발달 수준&quot;**과 <strong>&quot;유능한 타인의 힌트나 조력을 받으면 도달할 수 있는 잠재적 발달 수준&quot;</strong> 사이의 회색 지대를 의미합니다. 아동의 인지 성장은 아이가 ZPD 영역에 머물며 부모와 함께 도전 과제를 해결해 나갈 때 가장 강력하고 역동적으로 일어납니다. 아이 수준보다 너무 쉬운 것은 지루함을 주고, 너무 어려운 것은 좌절을 주기 때문에 ZPD를 날카롭게 조준해야 합니다.</p>
+<h3>② 비계 설정 (Scaffolding)</h3>
+<p>비계(Scaffolding)는 원래 건축 공사장에서 높은 곳을 작업할 수 있도록 임시로 설치하는 디딤돌이나 발판을 의미합니다. 교육학에서는 **&quot;아동이 잠재적 발달 수준(ZPD)에 도달하여 문제를 해결할 수 있도록 부모가 제공하는 정교한 학습 가이드이자 사다리&quot;**를 뜻합니다.
+부모가 정답을 직접 다 알려주는 것이 아니라, 힌트를 주거나, 질문을 던지거나, 문제 해결 과정을 작게 쪼개어 보여주는 영리한 개입이 바로 훌륭한 비계 설정입니다. 부모의 고품질 질문은 가장 강력하고 우아한 인지적 비계 설정의 도구입니다.</p>
+<hr>
+<h2>2. 뇌를 깨우는 질문의 기술: 닫힌 질문 vs 열린 질문</h2>
+<p>아이의 사고력을 자극하려면 부모의 질문이 단답형 대답(&quot;네&quot;, &quot;아니오&quot;)을 넘어선 **&#39;열린 질문(Open-ended Questions)&#39;**으로 변환되어야 합니다.</p>
+<h3>🚫 생각의 문을 닫는 &#39;닫힌 질문 (Closed-ended)&#39;</h3>
+<p>닫힌 질문은 정해진 지식이나 사실을 퀴즈처럼 묻는 확인용 질문입니다. 이는 아동에게 평가받는 듯한 인지적 스트레스를 주고 수동적인 뇌로 만듭니다.</p>
+<ul>
+<li><strong>예시:</strong> <em>&quot;오늘 어린이집에서 재밌었어?&quot;, &quot;1 더하기 1은 뭐야?&quot;, &quot;이 책 주인공 이름이 뭐라고 했지?&quot;</em></li>
+</ul>
+<h3>💎 생각의 뉴런을 활성화하는 &#39;열린 질문 (Open-ended)&#39;</h3>
+<p>열린 질문은 정해진 정답이 없으며, 아이가 자신의 생각, 경험, 상상력을 동원하여 머릿속 단어들을 조합해 스스로 서술하게 이끄는 촉진제입니다.</p>
+<ul>
+<li><strong>예시:</strong> <em>&quot;오늘 유치원 놀이터에서 모래놀이할 때 지훈이 기분은 어땠어?&quot;, &quot;만약 네가 이 책의 주인공 토끼라면 호랑이를 만났을 때 어떻게 탈출했을까?&quot;, &quot;구름 모양이 동물 모양처럼 보이네, 네 눈에는 뭐로 보이니?&quot;</em></li>
+</ul>
+<hr>
+<h2>👶 아이의 사고력을 3배 넓히는 3단계 질문법 실전 스크립트</h2>
+<p>일상의 흔한 상황에서 아이의 ZPD를 자극해 인지 능력을 높이는 3단계 질문법을 적용해 보세요.</p>
+<h3>1단계: 관찰과 현상에 대한 질문 (What do you see?)</h3>
+<p>눈앞에 펼쳐진 시각적 정보와 현상에 관심을 갖고 주의 집중(Joint Attention)을 하도록 돕는 단계입니다.</p>
+<blockquote>
+<p><strong>실전 발화:</strong> <em>&quot;우와, 지훈아! 저기 길가에 커다란 트럭이 지나가는데 바퀴가 엄청나게 많네. 네 눈에는 바퀴가 몇 개 있는 것처럼 보여? 어떤 모양이야?&quot;</em></p>
+</blockquote>
+<h3>2단계: 이유와 원리에 대한 추론 질문 (Why / How do you think?)</h3>
+<p>관찰한 현상의 이면을 분석하고 논리적인 추론(Reasoning)을 해보도록 이끄는 인지적 디딤돌입니다.</p>
+<blockquote>
+<p><strong>실전 발화:</strong> <em>&quot;그러네, 승용차는 바퀴가 4개뿐인데 왜 저 덤프트럭은 바퀴가 10개 넘게 아주 많이 달려있을까? 바퀴가 이렇게 많으면 어떤 점이 다를까? 지훈이 생각은 어때?&quot;</em></p>
+</blockquote>
+<h3>3단계: 나만의 대안과 상상 질문 (What if...?)</h3>
+<p>기존 지식을 바탕으로 가설을 수립하고, 기발한 아이디어를 내보며 확산적 사고(Divergent Thinking)와 메타인지를 확장하는 최상위 단계입니다.</p>
+<blockquote>
+<p><strong>실전 발화:</strong> <em>&quot;맞아, 트럭은 엄청 크고 무거운 돌을 많이 실어야 해서 바퀴가 힘을 합치려고 많은 거였구나! 그럼 만약에 트럭 바퀴가 둥근 모양이 아니라 네모난 네모 바퀴라면 트럭은 어떻게 움직이게 될까? 길에서 어떤 일이 일어날까? 상상해서 말해줘.&quot;</em></p>
+</blockquote>
+<hr>
+<h2>🍼 연령별 인지 성장 질문 처방 스크립트</h2>
+<h3>🍼 영아기 (0~18개월): 감각 정보의 실시간 중계와 의성어/의태어 자극</h3>
+<ul>
+<li><strong>특징:</strong> 소리와 대상의 매칭, 감각 발달이 중요한 언어 이전의 인지 단계입니다.</li>
+<li><strong>코칭 초점:</strong> 부모가 아이의 시선을 따라가며 세상을 소리로 중계해주기.</li>
+<li><strong>실전 대화:</strong> 아이가 알록달록한 딸랑이를 쥐고 흔들 때:<blockquote>
+<p><em>&quot;우와! 지훈이가 빨간색 동그란 딸랑이를 흔드니까 딸랑딸랑 맑은 소리가 나는구나! 흔들흔들 흔드니까 재밌지? 쉿, 귀를 대보자. 어떤 소리가 나니? 찰랑찰랑?&quot;</em></p>
+</blockquote>
+</li>
+</ul>
+<h3>🧒 유아기 (19개월~5세): 일상의 수수께끼와 상상 놀이 질문</h3>
+<ul>
+<li><strong>특징:</strong> 어휘력이 폭발적으로 늘어나며 세상 모든 것에 &quot;왜?&quot;라는 질문 폭탄을 던지는 시기입니다.</li>
+<li><strong>코칭 초점:</strong> 아이의 &quot;왜?&quot; 질문을 되받아쳐 스스로 생각할 시간 주기(Counter-questioning).</li>
+<li><strong>실전 대화:</strong> 아이가 *&quot;엄마, 달님은 왜 밤에만 나와?&quot;*라고 물어볼 때, 곧바로 과학적 답변을 말해주기보다 되물어봅니다.<blockquote>
+<p><em>&quot;어머, 정말 그렇네! 동그랗고 예쁜 달님은 왜 해님이 들어간 깜깜한 밤에만 고개를 쏙 내밀까? 달님이 부끄러워서 그럴까? 지훈이는 왜 밤에만 나타난다고 생각해? 달님한테 한번 물어볼까?&quot;</em></p>
+</blockquote>
+</li>
+</ul>
+<h3>🎒 아동기 (6세~초등 저학년): 독서 전후의 비판적 사고 유도 및 가설 검증</h3>
+<ul>
+<li><strong>특징:</strong> 사회성이 발달하고 도덕적 개념과 자연과학적 원리에 깊은 관심을 보입니다.</li>
+<li><strong>코칭 초점:</strong> 책을 읽은 뒤 단순 줄거리 요약이 아닌 가치 판단과 비판적 사고 유도하기.</li>
+<li><strong>실전 대화:</strong> 신데렐라 동화를 다 읽고 난 뒤:<blockquote>
+<p><em>&quot;신데렐라가 유리구두 덕분에 왕자님을 만나서 행복해졌네. 지훈아, 만약에 신데렐라가 무도회장에서 유리구두를 잃어버리지 않았다면, 신데렐라는 어떻게 왕자님을 다시 만날 수 있었을까? 유리구두 말고 자신을 알릴 수 있는 또 다른 기발한 아이디어가 있었을까?&quot;</em></p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<h2>❓ 자주 묻는 질문 (FAQ)</h2>
+<p><strong>Q1. 아이가 부모의 질문에 대답하는 것을 너무 싫어하고 자꾸 &quot;몰라&quot;, &quot;귀찮아&quot;라고만 대답합니다. 질문법이 잘못된 걸까요?</strong></p>
+<blockquote>
+<p><strong>A.</strong> 아주 흔한 현상입니다. 아동이 &quot;몰라&quot;라고 피하는 가장 큰 원인은 부모의 질문이 <strong>정답을 확인하려는 시험(Evaluation)처럼 느껴졌기 때문</strong>입니다. 부모가 평소 교육적 욕심에 *&quot;이 도형은 이름이 뭐야?&quot;, &quot;이거 아까 가르쳐줬잖아. 대답해봐&quot;*라는 닫힌 질문을 자주 던졌다면, 아동의 뇌는 질문을 위협으로 인지하여 퓨즈를 꺼버립니다. 
+질문을 퀴즈쇼가 아닌 **&#39;유머러스한 수다와 대화&#39;**로 접근하셔야 합니다. 정답이 전혀 없는 엉뚱한 질문을 먼저 가볍게 건네거나, 부모의 생각부터 먼저 유머러스하게 흘려보내 아이의 대답 장벽을 낮춰보세요.
+<em>&quot;엄마는 오늘 이 구름을 보니까 달콤하고 하얀 솜사탕을 한 입 콱 깨물어 먹고 싶은데, 지훈이는 만약 저 구름 한 조각을 떼어먹을 수 있다면 무슨 맛이 날 것 같아?&quot;</em></p>
+</blockquote>
+<p><strong>Q2. 스마트폰이나 태블릿 학습 패드를 전혀 안 보여줄 순 없는데, 디지털 콘텐츠를 활용해서 인지 발달을 도울 수 있는 방법이 있을까요?</strong></p>
+<blockquote>
+<p><strong>A.</strong> 미디어를 무조건 차단하기란 현대 사회에서 불가능합니다. 학계에서는 스마트폰 미디어의 유해성을 줄이고 교육적 효과를 높이는 가장 강력한 솔루션으로 **&#39;공동 시청 및 상호작용(Active Co-viewing)&#39;**을 제안합니다.
+아이 혼자 패드를 들고 멍하니 보게 내버려 두지 마세요. 부모가 옆에 앉아 영상을 함께 보며 실시간으로 질문을 건네며 수동적인 시청을 능동적인 인지 탐구 과정으로 전환시켜 주는 것입니다.
+<em>&quot;어! 방금 뽀로로가 바나나 껍질을 밟고 꽈당 넘어졌네? 뽀로로 마음이 어떨까? 지훈아, 우리가 길에 껍질을 버리면 다음에는 또 누가 넘어질까? 영상을 멈추고 뽀로로한테 뭐라고 조언해 줄까?&quot;</em> 
+이러한 대화식 동반 시청은 스마트폰이 주는 뇌 손상을 강력히 방지하고 고차원적 인지 성장을 돕습니다.</p>
+</blockquote>
 
-            <h2>1. 단답형 대화의 함정</h2>
-            <p>퇴근 후 아이를 만났을 때 보통 어떤 질문을 하시나요?</p>
-            <ul>
-                <li>"오늘 유치원 재미있었어?" -> "네."</li>
-                <li>"밥 다 먹었어?" -> "아니요."</li>
-            </ul>
-            <p>이런 질문을 '닫힌 질문(Closed Question)'이라고 합니다. 닫힌 질문은 아이가 고민할 필요 없이 '예/아니오'로만 대답하게 만들어 대화의 흐름을 단절시키고 뇌의 사고 과정을 멈추게 합니다.</p>
-
-            <h2>2. 뇌를 춤추게 하는 '열린 질문(Open-ended Question)'</h2>
-            <p>아이의 인지적 성장을 돕기 위해서는 아이가 스스로 생각하고, 인과관계를 추론하며, 상상력을 발휘할 수 있는 '열린 질문'을 던져야 합니다.</p>
-
-            <h3>How & Why를 활용하라</h3>
-            <p>"이거 재밌어?" 대신 **"어떤 부분이 가장 재미있었어?"**라고 물어보세요. "안 돼!"라고 하기 전에 **"네가 만약 저렇게 행동하면 친구 마음은 어떨까?"**라고 추론하게 만들어보세요.</p>
-
-            <h3>정답이 없는 상상력 질문</h3>
-            <p>그림책을 읽어줄 때 글자만 읽고 끝내지 마세요. 책장을 넘기기 전에 멈추고 질문을 던지는 것을 '다이얼로직 리딩(Dialogic Reading)'이라고 합니다.</p>
-            <blockquote>
-                "주인공이 지금 숲속에서 길을 잃었네. 우리 지훈이라면 이럴 때 어떻게 할 것 같아?"
-            </blockquote>
-            <p>아이가 터무니없는 대답을 하더라도 절대 틀렸다고 교정하지 마세요. 상상력에는 정답이 없습니다. "우와, 정말 기발한 생각이다! 그럼 그 다음에는 어떻게 될까?"라며 꼬리를 무는 대화를 이어가세요.</p>
-
-            <h2>3. 인지 성장은 '정서적 안정' 위에서 피어난다</h2>
-            <p>부모들이 흔히 하는 실수 중 하나는 아이에게 질문을 던져놓고 채점을 하려 드는 것입니다. "그게 아니지, 다시 생각해봐."라며 윽박지르면 아이는 정답을 맞춰야 한다는 압박감에 입을 닫아버립니다.</p>
-            <p>아이의 뇌는 불안하거나 긴장하면 생존을 위해 편도체를 활성화시키고 인지적 학습을 차단합니다. 아이가 어떤 엉뚱한 대답을 하더라도 부모가 수용해주고 흥미로워하는 표정을 지을 때, 아이의 두뇌는 비로소 지적 호기심의 꽃을 피우게 됩니다.</p>
-
-            <h2>4. 일상의 모든 순간이 배움의 터전이다</h2>
-            <p>요리를 할 때 썰어놓은 당근의 모양을 비교하고, 마트에서 물건의 가격표를 보며 숫자에 대해 이야기하는 등 일상의 모든 순간이 훌륭한 인지 발달의 소재가 됩니다. 특별한 교구재보다 부모의 따뜻한 눈맞춤과 호기심 어린 질문 하나가 아이의 뇌를 가장 훌륭하게 자극한다는 사실을 잊지 마세요.</p>
+        </article>
+        
+        <div class="cta-banner">
+            <h3>나는 어떤 육아 스타일일까?</h3>
+            <p>단 3분 만에 나의 육아 유전자와 종합 페르소나를 측정하고, 오은영 박사님 부럽지 않은 맞춤 솔루션을 확인해보세요.</p>
+            <a href="../test.html" class="btn btn--primary btn--large btn--glow" style="display:inline-flex; align-items:center; gap:8px;"><i class="fas fa-play"></i> 무료 양육 DNA 진단 시작하기</a>
         </div>
 
-        <div class="cta-banner">
-            <h3>나는 아이의 호기심을 자극하는 부모일까?</h3>
-            <p>학습과 성장을 대하는 당신의 태도는 '가이드형'에 가깝나요, 아니면 '방임형'에 가깝나요? 데이터 기반 진단으로 나의 강점을 확인하세요.</p>
-            <a href="../test.html" class="btn btn--primary btn--large btn--glow"><i class="fas fa-play"></i> 무료 양육 진단 시작하기</a>
+        <div style="margin-top: 60px; text-align:center;">
+            <a href="../columns.html" class="btn btn--outline" style="padding: 12px 30px;"><i class="fas fa-arrow-left"></i> 목록으로 돌아가기</a>
         </div>
     </main>
 
+    
+    <!-- Footer -->
     <footer class="footer">
         <p>&copy; 2026 Mirror Inside Parenting. All rights reserved.</p>
-        <p class="mt-1">
-            <a href="../index.html">홈</a> · <a href="../columns.html">칼럼</a> · <a href="../about.html">기술 소개</a>
+        <p class="mt-1" style="font-size:0.9rem; margin-top:12px;">
+            <a href="../index.html">홈</a> · <a href="../gallery.html">기록/갤러리</a> · <a href="../columns.html">육아 인사이트</a> · <a href="../about.html">기술 소개</a> · <a href="../test.html">진단 시작</a>
+        </p>
+        <p class="mt-1" style="font-size:0.8rem; margin-top:8px; color:var(--text-dim);">
+            <a href="../terms.html">이용약관</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의하기</a>
         </p>
     </footer>
+
 </body>
 </html>
