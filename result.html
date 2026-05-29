@@ -846,21 +846,7 @@
                             <canvas id="radarCanvas"></canvas>
                         </div>
                     </div>
-                    <div class="summary-stats">
-                        <div class="summary-stat">
-                            <div class="summary-stat__value">${avgScore}%</div>
-                            <div class="summary-stat__label">종합 역량 지수</div>
-                        </div>
-                        <div class="summary-stat">
-                            <div class="summary-stat__value">${topDimData.icon} ${topDimData.name}</div>
-                            <div class="summary-stat__label">최강 차원</div>
-                        </div>
-                        <div class="summary-stat">
-                            <div class="summary-stat__value">35</div>
-                            <div class="summary-stat__label">분석 유형 중</div>
-                        </div>
-                    </div>
-                </section>
+                    </section>
 
                 <!-- Dimension Results -->
                 <section class="dimensions-results">
@@ -1199,10 +1185,7 @@
                         </div>
                     </div>
 
-                    <div class="dim-result-card__bar">
-                        <div class="dim-result-card__bar-fill" id="bar-${dim.id}" 
-                             style="background:${colors.barGrad}"></div>
-                    </div>
+                    
 
                     <div class="dim-result-card__desc">${persona.desc}</div>
 
@@ -1231,11 +1214,7 @@
 
                 container.appendChild(card);
 
-                // Animate score bar
-                setTimeout(() => {
-                    const bar = document.getElementById(`bar-${dim.id}`);
-                    if (bar) bar.style.width = `${score}%`;
-                }, 300 + idx * 200);
+                
             });
         }
 
@@ -1456,7 +1435,7 @@
 
             DIMENSIONS.forEach(dim => {
                 const r = dimensionTypes[dim.id];
-                text += `${dim.icon} ${dim.name}: ${r.type.name} (${r.normalizedScore}%)\n`;
+                text += `${dim.icon} ${dim.name}: ${r.type.name} \n`;
             });
 
             text += `\n🔗 나도 진단받기: ${window.location.origin}/test.html`;
