@@ -716,7 +716,14 @@
     <meta name="google-site-verification" content="Tb_LmHczAZCjYOkU4RJh-m02RB4srmXHH4OFI3dxxGs" />
     <meta name="google-adsense-account" content="ca-pub-9992037844935954">
     <meta name="naver-site-verification" content="16578f8f79a3870985d38cddf217b1c67a4c4dad" />
-</head>
+
+    <!-- Kakao SDK -->
+    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.6.0/kakao.min.js" integrity="sha384-6MFdIr0zOira1CHQkedUqJVql0YtcZA1P0nbFz52+3y2B1A2P7Z0mR6+i3+R02T2" crossorigin="anonymous"></script>
+    <script>
+      Kakao.init('YOUR_KAKAO_APP_KEY');
+    </script>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9992037844935954" crossorigin="anonymous"></script>\n</head>
 <body>
     <!-- Navigation -->
     <nav class="nav scrolled">
@@ -862,7 +869,18 @@
                     <div id="dimResultsContainer"></div>
                 </section>
 
-                <!-- Actionable Advice (Simulation) -->
+                
+    <!-- Google AdSense -->
+    <div style="margin: 40px 0; text-align: center;">
+        <ins class="adsbygoogle"
+             style="display:block; text-align:center;"
+             data-ad-layout="in-article"
+             data-ad-format="fluid"
+             data-ad-client="ca-pub-9992037844935954"
+             data-ad-slot="YOUR_AD_SLOT_ID"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+\n<!-- Actionable Advice (Simulation) -->
                 <section class="simulation-section">
                     <div class="text-center mb-5">
                         <span class="section-tag">Practical Solution</span>
@@ -912,7 +930,18 @@
                     </div>
                 </section>
 
-                <!-- Situations Section -->
+                
+    <!-- Google AdSense -->
+    <div style="margin: 40px 0; text-align: center;">
+        <ins class="adsbygoogle"
+             style="display:block; text-align:center;"
+             data-ad-layout="in-article"
+             data-ad-format="fluid"
+             data-ad-client="ca-pub-9992037844935954"
+             data-ad-slot="YOUR_AD_SLOT_ID"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+\n<!-- Situations Section -->
                 <section class="situations-section" style="margin: 60px 0;">
                     <div style="text-align: center; margin-bottom: 30px;">
                         <span class="section-tag">Situation Guide</span>
@@ -974,7 +1003,11 @@
                         <button class="share-btn share-btn--img" onclick="downloadPhotocard()">
                             <i class="fas fa-camera"></i> 이미지로 저장
                         </button>
-                        <button class="share-btn share-btn--copy" onclick="copyResult()">
+                        
+    <button class="share-btn share-btn--kakao" onclick="shareKakao()" style="background: #FEE500; color: #000000; border: none; font-weight: 700;">
+        <i class="fas fa-comment"></i> 카카오톡 공유
+    </button>
+\n<button class="share-btn share-btn--copy" onclick="copyResult()">
                             <i class="fas fa-copy"></i> 결과 복사
                         </button>
                         <a href="test.html" class="share-btn share-btn--retry">
@@ -1024,7 +1057,7 @@
             
             const pcArea = document.getElementById('photocardArea');
             try {
-                const canvas = await html2canvas(pcArea, { scale: 1, backgroundColor: '#060b26' });
+                const canvas = await html2canvas(pcArea, { scale: 1, backgroundColor: '#0f172a', useCORS: true, logging: false });
                 const link = document.createElement('a');
                 link.download = 'my-parenting-persona.png';
                 link.href = canvas.toDataURL('image/png');
@@ -1297,7 +1330,32 @@
         }
 
         // === Copy Result ===
-        function copyResult() {
+        
+        function shareKakao() {
+            const overallPersona = results.overallPersona;
+            Kakao.Share.sendDefault({
+                objectType: 'feed',
+                content: {
+                    title: `[테스트 결과] 나는 '${overallPersona.name}' 부모입니다!`,
+                    description: overallPersona.desc,
+                    imageUrl: window.location.origin + '/' + overallPersona.imageUrl,
+                    link: {
+                        mobileWebUrl: window.location.origin,
+                        webUrl: window.location.origin,
+                    },
+                },
+                buttons: [
+                    {
+                        title: '나의 양육 페르소나 알아보기',
+                        link: {
+                            mobileWebUrl: window.location.origin,
+                            webUrl: window.location.origin,
+                        },
+                    },
+                ],
+            });
+        }
+\n        function copyResult() {
             if (!results) return;
             const { overallPersona, dimensionTypes } = results;
             let text = `🧬 Mirror Inside Parenting 진단 결과\n\n`;
