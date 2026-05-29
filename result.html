@@ -835,13 +835,13 @@
         function preparePhotocard(overallPersona, dimensionTypes) {
             const pcArea = document.createElement('div');
             pcArea.id = 'photocardArea';
-            pcArea.innerHTML = \`
+            pcArea.innerHTML = `
                 <div class="pc-logo">Mirror Inside Parenting</div>
-                <div class="pc-rarity">당신은 \${overallPersona.rarity} 부모입니다</div>
-                <div class="pc-title">\${overallPersona.name}</div>
-                <div class="pc-desc">\${overallPersona.desc}</div>
+                <div class="pc-rarity">당신은 ${overallPersona.rarity} 부모입니다</div>
+                <div class="pc-title">${overallPersona.name}</div>
+                <div class="pc-desc">${overallPersona.desc}</div>
                 <div class="pc-radar"><canvas id="pcRadarCanvas" width="1000" height="1000" style="width:500px; height:500px;"></canvas></div>
-            \`;
+            `;
             document.body.appendChild(pcArea);
             setTimeout(() => drawRadarChart(dimensionTypes, 'pcRadarCanvas', true), 500);
         }
