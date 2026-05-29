@@ -820,6 +820,135 @@ const OVERALL_TITLES = [
   }
 ];
 
+// 상황별 시뮬레이션 데이터 (가장 낮은 점수의 차원 보완용)
+const SIMULATIONS = {
+  emotional: {
+    title: '아이가 갑자기 마트에서 "나 이거 안 사면 안 갈 거야!" 라며 드러누울 때',
+    wrong: '이론적으로 안 되는 이유를 설명하거나 무시하고 지나갑니다.',
+    correct: '먼저 아이의 눈높이로 몸을 낮추고, "정말 갖고 싶구나. 속상한 마음은 알아"라며 감정을 먼저 100% 읽어주세요. 해결은 그 다음입니다.'
+  },
+  discipline: {
+    title: '아이가 밤 10시가 넘었는데도 안 자고 계속 칭얼거릴 때',
+    wrong: '아이의 감정에 휘말려 계속 달래주거나, 결국 화를 내며 강제로 재웁니다.',
+    correct: '감정은 공감하되 규칙은 단호하게 지키세요. "졸려서 힘들지? 그래도 자야 할 시간이야" 하고 불을 끄고 일관된 환경을 유지하세요.'
+  },
+  autonomy: {
+    title: '아이가 신발 끈을 묶다 마음대로 안 되어 짜증을 낼 때',
+    wrong: '답답한 마음에 "엄마/아빠가 해줄게" 하고 바로 묶어버립니다.',
+    correct: '아이의 손을 잡아주며 "어렵네, 어디가 안 되는지 같이 볼까?" 하고 아주 작은 힌트만 제공하여 스스로 완성할 수 있게 기다려주세요.'
+  },
+  growth: {
+    title: '아이가 똑같은 퍼즐만 계속 맞추며 다른 놀이는 안 하려 할 때',
+    wrong: '"이제 다른 것도 해봐" 라며 퍼즐을 치우고 새로운 것을 강요합니다.',
+    correct: '아이가 몰두하는 퍼즐의 난이도를 조금 높여주거나, 퍼즐의 그림과 관련된 책을 읽어주어 관심사를 점진적으로 확장시켜주세요.'
+  },
+  resilience: {
+    title: '아이가 친구와 다투고 와서 "나 이제 걔랑 안 놀아!" 라며 울 때',
+    wrong: '"네가 먼저 양보했어야지" 하거나 "그래 놀지 마" 라며 극단적으로 반응합니다.',
+    correct: '"많이 속상했구나" 위로한 뒤, 진정되면 "어떻게 말했으면 더 좋았을까?" 라며 스스로 대안을 생각하게 하여 회복 근력을 키워주세요.'
+  }
+};
+
+// ============================================================
+// 채점 & 분석 함수
+// ============================================================
+
+function calculateResults(answers) {
+  const dimensionScores = {};
+  const dimensionTypes = {};
+
+  DIMENSIONS.forEach(dim => {
+    dimensionScores[dim.id] = [0, 0, 0, 0, 0, 0, 0];
+  });
+
+  // 각 답변의 점수를 해당 차원에 누적
+  answers.forEach((answerIndex, qIndex) => {
+    const question = QUESTIONS[qIndex];
+    const scores = question.options[answerIndex].scores;
+    const dim = question.dimension;
+    for (let i = 0; i < 7; i++) {
+      dimensionScores[dim][i] += scores[i];
+    }
+  });
+
+  // 각 차원별 최고 점수 유형 결정
+  DIMENSIONS.forEach(dim => {
+    const scores = dimensionScores[dim.id];
+    let maxIdx = 0;
+    let maxScore = scores[0];
+    for (let i = 1; i < 7; i++) {
+      if (scores[i] > maxScore) {
+        maxScore = scores[i];
+        maxIdx = i;
+      }
+    }
+    dimensionTypes[dim.id] = {
+      typeIndex: maxIdx,
+      type: PERSONA_TYPES[dim.id][maxIdx],
+      scores: scores,
+      maxScore: maxScore,
+      // 정규화 점수 (0~100)
+      normalizedScore: Math.round((maxScore / 18) * 100) // 최대 가능 점수 = 3 * 6 = 18
+    };
+  });
+
+  // 종합 페르소나 결정
+  const overallPersona = determineOverallPersona(dimensionTypes);
+
+  // 가장 취약한 차원 도출
+  let lowestScore = 999;
+  let lowestDimId = 'emotional';
+  Object.keys(dimensionTypes).forEach(dimId => {
+    if (dimensionTypes[dimId].normalizedScore < lowestScore) {
+      lowestScore = dimensionTypes[dimId].normalizedScore;
+      lowestDimId = dimId;
+    }
+  });
+
+  const simulation = SIMULATIONS[lowestDimId];
+
+  return {
+    dimensionTypes,
+    dimensionScores,
+    overallPersona,
+    lowestDimId,
+    simulation
+  };
+}
+
+function determineOverallPersona(dimensionTypes) {
+  // 각 차원의 유형 인덱스 기반으로 종합 성향 판단
+  const eIdx = dimensionTypes.emotional.typeIndex;
+  const dIdx = dimensionTypes.discipline.typeIndex;
+  const aIdx = dimensionTypes.autonomy.typeIndex;
+  const gIdx = dimensionTypes.growth.typeIndex;
+  const rIdx = dimensionTypes.resilience.typeIndex;
+
+  // 감성/따뜻함 계열 (emotional 0,4 + resilience 2)
+  const warmScore = (eIdx <= 1 || eIdx === 4 ? 2 : 0) + (rIdx === 2 ? 2 : 0);
+  // 구조/체계 계열 (discipline 0,4 + growth 1)
+  const structuredScore = (dIdx === 0 || dIdx === 4 ? 2 : 0) + (gIdx === 1 ? 2 : 0);
+  // 자유/자율 계열 (autonomy 0,6 + discipline 5)
+  const freeScore = (aIdx === 0 || aIdx === 6 ? 2 : 0) + (dIdx === 5 ? 2 : 0);
+  // 지혜/통찰 계열 (emotional 2,3 + resilience 6)
+  const wiseScore = (eIdx === 2 || eIdx === 3 ? 2 : 0) + (rIdx === 6 ? 2 : 0);
+  // 공감 계열 (emotional 2,3 + resilience 2,5)
+  const empatheticScore = (eIdx >= 2 && eIdx <= 3 ? 2 : 0) + (rIdx === 2 || rIdx === 5 ? 2 : 0);
+  // 창의 계열 (growth 2,5 + autonomy 2)
+  const creativeScore = (gIdx === 2 || gIdx === 5 ? 2 : 0) + (aIdx === 2 ? 2 : 0);
+  // 회복 계열 (resilience 4 + autonomy 6)
+  const resilientScore = (rIdx === 4 ? 2 : 0) + (aIdx === 6 ? 2 : 0);
+
+  const combos = [
+    { key: 'warm', score: warmScore },
+    { key: 'structured', score: structuredScore },
+    { key: 'free', score: freeScore },
+    { key: 'wise', score: wiseScore },
+    { key: 'empathetic', score: empatheticScore },
+    { key: 'creative', score: creativeScore },
+    { key: 'resilient', score: resilientScore }
+  ];
+
   combos.sort((a, b) => b.score - a.score);
 
   // 가장 높은 combo 찾기, 동점일 경우 balanced
