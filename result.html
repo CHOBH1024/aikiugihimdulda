@@ -933,6 +933,29 @@
                             </div>
                         `).join('') : ''}
                     </div>
+                    </div>
+
+                    <!-- Step by Step Section -->
+                    <div style="margin-top: 60px;">
+                        <div style="text-align: center; margin-bottom: 30px;">
+                            <span class="section-tag" style="background: linear-gradient(135deg, #fbbf24, #f59e0b);">For Myself</span>
+                            <h3 style="font-size: 1.8rem; margin-bottom: 8px;">👑 주체적인 나를 지키는 3단계 액션 플랜</h3>
+                            <p style="color: var(--text-dim); margin-top: 8px; font-size: 0.95rem;">당당하고 주체적인 부모로 살아가기 위한 '${overallPersona.name}' 맞춤 가이드입니다.</p>
+                        </div>
+                        <div class="step-guide-container" style="display: flex; flex-direction: column; gap: 20px;">
+                            ${overallPersona.stepByStep ? overallPersona.stepByStep.map((s, idx) => `
+                                <div class="step-card" style="background: var(--bg-card); border: 1px solid var(--glass-border); border-radius: var(--radius-lg); padding: 24px; position: relative; overflow: hidden;">
+                                    <div style="position: absolute; top: -10px; right: -10px; font-size: 6rem; font-weight: 900; opacity: 0.03; font-family: 'Outfit', sans-serif;">0${s.step}</div>
+                                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                                        <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; font-weight: bold; color: #fff; flex-shrink: 0;">${s.step}</div>
+                                        <h4 style="font-size: 1.15rem; color: var(--text-main); margin: 0;">${s.title}</h4>
+                                    </div>
+                                    <p style="color: var(--text-body); line-height: 1.6; margin: 0; padding-left: 44px; font-size: 0.95rem;">${s.desc}</p>
+                                </div>
+                            `).join('') : ''}
+                        </div>
+                    </div>
+
                     <style>
                         .accordion-item:hover { border-color: rgba(52, 211, 153, 0.4); }
                         .accordion-item.active { border-color: var(--primary); background: rgba(30, 41, 59, 0.6); }
