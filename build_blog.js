@@ -33,7 +33,8 @@ filesToUpdate.forEach(file => {
     let content = fs.readFileSync(file, 'utf8');
     
     // Remove existing footers and orbs to avoid duplicates
-    content = content.replace(/<!-- Footer -->[\s\S]*?<\/footer>/, '');
+    content = content.replace(/<!-- Footer -->[\s\S]*?<\/footer>/g, '');
+    content = content.replace(/<footer class="footer">[\s\S]*?<\/footer>/g, '');
     content = content.replace(/<!-- Drifting Glow Orbs Background -->[\s\S]*?<\/div>[\s\S]*?<\/div>[\s\S]*?<\/div>[\s\S]*?<\/div>/g, '');
     
     const pageFooter = footerHTML.replace(/\.\.\//g, '');

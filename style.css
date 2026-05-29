@@ -1018,3 +1018,79 @@ h3 { font-size: clamp(1.2rem, 3vw, 1.6rem); font-weight: 800; }
   100% { transform: translate(-50px, -70px) scale(0.85) rotate(360deg); }
 }
 
+/* ============================================================
+   Component: Mobile Bottom Navigation
+   ============================================================ */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 68px;
+  background: var(--glass-strong);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border-top: 1px solid var(--glass-border);
+  z-index: 9999;
+  display: none; /* Hide on desktop by default */
+  box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.4);
+}
+
+.bottom-nav__inner {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 12px;
+}
+
+.bottom-nav__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-dim);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-decoration: none;
+  width: 25%;
+  height: 100%;
+  transition: var(--transition-fast);
+  gap: 5px;
+}
+
+.bottom-nav__item i {
+  font-size: 1.25rem;
+  transition: var(--transition-fast);
+  color: var(--text-dim);
+}
+
+.bottom-nav__item:hover,
+.bottom-nav__item.active {
+  color: var(--primary);
+}
+
+.bottom-nav__item:hover i,
+.bottom-nav__item.active i {
+  color: var(--primary);
+  transform: translateY(-2px);
+  text-shadow: 0 0 10px var(--primary-glow);
+}
+
+/* Screen sizes: Mobile Optimization */
+@media (max-width: 768px) {
+  .bottom-nav {
+    display: block; /* Show on mobile devices */
+  }
+  body {
+    padding-bottom: 74px !important; /* Prevent content occlusion */
+  }
+  /* Enhance mobile hamburger z-index and blur */
+  .nav__links.open {
+    z-index: 10001 !important;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    border-bottom: 1px solid var(--glass-border-hover);
+  }
+}
