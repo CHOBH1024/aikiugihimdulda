@@ -347,6 +347,62 @@
 
         .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
         .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+        /* AI Scanning Animation */
+        .ai-scanner {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 40px;
+            border-radius: 50%;
+            background: rgba(30, 41, 59, 0.5);
+            border: 2px solid rgba(52, 211, 153, 0.2);
+            overflow: hidden;
+            box-shadow: 0 0 40px rgba(52, 211, 153, 0.15);
+        }
+
+        .ai-scanner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(transparent, rgba(52, 211, 153, 0.1), rgba(52, 211, 153, 0.8), transparent 60%);
+            animation: radarScan 2s linear infinite;
+        }
+
+        .ai-scanner::after {
+            content: '🧬';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes radarScan {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .ai-text-box {
+            min-height: 80px;
+        }
+
+        .ai-step-text {
+            font-size: 1.3rem;
+            color: var(--text-main);
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: none;
+            animation: fadeInUp 0.4s ease both;
+        }
+
+        .ai-step-text.active {
+            display: block;
+        }
     </style>
     <!-- Search & AdSense 인증 -->
     <meta name="google-site-verification" content="Tb_LmHczAZCjYOkU4RJh-m02RB4srmXHH4OFI3dxxGs" />
@@ -540,10 +596,14 @@
             const content = document.getElementById('testContent');
             content.innerHTML = `
                 <div class="test-complete">
-                    <span class="test-complete__icon">✨</span>
-                    <h2>분석이 <span class="text-gradient">완료</span>되었습니다</h2>
-                    <p>30개 문항의 응답 패턴을 분석하여<br>당신만의 육아 페르소나를 도출하고 있습니다.</p>
-                    <div class="loading-dots">
+                    <div class="ai-scanner"></div>
+                    <div class="ai-text-box">
+                        <div class="ai-step-text active" id="aiStep1">응답 일관성 검증 중...</div>
+                        <div class="ai-step-text" id="aiStep2">5차원 양육 DNA 매핑 중...</div>
+                        <div class="ai-step-text" id="aiStep3">35개 페르소나 조합 알고리즘 계산 중...</div>
+                        <div class="ai-step-text" id="aiStep4" style="color: var(--primary);">분석 완료! 결과를 생성합니다.</div>
+                    </div>
+                    <div class="loading-dots" style="margin-top: 20px;">
                         <span></span><span></span><span></span>
                     </div>
                 </div>
@@ -554,10 +614,26 @@
             saveResults(results);
             clearProgress();
 
+            // Sequence animations
+            setTimeout(() => {
+                document.getElementById('aiStep1').classList.remove('active');
+                document.getElementById('aiStep2').classList.add('active');
+            }, 1500);
+
+            setTimeout(() => {
+                document.getElementById('aiStep2').classList.remove('active');
+                document.getElementById('aiStep3').classList.add('active');
+            }, 3000);
+
+            setTimeout(() => {
+                document.getElementById('aiStep3').classList.remove('active');
+                document.getElementById('aiStep4').classList.add('active');
+            }, 4500);
+
             // Redirect to result page after animation
             setTimeout(() => {
                 window.location.href = 'result.html';
-            }, 2500);
+            }, 5500);
         }
 
         // === Keyboard navigation ===

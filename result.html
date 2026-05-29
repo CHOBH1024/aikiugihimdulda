@@ -437,6 +437,70 @@
         }
         .simulation-correct::before { content: '✅ 추천하는 행동: '; font-weight: 700; color: var(--primary); display: block; margin-bottom: 8px;}
 
+        /* Prescription Section (Do's and Don'ts) */
+        .prescription-section {
+            margin: 60px 0;
+        }
+
+        .prescription-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-top: 24px;
+        }
+
+        @media (max-width: 768px) {
+            .prescription-grid { grid-template-columns: 1fr; }
+        }
+
+        .prescription-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            height: 100%;
+        }
+
+        .prescription-card--dos {
+            border-top: 4px solid var(--primary);
+            background: linear-gradient(to bottom, rgba(52, 211, 153, 0.05), transparent);
+        }
+
+        .prescription-card--donts {
+            border-top: 4px solid #f87171;
+            background: linear-gradient(to bottom, rgba(248, 113, 113, 0.05), transparent);
+        }
+
+        .prescription-title {
+            font-size: 1.2rem;
+            font-weight: 800;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .prescription-card--dos .prescription-title { color: var(--primary); }
+        .prescription-card--donts .prescription-title { color: #f87171; }
+
+        .prescription-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .prescription-list li {
+            position: relative;
+            padding: 16px 20px;
+            margin-bottom: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: var(--radius-sm);
+            color: var(--text-body);
+            font-size: 1rem;
+            line-height: 1.5;
+            word-break: keep-all;
+        }
+
         /* Affiliate Section */
         .affiliate-section {
             display: flex;
@@ -651,6 +715,32 @@
                         <div class="simulation-correct">${results.simulation.correct}</div>
                     </div>
                     <p style="font-size:0.85rem; color:var(--text-dim); text-align:right;">* 당신의 가장 취약한 '${DIMENSIONS.find(d => d.id === results.lowestDimId).name}' 차원 보완을 위한 시뮬레이션입니다.</p>
+                </section>
+
+                <!-- Do's and Don'ts (금쪽처방) -->
+                <section class="prescription-section">
+                    <div class="text-center mb-5">
+                        <span class="section-tag">Language Prescription</span>
+                        <h2>${overallPersona.name}를 위한 맞춤 언어 처방전</h2>
+                    </div>
+                    <div class="prescription-grid">
+                        <div class="prescription-card prescription-card--dos">
+                            <div class="prescription-title">
+                                <i class="fas fa-heart"></i> 꼭 해줘야 할 긍정의 말
+                            </div>
+                            <ul class="prescription-list">
+                                ${overallPersona.dos ? overallPersona.dos.map(d => `<li>${d}</li>`).join('') : '<li>데이터가 없습니다.</li>'}
+                            </ul>
+                        </div>
+                        <div class="prescription-card prescription-card--donts">
+                            <div class="prescription-title">
+                                <i class="fas fa-ban"></i> 무의식적으로 상처 주는 말
+                            </div>
+                            <ul class="prescription-list">
+                                ${overallPersona.donts ? overallPersona.donts.map(d => `<li>${d}</li>`).join('') : '<li>데이터가 없습니다.</li>'}
+                            </ul>
+                        </div>
+                    </div>
                 </section>
 
                 <!-- Affiliate Curation -->
