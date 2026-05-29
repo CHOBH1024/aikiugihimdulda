@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mirror Inside Parenting — 당신의 육아 잠재력을 데이터로 증명합니다</title>
+    <meta name="description" content="9가지 양육 차원 분석과 35가지 페르소나 시스템으로 당신만의 고유한 양육 강점을 과학적으로 발견하세요. 데이터 기반 육아 전략 플랫폼.">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* === Landing Page Specific === */
+        .hero__orbit {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            opacity: 0.08;
+        }
+
+        .hero__orbit-ring {
+            position: absolute;
+            inset: 0;
+            border: 1px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 30s linear infinite;
+        }
+
+        .hero__orbit-ring:nth-child(2) {
+            inset: 40px;
+            border-color: var(--secondary);
+            animation-duration: 25s;
+            animation-direction: reverse;
+        }
+
+        .hero__orbit-ring:nth-child(3) {
+            inset: 80px;
+            border-color: var(--accent);
+            animation-duration: 20s;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .how-it-works {
+            padding: 120px 0;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            margin-top: 60px;
+        }
+
+        .step-card {
+            text-align: center;
+            padding: 48px 32px;
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            transition: var(--transition-base);
+            position: relative;
+        }
+
+        .step-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--glass-border-hover);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .step-num {
+            font-family: 'Outfit', sans-serif;
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+            margin-bottom: 20px;
+        }
+
+        .step-card h3 {
+            margin-bottom: 12px;
+        }
+
+        .step-card p {
+            color: var(--text-body);
+            font-size: 0.95rem;
+            word-break: keep-all;
+        }
+
+        .dimensions-section {
+            padding: 120px 0;
+        }
+
+        .dimensions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 60px;
+        }
+
+        .cta-section {
+            padding: 120px 0;
+            text-align: center;
+        }
+
+        .cta-box {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-xl);
+            padding: 80px 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(ellipse, rgba(52,211,153,0.05) 0%, transparent 70%);
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .cta-box h2 {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .cta-box p {
+            position: relative;
+            color: var(--text-body);
+            font-size: 1.15rem;
+            margin-bottom: 40px;
+            word-break: keep-all;
+        }
+
+        .cta-box .btn { position: relative; }
+
+        .stat-counter {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 4px;
+        }
+
+        .stat-counter__number {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 900;
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, var(--primary), #6ee7b7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .features-section { padding: 120px 0; }
+
+        .feature-row {
+            display: flex;
+            align-items: center;
+            gap: 80px;
+            margin-bottom: 100px;
+        }
+
+        .feature-row:nth-child(even) { flex-direction: row-reverse; }
+
+        .feature-content { flex: 1; }
+        .feature-visual {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .feature-visual__chart {
+            width: 300px;
+            height: 300px;
+            position: relative;
+        }
+
+        .mini-radar {
+            width: 100%;
+            height: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .steps { grid-template-columns: 1fr; }
+            .feature-row, .feature-row:nth-child(even) {
+                flex-direction: column;
+                gap: 40px;
+            }
+            .hero__orbit { width: 300px; height: 300px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav" id="mainNav">
+        <div class="nav__inner">
+            <a href="index.html" class="nav__logo">
+                Mirror Inside <span class="nav__logo-sub">Parenting</span>
+            </a>
+            <ul class="nav__links" id="navLinks">
+                <li><a href="#dimensions" class="nav__link">5대 분석 차원</a></li>
+                <li><a href="#how" class="nav__link">진단 과정</a></li>
+                <li><a href="about.html" class="nav__link">기술 소개</a></li>
+                <li><a href="test.html" class="nav__cta"><i class="fas fa-play"></i> 진단 시작</a></li>
+            </ul>
+            <div class="nav__burger" id="navBurger" onclick="toggleNav()">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero__orbit">
+            <div class="hero__orbit-ring"></div>
+            <div class="hero__orbit-ring"></div>
+            <div class="hero__orbit-ring"></div>
+        </div>
+
+        <span class="hero__badge">
+            <i class="fas fa-dna"></i> 5 Dimensions · 35 Archetypes
+        </span>
+
+        <h1 class="hero__title">
+            당신만의<br>
+            <span class="text-gradient">육아 DNA</span>를<br>
+            발견하세요
+        </h1>
+
+        <p class="hero__desc">
+            정통 발달심리학과 데이터 사이언스가 결합된 9차원 분석 알고리즘으로<br>
+            당신의 양육 잠재력을 과학적으로 증명합니다.
+        </p>
+
+        <div class="hero__actions">
+            <a href="test.html" class="btn btn--primary btn--large btn--glow" id="heroStartBtn">
+                <i class="fas fa-microscope"></i> 무료 진단 시작하기
+            </a>
+            <a href="#dimensions" class="btn btn--secondary btn--large">
+                <i class="fas fa-info-circle"></i> 자세히 알아보기
+            </a>
+        </div>
+
+        <div class="hero__stats">
+            <div>
+                <div class="hero__stat-num" id="statQuestions">30</div>
+                <div class="hero__stat-label">정밀 문항</div>
+            </div>
+            <div>
+                <div class="hero__stat-num">5</div>
+                <div class="hero__stat-label">분석 차원</div>
+            </div>
+            <div>
+                <div class="hero__stat-num">35</div>
+                <div class="hero__stat-label">육아 페르소나</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5 Dimensions Section -->
+    <section class="dimensions-section container" id="dimensions">
+        <div class="text-center">
+            <span class="section-tag">5 Parenting Dimensions</span>
+            <h2>5대 양육 분석 차원</h2>
+            <p class="text-body mt-2" style="max-width:600px; margin-left:auto; margin-right:auto; word-break:keep-all;">
+                각 차원별 7가지 고유한 유형으로 당신의 양육 성향을 입체적으로 분석합니다.
+            </p>
+        </div>
+
+        <div class="dimensions-grid" id="dimensionsGrid">
+            <!-- JS에서 동적 생성 -->
+        </div>
+    </section>
+
+    <!-- How it Works -->
+    <section class="how-it-works container" id="how">
+        <div class="text-center">
+            <span class="section-tag">How It Works</span>
+            <h2>3단계로 발견하는 양육 잠재력</h2>
+        </div>
+
+        <div class="steps">
+            <div class="step-card">
+                <div class="step-num">01</div>
+                <h3>시나리오 응답</h3>
+                <p>실제 육아 상황을 기반으로 한 30개 문항에 직관적으로 답변합니다. 약 5~8분 소요.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-num">02</div>
+                <h3>AI 분석</h3>
+                <p>발달심리학 기반 알고리즘이 5개 차원의 응답 패턴을 정밀 분석합니다.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-num">03</div>
+                <h3>맞춤 리포트</h3>
+                <p>당신만의 35가지 페르소나 조합과 차원별 상세 분석 리포트를 즉시 확인합니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features-section container">
+        <div class="feature-row">
+            <div class="feature-content">
+                <span class="section-tag">Precision Analysis</span>
+                <h2>레이더 차트로 보는<br>나의 양육 지형</h2>
+                <p class="text-body mt-3" style="word-break:keep-all;">
+                    5개 차원의 역량을 한눈에 파악할 수 있는 레이더 차트와 함께, 각 차원별 상세 점수와 유형을 제공합니다.
+                    단순한 점수가 아닌, 당신만의 양육 패턴과 강점을 시각적으로 확인하세요.
+                </p>
+            </div>
+            <div class="feature-visual">
+                <div class="feature-visual__chart">
+                    <canvas id="demoRadar" class="mini-radar"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="feature-row">
+            <div class="feature-content">
+                <span class="section-tag">Consistency Guard</span>
+                <h2>신뢰할 수 있는<br>응답 검증 시스템</h2>
+                <p class="text-body mt-3" style="word-break:keep-all;">
+                    "좋은 부모"로 보이고 싶은 사회적 바람직성 편향을 필터링합니다.
+                    일관성 검증 알고리즘으로 왜곡 없는 순수한 양육 역량 지표를 도출합니다.
+                </p>
+            </div>
+            <div class="feature-visual">
+                <div style="font-size: 8rem; opacity: 0.3; text-align:center;">🛡️</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section container">
+        <div class="cta-box">
+            <h2>지금 바로<br><span class="text-gradient">나의 육아 DNA</span>를 확인하세요</h2>
+            <p>30문항 · 약 5분 · 완전 무료</p>
+            <a href="test.html" class="btn btn--primary btn--large btn--glow">
+                <i class="fas fa-rocket"></i> 진단 시작하기
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 Mirror Inside Parenting. All rights reserved.</p>
+        <p class="mt-1">
+            <a href="about.html">기술 소개</a> · <a href="test.html">진단 시작</a>
+        </p>
+    </footer>
+
+    <script src="data.js"></script>
+    <script>
+        // === Navigation Scroll Effect ===
+        const nav = document.getElementById('mainNav');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        function toggleNav() {
+            document.getElementById('navLinks').classList.toggle('open');
+        }
+
+        // === Dimension Cards ===
+        const grid = document.getElementById('dimensionsGrid');
+        DIMENSIONS.forEach((dim, i) => {
+            const types = PERSONA_TYPES[dim.id];
+            const typeNames = types.map(t => t.name).join(' · ');
+            const card = document.createElement('div');
+            card.className = 'dimension-card';
+            card.style.setProperty('--card-color', dim.color);
+            card.style.animationDelay = `${i * 0.1}s`;
+            card.innerHTML = `
+                <span class="dimension-card__icon">${dim.icon}</span>
+                <div class="dimension-card__sub">${dim.nameEn}</div>
+                <div class="dimension-card__title">${dim.name}</div>
+                <p class="dimension-card__desc">${dim.desc}</p>
+                <div class="dimension-card__types">
+                    ${types.map(t => `<span class="dimension-card__type-tag">${t.name}</span>`).join('')}
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+
+        // === Demo Radar Chart ===
+        function drawDemoRadar() {
+            const canvas = document.getElementById('demoRadar');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const dpr = window.devicePixelRatio || 1;
+            const size = 300;
+            canvas.width = size * dpr;
+            canvas.height = size * dpr;
+            canvas.style.width = size + 'px';
+            canvas.style.height = size + 'px';
+            ctx.scale(dpr, dpr);
+
+            const cx = size / 2;
+            const cy = size / 2;
+            const maxR = size / 2 - 30;
+            const n = 5;
+            const angles = [];
+            for (let i = 0; i < n; i++) {
+                angles.push((Math.PI * 2 * i / n) - Math.PI / 2);
+            }
+
+            // Grid
+            for (let ring = 1; ring <= 4; ring++) {
+                const r = (maxR / 4) * ring;
+                ctx.beginPath();
+                for (let i = 0; i < n; i++) {
+                    const x = cx + r * Math.cos(angles[i]);
+                    const y = cy + r * Math.sin(angles[i]);
+                    if (i === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                }
+                ctx.closePath();
+                ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+            }
+
+            // Axes
+            for (let i = 0; i < n; i++) {
+                ctx.beginPath();
+                ctx.moveTo(cx, cy);
+                ctx.lineTo(cx + maxR * Math.cos(angles[i]), cy + maxR * Math.sin(angles[i]));
+                ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+                ctx.stroke();
+            }
+
+            // Labels
+            const labels = DIMENSIONS.map(d => d.name);
+            ctx.font = '12px Pretendard';
+            ctx.fillStyle = 'rgba(255,255,255,0.5)';
+            ctx.textAlign = 'center';
+            labels.forEach((label, i) => {
+                const lr = maxR + 20;
+                const x = cx + lr * Math.cos(angles[i]);
+                const y = cy + lr * Math.sin(angles[i]);
+                ctx.fillText(label, x, y + 4);
+            });
+
+            // Data (demo values)
+            const demoValues = [0.82, 0.65, 0.9, 0.72, 0.78];
+
+            // Fill
+            ctx.beginPath();
+            demoValues.forEach((v, i) => {
+                const r = maxR * v;
+                const x = cx + r * Math.cos(angles[i]);
+                const y = cy + r * Math.sin(angles[i]);
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            });
+            ctx.closePath();
+            const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, maxR);
+            grad.addColorStop(0, 'rgba(52, 211, 153, 0.25)');
+            grad.addColorStop(1, 'rgba(251, 113, 133, 0.15)');
+            ctx.fillStyle = grad;
+            ctx.fill();
+
+            // Stroke
+            ctx.beginPath();
+            demoValues.forEach((v, i) => {
+                const r = maxR * v;
+                const x = cx + r * Math.cos(angles[i]);
+                const y = cy + r * Math.sin(angles[i]);
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            });
+            ctx.closePath();
+            ctx.strokeStyle = 'rgba(52, 211, 153, 0.6)';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            // Dots
+            demoValues.forEach((v, i) => {
+                const r = maxR * v;
+                const x = cx + r * Math.cos(angles[i]);
+                const y = cy + r * Math.sin(angles[i]);
+                ctx.beginPath();
+                ctx.arc(x, y, 4, 0, Math.PI * 2);
+                ctx.fillStyle = '#34d399';
+                ctx.fill();
+                ctx.beginPath();
+                ctx.arc(x, y, 8, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(52, 211, 153, 0.2)';
+                ctx.fill();
+            });
+        }
+
+        drawDemoRadar();
+        window.addEventListener('resize', drawDemoRadar);
+
+        // === Intersection Observer for Animations ===
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.8s ease both';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.dimension-card, .step-card, .feature-row').forEach(el => {
+            el.style.opacity = '0';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>문의하기 | Mirror Inside Parenting</title>
+    <meta name="description" content="Mirror Inside Parenting에 대한 문의, 피드백, 제안을 보내주세요.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://aikiugihimdulda.vercel.app/contact.html">
+    <meta property="og:title" content="문의하기 | Mirror Inside Parenting">
+    <meta property="og:description" content="Mirror Inside Parenting에 대한 문의, 피드백, 제안을 보내주세요.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://aikiugihimdulda.vercel.app/contact.html">
+    <meta property="og:locale" content="ko_KR">
+    <meta property="og:site_name" content="Mirror Inside Parenting">
+    <meta name="google-site-verification" content="YOUR_GOOGLE_VERIFICATION_CODE">
+    <meta name="naver-site-verification" content="YOUR_NAVER_VERIFICATION_CODE">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .contact-page { padding-top: 140px; padding-bottom: 80px; }
+        .contact-hero { text-align: center; margin-bottom: 60px; }
+        .contact-hero h1 { margin-bottom: 16px; }
+        .contact-hero p { color: var(--text-body); font-size: 1.1rem; word-break: keep-all; }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 60px;
+        }
+
+        .contact-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            text-align: center;
+            transition: var(--transition-base);
+        }
+
+        .contact-card:hover {
+            border-color: var(--glass-border-hover);
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .contact-card__icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .contact-card h3 { margin-bottom: 10px; font-size: 1.2rem; }
+        .contact-card p { color: var(--text-body); font-size: 0.95rem; word-break: keep-all; margin-bottom: 16px; }
+
+        .contact-card__link {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: var(--transition-fast);
+        }
+
+        .contact-card__link:hover { gap: 10px; }
+
+        .faq-section { margin-top: 80px; }
+        .faq-section h2 { text-align: center; margin-bottom: 40px; }
+
+        .faq-item {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            margin-bottom: 12px;
+            overflow: hidden;
+            transition: var(--transition-fast);
+        }
+
+        .faq-item:hover { border-color: var(--glass-border-hover); }
+
+        .faq-question {
+            width: 100%;
+            text-align: left;
+            padding: 20px 24px;
+            color: var(--text-main);
+            font-size: 1.05rem;
+            font-weight: 700;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-family: inherit;
+            word-break: keep-all;
+        }
+
+        .faq-question i { color: var(--text-dim); transition: var(--transition-fast); font-size: 0.85rem; }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .faq-answer__inner {
+            padding: 0 24px 20px;
+            color: var(--text-body);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            word-break: keep-all;
+        }
+
+        .faq-item.open .faq-answer { max-height: 300px; }
+        .faq-item.open .faq-question i { transform: rotate(180deg); }
+    </style>
+</head>
+<body>
+    <nav class="nav scrolled">
+        <div class="nav__inner">
+            <a href="index.html" class="nav__logo">Mirror Inside <span class="nav__logo-sub">Parenting</span></a>
+            <ul class="nav__links" id="navLinks">
+                <li><a href="index.html" class="nav__link"><i class="fas fa-arrow-left"></i> 홈</a></li>
+                <li><a href="test.html" class="nav__cta"><i class="fas fa-play"></i> 진단 시작</a></li>
+            </ul>
+            <div class="nav__burger" onclick="document.getElementById('navLinks').classList.toggle('open')"><span></span><span></span><span></span></div>
+        </div>
+    </nav>
+
+    <div class="contact-page container container--narrow">
+        <div class="contact-hero">
+            <span class="section-tag">Contact Us</span>
+            <h1>문의하기</h1>
+            <p>서비스에 대한 질문, 피드백, 제안이 있으시면 언제든 연락주세요.</p>
+        </div>
+
+        <div class="contact-grid">
+            <div class="contact-card">
+                <span class="contact-card__icon">📧</span>
+                <h3>이메일 문의</h3>
+                <p>일반 문의, 서비스 피드백, 제휴 및 협력 제안</p>
+                <a href="mailto:contact@mirrorinsideparenting.com" class="contact-card__link">
+                    contact@mirrorinsideparenting.com <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            <div class="contact-card">
+                <span class="contact-card__icon">🔒</span>
+                <h3>개인정보 관련</h3>
+                <p>개인정보 열람, 수정, 삭제 요청 및 관련 문의</p>
+                <a href="mailto:privacy@mirrorinsideparenting.com" class="contact-card__link">
+                    privacy@mirrorinsideparenting.com <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            <div class="contact-card">
+                <span class="contact-card__icon">📢</span>
+                <h3>광고 및 제휴</h3>
+                <p>광고 문의, 브랜드 협업, 콘텐츠 파트너십</p>
+                <a href="mailto:partner@mirrorinsideparenting.com" class="contact-card__link">
+                    partner@mirrorinsideparenting.com <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- FAQ -->
+        <section class="faq-section">
+            <span class="section-tag text-center" style="display:block;">FAQ</span>
+            <h2>자주 묻는 질문</h2>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                    진단은 무료인가요? <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer__inner">
+                        네, 30문항 양육 성향 진단과 기본 결과 리포트는 완전히 무료입니다. 회원가입도 필요하지 않습니다. 진단 결과에는 종합 페르소나, 5차원 레이더 차트, 차원별 상세 유형, 강점 분석, 성장 팁이 포함됩니다.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                    진단 결과는 과학적으로 검증되었나요? <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer__inner">
+                        본 진단은 발달심리학 이론과 양육 행동 연구를 기반으로 설계되었습니다. 다만, 임상적 진단 도구가 아닌 자가 진단형 참고 도구이므로, 심각한 양육 어려움이 있는 경우 전문 상담사와의 상담을 권장합니다.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                    개인정보는 안전한가요? <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer__inner">
+                        진단 응답 데이터는 이용자의 브라우저(LocalStorage)에만 저장되며, 서버로 전송되지 않습니다. 브라우저 데이터를 삭제하면 모든 진단 결과가 완전히 제거됩니다. 자세한 내용은 <a href="privacy.html" style="color:var(--primary)">개인정보처리방침</a>을 확인해주세요.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                    진단을 다시 받을 수 있나요? <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer__inner">
+                        물론입니다. 언제든 다시 진단을 받으실 수 있습니다. 양육 스타일은 아이의 성장과 함께 변화할 수 있으므로, 정기적으로 다시 진단해보시는 것을 권장합니다. 이전 결과는 새로운 진단 완료 시 업데이트됩니다.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                    35가지 유형은 어떻게 결정되나요? <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer__inner">
+                        5개 양육 차원(정서교감, 규칙과 훈육, 자율성 지원, 학습과 성장, 위기 대응) 각각에 7가지 유형이 있어 총 35가지 유형이 존재합니다. 각 차원별 6문항의 응답 패턴을 가중치 기반으로 분석하여, 가장 높은 점수를 받은 유형이 해당 차원의 대표 유형으로 결정됩니다.
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2026 Mirror Inside Parenting. All rights reserved.</p>
+        <p class="mt-1">
+            <a href="index.html">홈</a> · <a href="about.html">기술 소개</a> · <a href="terms.html">이용약관</a> · <a href="privacy.html">개인정보처리방침</a> · <a href="contact.html">문의</a>
+        </p>
+    </footer>
+
+    <script>
+        function toggleFaq(btn) {
+            const item = btn.closest('.faq-item');
+            document.querySelectorAll('.faq-item').forEach(el => {
+                if (el !== item) el.classList.remove('open');
+            });
+            item.classList.toggle('open');
+        }
+    </script>
+</body>
+</html>

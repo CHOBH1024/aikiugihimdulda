@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>진단 시작 | Mirror Inside Parenting</title>
+    <meta name="description" content="30개의 실제 육아 시나리오를 통해 당신의 양육 DNA를 분석합니다.">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* === Test Page Specific === */
+        .test-wrapper {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .test-top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: var(--glass-strong);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 16px 24px;
+        }
+
+        .test-top-bar__inner {
+            max-width: 700px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .test-top-bar__row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .test-top-bar__back {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: var(--transition-fast);
+        }
+
+        .test-top-bar__back:hover { color: var(--text-main); }
+
+        .test-top-bar__info {
+            text-align: right;
+        }
+
+        .test-top-bar__dimension {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .test-top-bar__count {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+        }
+
+        .test-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 24px 60px;
+            max-width: 680px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Intro Screen */
+        .test-intro {
+            text-align: center;
+            animation: fadeInUp 0.8s ease both;
+        }
+
+        .test-intro__icon {
+            font-size: 4rem;
+            margin-bottom: 32px;
+            display: block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .test-intro h1 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+        }
+
+        .test-intro p {
+            color: var(--text-body);
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+            word-break: keep-all;
+        }
+
+        .test-intro__features {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .test-intro__feature {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-body);
+            font-size: 0.95rem;
+        }
+
+        .test-intro__feature i {
+            color: var(--primary);
+        }
+
+        /* Question Card */
+        .question-card {
+            width: 100%;
+            animation: slideInRight 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        .question-card.exit-left {
+            animation: slideOutLeft 0.3s ease both;
+        }
+
+        @keyframes slideOutLeft {
+            to { opacity: 0; transform: translateX(-60px); }
+        }
+
+        .question-card__dimension-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            background: var(--primary-dim);
+            border: 1px solid rgba(52, 211, 153, 0.15);
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 28px;
+        }
+
+        .question-card__dimension-icon {
+            font-size: 1rem;
+        }
+
+        .question-card__dimension-name {
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .question-card__scenario {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            padding: 24px 28px;
+            margin-bottom: 28px;
+            color: var(--text-body);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            word-break: keep-all;
+            position: relative;
+        }
+
+        .question-card__scenario::before {
+            content: '📌';
+            position: absolute;
+            top: -12px;
+            left: 16px;
+            font-size: 1.2rem;
+        }
+
+        .question-card__text {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 32px;
+            line-height: 1.6;
+            word-break: keep-all;
+        }
+
+        .question-card__options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-btn {
+            width: 100%;
+            text-align: left;
+            padding: 20px 24px;
+            background: var(--bg-card);
+            border: 2px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            color: var(--text-body);
+            font-size: 1rem;
+            font-weight: 500;
+            line-height: 1.6;
+            word-break: keep-all;
+            transition: var(--transition-base);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(52, 211, 153, 0.1), rgba(251, 113, 133, 0.05));
+            opacity: 0;
+            transition: var(--transition-base);
+        }
+
+        .option-btn:hover {
+            border-color: var(--primary);
+            color: var(--text-main);
+            transform: translateX(6px);
+        }
+
+        .option-btn:hover::before { opacity: 1; }
+
+        .option-btn.selected {
+            border-color: var(--primary);
+            background: var(--primary-dim);
+            color: var(--primary);
+        }
+
+        .option-btn__label {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.06);
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-right: 12px;
+            flex-shrink: 0;
+            transition: var(--transition-fast);
+        }
+
+        .option-btn:hover .option-btn__label,
+        .option-btn.selected .option-btn__label {
+            background: var(--primary);
+            color: var(--bg-main);
+        }
+
+        /* Completion Screen */
+        .test-complete {
+            text-align: center;
+            animation: scaleIn 0.6s ease both;
+        }
+
+        .test-complete__icon {
+            font-size: 5rem;
+            margin-bottom: 32px;
+            display: block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .test-complete h2 {
+            margin-bottom: 20px;
+        }
+
+        .test-complete p {
+            color: var(--text-body);
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            word-break: keep-all;
+        }
+
+        .loading-dots {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin: 40px 0;
+        }
+
+        .loading-dots span {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--primary);
+            animation: pulse 1.4s ease-in-out infinite;
+        }
+
+        .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+    </style>
+</head>
+<body>
+    <div class="test-wrapper">
+        <!-- Top Bar -->
+        <div class="test-top-bar" id="testTopBar" style="display:none;">
+            <div class="test-top-bar__inner">
+                <div class="test-top-bar__row">
+                    <a href="index.html" class="test-top-bar__back">
+                        <i class="fas fa-arrow-left"></i> 나가기
+                    </a>
+                    <div class="test-top-bar__info">
+                        <div class="test-top-bar__dimension" id="topDimension"></div>
+                        <div class="test-top-bar__count" id="topCount"></div>
+                    </div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-bar__fill" id="progressFill" style="width: 0%"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Area -->
+        <div class="test-content" id="testContent">
+            <!-- Intro Screen (default) -->
+            <div class="test-intro" id="testIntro">
+                <span class="test-intro__icon">🧬</span>
+                <h1>나의 <span class="text-gradient">육아 DNA</span> 진단</h1>
+                <p>
+                    실제 육아 상황을 기반으로 한 30개 문항에<br>
+                    직관적으로 답변해 주세요.
+                </p>
+                <p class="text-dim" style="font-size:0.95rem;">
+                    정답은 없습니다. 가장 자연스럽게 느껴지는 선택지를 골라주세요.
+                </p>
+
+                <div class="test-intro__features">
+                    <div class="test-intro__feature">
+                        <i class="fas fa-clock"></i> 약 5~8분
+                    </div>
+                    <div class="test-intro__feature">
+                        <i class="fas fa-list-check"></i> 30문항
+                    </div>
+                    <div class="test-intro__feature">
+                        <i class="fas fa-lock"></i> 결과 즉시 확인
+                    </div>
+                </div>
+
+                <button class="btn btn--primary btn--large btn--glow" id="startTestBtn" onclick="startTest()">
+                    <i class="fas fa-play"></i> 시작하기
+                </button>
+
+                <div id="resumeNotice" style="display:none; margin-top:24px;">
+                    <p class="text-body" style="font-size:0.9rem; margin-bottom:12px;">
+                        이전에 진행하던 테스트가 있습니다.
+                    </p>
+                    <button class="btn btn--secondary" onclick="resumeTest()" style="margin-right:8px;">
+                        <i class="fas fa-rotate-right"></i> 이어하기
+                    </button>
+                    <button class="btn btn--secondary" onclick="startFresh()">
+                        <i class="fas fa-redo"></i> 처음부터
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script>
+        // === State ===
+        let currentIndex = 0;
+        let answers = [];
+        let isAnimating = false;
+
+        // === Check for saved progress ===
+        const saved = loadProgress();
+        if (saved && saved.answers && saved.answers.length > 0 && saved.answers.length < QUESTIONS.length) {
+            document.getElementById('resumeNotice').style.display = 'block';
+        }
+
+        function resumeTest() {
+            const saved = loadProgress();
+            if (saved) {
+                answers = saved.answers;
+                currentIndex = saved.currentIndex;
+            }
+            startTest();
+        }
+
+        function startFresh() {
+            clearProgress();
+            answers = [];
+            currentIndex = 0;
+            startTest();
+        }
+
+        function startTest() {
+            document.getElementById('testTopBar').style.display = 'block';
+            renderQuestion(currentIndex);
+        }
+
+        function renderQuestion(index) {
+            if (index >= QUESTIONS.length) {
+                showCompletion();
+                return;
+            }
+
+            const q = QUESTIONS[index];
+            const dim = DIMENSIONS.find(d => d.id === q.dimension);
+            const qNumInDim = QUESTIONS.filter((qq, i) => qq.dimension === q.dimension && i <= index)
+                .length;
+            const totalInDim = QUESTIONS.filter(qq => qq.dimension === q.dimension).length;
+
+            // Update top bar
+            document.getElementById('topDimension').textContent = `${dim.icon} ${dim.name}`;
+            document.getElementById('topCount').textContent = `${index + 1} / ${QUESTIONS.length}`;
+            document.getElementById('progressFill').style.width = `${((index) / QUESTIONS.length) * 100}%`;
+
+            const content = document.getElementById('testContent');
+            content.innerHTML = `
+                <div class="question-card" id="questionCard">
+                    <div class="question-card__dimension-badge">
+                        <span class="question-card__dimension-icon">${dim.icon}</span>
+                        <span class="question-card__dimension-name">${dim.name} ${qNumInDim}/${totalInDim}</span>
+                    </div>
+
+                    <div class="question-card__scenario">${q.scenario}</div>
+                    <div class="question-card__text">${q.question}</div>
+
+                    <div class="question-card__options">
+                        ${q.options.map((opt, i) => `
+                            <button class="option-btn" onclick="selectOption(${i})" id="option${i}">
+                                <span class="option-btn__label">${String.fromCharCode(65 + i)}</span>
+                                ${opt.text}
+                            </button>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function selectOption(optionIndex) {
+            if (isAnimating) return;
+            isAnimating = true;
+
+            // Visual feedback
+            const btns = document.querySelectorAll('.option-btn');
+            btns.forEach(btn => btn.classList.remove('selected'));
+            document.getElementById(`option${optionIndex}`).classList.add('selected');
+
+            // Save answer
+            answers[currentIndex] = optionIndex;
+            saveProgress(answers, currentIndex + 1);
+
+            // Animate out and show next
+            setTimeout(() => {
+                const card = document.getElementById('questionCard');
+                if (card) card.classList.add('exit-left');
+
+                setTimeout(() => {
+                    currentIndex++;
+                    renderQuestion(currentIndex);
+                    isAnimating = false;
+                }, 300);
+            }, 400);
+        }
+
+        function showCompletion() {
+            document.getElementById('testTopBar').style.display = 'none';
+
+            const content = document.getElementById('testContent');
+            content.innerHTML = `
+                <div class="test-complete">
+                    <span class="test-complete__icon">✨</span>
+                    <h2>분석이 <span class="text-gradient">완료</span>되었습니다</h2>
+                    <p>30개 문항의 응답 패턴을 분석하여<br>당신만의 육아 페르소나를 도출하고 있습니다.</p>
+                    <div class="loading-dots">
+                        <span></span><span></span><span></span>
+                    </div>
+                </div>
+            `;
+
+            // Calculate results
+            const results = calculateResults(answers);
+            saveResults(results);
+            clearProgress();
+
+            // Redirect to result page after animation
+            setTimeout(() => {
+                window.location.href = 'result.html';
+            }, 2500);
+        }
+
+        // === Keyboard navigation ===
+        document.addEventListener('keydown', (e) => {
+            if (isAnimating) return;
+            const keyMap = { 'a': 0, 'b': 1, 'c': 2, 'd': 3, '1': 0, '2': 1, '3': 2, '4': 3 };
+            const idx = keyMap[e.key.toLowerCase()];
+            if (idx !== undefined && idx < QUESTIONS[currentIndex]?.options.length) {
+                selectOption(idx);
+            }
+        });
+    </script>
+</body>
+</html>
