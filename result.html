@@ -912,14 +912,47 @@
                     </div>
                 </section>
 
+                <!-- Situations Section -->
+                <section class="situations-section" style="margin: 60px 0;">
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <span class="section-tag">Situation Guide</span>
+                        <h3 style="font-size: 1.8rem; margin-bottom: 8px;">🚨 실전 상황별 맞춤 대처법</h3>
+                        <p style="color: var(--text-dim); margin-top: 8px; font-size: 0.95rem;">당신의 '${overallPersona.name}' 특성을 살린 조언입니다.</p>
+                    </div>
+                    <div class="accordion-container">
+                        ${overallPersona.situations ? overallPersona.situations.map((sit, idx) => `
+                            <div class="accordion-item" style="background: var(--bg-card); border: 1px solid var(--glass-border); border-radius: var(--radius-md); margin-bottom: 12px; overflow: hidden; transition: var(--transition-fast);">
+                                <button class="accordion-header" onclick="this.parentElement.classList.toggle('active')" style="width: 100%; text-align: left; padding: 20px; background: transparent; border: none; color: var(--text-main); font-size: 1.05rem; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="padding-right: 20px;">Q. ${sit.title}</span>
+                                    <i class="fas fa-chevron-down" style="color: var(--primary); transition: transform 0.3s;"></i>
+                                </button>
+                                <div class="accordion-content" style="padding: 0 20px; max-height: 0; overflow: hidden; transition: max-height 0.3s ease; color: var(--text-body); line-height: 1.6;">
+                                    <div style="padding-bottom: 20px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 16px;">
+                                        💡 <strong style="color: var(--secondary);">Advice:</strong> ${sit.advice}
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('') : ''}
+                    </div>
+                    <style>
+                        .accordion-item:hover { border-color: rgba(52, 211, 153, 0.4); }
+                        .accordion-item.active { border-color: var(--primary); background: rgba(30, 41, 59, 0.6); }
+                        .accordion-item.active .accordion-header i { transform: rotate(180deg); }
+                        .accordion-item.active .accordion-content { max-height: 500px; }
+                    </style>
+                </section>
+
                 <!-- Affiliate Curation -->
-                <section class="affiliate-section">
-                    <img src="${overallPersona.book.img}" alt="Book cover" class="affiliate-img">
+                <section class="affiliate-section" style="display: flex; background: var(--bg-card); border-radius: var(--radius-lg); border: 1px solid var(--glass-border); padding: 30px; gap: 30px; margin: 60px 0; align-items: flex-start;">
+                    <img src="${overallPersona.book.img}" alt="Book cover" style="width: 140px; height: 200px; background: #fff; border-radius: var(--radius-sm); object-fit: cover; flex-shrink: 0; box-shadow: 0 10px 20px rgba(0,0,0,0.3);">
                     <div class="affiliate-info">
-                        <span class="section-tag">당신을 위한 육아 도서 추천</span>
-                        <h4>${overallPersona.book.title}</h4>
-                        <p>${overallPersona.book.desc}</p>
-                        <a href="#" class="btn btn--secondary" style="padding: 10px 24px; font-size: 0.9rem;">도서 자세히 보기 <i class="fas fa-external-link-alt" style="font-size:0.8rem; margin-left:4px;"></i></a>
+                        <span class="section-tag" style="margin-bottom: 12px; display: inline-block;">당신을 위한 맞춤 도서 추천</span>
+                        <h4 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 12px; color: var(--text-main);">${overallPersona.book.title}</h4>
+                        <p style="font-weight: 700; color: var(--text-main); margin-bottom: 12px; font-size: 1.05rem;">${overallPersona.book.desc}</p>
+                        <p class="book-review" style="font-size: 0.95rem; line-height: 1.6; color: var(--text-dim); margin-bottom: 20px; padding-left: 14px; border-left: 3px solid var(--primary); background: rgba(255,255,255,0.02); padding-top: 10px; padding-bottom: 10px; border-radius: 0 8px 8px 0;">
+                            "${overallPersona.book.review}"
+                        </p>
+                        <a href="#" class="btn btn--secondary" style="padding: 12px 28px; font-size: 0.95rem; display: inline-flex; align-items: center; gap: 8px;">도서 자세히 보기 <i class="fas fa-external-link-alt" style="font-size:0.8rem;"></i></a>
                     </div>
                 </section>
 
