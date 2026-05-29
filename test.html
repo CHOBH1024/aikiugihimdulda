@@ -422,18 +422,23 @@
 <body>
     <div class="test-wrapper">
         <!-- Top Bar -->
-        <div class="test-top-bar" id="testTopBar" style="display:none;">
+        <div class="test-top-bar" id="testTopBar">
             <div class="test-top-bar__inner">
                 <div class="test-top-bar__row">
-                    <a href="index.html" class="test-top-bar__back">
-                        <i class="fas fa-arrow-left"></i> 나가기
-                    </a>
-                    <div class="test-top-bar__info">
+                    <div style="display: flex; gap: 16px; align-items: center;">
+                        <a href="index.html" class="test-top-bar__back" id="homeBtn">
+                            <i class="fas fa-home"></i> 홈
+                        </a>
+                        <button class="test-top-bar__back" id="prevBtn" onclick="prevQuestion()" style="display:none; background:none; border:none; padding:0; cursor:pointer;">
+                            <i class="fas fa-arrow-left"></i> 이전
+                        </button>
+                    </div>
+                    <div class="test-top-bar__info" id="topInfo" style="display:none;">
                         <div class="test-top-bar__dimension" id="topDimension"></div>
                         <div class="test-top-bar__count" id="topCount"></div>
                     </div>
                 </div>
-                <div class="progress-bar">
+                <div class="progress-bar" id="topProgress" style="display:none; margin-top:12px;">
                     <div class="progress-bar__fill" id="progressFill" style="width: 0%"></div>
                 </div>
             </div>
@@ -465,9 +470,42 @@
                     </div>
                 </div>
 
-                <button class="btn btn--primary btn--large btn--glow" id="startTestBtn" onclick="startTest()">
-                    <i class="fas fa-play"></i> 시작하기
-                </button>
+                <div style="display: flex; flex-direction: column; gap: 16px; width: 100%; max-width: 320px; margin: 0 auto;">
+                    <button class="btn btn--primary btn--large btn--glow" id="startTestBtn" onclick="startTest()">
+                        <i class="fas fa-play"></i> 정식 진단 시작하기
+                    </button>
+                    
+                    <div style="position: relative; text-align: center; margin: 16px 0;">
+                        <div style="border-top: 1px solid var(--glass-border); position: absolute; top: 50%; width: 100%; z-index: 1;"></div>
+                        <span style="background: var(--bg-main); padding: 0 16px; color: var(--text-dim); font-size: 0.9rem; position: relative; z-index: 2;">또는</span>
+                    </div>
+
+                    <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); border-radius: var(--radius-md); padding: 16px;">
+                        <p style="font-size: 0.85rem; color: var(--text-dim); margin-bottom: 8px;">MBTI로 빠른 예측 결과 보기</p>
+                        <div style="display: flex; gap: 8px;">
+                            <select id="mbtiSelectTest" style="flex: 1; padding: 10px; border-radius: var(--radius-sm); border: 1px solid var(--glass-border); background: var(--bg-card); color: var(--text-main); font-size: 0.9rem; outline: none; cursor: pointer;">
+                                <option value="" disabled selected>선택</option>
+                                <option value="INTJ">INTJ</option>
+                                <option value="INTP">INTP</option>
+                                <option value="ENTJ">ENTJ</option>
+                                <option value="ENTP">ENTP</option>
+                                <option value="INFJ">INFJ</option>
+                                <option value="INFP">INFP</option>
+                                <option value="ENFJ">ENFJ</option>
+                                <option value="ENFP">ENFP</option>
+                                <option value="ISTJ">ISTJ</option>
+                                <option value="ISFJ">ISFJ</option>
+                                <option value="ESTJ">ESTJ</option>
+                                <option value="ESFJ">ESFJ</option>
+                                <option value="ISTP">ISTP</option>
+                                <option value="ISFP">ISFP</option>
+                                <option value="ESTP">ESTP</option>
+                                <option value="ESFP">ESFP</option>
+                            </select>
+                            <button class="btn btn--secondary" onclick="previewMBTI()" style="padding: 10px 16px; font-size:0.9rem;">보기</button>
+                        </div>
+                    </div>
+                </div>
 
                 <div id="resumeNotice" style="display:none; margin-top:24px;">
                     <p class="text-body" style="font-size:0.9rem; margin-bottom:12px;">
@@ -497,6 +535,15 @@
             document.getElementById('resumeNotice').style.display = 'block';
         }
 
+        function previewMBTI() {
+            const mbti = document.getElementById('mbtiSelectTest').value;
+            if(mbti) {
+                window.location.href = 'result.html?mbti=' + mbti;
+            } else {
+                alert('MBTI를 선택해주세요.');
+            }
+        }
+
         function resumeTest() {
             const saved = loadProgress();
             if (saved) {
@@ -514,7 +561,8 @@
         }
 
         function startTest() {
-            document.getElementById('testTopBar').style.display = 'block';
+            document.getElementById('topInfo').style.display = 'block';
+            document.getElementById('topProgress').style.display = 'block';
             renderQuestion(currentIndex);
         }
 
@@ -531,6 +579,7 @@
             const totalInDim = QUESTIONS.filter(qq => qq.dimension === q.dimension).length;
 
             // Update top bar
+            document.getElementById('prevBtn').style.display = index > 0 ? 'block' : 'none';
             document.getElementById('topDimension').textContent = `${dim.icon} ${dim.name}`;
             document.getElementById('topCount').textContent = `${index + 1} / ${QUESTIONS.length}`;
             document.getElementById('progressFill').style.width = `${((index) / QUESTIONS.length) * 100}%`;
@@ -587,6 +636,27 @@
                     renderQuestion(currentIndex);
                     isAnimating = false;
                 }, 400);
+            }, 300);
+        }
+
+        function prevQuestion() {
+            if (isAnimating || currentIndex === 0) return;
+            isAnimating = true;
+            
+            if (navigator.vibrate) navigator.vibrate(10);
+
+            // Animate current out to the right
+            const card = document.getElementById('questionCard');
+            if (card) {
+                card.style.transform = 'translateX(60px)';
+                card.style.opacity = '0';
+                card.style.transition = 'all 0.3s ease';
+            }
+
+            setTimeout(() => {
+                currentIndex--;
+                renderQuestion(currentIndex);
+                isAnimating = false;
             }, 300);
         }
 
