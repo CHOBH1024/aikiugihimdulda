@@ -642,15 +642,84 @@ const QUESTIONS = [
 // ============================================================
 
 const OVERALL_TITLES = [
-  { combo: 'warm', name: '빛나는 온기의 부모', desc: '깊은 애정과 정서적 유대를 기반으로 아이의 내면을 따뜻하게 비추는 양육자입니다.' },
-  { combo: 'structured', name: '신뢰의 설계자 부모', desc: '체계와 원칙 속에서 안정감을 만들어내는 전략적 양육자입니다.' },
-  { combo: 'free', name: '자유로운 탐험가 부모', desc: '아이의 자율성과 도전 정신을 최대한 존중하며 함께 성장하는 양육자입니다.' },
-  { combo: 'wise', name: '지혜로운 등대 부모', desc: '통찰과 관찰을 기반으로 아이에게 방향을 제시하는 현명한 양육자입니다.' },
-  { combo: 'balanced', name: '균형의 마에스트로 부모', desc: '따뜻함과 단호함, 자유와 구조의 균형을 이루는 조화로운 양육자입니다.' },
-  { combo: 'empathetic', name: '마음을 읽는 거울 부모', desc: '아이의 미세한 감정까지 포착하고 공감하는 깊은 정서적 양육자입니다.' },
-  { combo: 'creative', name: '창의적 놀이터 부모', desc: '놀이와 상상력으로 아이의 세상을 확장시키는 창의적 양육자입니다.' },
-  { combo: 'resilient', name: '회복탄력의 봄 부모', desc: '위기를 성장의 기회로 전환시키는 강인하고 희망적인 양육자입니다.' }
+  { 
+    combo: 'warm', name: '빛나는 온기의 부모', 
+    desc: '깊은 애정과 정서적 유대를 기반으로 아이의 내면을 따뜻하게 비추는 양육자입니다.',
+    rarity: '상위 12%',
+    book: { title: '「못 참는 아이 욱하는 부모」 오은영', desc: '따뜻한 마음을 효과적으로 전달하는 감정 조절법을 배울 수 있습니다.', img: 'https://via.placeholder.com/150x200?text=Book+1' }
+  },
+  { 
+    combo: 'structured', name: '신뢰의 설계자 부모', 
+    desc: '체계와 원칙 속에서 안정감을 만들어내는 전략적 양육자입니다.',
+    rarity: '상위 8%',
+    book: { title: '「아이의 자존감을 키우는 습관」', desc: '규칙 안에서 아이의 내면을 튼튼하게 키우는 실전 양육 가이드입니다.', img: 'https://via.placeholder.com/150x200?text=Book+2' }
+  },
+  { 
+    combo: 'free', name: '자유로운 탐험가 부모', 
+    desc: '아이의 자율성과 도전 정신을 최대한 존중하며 함께 성장하는 양육자입니다.',
+    rarity: '전체 부모 중 단 5%',
+    book: { title: '「스스로 하는 아이로 키우는 법」', desc: '자유와 방임의 경계를 명확히 하고 진짜 자율성을 지원하는 방법을 다룹니다.', img: 'https://via.placeholder.com/150x200?text=Book+3' }
+  },
+  { 
+    combo: 'wise', name: '지혜로운 등대 부모', 
+    desc: '통찰과 관찰을 기반으로 아이에게 방향을 제시하는 현명한 양육자입니다.',
+    rarity: '상위 3%',
+    book: { title: '「부모의 말」', desc: '지혜로운 관찰을 아이를 춤추게 하는 따뜻한 말로 변환하는 비법.', img: 'https://via.placeholder.com/150x200?text=Book+4' }
+  },
+  { 
+    combo: 'balanced', name: '균형의 마에스트로 부모', 
+    desc: '따뜻함과 단호함, 자유와 구조의 균형을 이루는 조화로운 양육자입니다.',
+    rarity: '상위 15%',
+    book: { title: '「어떻게 말해줘야 할까」 오은영', desc: '모든 상황에서 균형감 있게 소통하는 국민 육아 멘토의 대화법.', img: 'https://via.placeholder.com/150x200?text=Book+5' }
+  },
+  { 
+    combo: 'empathetic', name: '마음을 읽는 거울 부모', 
+    desc: '아이의 미세한 감정까지 포착하고 공감하는 깊은 정서적 양육자입니다.',
+    rarity: '상위 7%',
+    book: { title: '「엄마의 감정 연습」', desc: '아이의 감정에 깊이 공감하되 부모 자신의 감정도 돌보는 방법.', img: 'https://via.placeholder.com/150x200?text=Book+6' }
+  },
+  { 
+    combo: 'creative', name: '창의적 놀이터 부모', 
+    desc: '놀이와 상상력으로 아이의 세상을 확장시키는 창의적 양육자입니다.',
+    rarity: '전체 부모 중 단 4%',
+    book: { title: '「창의력을 키우는 프랑스 육아」', desc: '일상의 모든 순간을 배움과 창조의 시간으로 만드는 팁.', img: 'https://via.placeholder.com/150x200?text=Book+7' }
+  },
+  { 
+    combo: 'resilient', name: '회복탄력의 봄 부모', 
+    desc: '위기를 성장의 기회로 전환시키는 강인하고 희망적인 양육자입니다.',
+    rarity: '상위 2%',
+    book: { title: '「회복탄력성」 김주환', desc: '시련을 극복해내는 마음의 근력을 아이와 함께 기르는 법.', img: 'https://via.placeholder.com/150x200?text=Book+8' }
+  }
 ];
+
+// 상황별 시뮬레이션 데이터 (가장 낮은 점수의 차원 보완용)
+const SIMULATIONS = {
+  emotional: {
+    title: '아이가 갑자기 마트에서 "나 이거 안 사면 안 갈 거야!" 라며 드러누울 때',
+    wrong: '이론적으로 안 되는 이유를 설명하거나 무시하고 지나갑니다.',
+    correct: '먼저 아이의 눈높이로 몸을 낮추고, "정말 갖고 싶구나. 속상한 마음은 알아"라며 감정을 먼저 100% 읽어주세요. 해결은 그 다음입니다.'
+  },
+  discipline: {
+    title: '아이가 밤 10시가 넘었는데도 안 자고 계속 칭얼거릴 때',
+    wrong: '아이의 감정에 휘말려 계속 달래주거나, 결국 화를 내며 강제로 재웁니다.',
+    correct: '감정은 공감하되 규칙은 단호하게 지키세요. "졸려서 힘들지? 그래도 자야 할 시간이야" 하고 불을 끄고 일관된 환경을 유지하세요.'
+  },
+  autonomy: {
+    title: '아이가 신발 끈을 묶다 마음대로 안 되어 짜증을 낼 때',
+    wrong: '답답한 마음에 "엄마/아빠가 해줄게" 하고 바로 묶어버립니다.',
+    correct: '아이의 손을 잡아주며 "어렵네, 어디가 안 되는지 같이 볼까?" 하고 아주 작은 힌트만 제공하여 스스로 완성할 수 있게 기다려주세요.'
+  },
+  growth: {
+    title: '아이가 똑같은 퍼즐만 계속 맞추며 다른 놀이는 안 하려 할 때',
+    wrong: '"이제 다른 것도 해봐" 라며 퍼즐을 치우고 새로운 것을 강요합니다.',
+    correct: '아이가 몰두하는 퍼즐의 난이도를 조금 높여주거나, 퍼즐의 그림과 관련된 책을 읽어주어 관심사를 점진적으로 확장시켜주세요.'
+  },
+  resilience: {
+    title: '아이가 친구와 다투고 와서 "나 이제 걔랑 안 놀아!" 라며 울 때',
+    wrong: '"네가 먼저 양보했어야지" 하거나 "그래 놀지 마" 라며 극단적으로 반응합니다.',
+    correct: '"많이 속상했구나" 위로한 뒤, 진정되면 "어떻게 말했으면 더 좋았을까?" 라며 스스로 대안을 생각하게 하여 회복 근력을 키워주세요.'
+  }
+};
 
 // ============================================================
 // 채점 & 분석 함수
@@ -698,10 +767,24 @@ function calculateResults(answers) {
   // 종합 페르소나 결정
   const overallPersona = determineOverallPersona(dimensionTypes);
 
+  // 가장 취약한 차원 도출
+  let lowestScore = 999;
+  let lowestDimId = 'emotional';
+  Object.keys(dimensionTypes).forEach(dimId => {
+    if (dimensionTypes[dimId].normalizedScore < lowestScore) {
+      lowestScore = dimensionTypes[dimId].normalizedScore;
+      lowestDimId = dimId;
+    }
+  });
+
+  const simulation = SIMULATIONS[lowestDimId];
+
   return {
     dimensionTypes,
     dimensionScores,
-    overallPersona
+    overallPersona,
+    lowestDimId,
+    simulation
   };
 }
 
