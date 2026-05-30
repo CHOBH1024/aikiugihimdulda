@@ -1094,3 +1094,17 @@ h3 { font-size: clamp(1.2rem, 3vw, 1.6rem); font-weight: 800; }
     border-bottom: 1px solid var(--glass-border-hover);
   }
 }
+
+/* ============================================================
+   Reduced Motion — Samsung/Android accessibility fix
+   animation-fill-mode: both causes opacity:0 lock when
+   animations are disabled. Force instant completion.
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
