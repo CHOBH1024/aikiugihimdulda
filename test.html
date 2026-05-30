@@ -989,7 +989,7 @@
                         ts: Date.now()
                     };
                     const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(minimal))));
-                    window.location.href = 'result.html?r=' + encoded;
+                    window.location.href = '/result?r=' + encoded;
                 } catch (e) {
                     window.location.href = 'result.html';
                 }
