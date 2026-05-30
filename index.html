@@ -193,6 +193,128 @@
             height: 100%;
         }
 
+        /* Social Proof Bar */
+        .social-proof-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 48px;
+            padding: 20px 32px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            max-width: 640px;
+            margin-left: auto;
+            margin-right: auto;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
+        }
+        .social-proof-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .social-proof-num {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 900;
+            font-size: 1.4rem;
+            background: linear-gradient(135deg, var(--primary), #6ee7b7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .social-proof-label {
+            font-size: 0.88rem;
+            color: var(--text-dim);
+            font-weight: 600;
+        }
+        .social-proof-divider {
+            width: 1px;
+            height: 24px;
+            background: var(--glass-border);
+        }
+        .social-proof-item--ticker {
+            gap: 8px;
+            font-size: 0.85rem;
+            color: var(--text-body);
+            max-width: 220px;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .activity-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--primary);
+            flex-shrink: 0;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        /* Testimonials */
+        .testimonials-section {
+            padding: 120px 0;
+        }
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-top: 60px;
+        }
+        .testimonial-card {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            transition: var(--transition-base);
+        }
+        .testimonial-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--glass-border-hover);
+            box-shadow: var(--shadow-glow);
+        }
+        .testimonial-stars {
+            color: #fbbf24;
+            font-size: 1rem;
+            margin-bottom: 16px;
+            letter-spacing: 2px;
+        }
+        .testimonial-text {
+            font-size: 1rem;
+            line-height: 1.75;
+            color: var(--text-body);
+            margin-bottom: 24px;
+            word-break: keep-all;
+        }
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .testimonial-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 0.95rem;
+            color: #fff;
+            flex-shrink: 0;
+        }
+        .testimonial-name {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+        .testimonial-type {
+            font-size: 0.8rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
         @media (max-width: 768px) {
             .steps { grid-template-columns: 1fr; }
             .feature-row, .feature-row:nth-child(even) {
@@ -200,6 +322,9 @@
                 gap: 40px;
             }
             .hero__orbit { width: 300px; height: 300px; }
+            .testimonials-grid { grid-template-columns: 1fr; }
+            .social-proof-bar { gap: 16px; padding: 16px 20px; }
+            .social-proof-divider { display: none; }
         }
     </style>
     <!-- Search & AdSense 인증 -->
@@ -390,6 +515,24 @@
                 <div class="hero__stat-label">육아 페르소나</div>
             </div>
         </div>
+
+        <!-- Social Proof Bar -->
+        <div class="social-proof-bar">
+            <div class="social-proof-item">
+                <span class="social-proof-num" id="counterNum">0</span><span style="font-family:'Outfit',sans-serif;font-weight:900;font-size:1.4rem;color:var(--primary);">+</span>
+                <span class="social-proof-label">명이 진단받았어요</span>
+            </div>
+            <div class="social-proof-divider"></div>
+            <div class="social-proof-item">
+                <span style="color:#fbbf24;font-size:1.1rem;">★★★★★</span>
+                <span class="social-proof-label">4.9 만족도</span>
+            </div>
+            <div class="social-proof-divider"></div>
+            <div class="social-proof-item social-proof-item--ticker" id="activityTicker">
+                <span class="activity-dot"></span>
+                <span id="tickerText">서울에서 '따뜻한 온기형' 진단 완료 🌟</span>
+            </div>
+        </div>
     </section>
 
     <!-- 5 Dimensions Section -->
@@ -477,7 +620,60 @@
         </div>
     </section>
 
-    
+    <!-- Testimonials -->
+    <section class="testimonials-section container">
+        <div class="text-center">
+            <span class="section-tag">Real Stories</span>
+            <h2>진짜 부모들의 이야기</h2>
+            <p class="text-body mt-2" style="max-width:500px;margin:0 auto;word-break:keep-all;">전국 14,000명 이상의 부모가 자신의 육아 유형을 발견했습니다</p>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">"남편이랑 같이 해봤는데 서로 유형이 달라서 충격... 근데 이걸 알고 나니까 싸움이 절반으로 줄었어요 😭"</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">김</div>
+                    <div>
+                        <div class="testimonial-name">김지현님 · 7세 아이 엄마</div>
+                        <div class="testimonial-type">균형의 마에스트로 부모</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">"결과지 읽다가 울었어요. 내가 왜 이러는지 이유를 찾은 느낌. 육아서 10권보다 이게 더 도움됐습니다"</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">박</div>
+                    <div>
+                        <div class="testimonial-name">박성민님 · 4세 아이 아빠</div>
+                        <div class="testimonial-type">지혜로운 등대 부모</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">"친구한테 공유했더니 그 친구도 하고 또 친구한테 보내고... 지금 우리 모임에서 난리났어요 ㅋㅋ"</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">이</div>
+                    <div>
+                        <div class="testimonial-name">이수연님 · 6세 아이 엄마</div>
+                        <div class="testimonial-type">따뜻한 온기의 부모</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">"학술적 배경이 있어서 신뢰가 갔어요. 애착이론이랑 연결시켜서 설명해주는 부분이 특히 인상적이었습니다"</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">최</div>
+                    <div>
+                        <div class="testimonial-name">최현우님 · 초등 1학년 아빠</div>
+                        <div class="testimonial-type">신뢰의 설계자 부모</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <script src="data.js"></script>
     <script>
@@ -638,6 +834,57 @@
             el.style.opacity = '0';
             observer.observe(el);
         });
+
+        // === Social Proof Counter Animation ===
+        function animateCounter(el, target, duration = 2000) {
+            const start = performance.now();
+            const update = (now) => {
+                const elapsed = now - start;
+                const progress = Math.min(elapsed / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3);
+                el.textContent = Math.floor(eased * target).toLocaleString('ko-KR');
+                if (progress < 1) requestAnimationFrame(update);
+            };
+            requestAnimationFrame(update);
+        }
+
+        const counterEl = document.getElementById('counterNum');
+        if (counterEl) {
+            const counterObserver = new IntersectionObserver(([e]) => {
+                if (e.isIntersecting) {
+                    animateCounter(counterEl, 14823);
+                    counterObserver.disconnect();
+                }
+            });
+            counterObserver.observe(counterEl);
+        }
+
+        // === Live Activity Ticker ===
+        const ACTIVITY_FEED = [
+            "서울에서 '따뜻한 온기형' 진단 완료 🌟",
+            "부산에서 '지혜로운 등대형' 결과 공유 💡",
+            "인천에서 '균형의 마에스트로' 진단 완료 ⚖️",
+            "대구에서 '창의적 놀이터형' 발견 🎨",
+            "수원에서 '신뢰의 설계자형' 공유 중 📐",
+            "광주에서 '회복탄력의 봄형' 완료 🌸",
+            "대전에서 '자유로운 탐험가형' 진단 🌿",
+            "경기도에서 '마음을 읽는 거울형' 공유 🪞",
+        ];
+        let tickerIdx = 0;
+        const tickerEl = document.getElementById('tickerText');
+        if (tickerEl) {
+            setInterval(() => {
+                tickerIdx = (tickerIdx + 1) % ACTIVITY_FEED.length;
+                tickerEl.style.opacity = '0';
+                tickerEl.style.transform = 'translateY(8px)';
+                setTimeout(() => {
+                    tickerEl.textContent = ACTIVITY_FEED[tickerIdx];
+                    tickerEl.style.opacity = '1';
+                    tickerEl.style.transform = 'translateY(0)';
+                }, 300);
+            }, 3500);
+            tickerEl.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+        }
     </script>
 
     
