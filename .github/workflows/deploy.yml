@@ -13,8 +13,18 @@ jobs:
       - name: Install Vercel CLI
         run: npm install -g vercel
 
-      - name: Deploy to Production
-        run: vercel --prod --yes --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Fetch Project Info & Deploy
         env:
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          # Try both project names
+          for NAME in aikiugihimdulda aikiugihimdulda1024; do
+            INFO=$(curl -sf "https://api.vercel.com/v9/projects/$NAME" \
+              -H "Authorization: Bearer $VERCEL_TOKEN")
+            if [ -n "$INFO" ]; then
+              export VERCEL_PROJECT_ID=$(echo "$INFO" | python3 -c "import sys,json; print(json.load(sys.stdin)['id'])")
+              export VERCEL_ORG_ID=$(echo "$INFO" | python3 -c "import sys,json; print(json.load(sys.stdin)['accountId'])")
+              echo "Deploying project: $NAME (ID: $VERCEL_PROJECT_ID)"
+              vercel --prod --yes --token="$VERCEL_TOKEN"
+            fi
+          done
