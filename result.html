@@ -751,6 +751,13 @@
         let noticeBanner = '';
         const params = new URLSearchParams(window.location.search);
 
+        window.onerror = function(msg, src, line, col, err) {
+            const w = document.getElementById('resultWrapper');
+            if (w && !w.innerHTML.trim()) {
+                w.innerHTML = `<div class="no-result"><h2 style="color:#f87171">⚠️ 오류 발생</h2><p style="color:#f87171;font-size:0.9rem;word-break:break-all;">${msg}<br>line ${line}</p><a href="/test.html" class="btn btn--primary btn--large">진단 시작하기</a></div>`;
+            }
+        };
+
         if (params.has('mbti')) {
             const mbti = params.get('mbti').toUpperCase();
             const combo = MBTI_MAPPING[mbti] || 'balanced';
