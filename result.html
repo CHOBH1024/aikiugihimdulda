@@ -758,7 +758,32 @@
             }
         };
 
-        if (params.has('mbti')) {
+        if (params.has('r')) {
+            // URL-encoded result — fully independent shareable link
+            try {
+                const raw = JSON.parse(decodeURIComponent(escape(atob(params.get('r')))));
+                const persona = OVERALL_TITLES[raw.o] || OVERALL_TITLES['balanced'];
+                // Reconstruct dimensionTypes from encoded data
+                const dimensionTypes = {};
+                Object.entries(raw.d || {}).forEach(([dimId, v]) => {
+                    const dim = DIMENSIONS.find(d => d.id === dimId);
+                    const typeArr = PERSONA_TYPES[dimId] || [];
+                    const typeObj = typeArr.find(t => t.id === v.id) || typeArr[0];
+                    if (dim && typeObj) {
+                        dimensionTypes[dimId] = { ...typeObj, normalizedScore: v.s };
+                    }
+                });
+                const lowestDimId = raw.l || Object.keys(dimensionTypes)[0];
+                results = {
+                    overallPersona: persona,
+                    dimensionTypes,
+                    lowestDimId,
+                    simulation: SIMULATIONS[lowestDimId] || SIMULATIONS[Object.keys(SIMULATIONS)[0]]
+                };
+            } catch (e) {
+                results = loadResults();
+            }
+        } else if (params.has('mbti')) {
             const mbti = params.get('mbti').toUpperCase();
             const combo = MBTI_MAPPING[mbti] || 'balanced';
             results = generateMockResult(combo);
@@ -1055,16 +1080,25 @@
                 <section class="share-section">
                     <h3>결과를 공유하세요</h3>
                     <p>나의 육아 페르소나를 가족, 친구에게 알려보세요!</p>
+
+                    <!-- Viral CTA: Partner -->
+                    <div style="background: linear-gradient(135deg, rgba(251,113,133,0.12), rgba(129,140,248,0.08)); border: 1px solid rgba(251,113,133,0.3); border-radius: var(--radius-lg); padding: 28px; margin-bottom: 28px; text-align: center;">
+                        <p style="font-size: 1.1rem; font-weight: 800; color: var(--text-main); margin-bottom: 8px;">💌 배우자/파트너도 진단해볼까요?</p>
+                        <p style="font-size: 0.95rem; color: var(--text-body); margin-bottom: 20px; word-break: keep-all;">서로의 육아 성향을 알면 갈등이 줄고 팀워크가 강해져요</p>
+                        <button onclick="copyShareLink()" class="btn btn--primary btn--large btn--glow" style="width: 100%; justify-content: center;">
+                            <i class="fas fa-link"></i> 진단 링크 복사해서 보내기
+                        </button>
+                    </div>
+
                     <div class="share-buttons">
                         <button class="share-btn share-btn--img" onclick="downloadPhotocard()">
                             <i class="fas fa-camera"></i> 이미지로 저장
                         </button>
-                        
-    <button class="share-btn share-btn--kakao" onclick="shareKakao()" style="background: #FEE500; color: #000000; border: none; font-weight: 700;">
-        <i class="fas fa-comment"></i> 카카오톡 공유
-    </button>
-\n<button class="share-btn share-btn--copy" onclick="copyResult()">
-                            <i class="fas fa-copy"></i> 결과 복사
+                        <button class="share-btn share-btn--kakao" onclick="shareKakao()" style="background: #FEE500; color: #000000; border: none; font-weight: 700;">
+                            <i class="fas fa-comment"></i> 카카오톡 공유
+                        </button>
+                        <button class="share-btn share-btn--copy" onclick="copyShareableResult()">
+                            <i class="fas fa-share-alt"></i> 결과 링크 복사
                         </button>
                         <a href="test.html" class="share-btn share-btn--retry">
                             <i class="fas fa-redo"></i> 다시 진단
@@ -1598,6 +1632,51 @@
                     btn.style.borderColor = '';
                     btn.style.color = '';
                 }, 2000);
+            });
+        }
+
+        function buildShareUrl() {
+            if (!results) return window.location.href;
+            try {
+                const minimal = {
+                    o: results.overallPersona.combo,
+                    d: Object.fromEntries(
+                        Object.entries(results.dimensionTypes).map(([k, v]) => [k, { id: v.id, s: v.normalizedScore }])
+                    ),
+                    l: results.lowestDimId
+                };
+                const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(minimal))));
+                return `${window.location.origin}/result?r=${encoded}`;
+            } catch (e) {
+                return window.location.href;
+            }
+        }
+
+        function copyShareLink() {
+            const url = buildShareUrl();
+            navigator.clipboard.writeText(url).then(() => {
+                const btns = document.querySelectorAll('[onclick="copyShareLink()"]');
+                btns.forEach(btn => {
+                    const orig = btn.innerHTML;
+                    btn.innerHTML = '<i class="fas fa-check"></i> 복사됐어요!';
+                    setTimeout(() => { btn.innerHTML = orig; }, 2500);
+                });
+            });
+        }
+
+        function copyShareableResult() {
+            if (!results) return;
+            const url = buildShareUrl();
+            const { overallPersona } = results;
+            const text = `🧬 나의 육아 페르소나: ${overallPersona.name}\n${overallPersona.desc}\n\n${overallPersona.rarity} · Mirror Inside Parenting\n\n결과 바로보기 → ${url}\n내 결과 진단받기 → ${window.location.origin}/test.html`;
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = document.querySelector('.share-btn--copy');
+                if (!btn) return;
+                const orig = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-check"></i> 복사됨!';
+                btn.style.borderColor = 'var(--primary)';
+                btn.style.color = 'var(--primary)';
+                setTimeout(() => { btn.innerHTML = orig; btn.style.borderColor = ''; btn.style.color = ''; }, 2000);
             });
         }
 

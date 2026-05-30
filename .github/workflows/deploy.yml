@@ -11,20 +11,71 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install Vercel CLI
-        run: npm install -g vercel
+        run: npm install -g vercel@latest
 
-      - name: Fetch Project Info & Deploy
+      - name: Deploy to Vercel
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: |
-          # Try both project names
-          for NAME in aikiugihimdulda aikiugihimdulda1024; do
-            INFO=$(curl -sf "https://api.vercel.com/v9/projects/$NAME" \
-              -H "Authorization: Bearer $VERCEL_TOKEN")
-            if [ -n "$INFO" ]; then
-              export VERCEL_PROJECT_ID=$(echo "$INFO" | python3 -c "import sys,json; print(json.load(sys.stdin)['id'])")
-              export VERCEL_ORG_ID=$(echo "$INFO" | python3 -c "import sys,json; print(json.load(sys.stdin)['accountId'])")
-              echo "Deploying project: $NAME (ID: $VERCEL_PROJECT_ID)"
-              vercel --prod --yes --token="$VERCEL_TOKEN"
-            fi
-          done
+          python3 << 'PYEOF'
+          import subprocess, sys, json, os
+
+          token = os.environ.get('VERCEL_TOKEN', '')
+          if not token:
+              print('ERROR: VERCEL_TOKEN secret is not set!')
+              sys.exit(1)
+
+          import urllib.request, urllib.error
+
+          def api(path):
+              req = urllib.request.Request(
+                  f'https://api.vercel.com{path}',
+                  headers={'Authorization': f'Bearer {token}'}
+              )
+              try:
+                  with urllib.request.urlopen(req) as r:
+                      return json.loads(r.read())
+              except urllib.error.HTTPError as e:
+                  body = e.read().decode()
+                  print(f'API error {e.code} on {path}: {body[:300]}')
+                  return {}
+
+          # List all projects
+          data = api('/v9/projects?limit=100')
+          projects = data.get('projects', [])
+          print(f'Found {len(projects)} Vercel project(s):')
+          for p in projects:
+              print(f'  {p["name"]} | id={p["id"]} | accountId={p["accountId"]}')
+
+          # Pick target projects (named match first, then all)
+          target_names = {'aikiugihimdulda', 'aikiugihimdulda1024'}
+          targets = [p for p in projects if p['name'] in target_names]
+          if not targets:
+              print('No name-matched projects found — deploying first available project.')
+              targets = projects[:1]
+
+          if not targets:
+              print('ERROR: No Vercel projects found for this token.')
+              sys.exit(1)
+
+          success = False
+          for p in targets:
+              env = {
+                  **os.environ,
+                  'VERCEL_PROJECT_ID': p['id'],
+                  'VERCEL_ORG_ID': p['accountId'],
+              }
+              print(f'\n=== Deploying: {p["name"]} ===')
+              result = subprocess.run(
+                  ['vercel', '--prod', '--yes', f'--token={token}'],
+                  env=env
+              )
+              if result.returncode == 0:
+                  print(f'✅ Successfully deployed: {p["name"]}')
+                  success = True
+              else:
+                  print(f'❌ Deploy failed for {p["name"]} (exit {result.returncode})')
+
+          if not success:
+              sys.exit(1)
+          PYEOF
