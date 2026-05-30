@@ -1,0 +1,30 @@
+name: Deploy to Vercel
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Vercel CLI
+        run: npm install -g vercel
+
+      - name: Fetch Project Info & Deploy
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          # Try both project names
+          for NAME in aikiugihimdulda aikiugihimdulda1024; do
+            INFO=$(curl -sf "https://api.vercel.com/v9/projects/$NAME" \
+              -H "Authorization: Bearer $VERCEL_TOKEN")
+            if [ -n "$INFO" ]; then
+              export VERCEL_PROJECT_ID=$(echo "$INFO" | python3 -c "import sys,json; print(json.load(sys.stdin)['id'])")
+              export VERCEL_ORG_ID=$(echo "$INFO" | python3 -c "import sys,json; print(json.load(sys.stdin)['accountId'])")
+              echo "Deploying project: $NAME (ID: $VERCEL_PROJECT_ID)"
+              vercel --prod --yes --token="$VERCEL_TOKEN"
+            fi
+          done
