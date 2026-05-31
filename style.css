@@ -1229,3 +1229,13 @@ h3 { font-size: clamp(1.1rem, 2.5vw, 1.4rem); font-weight: 700; }
     }
     .photocard__image { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 50%; }
 }
+
+/* Samsung/Android prefers-reduced-motion fix */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001s !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001s !important;
+  }
+}
