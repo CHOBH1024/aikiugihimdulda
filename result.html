@@ -26,8 +26,7 @@
 
         /* Instagram Photocard Styles */
         .photocard-container {
-            max-width: 420px;
-            margin: 0 auto;
+            width: 100%;
             perspective: 1000px;
             animation: fadeInUp 0.8s ease both;
         }
@@ -120,8 +119,8 @@
             display: flex;
             flex-direction: column;
             gap: 12px;
-            max-width: 420px;
-            margin: 32px auto 0;
+            width: 100%;
+            margin: 24px 0 0;
         }
 
         .btn-insta { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); color: #fff; border: none; font-weight: 700; }
@@ -130,8 +129,7 @@
 
         /* Insight Section (Instagram Carousel Style) */
         .carousel-section {
-            max-width: 420px;
-            margin: 48px auto;
+            width: 100%;
         }
         
         .carousel-card {
@@ -329,6 +327,32 @@
                 recColsHTML += `</div></div>`;
             }
 
+            let deepAnalysisHTML = '';
+            const testMode = localStorage.getItem('mirrorInsideTestMode') || 'lite';
+            if (testMode === 'pro' && results.subtypeIndex !== undefined) {
+                const subtype = overallPersona.subtypes[results.subtypeIndex];
+                deepAnalysisHTML = `
+                `;
+            }
+
+            let recColsHTML = '';
+            if (overallPersona.recommendedColumns) {
+                recColsHTML = `
+                <div style="margin-top: 48px; margin-bottom: 32px;">
+                    <h3 style="font-size: 1.3rem; margin-bottom: 20px; color: var(--text-main); border-bottom: 2px solid var(--glass-border); padding-bottom: 12px;">
+                        📚 ${overallPersona.name.split(' ')[0]} 부모님을 위한 맞춤 추천 칼럼
+                    </h3>
+                    <div style="display: flex; flex-direction: column; gap: 16px;">`;
+                overallPersona.recommendedColumns.forEach(col => {
+                    recColsHTML += `
+                        <a href="${col.url}" style="display: block; background: var(--bg-card); padding: 20px; border-radius: 16px; border: 1px solid var(--glass-border); text-decoration: none; transition: all 0.2s;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='var(--shadow-card-hover)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                            <div style="font-size: 0.85rem; color: var(--primary); font-weight: 700; margin-bottom: 8px;">${col.tags}</div>
+                            <h4 style="font-size: 1.1rem; color: var(--text-main); font-weight: 800; line-height: 1.4;">${col.title}</h4>
+                        </a>`;
+                });
+                recColsHTML += `</div></div>`;
+            }
+
             wrapper.innerHTML = `
                 ${noticeBanner}
                 
@@ -426,6 +450,19 @@
                     </div>
                 </div>
             `;
+
+            // trigger lock animation if needed
+            if (testMode === 'pro' && results.subtypeIndex !== undefined) {
+                setTimeout(() => {
+                    const lock = document.getElementById('deepAnalysisLock');
+                    const content = document.getElementById('deepAnalysisContent');
+                    if(lock && content) {
+                        lock.style.display = 'none';
+                        content.style.display = 'block';
+                        content.classList.add('fade-in');
+                    }
+                }, 1000);
+            }
 
             // trigger lock animation if needed
             if (testMode === 'pro' && results.subtypeIndex !== undefined) {
