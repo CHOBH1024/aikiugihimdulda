@@ -685,6 +685,26 @@
                 </div>
             </div>
 
+    
+            <div class="test-intro" id="modeSelectionScreen" style="display:none;">
+                <img src="assets/images/icons/emoticon_reading.png" alt="Reading" style="width: 100px; height: 100px; margin-bottom: 20px; animation: float 3s ease-in-out infinite;">
+                <h1>어떤 <span class="text-gradient">진단 모드</span>를 원하시나요?</h1>
+                <p style="font-size: 1.1rem; color: var(--text-body); margin-bottom: 32px; word-break: keep-all;">
+                    시간적 여유에 따라 선택해주세요. 두 모드 모두 정확한 결과를 제공합니다.
+                </p>
+                
+                <div style="display: flex; flex-direction: column; gap: 16px; width: 100%; max-width: 400px; margin: 0 auto;">
+                    <button class="option-btn" onclick="selectMode('lite')">
+                        <span class="option-btn__label">⏱️</span>
+                        간편 진단 (20문항 / 약 3분)
+                    </button>
+                    <button class="option-btn" onclick="selectMode('pro')">
+                        <span class="option-btn__label">🔬</span>
+                        심층 진단 (40문항 / 약 6분)
+                    </button>
+                </div>
+            </div>
+
     <!-- MBTI Modal -->
     <div id="mbtiModal" class="picker-modal" onclick="closeMbtiModal(event)">
         <div class="picker-modal__box">
@@ -801,13 +821,15 @@
         let currentIndex = 0;
         let answers = [];
         let isAnimating = false;
+        let activeQuestions = [];
 
         // === Check for saved progress ===
         const saved = loadProgress();
-        if (saved && saved.answers && saved.answers.length > 0 && saved.answers.length < QUESTIONS.length) {
+        if (saved && saved.answers && saved.answers.length > 0 && saved.answers.length < 40) {
             document.getElementById('resumeNotice').style.display = 'block';
         }
 
+        // === Modal Controls ===
         // === Modal Controls ===
         function openMbtiModal() {
             document.getElementById('mbtiModal').classList.add('active');
@@ -861,6 +883,18 @@
         function selectAge(age) {
             localStorage.setItem('mirrorInsideChildAge', age);
             document.getElementById('ageSelectionScreen').style.display = 'none';
+            showModeSelection();
+        }
+
+        
+        function showModeSelection() {
+            document.getElementById('ageSelectionScreen').style.display = 'none';
+            document.getElementById('modeSelectionScreen').style.display = 'block';
+        }
+        
+        function selectMode(mode) {
+            localStorage.setItem('mirrorInsideTestMode', mode);
+            document.getElementById('modeSelectionScreen').style.display = 'none';
             startTest();
         }
 
@@ -887,7 +921,7 @@
         }
 
         function renderQuestion(index) {
-            if (index >= QUESTIONS.length) {
+            if (index >= activeQuestions.length) {
                 showCompletion();
                 return;
             }
@@ -901,8 +935,8 @@
             // Update top bar
             document.getElementById('prevBtn').style.display = index > 0 ? 'block' : 'none';
             document.getElementById('topDimension').textContent = `${dim.icon} ${dim.name}`;
-            document.getElementById('topCount').textContent = `${index + 1} / ${QUESTIONS.length}`;
-            document.getElementById('progressFill').style.width = `${((index) / QUESTIONS.length) * 100}%`;
+            document.getElementById('topCount').textContent = `${index + 1} / ${activeQuestions.length}`;
+            document.getElementById('progressFill').style.width = `${((index) / activeQuestions.length) * 100}%`;
 
             const content = document.getElementById('testContent');
             content.innerHTML = `

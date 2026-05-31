@@ -307,17 +307,20 @@
                             <div class="photocard__rarity">✨ ${overallPersona.rarity}</div>
                         </div>
                         <div class="photocard__content">
-                            <h1 class="photocard__title">${overallPersona.name}</h1>
-                            <p style="font-size: 1.1rem; font-weight: 800; color: var(--primary); margin-bottom: 8px; word-break: keep-all;">${overallPersona.coreIdentity || '아이의 거울이 되는 따뜻한 부모'}</p>
-                            <p class="photocard__desc">${overallPersona.desc}</p>
+                            <div class="photocard__tags" style="margin-bottom: 12px;">
+                                ${overallPersona.keywords ? overallPersona.keywords.split(' ').map(k => `<span class="tag-pill" style="background: var(--primary-dim); color: var(--primary); border:none;">${k}</span>`).join('') : ''}
+                            </div>
+                            <h1 class="photocard__title" style="margin-bottom: 16px;">${overallPersona.name}</h1>
+                            <p style="font-size: 1.15rem; font-weight: 800; color: var(--primary); margin-bottom: 24px; word-break: keep-all; line-height: 1.5;">${overallPersona.comfortingWords || overallPersona.coreIdentity}</p>
                             
-                            <div class="photocard__tags">
-                                <span class="tag-pill">#${overallPersona.name.split(' ')[0]}</span>
-                                <span class="tag-pill">#거울육아</span>
+                            <div style="background: var(--bg-main); border-radius: 16px; padding: 24px; text-align: left; margin-bottom: 24px; border: 1px solid var(--glass-border);">
+                                <h4 style="font-size: 1rem; color: var(--text-main); margin-bottom: 12px;">💡 양육의 본질</h4>
+                                <p style="font-size: 0.95rem; color: var(--text-body); line-height: 1.6;">${overallPersona.desc}</p>
                             </div>
 
-                            <div class="photocard__radar">
-                                <canvas id="radarCanvas"></canvas>
+                            <div style="background: rgba(239, 68, 68, 0.05); border-radius: 16px; padding: 24px; text-align: left; border: 1px solid rgba(239, 68, 68, 0.2);">
+                                <h4 style="font-size: 1rem; color: #ef4444; margin-bottom: 12px;">⚡ 성장을 위한 뼈때리는 조언</h4>
+                                <p style="font-size: 0.95rem; color: var(--text-main); line-height: 1.6; font-weight: 600;">${overallPersona.harshAdvice || '균형을 잃지 않는 것이 가장 중요합니다.'}</p>
                             </div>
                         </div>
                     </div>
@@ -379,7 +382,7 @@
                 </div>
             `;
 
-            drawRadarChart(dimensionTypes);
+            
         }
 
         function drawRadarChart(dimensionTypes) {
