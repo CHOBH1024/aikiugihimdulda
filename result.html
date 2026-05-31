@@ -303,95 +303,142 @@
                 `;
             });
 
+            let deepAnalysisHTML = '';
+            const testMode = localStorage.getItem('mirrorInsideTestMode') || 'lite';
+            if (testMode === 'pro' && results.subtypeIndex !== undefined) {
+                const subtype = overallPersona.subtypes[results.subtypeIndex];
+                deepAnalysisHTML = `
+                `;
+            }
+
+            let recColsHTML = '';
+            if (overallPersona.recommendedColumns) {
+                recColsHTML = `
+                <div style="margin-top: 48px; margin-bottom: 32px;">
+                    <h3 style="font-size: 1.3rem; margin-bottom: 20px; color: var(--text-main); border-bottom: 2px solid var(--glass-border); padding-bottom: 12px;">
+                        📚 ${overallPersona.name.split(' ')[0]} 부모님을 위한 맞춤 추천 칼럼
+                    </h3>
+                    <div style="display: flex; flex-direction: column; gap: 16px;">`;
+                overallPersona.recommendedColumns.forEach(col => {
+                    recColsHTML += `
+                        <a href="${col.url}" style="display: block; background: var(--bg-card); padding: 20px; border-radius: 16px; border: 1px solid var(--glass-border); text-decoration: none; transition: all 0.2s;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='var(--shadow-card-hover)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                            <div style="font-size: 0.85rem; color: var(--primary); font-weight: 700; margin-bottom: 8px;">${col.tags}</div>
+                            <h4 style="font-size: 1.1rem; color: var(--text-main); font-weight: 800; line-height: 1.4;">${col.title}</h4>
+                        </a>`;
+                });
+                recColsHTML += `</div></div>`;
+            }
+
             wrapper.innerHTML = `
                 ${noticeBanner}
                 
-                <div class="photocard-container">
-                    <div class="photocard" id="photocard">
-                        <div class="photocard__image-area">
-                            <img src="${overallPersona.imageUrl}" alt="${overallPersona.name}" class="photocard__image">
-                            <div class="photocard__rarity">✨ ${overallPersona.rarity}</div>
+                <div class="result-layout">
+                    <div class="result-layout__left">
+                        <div class="photocard-container" style="margin-bottom:0;">
+                            <div class="photocard" id="photocard">
+                                <div class="photocard__image-area">
+                                    <img src="${overallPersona.imageUrl}" alt="${overallPersona.name}" class="photocard__image">
+                                    <div class="photocard__rarity">✨ ${overallPersona.rarity}</div>
+                                </div>
+                                <div class="photocard__content">
+                                    <div class="photocard__tags" style="margin-bottom: 12px;">
+                                        ${overallPersona.keywords ? overallPersona.keywords.split(' ').map(k => `<span class="tag-pill" style="background: var(--primary-dim); color: var(--primary); border:none;">${k}</span>`).join('') : ''}
+                                    </div>
+                                    <h1 class="photocard__title" style="margin-bottom: 16px;">${overallPersona.name}</h1>
+                                    <p style="font-size: 1.15rem; font-weight: 800; color: var(--primary); margin-bottom: 24px; word-break: keep-all; line-height: 1.5;">${overallPersona.comfortingWords || overallPersona.coreIdentity}</p>
+                                    
+                                    <div style="background: var(--bg-main); border-radius: 16px; padding: 24px; text-align: left; margin-bottom: 24px; border: 1px solid var(--glass-border);">
+                                        <h4 style="font-size: 1rem; color: var(--text-main); margin-bottom: 12px;">💡 양육의 본질</h4>
+                                        <p style="font-size: 0.95rem; color: var(--text-body); line-height: 1.6;">${overallPersona.desc}</p>
+                                    </div>
+
+                                    <div style="background: rgba(239, 68, 68, 0.05); border-radius: 16px; padding: 24px; text-align: left; border: 1px solid rgba(239, 68, 68, 0.2);">
+                                        <h4 style="font-size: 1rem; color: #ef4444; margin-bottom: 12px;">⚡ 성장을 위한 뼈때리는 조언</h4>
+                                        <p style="font-size: 0.95rem; color: var(--text-main); line-height: 1.6; font-weight: 600;">${overallPersona.harshAdvice || '균형을 잃지 않는 것이 가장 중요합니다.'}</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="photocard__content">
-                            <div class="photocard__tags" style="margin-bottom: 12px;">
-                                ${overallPersona.keywords ? overallPersona.keywords.split(' ').map(k => `<span class="tag-pill" style="background: var(--primary-dim); color: var(--primary); border:none;">${k}</span>`).join('') : ''}
-                            </div>
-                            <h1 class="photocard__title" style="margin-bottom: 16px;">${overallPersona.name}</h1>
-                            <p style="font-size: 1.15rem; font-weight: 800; color: var(--primary); margin-bottom: 24px; word-break: keep-all; line-height: 1.5;">${overallPersona.comfortingWords || overallPersona.coreIdentity}</p>
-                            
-                            <div style="background: var(--bg-main); border-radius: 16px; padding: 24px; text-align: left; margin-bottom: 24px; border: 1px solid var(--glass-border);">
-                                <h4 style="font-size: 1rem; color: var(--text-main); margin-bottom: 12px;">💡 양육의 본질</h4>
-                                <p style="font-size: 0.95rem; color: var(--text-body); line-height: 1.6;">${overallPersona.desc}</p>
-                            </div>
 
-                            <div style="background: rgba(239, 68, 68, 0.05); border-radius: 16px; padding: 24px; text-align: left; border: 1px solid rgba(239, 68, 68, 0.2);">
-                                <h4 style="font-size: 1rem; color: #ef4444; margin-bottom: 12px;">⚡ 성장을 위한 뼈때리는 조언</h4>
-                                <p style="font-size: 0.95rem; color: var(--text-main); line-height: 1.6; font-weight: 600;">${overallPersona.harshAdvice || '균형을 잃지 않는 것이 가장 중요합니다.'}</p>
-                            </div>
+                        <div class="action-buttons">
+                            <button class="btn btn--large btn-insta" onclick="downloadImage()"><i class="fab fa-instagram"></i> 인스타 스토리에 공유하기 (이미지 저장)</button>
+                            <button class="btn btn--large btn-kakao" onclick="shareKakao()"><i class="fas fa-comment"></i> 카카오톡으로 결과 보내기</button>
+                            <button class="btn btn--secondary btn--large" onclick="copyResult()"><i class="fas fa-link"></i> 링크 복사하기</button>
                         </div>
-                    </div>
-
-                    <div class="action-buttons">
-                        <button class="btn btn--large btn-insta" onclick="downloadImage()"><i class="fab fa-instagram"></i> 인스타 스토리에 공유하기 (이미지 저장)</button>
-                        <button class="btn btn--large btn-kakao" onclick="shareKakao()"><i class="fas fa-comment"></i> 카카오톡으로 결과 보내기</button>
-                        <button class="btn btn--secondary btn--large" onclick="copyResult()"><i class="fas fa-link"></i> 링크 복사하기</button>
-                    </div>
-
-                        <p style="text-align: center; font-size: 0.85rem; color: var(--text-dim); margin-top: 12px;">
+                        <p style="text-align: center; font-size: 0.85rem; color: var(--text-dim); margin-top: 4px;">
                             💡 '인스타 스토리 공유' 버튼을 누르면 이미지가 저장됩니다.
                         </p>
+                    </div>
 
-                </div>
+                    <div class="result-layout__right">
+                        ${deepAnalysisHTML}
 
-                <div class="carousel-section">
-                    ${overallPersona.ageAdvice && overallPersona.ageAdvice[childAge] ? `
-                    <div class="carousel-card" style="border-color: var(--primary); background: rgba(52, 211, 153, 0.05);">
-                        <h3>👶 ${ageMap[childAge]} 맞춤 육아 가이드</h3>
-                        <p style="font-size: 1rem; color: var(--text-main); font-weight: 700; line-height: 1.6; word-break: keep-all;">
-                            ${overallPersona.ageAdvice[childAge]}
-                        </p>
-                    </div>
-                    ` : ''}
+                        <div class="carousel-section" style="margin-top:0;">
+                            ${overallPersona.ageAdvice && overallPersona.ageAdvice[childAge] ? `
+                            <div class="carousel-card" style="border-color: var(--primary); background: rgba(52, 211, 153, 0.05);">
+                                <h3>👶 ${ageMap[childAge]} 맞춤 육아 가이드</h3>
+                                <p style="font-size: 1rem; color: var(--text-main); font-weight: 700; line-height: 1.6; word-break: keep-all;">
+                                    ${overallPersona.ageAdvice[childAge]}
+                                </p>
+                            </div>
+                            ` : ''}
 
-                    <div class="carousel-card">
-                        <h3>✨ 나의 빛나는 장점</h3>
-                        <ul>${overallPersona.strengths.map(s => `<li>${s}</li>`).join('')}</ul>
-                    </div>
-                    <div class="carousel-card">
-                        <h3>🥺 육아하며 느끼는 아쉬움</h3>
-                        <ul>${overallPersona.weaknesses.map(s => `<li>${s}</li>`).join('')}</ul>
-                    </div>
-                    
-                    ${overallPersona.deepReflection ? `
-                    <div class="carousel-card" style="background: var(--glass-strong);">
-                        <h3 style="color: #F59E0B;">🪞 나를 깊게 이해하기</h3>
-                        <p style="font-size:1.05rem; font-weight:800; color:var(--text-main); margin-bottom:12px; font-style:italic;">
-                            "${overallPersona.deepReflection.question}"
-                        </p>
-                        <p style="font-size:0.95rem; color:var(--text-body); line-height:1.6;">
-                            ${overallPersona.deepReflection.meaning}
-                        </p>
-                    </div>
-                    ` : ''}
+                            <div class="carousel-card">
+                                <h3>✨ 나의 빛나는 장점</h3>
+                                <ul>${overallPersona.strengths.map(s => `<li>${s}</li>`).join('')}</ul>
+                            </div>
+                            <div class="carousel-card">
+                                <h3>🥺 육아하며 느끼는 아쉬움</h3>
+                                <ul>${overallPersona.weaknesses.map(s => `<li>${s}</li>`).join('')}</ul>
+                            </div>
+                            
+                            ${overallPersona.deepReflection ? `
+                            <div class="carousel-card" style="background: var(--glass-strong);">
+                                <h3 style="color: #F59E0B;">🪞 나를 깊게 이해하기</h3>
+                                <p style="font-size:1.05rem; font-weight:800; color:var(--text-main); margin-bottom:12px; font-style:italic;">
+                                    "${overallPersona.deepReflection.question}"
+                                </p>
+                                <p style="font-size:0.95rem; color:var(--text-body); line-height:1.6;">
+                                    ${overallPersona.deepReflection.meaning}
+                                </p>
+                            </div>
+                            ` : ''}
 
-                    <div class="carousel-card">
-                        <h3>💡 사각지대 보완 팁</h3>
-                        <p style="font-size:0.95rem; color:var(--text-body); line-height:1.6;">
-                            <strong style="color:#ef4444;">❌ 무의식적인 반응:</strong><br>${results.simulation.wrong}<br><br>
-                            <strong style="color:var(--primary);">✅ 추천하는 솔루션:</strong><br>${results.simulation.correct}
-                        </p>
-                    </div>
-                    
-                    <div style="margin-top: 32px;">
-                        <h3 style="font-size: 1.1rem; margin-bottom: 16px; color: var(--text-main); font-weight: 800; text-align:center;">5가지 상세 육아 차원</h3>
-                        ${dimsHTML}
-                    </div>
-                    
-                    <div style="margin-top: 32px; text-align: center;">
-                        <a href="/columns/persona_deepdive.html" class="btn btn--primary" style="width: 100%;">📚 내 페르소나 심층 칼럼 읽기</a>
+                            <div class="carousel-card">
+                                <h3>💡 사각지대 보완 팁</h3>
+                                <p style="font-size:0.95rem; color:var(--text-body); line-height:1.6;">
+                                    <strong style="color:#ef4444;">❌ 무의식적인 반응:</strong><br>${results.simulation.wrong}<br><br>
+                                    <strong style="color:var(--primary);">✅ 추천하는 솔루션:</strong><br>${results.simulation.correct}
+                                </p>
+                            </div>
+                            
+                            <div style="margin-top: 32px;">
+                                <h3 style="font-size: 1.1rem; margin-bottom: 16px; color: var(--text-main); font-weight: 800; text-align:center;">5가지 상세 육아 차원</h3>
+                                ${dimsHTML}
+                            </div>
+                            
+                            <div style="margin-top: 32px; text-align: center;">
+                                <a href="/columns/persona_deepdive.html" class="btn btn--primary" style="width: 100%;">📚 내 페르소나 심층 칼럼 읽기</a>
+                            </div>
+                        </div>
+
+                        ${recColsHTML}
                     </div>
                 </div>
             `;
+
+            // trigger lock animation if needed
+            if (testMode === 'pro' && results.subtypeIndex !== undefined) {
+                setTimeout(() => {
+                    const lock = document.getElementById('deepAnalysisLock');
+                    const content = document.getElementById('deepAnalysisContent');
+                    if(lock && content) {
+                        lock.style.display = 'none';
+                        content.style.display = 'block';
+                        content.classList.add('fade-in');
+                    }
+                }, 1000);
+            }
 
             
         }
