@@ -7,746 +7,241 @@
     <title>진단 결과 | Mirror Inside Parenting</title>
     <meta name="description" content="당신만의 육아 페르소나 분석 결과를 확인하세요.">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="/style.css">
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <style>
-        /* === Result Page Specific Styles === */
-        .result-wrapper {
-            padding-top: 80px;
-        }
+        .result-wrapper { padding-top: 80px; padding-bottom: 80px; }
+        
+        .no-result { text-align: center; padding: 120px 24px; }
+        .no-result h2 { margin-bottom: 20px; color: var(--text-main); }
+        .no-result p { color: var(--text-body); margin-bottom: 32px; }
 
-        /* Hero Section */
-        .result-hero {
-            text-align: center;
-            padding: 80px 24px 60px;
-            position: relative;
+        .notice-banner {
+            text-align: center; padding: 12px 24px; font-size: 0.95rem; color: #fff; border-radius: var(--radius-md); margin-bottom: 32px; box-shadow: var(--shadow-soft);
         }
+        .notice-banner--mbti { background: linear-gradient(135deg, var(--secondary), var(--primary)); }
+        .notice-banner--preview { background: linear-gradient(135deg, #FFDAC1, var(--primary)); color: var(--text-main); font-weight: 700; }
 
-        .result-hero__overline {
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: var(--primary);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 20px;
-            animation: fadeInUp 0.6s ease both;
-        }
-
-        .result-hero__title {
-            font-size: clamp(2.5rem, 7vw, 4rem);
-            font-weight: 950;
-            margin-bottom: 24px;
-            animation: fadeInUp 0.8s ease both;
-            animation-delay: 0.15s;
-        }
-
-        .result-hero__desc {
-            font-size: 1.2rem;
-            color: var(--text-body);
-            max-width: 600px;
+        /* Instagram Photocard Styles */
+        .photocard-container {
+            max-width: 420px;
             margin: 0 auto;
-            word-break: keep-all;
-            line-height: 1.8;
+            perspective: 1000px;
             animation: fadeInUp 0.8s ease both;
-            animation-delay: 0.3s;
         }
 
-        /* Glowing background orb */
-        .result-hero__glow {
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: radial-gradient(circle, rgba(52, 211, 153, 0.08) 0%, transparent 70%);
-            pointer-events: none;
-            animation: pulse 4s ease-in-out infinite;
-        }
-
-        /* Radar Section */
-        .radar-section {
-            padding: 40px 0 80px;
-        }
-
-        .radar-wrapper {
-            display: flex;
-            justify-content: center;
-            animation: scaleIn 1s ease both;
-            animation-delay: 0.5s;
-        }
-
-        .radar-chart-container {
-            position: relative;
-            width: 380px;
-            height: 380px;
-        }
-
-        @media (max-width: 480px) {
-            .radar-chart-container {
-                width: 300px;
-                height: 300px;
-            }
-        }
-
-        /* Summary Stats */
-        .summary-stats {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin-top: 48px;
-            flex-wrap: wrap;
-            animation: fadeInUp 0.8s ease both;
-            animation-delay: 0.7s;
-        }
-
-        .summary-stat {
-            text-align: center;
-        }
-
-        .summary-stat__value {
-            font-family: 'Outfit', sans-serif;
-            font-size: 1.8rem;
-            font-weight: 900;
-            color: var(--primary);
-        }
-
-        .summary-stat__label {
-            font-size: 0.8rem;
-            color: var(--text-dim);
-            margin-top: 4px;
-        }
-
-        /* Dimension Results */
-        .dimensions-results {
-            padding: 60px 0;
-        }
-
-        .dim-result-card {
-            background: var(--glass);
-            backdrop-filter: blur(20px);
+        .photocard {
+            background: var(--bg-card);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
             border: 1px solid var(--glass-border);
-            border-radius: var(--radius-lg);
-            padding: 40px;
-            margin-bottom: 24px;
-            transition: var(--transition-base);
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        .photocard:hover { transform: translateY(-4px); box-shadow: var(--shadow-card-hover); }
+
+        .photocard__image-area {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            background: #fff;
             position: relative;
             overflow: hidden;
-        }
-
-        .dim-result-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: var(--dim-color, var(--primary));
-            border-radius: 4px 0 0 4px;
-        }
-
-        .dim-result-card:hover {
-            border-color: var(--glass-border-hover);
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-glow);
-        }
-
-        .dim-result-card__header {
-            display: flex;
-            align-items: flex-start;
-            gap: 20px;
-            margin-bottom: 24px;
-        }
-
-        .dim-result-card__icon-box {
-            width: 60px;
-            height: 60px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: var(--radius-sm);
-            font-size: 2rem;
-            flex-shrink: 0;
         }
 
-        .dim-result-card__meta {
-            flex: 1;
-        }
-
-        .dim-result-card__dim-name {
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: var(--primary);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 4px;
-        }
-
-        .dim-result-card__type-name {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--text-main);
-        }
-
-        .dim-result-card__score-label {
-            font-size: 0.85rem;
-            color: var(--text-dim);
-            text-align: right;
-            font-family: 'Outfit', sans-serif;
-            font-weight: 700;
-        }
-
-        .dim-result-card__bar {
-            height: 8px;
-            background: rgba(255, 255, 255, 0.06);
-            border-radius: 4px;
-            overflow: hidden;
-            margin-bottom: 20px;
-        }
-
-        .dim-result-card__bar-fill {
+        .photocard__image {
+            width: 100%;
             height: 100%;
-            border-radius: 4px;
-            transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1);
-            width: 0;
+            object-fit: cover;
+            animation: zoomIn 10s linear infinite alternate;
         }
 
-        .dim-result-card__desc {
-            color: var(--text-body);
-            font-size: 1rem;
-            line-height: 1.8;
+        .photocard__rarity {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--primary);
+            padding: 6px 14px;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            box-shadow: var(--shadow-soft);
+            backdrop-filter: blur(10px);
+        }
+
+        .photocard__content { padding: 32px 24px; text-align: center; }
+
+        .photocard__title {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--text-main);
+            margin-bottom: 12px;
             word-break: keep-all;
-            margin-bottom: 20px;
+            line-height: 1.3;
         }
 
-        .dim-result-card__strengths {
+        .photocard__desc {
+            font-size: 1rem;
+            color: var(--text-body);
+            line-height: 1.6;
+            margin-bottom: 24px;
+            word-break: keep-all;
+        }
+
+        .photocard__tags {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
-            margin-bottom: 16px;
+            justify-content: center;
+            margin-bottom: 24px;
         }
 
-        .strength-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
+        .tag-pill {
+            background: var(--bg-main);
+            color: var(--text-dim);
             padding: 6px 14px;
             border-radius: 100px;
             font-size: 0.85rem;
             font-weight: 600;
-        }
-
-        .dim-result-card__tip {
-            background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--glass-border);
-            border-radius: var(--radius-sm);
-            padding: 16px 20px;
-            font-size: 0.95rem;
-            color: var(--text-body);
-            word-break: keep-all;
-            line-height: 1.7;
         }
 
-        .dim-result-card__tip::before {
-            content: '💡 성장 팁: ';
-            color: var(--secondary);
-            font-weight: 700;
-        }
+        .photocard__radar { width: 100%; height: 260px; margin: 0 auto 20px; position: relative; }
 
-        /* All Types Grid (within dimension) */
-        .all-types-toggle {
-            margin-top: 16px;
-            font-size: 0.9rem;
-            color: var(--text-dim);
-            cursor: pointer;
+        /* Action Buttons */
+        .action-buttons {
             display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: var(--transition-fast);
-        }
-
-        .all-types-toggle:hover { color: var(--primary); }
-
-        .all-types-grid {
-            display: none;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 10px;
-            margin-top: 16px;
-        }
-
-        .all-types-grid.open { display: grid; }
-
-        .all-type-chip {
-            padding: 10px 14px;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--radius-sm);
-            font-size: 0.85rem;
-            color: var(--text-dim);
-            transition: var(--transition-fast);
-        }
-
-        .all-type-chip.active {
-            background: var(--primary-dim);
-            border-color: rgba(52, 211, 153, 0.3);
-            color: var(--primary);
-            font-weight: 700;
-        }
-
-        /* Share Section */
-        .share-section {
-            text-align: center;
-            margin: 80px 0;
-            padding: 60px 40px;
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--radius-xl);
-        }
-
-        .share-section h3 {
-            margin-bottom: 12px;
-        }
-
-        .share-section p {
-            color: var(--text-body);
-            margin-bottom: 32px;
-            word-break: keep-all;
-        }
-
-        .share-buttons {
-            display: flex;
-            justify-content: center;
+            flex-direction: column;
             gap: 12px;
-            flex-wrap: wrap;
+            max-width: 420px;
+            margin: 32px auto 0;
         }
 
-        .share-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 14px 28px;
-            border-radius: 100px;
-            font-weight: 700;
-            font-size: 0.95rem;
-            transition: var(--transition-base);
-        }
+        .btn-insta { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); color: #fff; border: none; font-weight: 700; }
+        .btn-kakao { background: #FEE500; color: #000000; border: none; font-weight: 700; }
+        .btn-kakao:hover { background: #FFD900; }
 
-        .share-btn--copy {
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid var(--glass-border);
-            color: var(--text-main);
-        }
-
-        .share-btn--copy:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: var(--primary);
-        }
-
-        .share-btn--retry {
-            background: transparent;
-            border: 1px solid var(--glass-border);
-            color: var(--text-body);
-        }
-
-        .share-btn--retry:hover {
-            border-color: var(--secondary);
-            color: var(--secondary);
-        }
-
-        .share-btn--home {
-            background: var(--primary);
-            color: var(--bg-main);
-        }
-
-        .share-btn--home:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 20px var(--primary-glow);
+        /* Insight Section (Instagram Carousel Style) */
+        .carousel-section {
+            max-width: 420px;
+            margin: 48px auto;
         }
         
-        .share-btn--img {
-            background: linear-gradient(135deg, #a855f7, #ec4899);
-            color: #fff;
-            border: none;
-        }
-        
-        .share-btn--img:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 20px rgba(236, 72, 153, 0.4);
-        }
-
-        /* Simulation Section */
-        .simulation-section {
-            background: rgba(251, 113, 133, 0.05);
-            border: 1px solid rgba(251, 113, 133, 0.2);
-            border-radius: var(--radius-lg);
-            padding: 40px;
-            margin: 60px 0;
-            position: relative;
-        }
-        
-        .simulation-section::before {
-            content: '🚨 위기 상황 시뮬레이션';
-            position: absolute;
-            top: -14px;
-            left: 30px;
-            background: var(--bg-main);
-            padding: 0 12px;
-            color: var(--secondary);
-            font-weight: 800;
-            font-size: 0.9rem;
-        }
-
-        .simulation-title {
-            font-size: 1.15rem;
-            font-weight: 700;
-            margin-bottom: 24px;
-            color: var(--text-main);
-        }
-
-        .simulation-card {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 16px;
-        }
-
-        @media (max-width: 600px) {
-            .simulation-card { flex-direction: column; gap: 12px; }
-        }
-
-        .simulation-wrong, .simulation-correct {
-            flex: 1;
-            padding: 24px;
-            border-radius: var(--radius-sm);
-            font-size: 0.95rem;
-            line-height: 1.7;
-        }
-
-        .simulation-wrong {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--glass-border);
-            color: var(--text-dim);
-        }
-        .simulation-wrong::before { content: '❌ 주의할 행동: '; font-weight: 700; color: #f87171; display: block; margin-bottom: 8px;}
-
-        .simulation-correct {
-            background: rgba(52, 211, 153, 0.1);
-            border: 1px solid rgba(52, 211, 153, 0.3);
-            color: var(--text-body);
-        }
-        .simulation-correct::before { content: '✅ 추천하는 행동: '; font-weight: 700; color: var(--primary); display: block; margin-bottom: 8px;}
-
-        /* Prescription Section (Do's and Don'ts) */
-        .prescription-section {
-            margin: 60px 0;
-        }
-
-        .prescription-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
-            margin-top: 24px;
-        }
-
-        @media (max-width: 768px) {
-            .prescription-grid { grid-template-columns: 1fr; }
-        }
-
-        .prescription-card {
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--radius-lg);
-            padding: 32px;
-            height: 100%;
-        }
-
-        .prescription-card--dos {
-            border-top: 4px solid var(--primary);
-            background: linear-gradient(to bottom, rgba(52, 211, 153, 0.05), transparent);
-        }
-
-        .prescription-card--donts {
-            border-top: 4px solid #f87171;
-            background: linear-gradient(to bottom, rgba(248, 113, 113, 0.05), transparent);
-        }
-
-        .prescription-title {
-            font-size: 1.2rem;
-            font-weight: 800;
-            margin-bottom: 24px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .prescription-card--dos .prescription-title { color: var(--primary); }
-        .prescription-card--donts .prescription-title { color: #f87171; }
-
-        .prescription-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .prescription-list li {
-            position: relative;
-            padding: 16px 20px;
-            margin-bottom: 12px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: var(--radius-sm);
-            color: var(--text-body);
-            font-size: 1rem;
-            line-height: 1.5;
-            word-break: keep-all;
-        }
-
-        /* Affiliate Section */
-        .affiliate-section {
-            display: flex;
+        .carousel-card {
             background: var(--bg-card);
-            border-radius: var(--radius-lg);
+            border-radius: 20px;
+            padding: 32px 24px;
+            margin-bottom: 20px;
             border: 1px solid var(--glass-border);
-            padding: 30px;
-            gap: 30px;
-            margin: 60px 0;
-            align-items: center;
+            box-shadow: var(--shadow-soft);
         }
 
-        @media (max-width: 600px) {
-            .affiliate-section { flex-direction: column; text-align: center; }
-        }
+        .carousel-card h3 { font-size: 1.2rem; color: var(--text-main); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+        .carousel-card ul { padding-left: 0; list-style: none; margin: 0; }
+        .carousel-card li { position: relative; padding-left: 24px; margin-bottom: 12px; font-size: 0.95rem; color: var(--text-body); line-height: 1.6; }
+        .carousel-card li::before { content: '•'; position: absolute; left: 6px; color: var(--primary); font-size: 1.2rem; font-weight: bold; }
 
-        .affiliate-img {
-            width: 120px;
-            height: 160px;
-            background: #fff;
-            border-radius: var(--radius-sm);
-            object-fit: cover;
-            flex-shrink: 0;
-        }
-
-        .affiliate-info h4 { margin-bottom: 8px; color: var(--text-main); }
-        .affiliate-info p { color: var(--text-body); font-size: 0.95rem; margin-bottom: 16px; }
-
-        /* Newsletter Section */
-        .newsletter-section {
-            background: linear-gradient(135deg, rgba(52, 211, 153, 0.1), rgba(129, 140, 248, 0.1));
-            border-radius: var(--radius-lg);
-            padding: 50px 40px;
-            text-align: center;
-            margin: 60px 0;
-        }
-
-        .newsletter-section h3 { margin-bottom: 12px; }
-        .newsletter-section p { color: var(--text-body); margin-bottom: 24px; }
-        
-        .newsletter-form {
+        /* Detail Dimensions */
+        .dim-card {
             display: flex;
-            max-width: 400px;
-            margin: 0 auto;
-            gap: 8px;
-        }
-
-        .newsletter-form input {
-            flex: 1;
-            padding: 14px 20px;
-            border-radius: 100px;
+            align-items: center;
+            gap: 16px;
+            padding: 20px;
+            background: var(--bg-card);
+            border-radius: 16px;
             border: 1px solid var(--glass-border);
-            background: rgba(255, 255, 255, 0.05);
-            color: #fff;
-            outline: none;
-            transition: var(--transition-fast);
+            margin-bottom: 12px;
         }
-        .newsletter-form input:focus { border-color: var(--primary); }
         
-        .newsletter-form button {
-            padding: 0 24px;
-            border-radius: 100px;
-            background: var(--text-main);
-            color: var(--bg-main);
-            font-weight: 700;
-            border: none;
-            cursor: pointer;
-            transition: var(--transition-fast);
-        }
-        .newsletter-form button:hover { background: var(--primary); color: #fff; }
+        .dim-card__icon { font-size: 2rem; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; background: var(--bg-main); border-radius: 12px; }
+        .dim-card__info { flex: 1; }
+        .dim-card__title { font-size: 0.85rem; color: var(--primary); font-weight: 700; margin-bottom: 4px; }
+        .dim-card__type { font-size: 1.1rem; color: var(--text-main); font-weight: 800; }
 
-        /* Photocard Capture Area */
-        #photocardArea {
+        /* Off-screen capture area */
+        #captureArea {
             position: absolute;
             left: -9999px;
             top: 0;
             width: 1080px;
-            height: 1080px;
-            background: var(--bg-main);
-            background-image: radial-gradient(ellipse at 50% 50%, rgba(30, 41, 59, 1) 0%, rgba(6, 11, 38, 1) 100%);
+            height: 1920px; /* 9:16 Story Ratio */
+            background: #FFF5F5;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 80px;
-            color: #fff;
             box-sizing: border-box;
             z-index: -100;
         }
-        .pc-logo { font-family: 'Outfit', sans-serif; font-size: 32px; font-weight: 900; color: var(--primary); margin-bottom: 40px; }
-        .pc-rarity { font-size: 28px; color: var(--secondary); font-weight: 700; margin-bottom: 20px; }
-        .pc-title { font-size: 80px; font-weight: 950; margin-bottom: 40px; text-align: center; background: linear-gradient(135deg, var(--primary) 0%, #6ee7b7 50%, var(--secondary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .pc-desc { font-size: 32px; color: #cbd5e1; text-align: center; word-break: keep-all; line-height: 1.6; max-width: 800px; margin-bottom: 60px; }
-        .pc-radar { width: 500px; height: 500px; }
 
-        /* No result fallback */
-        .no-result {
-            text-align: center;
-            padding: 200px 24px;
-        }
-
-        .no-result h2 { margin-bottom: 20px; }
-        .no-result p { color: var(--text-body); margin-bottom: 32px; }
-
-        .notice-banner {
-            text-align: center;
-            padding: 12px 24px;
-            font-size: 0.95rem;
-            color: #fff;
-            position: relative;
-            z-index: 10;
-        }
-        .notice-banner--mbti { background: linear-gradient(135deg, var(--secondary), #f43f5e); }
-        .notice-banner--preview { background: linear-gradient(135deg, #8b5cf6, #c084fc); }
-
-        @media (max-width: 768px) {
-            .dim-result-card { padding: 28px; }
-            .dim-result-card__header { flex-direction: column; gap: 12px; }
-            .share-section { padding: 40px 24px; }
-        }
-
-        /* --- New UI Elements (Images & Insights) --- */
-        .result-hero__image-wrapper {
-            width: 280px;
-            height: 280px;
-            margin: 0 auto 32px;
-            animation: float 6s ease-in-out infinite;
-        }
-        .result-hero__image {
+        .capture-card {
+            background: #fff;
             width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-            box-shadow: 0 16px 40px rgba(0,0,0,0.4);
-            border: 4px solid var(--glass-border);
+            border-radius: 60px;
+            overflow: hidden;
+            box-shadow: 0 40px 100px rgba(255, 107, 107, 0.15);
+            border: 4px solid #fff;
         }
         
-        .insights-section {
-            padding: 20px 0 60px;
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-            animation: fadeInUp 0.8s ease both;
-            animation-delay: 0.4s;
-        }
-        .insight-card {
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--radius-lg);
-            padding: 36px;
-            transition: var(--transition-base);
-        }
-        .insight-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--glass-border-hover);
-            box-shadow: var(--shadow-glow);
-        }
-        .insight-card--strength { border-top: 4px solid var(--primary); }
-        .insight-card--weakness { border-top: 4px solid #ef4444; }
-        .insight-card--anxiety { border-top: 4px solid #a855f7; }
+        .capture-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; }
+        .capture-body { padding: 80px 60px; text-align: center; }
+        .capture-rarity { font-size: 32px; color: #FF6B6B; font-weight: 800; margin-bottom: 24px; letter-spacing: 2px; }
+        .capture-title { font-size: 72px; color: #2D3748; font-weight: 900; margin-bottom: 40px; line-height: 1.2; }
+        .capture-desc { font-size: 36px; color: #4A5568; line-height: 1.6; word-break: keep-all; }
         
-        .insight-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 24px;
-        }
-        .insight-icon {
-            font-size: 1.8rem;
-        }
-        .insight-header h3 {
-            font-size: 1.3rem;
-            margin: 0;
-            color: var(--text-main);
-            font-weight: 800;
-        }
-        .insight-card ul {
-            margin: 0;
-            padding: 0;
-            list-style: none;
-        }
-        .insight-card li {
-            position: relative;
-            padding-left: 28px;
-            margin-bottom: 16px;
-            color: var(--text-body);
-            line-height: 1.7;
-            font-size: 1.05rem;
-        }
-        .insight-card li:last-child { margin-bottom: 0; }
-        .insight-card li::before {
-            content: '•';
-            position: absolute;
-            left: 8px;
-            top: -2px;
-            color: var(--primary);
-            font-size: 1.4rem;
-        }
-        
-        /* New Simulation Refinements */
-        .sim-content-wrapper {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-        .sim-icon {
-            font-size: 1.4rem;
-        }
+        .capture-footer { margin-top: 60px; text-align: center; font-size: 32px; color: #FF6B6B; font-weight: 800; font-family: 'Nunito', sans-serif; }
     </style>
-    <!-- Search & AdSense 인증 -->
-    <meta name="google-site-verification" content="Tb_LmHczAZCjYOkU4RJh-m02RB4srmXHH4OFI3dxxGs" />
-    <meta name="google-adsense-account" content="ca-pub-9992037844935954">
-    <meta name="naver-site-verification" content="16578f8f79a3870985d38cddf217b1c67a4c4dad" />
-
-    <!-- Kakao SDK -->
+    
     <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.6.0/kakao.min.js" integrity="sha384-6MFdIr0zOira1CHQkedUqJVql0YtcZA1P0nbFz52+3y2B1A2P7Z0mR6+i3+R02T2" crossorigin="anonymous"></script>
-    <script>
-      Kakao.init('YOUR_KAKAO_APP_KEY');
-    </script>
-
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9992037844935954" crossorigin="anonymous"></script>\n</head>
+    <script>Kakao.init('YOUR_KAKAO_APP_KEY');</script>
+</head>
 <body>
-    <!-- Navigation -->
+    <!-- Pastel Floating Blobs -->
+    <div class="glow-orb-container">
+        <div class="glow-orb glow-orb--1"></div>
+        <div class="glow-orb glow-orb--2"></div>
+        <div class="glow-orb glow-orb--3"></div>
+    </div>
+
     <nav class="nav scrolled">
         <div class="nav__inner">
-            <a href="/index.html" class="nav__logo">
-                Mirror Inside <span class="nav__logo-sub">Parenting</span>
-            </a>
-            <ul class="nav__links">
-                <li><a href="/index.html" class="nav__link">홈</a></li>
-                <li><a href="/gallery.html" class="nav__link">갤러리</a></li>
-                <li><a href="/columns.html" class="nav__link">칼럼</a></li>
-                <li><a href="/test.html" class="nav__cta"><i class="fas fa-redo"></i> 진단 시작</a></li>
+            <a href="/index.html" class="nav__logo">🪞 Mirror Inside <span class="nav__logo-sub">Parenting</span></a>
+            <ul class="nav__links" id="navLinks">
+                <li><a href="/columns.html" class="nav__link">육아 칼럼</a></li>
+                <li><a href="/gallery.html" class="nav__link">나의 기록</a></li>
+                <li><a href="/about.html" class="nav__link">소개</a></li>
+                <li><a href="/test.html" class="nav__cta">🪞 다시 진단하기</a></li>
             </ul>
         </div>
     </nav>
 
     <div class="result-wrapper container" id="resultWrapper">
-        <!-- Will be populated by JS -->
+        <!-- JS render area -->
+    </div>
+
+    <!-- Hidden Capture Area -->
+    <div id="captureArea">
+        <div class="capture-card">
+            <img id="capImg" src="" class="capture-img">
+            <div class="capture-body">
+                <div class="capture-rarity" id="capRarity"></div>
+                <div class="capture-title" id="capTitle"></div>
+                <div class="capture-desc" id="capDesc"></div>
+            </div>
+        </div>
+        <div class="capture-footer">🪞 Mirror Inside Parenting</div>
     </div>
 
     <script src="/data.js"></script>
     <script>
-        // === Load Results ===
         let results = null;
         let noticeBanner = '';
         const params = new URLSearchParams(window.location.search);
@@ -755,14 +250,11 @@
             const mbti = params.get('mbti').toUpperCase();
             const combo = MBTI_MAPPING[mbti] || 'balanced';
             results = generateMockResult(combo);
-            noticeBanner = `<div class="notice-banner notice-banner--mbti">본 결과는 <strong>${mbti}</strong> 성향을 바탕으로 예측한 가상의 육아 페르소나입니다. 정확한 결과는 <a href="test.html" style="text-decoration:underline; color:#fff;">정식 테스트</a>로 확인하세요.</div>`;
+            noticeBanner = `<div class="notice-banner notice-banner--mbti">본 결과는 <strong>${mbti}</strong> 성향을 바탕으로 예측한 가상 결과입니다. 정확한 결과는 정식 테스트로 확인하세요!</div>`;
         } else if (params.has('preview')) {
             const combo = params.get('preview');
             results = generateMockResult(combo);
-            noticeBanner = `<div class="notice-banner notice-banner--preview">현재 <strong>미리보기 모드</strong>입니다. 나의 진짜 육아 페르소나를 찾고 싶다면 <a href="test.html" style="text-decoration:underline; color:#fff;">진단하기</a>를 눌러주세요.</div>`;
-        } else if (params.has('id')) {
-            const history = loadHistory();
-            results = history.find(item => item.id === params.get('id'));
+            noticeBanner = `<div class="notice-banner notice-banner--preview">현재 <strong>미리보기 모드</strong>입니다 👀 나의 진짜 육아 페르소나가 궁금하다면 진단해보세요!</div>`;
         } else {
             results = loadResults();
         }
@@ -770,11 +262,9 @@
         if (!results) {
             document.getElementById('resultWrapper').innerHTML = `
                 <div class="no-result">
-                    <h2>아직 진단 결과가 없습니다</h2>
-                    <p>먼저 육아 DNA 진단을 완료해주세요.</p>
-                    <a href="test.html" class="btn btn--primary btn--large">
-                        <i class="fas fa-play"></i> 진단 시작하기
-                    </a>
+                    <h2>아직 진단 결과가 없어요 🥺</h2>
+                    <p>나의 육아 스타일을 먼저 확인해볼까요?</p>
+                    <a href="test.html" class="btn btn--primary btn--large">🪞 진단 시작하기</a>
                 </div>
             `;
         } else {
@@ -785,617 +275,118 @@
             const { overallPersona, dimensionTypes } = results;
             const wrapper = document.getElementById('resultWrapper');
 
-            // Calculate overall score average
-            const dimIds = Object.keys(dimensionTypes);
-            const avgScore = Math.round(dimIds.reduce((sum, id) => sum + dimensionTypes[id].normalizedScore, 0) / dimIds.length);
-            const topDim = dimIds.reduce((a, b) => dimensionTypes[a].normalizedScore > dimensionTypes[b].normalizedScore ? a : b);
-            const topDimData = DIMENSIONS.find(d => d.id === topDim);
+            // Set up capture area
+            document.getElementById('capImg').src = overallPersona.imageUrl;
+            document.getElementById('capRarity').innerText = overallPersona.rarity;
+            document.getElementById('capTitle').innerText = overallPersona.name;
+            document.getElementById('capDesc').innerText = overallPersona.desc;
+
+            let dimsHTML = '';
+            DIMENSIONS.forEach(dim => {
+                const typeData = dimensionTypes[dim.id].type;
+                dimsHTML += `
+                    <div class="dim-card">
+                        <div class="dim-card__icon">${dim.icon}</div>
+                        <div class="dim-card__info">
+                            <div class="dim-card__title">${dim.name}</div>
+                            <div class="dim-card__type">${typeData.name}</div>
+                        </div>
+                    </div>
+                `;
+            });
 
             wrapper.innerHTML = `
                 ${noticeBanner}
-                <!-- Floating emoji particles -->
-                <div class="emoji-float-layer" id="emojiLayer"></div>
-                <!-- Hero -->
-                <section class="result-hero" id="captureHero">
-                    <div class="result-hero__glow"></div>
-                    <div class="result-hero__image-wrapper">
-                        <img src="${overallPersona.imageUrl}" alt="${overallPersona.name}" class="result-hero__image">
-                    </div>
-                    <div class="result-hero__overline">Your Parenting Archetype · <span style="color:var(--secondary)">${overallPersona.rarity}</span></div>
-                    <h1 class="result-hero__title">
-                        <span class="text-gradient">${overallPersona.name}</span>
-                    </h1>
-                    <p class="result-hero__desc">${overallPersona.desc}</p>
-                </section>
+                
+                <div class="photocard-container">
+                    <div class="photocard" id="photocard">
+                        <div class="photocard__image-area">
+                            <img src="${overallPersona.imageUrl}" alt="${overallPersona.name}" class="photocard__image">
+                            <div class="photocard__rarity">✨ ${overallPersona.rarity}</div>
+                        </div>
+                        <div class="photocard__content">
+                            <h1 class="photocard__title">${overallPersona.name}</h1>
+                            <p class="photocard__desc">${overallPersona.desc}</p>
+                            
+                            <div class="photocard__tags">
+                                <span class="tag-pill">#${overallPersona.name.split(' ')[0]}</span>
+                                <span class="tag-pill">#거울육아</span>
+                            </div>
 
-                <!-- Emotional/Practical Insights -->
-                <section class="insights-section">
-                    <div class="insight-card insight-card--strength">
-                        <div class="insight-header">
-                            <span class="insight-icon">✨</span>
-                            <h3>나의 빛나는 장점 (강점)</h3>
+                            <div class="photocard__radar">
+                                <canvas id="radarCanvas"></canvas>
+                            </div>
                         </div>
-                        <ul>
-                            ${overallPersona.strengths.map(s => `<li>${s}</li>`).join('')}
-                        </ul>
                     </div>
-                    <div class="insight-card insight-card--weakness">
-                        <div class="insight-header">
-                            <span class="insight-icon">🌪️</span>
-                            <h3>육아하며 주로 겪는 어려움 (취약점)</h3>
-                        </div>
-                        <ul>
-                            ${overallPersona.weaknesses.map(s => `<li>${s}</li>`).join('')}
-                        </ul>
-                    </div>
-                    <div class="insight-card insight-card--anxiety">
-                        <div class="insight-header">
-                            <span class="insight-icon">🥺</span>
-                            <h3>내 마음속 깊은 불안과 걱정</h3>
-                        </div>
-                        <ul>
-                            ${overallPersona.anxieties.map(s => `<li>${s}</li>`).join('')}
-                        </ul>
-                    </div>
-                </section>
 
-                <!-- Academic Backing (학술적 이론 배경) -->
-                <section class="academic-section" style="margin: 40px 0; animation: fadeInUp 0.8s ease both; animation-delay: 0.4s;">
-                    <div style="background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.9) 100%); border: 1px solid var(--primary); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-glow); position: relative; overflow: hidden;">
-                        <div style="position: absolute; right: -20px; bottom: -20px; font-size: 8rem; opacity: 0.05; pointer-events: none;"><i class="fas fa-graduation-cap"></i></div>
-                        <span class="section-tag" style="background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #fff; margin-bottom: 16px; display: inline-block;">Academic Validation</span>
-                        <h3 style="font-size: 1.6rem; font-weight: 800; color: var(--text-main); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
-                            <i class="fas fa-university" style="color: var(--primary);"></i> 학술적 이론 배경 & 분석
-                        </h3>
-                        <div style="font-size: 1.05rem; font-weight: 700; color: var(--primary); margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.08);">
-                            기반 이론: ${overallPersona.academicBacking ? overallPersona.academicBacking.theory : '발달 심리학 기반 양육 이론'}
-                        </div>
-                        <p style="font-size: 1.02rem; line-height: 1.85; color: var(--text-body); word-break: keep-all; margin: 0; text-align: justify; letter-spacing: -0.2px;">
-                            ${overallPersona.academicBacking ? overallPersona.academicBacking.analysis : '양육 스타일 분석 데이터가 준비 중입니다.'}
+                    <div class="action-buttons">
+                        <button class="btn btn--large btn-insta" onclick="downloadImage()"><i class="fab fa-instagram"></i> 인스타 스토리에 공유하기 (이미지 저장)</button>
+                        <button class="btn btn--large btn-kakao" onclick="shareKakao()"><i class="fas fa-comment"></i> 카카오톡으로 결과 보내기</button>
+                        <button class="btn btn--secondary btn--large" onclick="copyResult()"><i class="fas fa-link"></i> 링크 복사하기</button>
+                    </div>
+                </div>
+
+                <div class="carousel-section">
+                    <div class="carousel-card">
+                        <h3>✨ 나의 빛나는 장점</h3>
+                        <ul>${overallPersona.strengths.map(s => `<li>${s}</li>`).join('')}</ul>
+                    </div>
+                    <div class="carousel-card">
+                        <h3>🥺 육아하며 느끼는 아쉬움</h3>
+                        <ul>${overallPersona.weaknesses.map(s => `<li>${s}</li>`).join('')}</ul>
+                    </div>
+                    <div class="carousel-card">
+                        <h3>💡 사각지대 보완 팁</h3>
+                        <p style="font-size:0.95rem; color:var(--text-body); line-height:1.6;">
+                            <strong style="color:#ef4444;">❌ 무의식적인 반응:</strong><br>${results.simulation.wrong}<br><br>
+                            <strong style="color:var(--primary);">✅ 추천하는 솔루션:</strong><br>${results.simulation.correct}
                         </p>
                     </div>
-                </section>
-
-                <!-- Radar Chart -->
-                <section class="radar-section">
-                    <div class="radar-wrapper">
-                        <div class="radar-chart-container">
-                            <canvas id="radarCanvas"></canvas>
-                        </div>
-                    </div>
-                    </section>
-
-                <!-- Dimension Results -->
-                <section class="dimensions-results">
-                    <div class="text-center mb-5">
-                        <span class="section-tag">Dimension Analysis</span>
-                        <h2>5대 차원 상세 분석</h2>
-                    </div>
-                    <div id="dimResultsContainer"></div>
-                </section>
-
-                
-    
-\n<!-- Actionable Advice (Simulation) -->
-                <section class="simulation-section">
-                    <div class="text-center mb-5">
-                        <span class="section-tag">Practical Solution</span>
-                        <h2>💡 나의 사각지대 보완 팁</h2>
-                    </div>
-                    <div class="simulation-card">
-                        <div class="simulation-title">
-                            <span class="sim-icon">🚨</span> ${results.simulation.title}
-                        </div>
-                        <div class="sim-content-wrapper">
-                            <div class="simulation-wrong">
-                                <strong><i class="fas fa-times-circle" style="color: #ef4444;"></i> 무의식적인 반응:</strong><br>
-                                ${results.simulation.wrong}
-                            </div>
-                            <div class="simulation-correct">
-                                <strong><i class="fas fa-check-circle" style="color: #10b981;"></i> 추천하는 솔루션:</strong><br>
-                                ${results.simulation.correct}
-                            </div>
-                        </div>
-                    </div>
-                    <p style="font-size:0.85rem; color:var(--text-dim); text-align:right; margin-top:10px;">* 당신이 가장 취약함을 느낄 수 있는 '${DIMENSIONS.find(d => d.id === results.lowestDimId).name}' 상황에 대한 팁입니다.</p>
-                </section>
-
-                <!-- Do's and Don'ts (금쪽처방) -->
-                <section class="prescription-section">
-                    <div class="text-center mb-5">
-                        <span class="section-tag">Language Prescription</span>
-                        <h2>💬 아이를 살리는 매직 워드</h2>
-                    </div>
-                    <div class="prescription-grid">
-                        <div class="prescription-card prescription-card--dos">
-                            <div class="prescription-title">
-                                <i class="fas fa-heart"></i> 꼭 해줘야 할 긍정의 말
-                            </div>
-                            <ul class="prescription-list">
-                                ${overallPersona.dos ? overallPersona.dos.map(d => `<li>${d}</li>`).join('') : '<li>데이터가 없습니다.</li>'}
-                            </ul>
-                        </div>
-                        <div class="prescription-card prescription-card--donts">
-                            <div class="prescription-title">
-                                <i class="fas fa-ban"></i> 무의식적으로 상처 주는 말
-                            </div>
-                            <ul class="prescription-list">
-                                ${overallPersona.donts ? overallPersona.donts.map(d => `<li>${d}</li>`).join('') : '<li>데이터가 없습니다.</li>'}
-                            </ul>
-                        </div>
-                    </div>
-                </section>
-
-                
-    
-\n<!-- Situations Section -->
-                <section class="situations-section" style="margin: 60px 0;">
-                    <div style="text-align: center; margin-bottom: 30px;">
-                        <span class="section-tag">Situation Guide</span>
-                        <h3 style="font-size: 1.8rem; margin-bottom: 8px;">🚨 나의 강점을 활용한 실전 코칭</h3>
-                        <p style="color: var(--text-dim); margin-top: 8px; font-size: 0.95rem;">당신의 '${overallPersona.name}' 특성을 살린 조언입니다.</p>
-                    </div>
-                    <div class="accordion-container">
-                        ${overallPersona.situations ? overallPersona.situations.map((sit, idx) => `
-                            <div class="accordion-item" style="background: var(--bg-card); border: 1px solid var(--glass-border); border-radius: var(--radius-md); margin-bottom: 12px; overflow: hidden; transition: var(--transition-fast);">
-                                <button class="accordion-header" onclick="this.parentElement.classList.toggle('active')" style="width: 100%; text-align: left; padding: 20px; background: transparent; border: none; color: var(--text-main); font-size: 1.05rem; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
-                                    <span style="padding-right: 20px;">Q. ${sit.title}</span>
-                                    <i class="fas fa-chevron-down" style="color: var(--primary); transition: transform 0.3s;"></i>
-                                </button>
-                                <div class="accordion-content" style="padding: 0 20px; max-height: 0; overflow: hidden; transition: max-height 0.3s ease; color: var(--text-body); line-height: 1.6;">
-                                    <div style="padding-bottom: 20px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 16px;">
-                                        💡 <strong style="color: var(--secondary);">Advice:</strong> ${sit.advice}
-                                    </div>
-                                </div>
-                            </div>
-                        `).join('') : ''}
-                    </div>
-                    </div>
-
-                    <!-- Step by Step Section -->
-                    <div style="margin-top: 60px;">
-                        <div style="text-align: center; margin-bottom: 30px;">
-                            <span class="section-tag" style="background: linear-gradient(135deg, #fbbf24, #f59e0b);">For Myself</span>
-                            <h3 style="font-size: 1.8rem; margin-bottom: 8px;">👑 주체적인 나를 지키는 3단계 액션 플랜</h3>
-                            <p style="color: var(--text-dim); margin-top: 8px; font-size: 0.95rem;">당당하고 주체적인 부모로 살아가기 위한 '${overallPersona.name}' 맞춤 가이드입니다.</p>
-                        </div>
-                        <div class="step-guide-container" style="display: flex; flex-direction: column; gap: 20px;">
-                            ${overallPersona.stepByStep ? overallPersona.stepByStep.map((s, idx) => `
-                                <div class="step-card" style="background: var(--bg-card); border: 1px solid var(--glass-border); border-radius: var(--radius-lg); padding: 24px; position: relative; overflow: hidden;">
-                                    <div style="position: absolute; top: -10px; right: -10px; font-size: 6rem; font-weight: 900; opacity: 0.03; font-family: 'Outfit', sans-serif;">0${s.step}</div>
-                                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
-                                        <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; font-weight: bold; color: #fff; flex-shrink: 0;">${s.step}</div>
-                                        <h4 style="font-size: 1.15rem; color: var(--text-main); margin: 0;">${s.title}</h4>
-                                    </div>
-                                    <p style="color: var(--text-body); line-height: 1.6; margin: 0; padding-left: 44px; font-size: 0.95rem;">${s.desc}</p>
-                                </div>
-                            `).join('') : ''}
-                        </div>
-                    </div>
-
-                    <style>
-                        .accordion-item:hover { border-color: rgba(52, 211, 153, 0.4); }
-                        .accordion-item.active { border-color: var(--primary); background: rgba(30, 41, 59, 0.6); }
-                        .accordion-item.active .accordion-header i { transform: rotate(180deg); }
-                        .accordion-item.active .accordion-content { max-height: 500px; }
-                
-        /* ===== Floating Emoji Particles ===== */
-        .emoji-float-layer {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 0;
-            overflow: hidden;
-        }
-        .emoji-particle {
-            position: absolute;
-            opacity: 0;
-            animation: emojiFloat linear infinite;
-            user-select: none;
-            filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
-        }
-        @keyframes emojiFloat {
-            0%   { transform: translateY(105vh) rotate(0deg) scale(0.5); opacity: 0; }
-            6%   { opacity: 0.6; }
-            88%  { opacity: 0.3; }
-            100% { transform: translateY(-140px) rotate(400deg) scale(1.2); opacity: 0; }
-        }
-                    </style>
-                </section>
-
-                <!-- Microsoft AI Co-pilot Daily Tip Section -->
-                <section class="ai-copilot-section" style="margin: 40px 0; animation: fadeInUp 0.8s ease both; animation-delay: 0.5s;">
-                    <div class="ai-copilot-card" style="background: linear-gradient(135deg, rgba(129, 140, 248, 0.15) 0%, rgba(99, 102, 241, 0.05) 100%); border: 1px solid var(--accent); border-radius: var(--radius-lg); padding: 32px; position: relative; overflow: hidden;">
-                        <div style="position: absolute; right: -20px; bottom: -20px; font-size: 8rem; opacity: 0.04; pointer-events: none; color: var(--accent);"><i class="fas fa-robot"></i></div>
-                        <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
-                            <span class="section-tag" style="background: linear-gradient(135deg, var(--accent), #a5b4fc); color: #fff; margin: 0;">AI Co-pilot Insight</span>
-                            <span id="aiTimeTag" style="font-size:0.85rem; color:var(--text-dim); font-weight:700;">실시간 시간 분석 완료</span>
-                        </div>
-                        <h4 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 12px; color: var(--text-main); display: flex; align-items: center; gap: 8px; font-family:'Outfit', sans-serif;">
-                            🤖 스마트 AI 육아 비서의 시간대별 초격차 가이드
-                        </h4>
-                        <p id="aiCopilotTip" style="font-size: 1.02rem; line-height: 1.8; color: var(--text-body); word-break: keep-all; margin: 0; letter-spacing: -0.2px;">
-                            로딩 중...
-                        </p>
-                    </div>
-                </section>
-
-                <!-- Affiliate Curation -->
-                <section class="affiliate-section" style="display: flex; background: var(--bg-card); border-radius: var(--radius-lg); border: 1px solid var(--glass-border); padding: 30px; gap: 30px; margin: 60px 0; align-items: flex-start;">
-                    <img src="${overallPersona.book.img}" alt="Book cover" style="width: 140px; height: 200px; background: #fff; border-radius: var(--radius-sm); object-fit: cover; flex-shrink: 0; box-shadow: 0 10px 20px rgba(0,0,0,0.3);">
-                    <div class="affiliate-info">
-                        <span class="section-tag" style="margin-bottom: 12px; display: inline-block;">당신을 위한 맞춤 도서 추천</span>
-                        <h4 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 12px; color: var(--text-main);">${overallPersona.book.title}</h4>
-                        <p style="font-weight: 700; color: var(--text-main); margin-bottom: 12px; font-size: 1.05rem;">${overallPersona.book.desc}</p>
-                        <p class="book-review" style="position: relative; font-size: 0.95rem; line-height: 1.6; color: var(--text-dim); margin-bottom: 20px; padding: 16px 16px 16px 40px; border-left: 3px solid var(--primary); background: rgba(255,255,255,0.03); border-radius: 0 8px 8px 0;"><i class="fas fa-quote-left" style="position: absolute; left: 14px; top: 16px; color: var(--primary); opacity: 0.5; font-size: 1.2rem;"></i>
-                            "${overallPersona.book.review}"
-                        </p>
-                        <a href="#" class="btn btn--secondary" style="padding: 12px 28px; font-size: 0.95rem; display: inline-flex; align-items: center; gap: 8px;">도서 자세히 보기 <i class="fas fa-external-link-alt" style="font-size:0.8rem;"></i></a>
-                    </div>
-                </section>
-
-                <!-- Newsletter Lead Gen -->
-                <section class="newsletter-section">
-                    <h3>내 아이 연령별 맞춤 심화 리포트 무료로 받기</h3>
-                    <p>당신의 육아 페르소나에 맞는 실전 양육 팁을 이메일로 보내드립니다.</p>
-                    <form class="newsletter-form" onsubmit="event.preventDefault(); alert('구독이 완료되었습니다!');">
-                        <input type="email" placeholder="이메일 주소 입력" required>
-                        <button type="submit">구독</button>
-                    </form>
-                </section>
-
-                <!-- Share -->
-                <section class="share-section">
-                    <h3>결과를 공유하세요</h3>
-                    <p>나의 육아 페르소나를 가족, 친구에게 알려보세요!</p>
-                    <div class="share-buttons">
-                        <button class="share-btn share-btn--img" onclick="downloadPhotocard()">
-                            <i class="fas fa-camera"></i> 이미지로 저장
-                        </button>
-                        
-    <button class="share-btn share-btn--kakao" onclick="shareKakao()" style="background: #FEE500; color: #000000; border: none; font-weight: 700;">
-        <i class="fas fa-comment"></i> 카카오톡 공유
-    </button>
-\n<button class="share-btn share-btn--copy" onclick="copyResult()">
-                            <i class="fas fa-copy"></i> 결과 복사
-                        </button>
-                        <a href="test.html" class="share-btn share-btn--retry">
-                            <i class="fas fa-redo"></i> 다시 진단
-                        </a>
-                        <a href="index.html" class="share-btn share-btn--home">
-                            <i class="fas fa-home"></i> 홈으로
-                        </a>
-                    </div>
-                </section>
-
-                <!-- Footer -->
-                <footer class="footer" style="margin-top: 40px;">
-                    <p>&copy; 2026 Mirror Inside Parenting. All rights reserved.</p>
-                </footer>
-            `;
-
-            // Render dimension result cards
-            renderDimensionCards(dimensionTypes);
-            // Spawn floating emoji particles
-            spawnEmojiParticles(overallPersona.combo);
-
-            // Draw radar chart
-            setTimeout(() => {
-                drawRadarChart(dimensionTypes, 'radarCanvas');
-                // Prepare Photocard
-                preparePhotocard(overallPersona, dimensionTypes);
-            }, 100);
-
-            // Microsoft AI Co-pilot Dynamic Tip Logic
-            try {
-                const aiTips = {
-                    warm: {
-                        morning: "☀️ [아침 등원 가이드] 아이의 옷 고르기 떼가 터지기 쉬운 아침입니다. 공감 실력이 뛰어난 당신의 특성을 살리되, 등원 버스는 약속된 시간이니 '파란 옷 입고 안아줄까, 노란 옷 입고 안아줄까?' 단호하게 두 가지만 고르게 유도해보세요.",
-                        afternoon: "☕ [오후 소통 가이드] 하원 후 지친 아이가 갑작스럽게 화를 낼 때는 아이와 간식을 먹으며 30분간 조용히 몸을 마주 비비는 공감 스킨십 시간을 가지세요. 당신의 따뜻한 에너지가 아이의 피로를 금방 녹여줍니다.",
-                        night: "🌙 [밤 약속 가이드] 잠자기 전 '딱 5분만 더 놀래'라며 칭찬과 떼가 병행될 시간입니다. 마음이 흔들리기 쉬운 당신이지만, '약속된 시간이 지났으니 지훈이 방 불을 끄고 예쁜 꿈나라 여행을 가자'라며 흔들림 없이 수면 의식을 지켜내야 합니다.",
-                        dawn: "🦉 [새벽 정서 가이드] 늦은 새벽 육아의 깊은 피로 속에서 홀로 아이의 상처를 걱정하고 계신가요? 아이는 부모의 충만한 온기를 이미 깊게 간직하고 있으니, 미안해하기보다 부모 본인의 피로를 다독이는 자기자비(Self-Compassion) 주문을 세 번 읊조리며 편안히 눈을 감아보세요."
-                    },
-                    structured: {
-                        morning: "☀️ [아침 등원 가이드] 약속한 루틴 일정을 아이에게 먼저 확인시켜 주는 아침입니다. 화내지 않고 타이머를 건네주어 '타이머가 삑삑 소리내기 전에 직접 양치와 양말 신기를 끝내보자!'라며 주도적인 룰 플레이를 가동해 보세요.",
-                        afternoon: "☕ [오후 소통 가이드] 하원 후 학원이나 놀이 약속이 계획대로 흘러가지 않아 마음이 다급해질 수 있습니다. 10분만 여유를 두고, 아이가 흙장난을 하거나 징징대더라도 '계획의 일부'라고 넓게 해석하며 평정심을 유지하세요.",
-                        night: "🌙 [밤 약속 가이드] 취침 규칙을 철저히 지키려는 당신의 모습은 훌륭합니다. 다만 규칙의 선을 강요하기 전에, '오늘 하루 동안 약속 잘 지키느라 고생 많았어'라며 볼에 따뜻한 뽀뽀를 건네 아이에게 사랑을 확인시켜주세요.",
-                        dawn: "🦉 [새벽 정서 가이드] 내일의 가사 및 학습 마이크로 스케줄을 짜다가 수면을 방해받고 계신가요? 계획은 80%만 세워도 돌아갑니다. 통제 욕구를 잠시 서랍에 넣어두고, 부모 자신의 눈과 마음을 푹 쉬어주는 수면을 확보하세요."
-                    },
-                    free: {
-                        morning: "☀️ [아침 등원 가이드] 아침 루틴이 다소 꼬이고 불규칙해지기 쉬운 아침입니다. 유연함을 유지하되, 등원 셔틀 버스는 양보할 수 없는 한계임을 명시하고, '엄마 손 잡고 날아가듯이 씩씩하게 버스 정류장까지 뛰어볼까?' 게임처럼 등원해 보세요.",
-                        afternoon: "☕ [오후 소통 가이드] 아이가 넘어져 흙이 묻거나 위험한 기물에 도전할 때, 당신의 방목과 존중이 빛을 발합니다. 단, 신체 폭력이나 공공장소에 해가 되는 경계만큼은 엄격하게 선을 그어주어야 함을 명심하세요.",
-                        night: "🌙 [밤 약속 가이드] 밤샘 놀이를 원하는 아이에게 자율성을 100% 뺏기기 쉬운 시간입니다. 수면 루틴만큼은 뇌 발달에 핵심이므로, '밤 10시에는 꿈나라 요정을 만나기로 했으니 이 블록은 내일 아침에 마저 완성하자'라며 한계를 지키세요.",
-                        dawn: "🦉 [새벽 정서 가이드] 자유를 빙자해 방임하는 부모로 비칠까 봐 다른 사람들의 시선이 불안하셨나요? 아이의 내적 동기를 가장 잘 지키는 분은 당신이니, 남들의 형식적인 평가에 흔들리지 말고 중심을 지키세요."
-                    },
-                    wise: {
-                        morning: "☀️ [아침 등원 가이드] 아침 일정을 지체시키는 아이에게 지적 설명('늦으면 지각해서 나쁜 거야')을 나열하기 쉽습니다. 지금은 이성적 설명보다 아이의 눈을 보고 '어린이집에 가기 힘든 속상한 감정'을 5초만 안아준 뒤 등원길에 오르세요.",
-                        afternoon: "☕ [오후 소통 가이드] 아이가 세상에 대해 수많은 '왜?' 질문 폭탄을 던질 최적의 시간입니다. 정답을 퀴즈쇼처럼 가르치기보다, '어머, 정말 신기하네! 왜 그럴까? 지훈이의 기발한 생각은 어떤 건지 들려줘'라며 사고력을 넓혀주세요.",
-                        night: "🌙 [밤 약속 가이드] 취침 시간 이전에 아이의 뇌가 디지털 자극 등으로 과열되지 않도록, 차분한 무드등 밑에서 오늘 하루 동안 읽은 책의 기발한 뒷이야기를 상상하는 차분한 메타인지 수다로 수면을 유도하세요.",
-                        dawn: "🦉 [새벽 정서 가이드] 오늘 하루 아이의 문제를 인과적으로 원인 분석하느라 머리가 복잡하셨나요? 아동 발달은 정형화된 이론대로만 흐르지 않습니다. 때로는 머리의 분석을 끄고 가슴으로 안아주는 여백이 정답입니다."
-                    },
-                    balanced: {
-                        morning: "☀️ [아침 등원 가이드] 공감과 규칙의 균형을 완벽하게 맞추려다 부모 스스로 조급해지는 아침입니다. 등원길에 '완벽주의 대처'를 하려다 힘 빼기보다, 가볍게 간식을 챙겨 씩씩하게 웃으며 아이의 손을 맞잡는 것으로 충분합니다.",
-                        afternoon: "☕ [오후 소통 가이드] 5대 차원 조율을 골고루 하려다 정작 부모의 멘탈이 피로해질 오후입니다. 안전에 문제가 없다면 '에라 모르겠다!' 하며 흘리는 밥상머리와 어지러운 장난감들을 가볍게 넘기는 유연함이 약입니다.",
-                        night: "🌙 [밤 약속 가이드] 잠들기 전 3단계 액션 플랜을 일관성 있게 완수하셨습니다. '오늘도 균형 잡힌 사랑을 전하느라 고생 많았어'라며 부모 본인의 어깨를 셀프 토닥여주는 정서적 자기돌봄으로 하루를 닫으세요.",
-                        dawn: "🦉 [새벽 정서 가이드] 완벽한 중도의 길을 걷느라 마음속 다크서클이 턱밑까지 몰려온 시간입니다. 좋은 부모는 완벽한 신이 아니라, 지쳤을 땐 힘듦을 인정하고 쉴 줄 아는 솔직하고 건강한 사람입니다. 푹 주무세요."
-                    },
-                    empathetic: {
-                        morning: "☀️ [아침 등원 가이드] 아이가 아침부터 피곤해 울부짖는 눈물에 부모의 가슴이 함께 아려오는 시간입니다. 감정적 전염을 차단하고, 내 감정을 분리한 뒤 '속상하지? 엄마가 이따 4시에 꽉 안으러 꼭 올게' 씩씩하게 등원시키세요.",
-                        afternoon: "☕ [오후 소통 가이드] 하원 후 또래 관계 갈등이나 속상했던 이야기를 토로할 때, 거울처럼 비춰주되 '누구 때문에 다친 감정'에 너무 동화되지 마세요. '아이가 스스로 이겨내어 자라나고 있다'는 신뢰의 태도를 지탱하세요.",
-                        night: "🌙 [밤 약속 가이드] 잠자기 전 감정 쓰레기통이 되어 지쳐 쓰러지기 쉬운 시간입니다. '네 감정은 소중하지만, 엄마도 지쳤단다'라는 명확한 나-전달법(I-Message)을 통해 건강한 공감의 경계를 그으며 수면을 취하세요.",
-                        dawn: "🦉 [새벽 정서 가이드] 아이의 사소한 눈물과 상처 하나하나가 모두 내 탓인 것 같아 죄책감으로 뒤척이시나요? 죄책감은 육아의 적입니다. 당신의 엠파시(Empathy) 거울은 이미 최고이니 안심하고 주무세요."
-                    },
-                    creative: {
-                        morning: "☀️ [아침 등원 가이드] 늦잠을 잤거나 규칙 정비가 꼬여 아침 텐션이 흐트러질 수 있습니다. 등원 양치질과 세수를 '누가 먼저 괴물 입속을 청소하고 탈출하는지' 즉흥 역할극 놀이로 승화시켜 등원 준비를 번개처럼 마쳐보세요.",
-                        afternoon: "☕ [오후 소통 가이드] 에너지가 넘치고 엉뚱한 아이디어가 폭발할 오후 놀이 시간입니다. 도화지나 바닥에 대범하게 낙서 놀이를 허용하되, 놀이 후 '장난감 귀환 보물상자 게임'을 가동해 정돈 루틴 퀘스트를 함께 완수하세요.",
-                        night: "🌙 [밤 약속 가이드] 침대 위에서 덤블링을 하거나 장난을 치며 텐션이 꺼지지 않는 시간입니다. 흥분 도파민을 이완 멜라토닌으로 변환시키기 위해, 조용한 숲속 소리 명상을 틀고 동화책 구연 수면 의식을 시작하세요.",
-                        dawn: "🦉 [새벽 정서 가이드] 놀이에 너무 에너지를 쏟아 온몸이 뻐근하고 방전된 깊은 새벽입니다. 더 대단한 놀이 아이디어를 쥐어 짜내기보다, 부모의 체력이 든든하게 받쳐주어야 진짜 재밌게 놀아줄 수 있음을 명심하세요."
-                    },
-                    resilient: {
-                        morning: "☀️ [아침 등원 가이드] 아이가 어린이집 문앞에서 '안 갈래' 징징대기 시작하면 멘탈 강한 당신이지만 속에서 욱함이 치솟기 쉽습니다. '이겨내!' 강요 전에, 5초 동안 숨을 크게 쉬며 따뜻하게 꼭 안아주는 포옹으로 정서 안전망을 확인하고 들여보내세요.",
-                        afternoon: "☕ [오후 소통 가이드] 놀이터에서 놀다 넘어져 무릎을 다치거나 보드게임에서 져서 대성통곡할 시간입니다. 곧장 해결책을 들이대지 마세요. 5분 동안 아이의 슬픔과 억울함을 충분히 들어주는 감정 애도 단계를 반드시 수반해야 합니다.",
-                        night: "🌙 [밤 약속 가이드] 오늘 일상의 자잘한 실수들을 툭툭 털며 아이와 칭찬 일기를 써보기에 가장 완벽한 시간입니다. '오늘 넘어졌지만 다시 일어선 지훈이의 생각 근육이 이만큼 자라났어. 정말 용감한 하루였어' 과정의 노력을 격려해주세요.",
-                        dawn: "🦉 [새벽 정서 가이드] 본인의 멘탈이 너무 단단해서, 때로는 연약하고 섬세하게 징징대는 아이의 마음이 진심으로 공감이 안 가 힘드셨나요? 아이는 부모의 발판 위에 서서 자라납니다. 아이의 약한 소리를 성장의 필연적인 징검다리로 존중해주며 편안히 주무세요."
-                    }
-                };
-
-                const hours = new Date().getHours();
-                let timeKey = 'morning';
-                let timeName = '☀️ 실시간 아침 등원 팁';
-
-                if (hours >= 6 && hours < 12) {
-                    timeKey = 'morning';
-                    timeName = '☀️ 실시간 아침 등원 팁';
-                } else if (hours >= 12 && hours < 18) {
-                    timeKey = 'afternoon';
-                    timeName = '☕ 실시간 오후 소통 팁';
-                } else if (hours >= 18 && hours < 22) {
-                    timeKey = 'night';
-                    timeName = '🌙 실시간 밤 약속 팁';
-                } else {
-                    timeKey = 'dawn';
-                    timeName = '🦉 실시간 새벽 감정 팁';
-                }
-
-                const activeTip = aiTips[overallPersona.combo]?.[timeKey] || aiTips['balanced'][timeKey];
-                const aiCard = document.getElementById('aiCopilotTip');
-                const aiTag = document.getElementById('aiTimeTag');
-
-                if (aiCard && aiTag) {
-                    aiTag.textContent = timeName;
-                    aiCard.textContent = activeTip;
-                }
-            } catch (e) {
-                console.error("AI Co-pilot error: ", e);
-            }
-        }
-
-        // ============================================================
-        // Floating Emoji Particles
-        // ============================================================
-        const PERSONA_EMOJIS = {
-            warm:       ['💛','🌸','🤗','☀️','🫶','💝','🌻','💖'],
-            structured: ['📐','✅','📋','🗂️','⏰','📏','🔑','📼'],
-            free:       ['🌊','🌿','🦋','🌈','🗺️','🛩','⛵','🌬️'],
-            wise:       ['🔭','📚','🦉','💡','🧭','🌙','⭐','🔍'],
-            balanced:   ['⚖️','🎯','🌏','🪴','🤝','🔄','🧘','💎'],
-            empathetic: ['🪞','💜','🫂','🌙','✨','🫀','🫁','🌷'],
-            creative:   ['🎨','🎪','🦄','🌈','🎭','🪄','🎉','🎠'],
-            resilient:  ['🌸','💪','🌱','🛡️','🔥','🌅','⚡','🦅'],
-        };
-
-        function spawnEmojiParticles(combo) {
-            const layer = document.getElementById('emojiLayer');
-            if (!layer) return;
-            const emojis = PERSONA_EMOJIS[combo] || PERSONA_EMOJIS['balanced'];
-            const count = 22;
-            layer.innerHTML = '';
-            for (let i = 0; i < count; i++) {
-                const el = document.createElement('span');
-                el.className = 'emoji-particle';
-                el.textContent = emojis[i % emojis.length];
-                const leftPct  = Math.random() * 98;
-                const duration = 9 + Math.random() * 16;
-                const delay    = Math.random() * 14;
-                const size     = 1.3 + Math.random() * 1.8;
-                el.style.cssText = `left:${leftPct}%; font-size:${size}rem; animation-duration:${duration}s; animation-delay:${delay}s;`;
-                layer.appendChild(el);
-            }
-        }
-
-        function preparePhotocard(overallPersona, dimensionTypes) {
-            const pcArea = document.createElement('div');
-            pcArea.id = 'photocardArea';
-            
-            // Generate Strengths and Anxieties HTML
-            const strengthsHtml = overallPersona.strengths.slice(0, 3).map(s => `<li style="margin-bottom: 24px; padding-left: 45px; position: relative; font-size: 2rem; color: #f8fafc; line-height: 1.5; font-weight: 500; letter-spacing: -1px;"><i class="fas fa-check" style="position: absolute; left: 0; top: 6px; color: #34d399; font-size: 2.2rem;"></i>${s}</li>`).join('');
-            const anxietiesHtml = overallPersona.anxieties.slice(0, 2).map(a => `<li style="margin-bottom: 24px; padding-left: 45px; position: relative; font-size: 2rem; color: #f8fafc; line-height: 1.5; font-weight: 500; letter-spacing: -1px;"><i class="fas fa-exclamation-triangle" style="position: absolute; left: 0; top: 6px; color: #fbbf24; font-size: 2.2rem;"></i>${a}</li>`).join('');
-
-            pcArea.style.cssText = 'position:fixed; top:-9999px; left:-9999px; width:1080px; height:1920px; background:linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color:#ffffff; font-family:"Pretendard", sans-serif; display:flex; flex-direction:column; align-items:center; box-sizing:border-box; z-index:-100;';
-            
-            pcArea.innerHTML = `
-                <!-- 배경 장식 (블러 원형) -->
-                <div style="position:absolute; top:-200px; left:-200px; width:800px; height:800px; background:var(--primary); filter:blur(300px); opacity:0.15; border-radius:50%;"></div>
-                <div style="position:absolute; bottom:-300px; right:-300px; width:1000px; height:1000px; background:var(--secondary); filter:blur(400px); opacity:0.15; border-radius:50%;"></div>
-
-                <div style="width:100%; height:100%; position:relative; z-index:10; padding:100px 80px 80px; display:flex; flex-direction:column; justify-content:space-between;">
                     
-                    <!-- 헤더 -->
-                    <div style="text-align:center;">
-                        <div style="font-size:2.2rem; letter-spacing:8px; color:var(--primary); font-weight:800; margin-bottom:30px; text-transform:uppercase; opacity:0.9;">Mirror Inside Parenting</div>
-                        <div style="display:inline-block; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); padding:16px 40px; border-radius:100px; font-size:2.4rem; font-weight:800; color:#fff; box-shadow:0 10px 30px rgba(0,0,0,0.3);">
-                            💎 상위 ${overallPersona.rarity}
-                        </div>
+                    <div style="margin-top: 32px;">
+                        <h3 style="font-size: 1.1rem; margin-bottom: 16px; color: var(--text-main); font-weight: 800; text-align:center;">5가지 상세 육아 차원</h3>
+                        ${dimsHTML}
                     </div>
-
-                    <!-- 캐릭터 이미지 & 타이틀 -->
-                    <div style="text-align:center; margin-top:40px;">
-                        <div style="width:480px; height:480px; margin:0 auto 40px; border-radius:50%; overflow:hidden; border:12px solid rgba(255,255,255,0.08); box-shadow:0 40px 80px rgba(0,0,0,0.6); position:relative; background:#000;">
-                            <img src="${overallPersona.imageUrl}" style="width:100%; height:100%; object-fit:cover;" crossorigin="anonymous">
-                        </div>
-                        <h1 style="font-size:6.5rem; font-weight:900; margin:0 0 30px; line-height:1.1; color:#ffffff; text-shadow:0 10px 30px rgba(0,0,0,0.5); letter-spacing:-2px;">${overallPersona.name}</h1>
-                        <p style="font-size:2.5rem; line-height:1.6; color:#cbd5e1; margin:0; padding:0 20px; word-break:keep-all; font-weight:500;">"${overallPersona.desc}"</p>
+                    
+                    <div style="margin-top: 32px; text-align: center;">
+                        <a href="/columns/persona_deepdive.html" class="btn btn--primary" style="width: 100%;">📚 내 페르소나 심층 칼럼 읽기</a>
                     </div>
-
-                    <!-- 분석 내용 박스들 -->
-                    <div style="display:flex; flex-direction:column; gap:40px; margin-top:60px;">
-                        <!-- 강점 -->
-                        <div style="background:rgba(255,255,255,0.05); backdrop-filter:blur(20px); border:2px solid rgba(255,255,255,0.1); border-radius:40px; padding:60px 50px;">
-                            <h3 style="font-size:2.6rem; color:var(--primary); margin:0 0 30px; font-weight:800; letter-spacing:-1px;">✨ 나만의 압도적 무기</h3>
-                            <ul style="list-style:none; padding:0; margin:0;">
-                                ${strengthsHtml}
-                            </ul>
-                        </div>
-
-                        <!-- 불안/걱정 -->
-                        <div style="background:rgba(255,255,255,0.05); backdrop-filter:blur(20px); border:2px solid rgba(255,255,255,0.1); border-radius:40px; padding:60px 50px;">
-                            <h3 style="font-size:2.6rem; color:#fbbf24; margin:0 0 30px; font-weight:800; letter-spacing:-1px;">☁️ 내가 남몰래 느끼는 불안</h3>
-                            <ul style="list-style:none; padding:0; margin:0;">
-                                ${anxietiesHtml}
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- 푸터 (레이더 차트는 생략하고 깔끔하게 텍스트만) -->
-                    <div style="text-align:center; margin-top:50px; padding-top:50px; border-top:2px solid rgba(255,255,255,0.1);">
-                        <div style="font-size:2.2rem; color:#94a3b8; font-weight:700; letter-spacing:1px;">
-                            🔍 내 안의 진짜 부모 찾기 👉 <span style="color:#ffffff;">aikiugihimdulda.vercel.app</span>
-                        </div>
-                    </div>
-
                 </div>
             `;
-            document.body.appendChild(pcArea);
+
+            drawRadarChart(dimensionTypes);
         }
 
-        async function downloadPhotocard() {
-            const btn = document.querySelector('.share-btn--img');
-            const orig = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 생성 중...';
-            
-            const pcArea = document.getElementById('photocardArea');
-            try {
-                const canvas = await html2canvas(pcArea, { scale: 1, backgroundColor: '#0f172a', useCORS: true, logging: false });
-                const link = document.createElement('a');
-                link.download = 'my-parenting-persona.png';
-                link.href = canvas.toDataURL('image/png');
-                link.click();
-                
-                btn.innerHTML = '<i class="fas fa-check"></i> 저장 완료!';
-            } catch (err) {
-                console.error(err);
-                btn.innerHTML = '오류 발생';
-            }
-            
-            setTimeout(() => { btn.innerHTML = orig; }, 3000);
-        }
-
-        function renderDimensionCards(dimensionTypes) {
-            const container = document.getElementById('dimResultsContainer');
-            const dimColors = {
-                emotional: { bg: 'rgba(251, 191, 36, 0.12)', color: '#fbbf24', barGrad: 'linear-gradient(90deg, #fbbf24, #f59e0b)' },
-                discipline: { bg: 'rgba(96, 165, 250, 0.12)', color: '#60a5fa', barGrad: 'linear-gradient(90deg, #60a5fa, #3b82f6)' },
-                autonomy: { bg: 'rgba(52, 211, 153, 0.12)', color: '#34d399', barGrad: 'linear-gradient(90deg, #34d399, #10b981)' },
-                growth: { bg: 'rgba(192, 132, 252, 0.12)', color: '#c084fc', barGrad: 'linear-gradient(90deg, #c084fc, #a855f7)' },
-                resilience: { bg: 'rgba(251, 113, 133, 0.12)', color: '#fb7185', barGrad: 'linear-gradient(90deg, #fb7185, #f43f5e)' }
-            };
-
-            DIMENSIONS.forEach((dim, idx) => {
-                const result = dimensionTypes[dim.id];
-                const persona = result.type;
-                const colors = dimColors[dim.id];
-                const score = Math.min(result.normalizedScore, 100);
-
-                const card = document.createElement('div');
-                card.className = 'dim-result-card';
-                card.style.setProperty('--dim-color', colors.color);
-                card.style.opacity = '0';
-                card.style.animation = `fadeInUp 0.6s ease ${idx * 0.15}s both`;
-
-                const allTypes = PERSONA_TYPES[dim.id];
-
-                card.innerHTML = `
-                    <div class="dim-result-card__header">
-                        <div class="dim-result-card__icon-box" style="background:${colors.bg}">
-                            ${dim.icon}
-                        </div>
-                        <div class="dim-result-card__meta">
-                            <div class="dim-result-card__dim-name">${dim.nameEn}</div>
-                            <div class="dim-result-card__type-name">${persona.name}</div>
-                        </div>
-                    </div>
-
-                    
-
-                    <div class="dim-result-card__desc">${persona.desc}</div>
-
-                    <div class="dim-result-card__strengths">
-                        ${persona.strengths.map(s => `
-                            <span class="strength-tag" style="background:${colors.bg}; color:${colors.color}">
-                                ✦ ${s}
-                            </span>
-                        `).join('')}
-                    </div>
-
-                    <div class="dim-result-card__tip">${persona.tip}</div>
-
-                    <div class="all-types-toggle" onclick="toggleTypes('${dim.id}')">
-                        <i class="fas fa-chevron-down"></i>
-                        이 차원의 7가지 유형 모두 보기
-                    </div>
-                    <div class="all-types-grid" id="types-${dim.id}">
-                        ${allTypes.map((t, i) => `
-                            <div class="all-type-chip ${i === result.typeIndex ? 'active' : ''}">
-                                ${i === result.typeIndex ? '★ ' : ''}${t.name}
-                            </div>
-                        `).join('')}
-                    </div>
-                `;
-
-                container.appendChild(card);
-
-                
-            });
-        }
-
-        function toggleTypes(dimId) {
-            const grid = document.getElementById(`types-${dimId}`);
-            grid.classList.toggle('open');
-        }
-
-        // === Radar Chart Drawing ===
-        function drawRadarChart(dimensionTypes, canvasId, staticDraw = false) {
-            const canvas = document.getElementById(canvasId);
+        function drawRadarChart(dimensionTypes) {
+            const canvas = document.getElementById('radarCanvas');
             if (!canvas) return;
-
             const ctx = canvas.getContext('2d');
             const dpr = window.devicePixelRatio || 1;
-            const container = canvas.parentElement;
-            const size = container.offsetWidth || 500;
-            if (!staticDraw) {
-                canvas.width = size * dpr;
-                canvas.height = size * dpr;
-                canvas.style.width = size + 'px';
-                canvas.style.height = size + 'px';
-                ctx.scale(dpr, dpr);
-            } else {
-                ctx.scale(2, 2); // For photocard 1000x1000 canvas to 500x500 context
-            }
+            
+            const rect = canvas.parentElement.getBoundingClientRect();
+            const size = Math.min(rect.width, 300);
+            
+            canvas.width = size * dpr;
+            canvas.height = size * dpr;
+            canvas.style.width = size + 'px';
+            canvas.style.height = size + 'px';
+            ctx.scale(dpr, dpr);
 
             const cx = size / 2;
-            const cy = size / 2;
-            const maxR = size / 2 - 50;
+            const cy = size / 2 + 10;
+            const maxR = size / 2 - 40;
             const n = 5;
             const angles = [];
             for (let i = 0; i < n; i++) {
                 angles.push((Math.PI * 2 * i / n) - Math.PI / 2);
             }
 
-            const dimColors = ['#fbbf24', '#60a5fa', '#34d399', '#c084fc', '#fb7185'];
+            const dataValues = DIMENSIONS.map(d => dimensionTypes[d.id].normalizedScore);
+            const labels = DIMENSIONS.map(d => d.name);
 
-            // Grid rings
-            for (let ring = 1; ring <= 5; ring++) {
-                const r = (maxR / 5) * ring;
+            // Draw Grid
+            for (let ring = 1; ring <= 4; ring++) {
+                const r = (maxR / 4) * ring;
                 ctx.beginPath();
                 for (let i = 0; i < n; i++) {
                     const x = cx + r * Math.cos(angles[i]);
@@ -1404,225 +395,120 @@
                     else ctx.lineTo(x, y);
                 }
                 ctx.closePath();
-                ctx.strokeStyle = `rgba(255,255,255,${ring === 5 ? 0.08 : 0.04})`;
+                ctx.strokeStyle = 'rgba(0,0,0,0.05)';
                 ctx.lineWidth = 1;
                 ctx.stroke();
             }
 
-            // Axes
+            // Draw Axes & Labels
             for (let i = 0; i < n; i++) {
                 ctx.beginPath();
                 ctx.moveTo(cx, cy);
                 ctx.lineTo(cx + maxR * Math.cos(angles[i]), cy + maxR * Math.sin(angles[i]));
-                ctx.strokeStyle = 'rgba(255,255,255,0.06)';
-                ctx.lineWidth = 1;
+                ctx.strokeStyle = 'rgba(0,0,0,0.05)';
                 ctx.stroke();
-            }
 
-            // Labels
-            const dimIds = DIMENSIONS.map(d => d.id);
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-
-            DIMENSIONS.forEach((dim, i) => {
-                const lr = maxR + 35;
+                const lr = maxR + 20;
                 const x = cx + lr * Math.cos(angles[i]);
                 const y = cy + lr * Math.sin(angles[i]);
+                ctx.font = '700 12px Pretendard';
+                ctx.fillStyle = 'rgba(0,0,0,0.5)';
+                ctx.textAlign = 'center';
+                ctx.fillText(labels[i], x, y + 4);
+            }
 
-                // Icon
-                ctx.font = '18px sans-serif';
-                ctx.fillText(dim.icon, x, y - 10);
-
-                // Name
-                ctx.font = '600 12px Pretendard';
-                ctx.fillStyle = dimColors[i];
-                ctx.fillText(dim.name, x, y + 8);
+            // Draw Data
+            ctx.beginPath();
+            dataValues.forEach((v, i) => {
+                const r = maxR * v;
+                const x = cx + r * Math.cos(angles[i]);
+                const y = cy + r * Math.sin(angles[i]);
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
             });
-
-            // Data values
-            const values = DIMENSIONS.map(d => {
-                const score = dimensionTypes[d.id].normalizedScore;
-                return Math.max(0.1, score / 100);
-            });
-
-            // Animate or Static Draw
-            const animDuration = 60; // frames
-            let progress = staticDraw ? animDuration : 0;
+            ctx.closePath();
             
-            function animate() {
-                if (!staticDraw) progress++;
-                const t = Math.min(progress / animDuration, 1);
-                const ease = 1 - Math.pow(1 - t, 3); // easeOutCubic
+            const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, maxR);
+            grad.addColorStop(0, 'rgba(255, 107, 107, 0.25)');
+            grad.addColorStop(1, 'rgba(255, 218, 193, 0.15)');
+            ctx.fillStyle = grad;
+            ctx.fill();
+            
+            ctx.strokeStyle = '#FF6B6B';
+            ctx.lineWidth = 2.5;
+            ctx.stroke();
 
-                // Clear data area only
-                ctx.save();
-
-                // Data fill
+            // Draw Dots
+            dataValues.forEach((v, i) => {
+                const r = maxR * v;
+                const x = cx + r * Math.cos(angles[i]);
+                const y = cy + r * Math.sin(angles[i]);
+                
                 ctx.beginPath();
-                values.forEach((v, i) => {
-                    const r = maxR * v * ease;
-                    const x = cx + r * Math.cos(angles[i]);
-                    const y = cy + r * Math.sin(angles[i]);
-                    if (i === 0) ctx.moveTo(x, y);
-                    else ctx.lineTo(x, y);
-                });
-                ctx.closePath();
-
-                const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, maxR);
-                grad.addColorStop(0, 'rgba(52, 211, 153, 0.3)');
-                grad.addColorStop(0.5, 'rgba(129, 140, 248, 0.15)');
-                grad.addColorStop(1, 'rgba(251, 113, 133, 0.1)');
-                ctx.fillStyle = grad;
+                ctx.arc(x, y, 9, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255, 107, 107, 0.2)';
                 ctx.fill();
 
-                // Data stroke
                 ctx.beginPath();
-                values.forEach((v, i) => {
-                    const r = maxR * v * ease;
-                    const x = cx + r * Math.cos(angles[i]);
-                    const y = cy + r * Math.sin(angles[i]);
-                    if (i === 0) ctx.moveTo(x, y);
-                    else ctx.lineTo(x, y);
-                });
-                ctx.closePath();
-                ctx.strokeStyle = 'rgba(52, 211, 153, 0.7)';
-                ctx.lineWidth = 2.5;
-                ctx.stroke();
+                ctx.arc(x, y, 4, 0, Math.PI * 2);
+                ctx.fillStyle = '#FF6B6B';
+                ctx.fill();
+            });
+        }
 
-                // Data points
-                values.forEach((v, i) => {
-                    const r = maxR * v * ease;
-                    const x = cx + r * Math.cos(angles[i]);
-                    const y = cy + r * Math.sin(angles[i]);
-
-                    // Glow
-                    ctx.beginPath();
-                    ctx.arc(x, y, 10, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(${hexToRgb(dimColors[i])}, 0.2)`;
-                    ctx.fill();
-
-                    // Point
-                    ctx.beginPath();
-                    ctx.arc(x, y, 5, 0, Math.PI * 2);
-                    ctx.fillStyle = dimColors[i];
-                    ctx.fill();
-
-                    // Score label
-                    if (t > 0.8) {
-                        const labelR = maxR * v * ease + 18;
-                        const lx = cx + labelR * Math.cos(angles[i]);
-                        const ly = cy + labelR * Math.sin(angles[i]);
-                        ctx.font = '700 11px Outfit';
-                        ctx.fillStyle = 'rgba(255,255,255,0.7)';
-                        ctx.textAlign = 'center';
-                        ctx.fillText(Math.round(v * 100) + '%', lx, ly);
-                    }
-                });
-
-                ctx.restore();
-
-                if (!staticDraw && progress < animDuration) {
-                    requestAnimationFrame(animate);
-                }
-            }
-
-            if (staticDraw) {
-                animate(); // Draw instantly
-            } else {
-                setTimeout(animate, 500);
+        async function downloadImage() {
+            const btn = document.querySelector('.btn-insta');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 이미지 생성 중...';
+            
+            const el = document.getElementById('captureArea');
+            el.style.left = '0';
+            el.style.top = '0';
+            el.style.zIndex = '9999';
+            
+            try {
+                const canvas = await html2canvas(el, { scale: 2, backgroundColor: '#FFF5F5' });
+                const link = document.createElement('a');
+                link.download = `mirror_inside_result.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+                btn.innerHTML = '<i class="fas fa-check"></i> 저장 완료! 인스타에 올려보세요';
+            } catch (e) {
+                console.error(e);
+                alert('이미지 저장에 실패했습니다.');
+                btn.innerHTML = originalText;
+            } finally {
+                el.style.left = '-9999px';
+                el.style.zIndex = '-100';
+                setTimeout(() => { if (btn.innerHTML.includes('완료')) btn.innerHTML = originalText; }, 3000);
             }
         }
 
-        function hexToRgb(hex) {
-            const r = parseInt(hex.slice(1, 3), 16);
-            const g = parseInt(hex.slice(3, 5), 16);
-            const b = parseInt(hex.slice(5, 7), 16);
-            return `${r},${g},${b}`;
-        }
-
-        // === Copy Result ===
-        
         function shareKakao() {
-            const overallPersona = results.overallPersona;
+            if (!results) return;
             Kakao.Share.sendDefault({
                 objectType: 'feed',
                 content: {
-                    title: `[테스트 결과] 나는 '${overallPersona.name}' 부모입니다!`,
-                    description: overallPersona.desc,
-                    imageUrl: window.location.origin + '/' + overallPersona.imageUrl,
-                    link: {
-                        mobileWebUrl: window.location.origin,
-                        webUrl: window.location.origin,
-                    },
+                    title: `🪞 나는 '${results.overallPersona.name}' 부모입니다!`,
+                    description: results.overallPersona.desc,
+                    imageUrl: window.location.origin + '/' + results.overallPersona.imageUrl,
+                    link: { mobileWebUrl: window.location.origin, webUrl: window.location.origin },
                 },
-                buttons: [
-                    {
-                        title: '나의 양육 페르소나 알아보기',
-                        link: {
-                            mobileWebUrl: window.location.origin,
-                            webUrl: window.location.origin,
-                        },
-                    },
-                ],
+                buttons: [{ title: '나의 양육 DNA 알아보기', link: { mobileWebUrl: window.location.origin, webUrl: window.location.origin } }],
             });
         }
-\n        function copyResult() {
+
+        function copyResult() {
             if (!results) return;
-            const { overallPersona, dimensionTypes } = results;
-            let text = `🧬 Mirror Inside Parenting 진단 결과\n\n`;
-            text += `📋 종합 유형: ${overallPersona.name}\n`;
-            text += `${overallPersona.desc}\n\n`;
-
-            DIMENSIONS.forEach(dim => {
-                const r = dimensionTypes[dim.id];
-                text += `${dim.icon} ${dim.name}: ${r.type.name} \n`;
-            });
-
-            text += `\n🔗 나도 진단받기: ${window.location.origin}/test.html`;
+            let text = `🪞 Mirror Inside Parenting 진단 결과\n\n`;
+            text += `✨ 나의 육아 페르소나: ${results.overallPersona.name}\n`;
+            text += `${results.overallPersona.desc}\n\n`;
+            text += `🔗 나도 알아보기: ${window.location.origin}/test.html`;
 
             navigator.clipboard.writeText(text).then(() => {
-                const btn = document.querySelector('.share-btn--copy');
-                const orig = btn.innerHTML;
-                btn.innerHTML = '<i class="fas fa-check"></i> 복사됨!';
-                btn.style.borderColor = 'var(--primary)';
-                btn.style.color = 'var(--primary)';
-                setTimeout(() => {
-                    btn.innerHTML = orig;
-                    btn.style.borderColor = '';
-                    btn.style.color = '';
-                }, 2000);
+                alert('결과 링크가 복사되었습니다!');
             });
         }
-
-        // Handle resize
-        window.addEventListener('resize', () => {
-            if (results) {
-                drawRadarChart(results.dimensionTypes);
-            }
-        });
     </script>
-
-    <!-- Mobile Bottom Navigation -->
-    <nav class="bottom-nav">
-        <div class="bottom-nav__inner">
-            <a href="/index.html" class="bottom-nav__item">
-                <i class="fas fa-home"></i>
-                <span>홈</span>
-            </a>
-            <a href="/test.html" class="bottom-nav__item">
-                <i class="fas fa-clipboard-check"></i>
-                <span>진단</span>
-            </a>
-            <a href="/columns.html" class="bottom-nav__item">
-                <i class="fas fa-book-open"></i>
-                <span>칼럼</span>
-            </a>
-            <a href="/gallery.html" class="bottom-nav__item">
-                <i class="fas fa-images"></i>
-                <span>기록</span>
-            </a>
-        </div>
-    </nav>
-
 </body>
 </html>
