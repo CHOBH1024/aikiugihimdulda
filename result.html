@@ -180,6 +180,8 @@
             padding: 80px;
             box-sizing: border-box;
             z-index: -100;
+            pointer-events: none;
+            visibility: hidden;
         }
 
         .capture-card {
@@ -234,7 +236,7 @@
     <!-- Hidden Capture Area -->
     <div id="captureArea">
         <div class="capture-card">
-            <img id="capImg" src="" class="capture-img">
+            <img id="capImg" class="capture-img">
             <div class="capture-body">
                 <div class="capture-tags" id="capTags"></div>
                 <div class="capture-title" id="capTitle"></div>
@@ -541,6 +543,8 @@
             } else {
                 navigator.clipboard.writeText(text).then(() => {
                     alert('결과 링크와 내용이 클립보드에 복사되었습니다!\n카카오톡 대화창에 붙여넣기 하여 공유해보세요.');
+                }).catch(() => {
+                    alert('클립보드 복사에 실패했습니다. 브라우저의 URL을 직접 복사해 주세요.');
                 });
             }
         }

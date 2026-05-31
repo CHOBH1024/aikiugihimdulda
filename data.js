@@ -1191,7 +1191,7 @@ function calculateResults(answers) {
 
   // 서브타입 분석 인덱스 도출 (0~3)
   // 40문항 테스트의 경우 answers 배열 길이(40) 전체 합산 결과를 바탕으로 고유한 해시값 도출
-  const totalSum = answers.reduce((sum, val) => sum + (val || 0), 0);
+  const totalSum = answers.reduce((sum, val, idx) => sum + (val || 0) * (idx + 1), 0);
   const subtypeIndex = totalSum % 4;
 
   return {
