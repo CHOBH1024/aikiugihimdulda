@@ -274,6 +274,8 @@
         function renderResults(results) {
             const { overallPersona, dimensionTypes } = results;
             const wrapper = document.getElementById('resultWrapper');
+            const childAge = localStorage.getItem('mirrorInsideChildAge') || 'toddler';
+            const ageMap = { infant: '영아기 (0~12개월)', toddler: '걸음마기 (1~3세)', preschool: '유아기 (4~7세)', school: '학령기 (8세 이상)' };
 
             // Set up capture area
             document.getElementById('capImg').src = overallPersona.imageUrl;
@@ -306,6 +308,7 @@
                         </div>
                         <div class="photocard__content">
                             <h1 class="photocard__title">${overallPersona.name}</h1>
+                            <p style="font-size: 1.1rem; font-weight: 800; color: var(--primary); margin-bottom: 8px; word-break: keep-all;">${overallPersona.coreIdentity || '아이의 거울이 되는 따뜻한 부모'}</p>
                             <p class="photocard__desc">${overallPersona.desc}</p>
                             
                             <div class="photocard__tags">
@@ -327,6 +330,15 @@
                 </div>
 
                 <div class="carousel-section">
+                    ${overallPersona.ageAdvice && overallPersona.ageAdvice[childAge] ? `
+                    <div class="carousel-card" style="border-color: var(--primary); background: rgba(52, 211, 153, 0.05);">
+                        <h3>👶 ${ageMap[childAge]} 맞춤 육아 가이드</h3>
+                        <p style="font-size: 1rem; color: var(--text-main); font-weight: 700; line-height: 1.6; word-break: keep-all;">
+                            ${overallPersona.ageAdvice[childAge]}
+                        </p>
+                    </div>
+                    ` : ''}
+
                     <div class="carousel-card">
                         <h3>✨ 나의 빛나는 장점</h3>
                         <ul>${overallPersona.strengths.map(s => `<li>${s}</li>`).join('')}</ul>
@@ -335,6 +347,19 @@
                         <h3>🥺 육아하며 느끼는 아쉬움</h3>
                         <ul>${overallPersona.weaknesses.map(s => `<li>${s}</li>`).join('')}</ul>
                     </div>
+                    
+                    ${overallPersona.deepReflection ? `
+                    <div class="carousel-card" style="background: var(--glass-strong);">
+                        <h3 style="color: #F59E0B;">🪞 나를 깊게 이해하기</h3>
+                        <p style="font-size:1.05rem; font-weight:800; color:var(--text-main); margin-bottom:12px; font-style:italic;">
+                            "${overallPersona.deepReflection.question}"
+                        </p>
+                        <p style="font-size:0.95rem; color:var(--text-body); line-height:1.6;">
+                            ${overallPersona.deepReflection.meaning}
+                        </p>
+                    </div>
+                    ` : ''}
+
                     <div class="carousel-card">
                         <h3>💡 사각지대 보완 팁</h3>
                         <p style="font-size:0.95rem; color:var(--text-body); line-height:1.6;">
@@ -453,6 +478,13 @@
                 ctx.arc(x, y, 4, 0, Math.PI * 2);
                 ctx.fillStyle = '#FF6B6B';
                 ctx.fill();
+
+                // Draw Value
+                ctx.font = '800 11px Outfit';
+                ctx.fillStyle = '#FF6B6B';
+                ctx.textAlign = 'center';
+                const textYOffset = y < cy ? -12 : 20;
+                ctx.fillText(Math.round(v * 100) + '%', x, y + textYOffset);
             });
         }
 
