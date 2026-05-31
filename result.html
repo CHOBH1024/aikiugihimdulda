@@ -330,6 +330,11 @@
                         <button class="btn btn--large btn-kakao" onclick="shareKakao()"><i class="fas fa-comment"></i> 카카오톡으로 결과 보내기</button>
                         <button class="btn btn--secondary btn--large" onclick="copyResult()"><i class="fas fa-link"></i> 링크 복사하기</button>
                     </div>
+
+                        <p style="text-align: center; font-size: 0.85rem; color: var(--text-dim); margin-top: 12px;">
+                            💡 '인스타 스토리 공유' 버튼을 누르면 이미지가 저장됩니다.
+                        </p>
+
                 </div>
 
                 <div class="carousel-section">
@@ -520,17 +525,20 @@
         }
 
         function shareKakao() {
-            if (!results) return;
-            Kakao.Share.sendDefault({
-                objectType: 'feed',
-                content: {
-                    title: `🪞 나는 '${results.overallPersona.name}' 부모입니다!`,
-                    description: results.overallPersona.desc,
-                    imageUrl: window.location.origin + '/' + results.overallPersona.imageUrl,
-                    link: { mobileWebUrl: window.location.origin, webUrl: window.location.origin },
-                },
-                buttons: [{ title: '나의 양육 DNA 알아보기', link: { mobileWebUrl: window.location.origin, webUrl: window.location.origin } }],
-            });
+            const url = 'https://aikiugihimdulda.vercel.app';
+            const resultUrl = window.location.href;
+            const text = `🪞 Mirror Inside Parenting\n\n나의 육아 페르소나 진단 결과가 나왔어요!\n\n👉 나의 결과 보기:\n${resultUrl}\n\n👉 직접 테스트해보기:\n${url}`;
+
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Mirror Inside 육아 진단',
+                    text: text
+                }).catch(console.error);
+            } else {
+                navigator.clipboard.writeText(text).then(() => {
+                    alert('결과 링크와 내용이 클립보드에 복사되었습니다!\n카카오톡 대화창에 붙여넣기 하여 공유해보세요.');
+                });
+            }
         }
 
         function copyResult() {
