@@ -284,10 +284,10 @@
             const ageMap = { infant: '영아기 (0~12개월)', toddler: '걸음마기 (1~3세)', preschool: '유아기 (4~7세)', school: '학령기 (8세 이상)' };
 
             // Set up capture area
-            document.getElementById('capImg').src = overallPersona.imageUrl;
-            document.getElementById('capRarity').innerText = overallPersona.rarity;
-            document.getElementById('capTitle').innerText = overallPersona.name;
-            document.getElementById('capDesc').innerText = overallPersona.desc;
+            document.getElementById('capImg').src = overallPersona.image;
+            document.getElementById('capTags').innerHTML = overallPersona.keywords.split(' ').map(k => `<span style="background: rgba(255,107,107,0.1); padding: 8px 24px; border-radius: 30px;">${k}</span>`).join('');
+            document.getElementById('capTitle').innerHTML = overallPersona.name.replace(' ', '<br>');
+            document.getElementById('capDesc').textContent = overallPersona.comfortingWords;
 
             let dimsHTML = '';
             DIMENSIONS.forEach(dim => {
