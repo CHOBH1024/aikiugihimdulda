@@ -6,19 +6,18 @@ const { marked } = require('marked');
 const footerHTML = `
     <!-- Footer -->
     <footer class="footer">
+        <p style="font-size: 1.1rem; margin-bottom: 12px;">🪞 Mirror Inside Parenting</p>
+        <p style="font-size: 0.85rem; color: var(--text-body); margin-bottom: 16px;">함께 성장하는 육아, 거울 속에서 만나요</p>
         <p>&copy; 2026 Mirror Inside Parenting. All rights reserved.</p>
-        <p class="mt-1" style="font-size:0.9rem; margin-top:12px;">
-            <a href="/index.html">홈</a> · <a href="/gallery.html">기록/갤러리</a> · <a href="/columns.html">육아 인사이트</a> · <a href="/about.html">기술 소개</a> · <a href="/test.html">진단 시작</a>
-        </p>
-        <p class="mt-1" style="font-size:0.8rem; margin-top:8px; color:var(--text-dim);">
+        <p style="font-size: 0.75rem; margin-top: 8px; color: var(--text-dim);">
             <a href="/terms.html">이용약관</a> · <a href="/privacy.html">개인정보처리방침</a> · <a href="/contact.html">문의하기</a>
         </p>
     </footer>
 `;
 
-// Drifting Glow Orbs Background HTML
+// Pastel Floating Blobs Background HTML
 const glowOrbsHTML = `
-    <!-- Drifting Glow Orbs Background -->
+    <!-- Pastel Floating Blobs -->
     <div class="glow-orb-container">
         <div class="glow-orb glow-orb--1"></div>
         <div class="glow-orb glow-orb--2"></div>
@@ -52,6 +51,7 @@ filesToUpdate.forEach(file => {
     content = content.replace(/<!-- Footer -->[\s\S]*?<\/footer>/g, '');
     content = content.replace(/<footer class="footer">[\s\S]*?<\/footer>/g, '');
     content = content.replace(/<!-- Drifting Glow Orbs Background -->[\s\S]*?<\/div>[\s\S]*?<\/div>[\s\S]*?<\/div>[\s\S]*?<\/div>/g, '');
+    content = content.replace(/<!-- Pastel Floating Blobs -->[\s\S]*?<\/div>[\s\S]*?<\/div>[\s\S]*?<\/div>[\s\S]*?<\/div>/g, '');
     
     const pageFooter = footerHTML.replace(/\.\.\//g, '');
     const pageOrbs = glowOrbsHTML.replace(/\.\.\//g, '');
@@ -78,7 +78,7 @@ const template = `<!DOCTYPE html>
     <title>{{TITLE}} | Mirror Inside Parenting</title>
     <link rel="icon" href="/assets/images/icons/favicon.png" type="image/png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="/style.css">
     <style>
@@ -97,13 +97,12 @@ const template = `<!DOCTYPE html>
             justify-content: center; 
             font-size: 5rem; 
             margin-bottom: 60px; 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            box-shadow: var(--shadow-card);
             border: 1px solid var(--glass-border);
-            text-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
         .article-content { font-size: 1.08rem; line-height: 1.9; color: var(--text-body); word-break: keep-all; text-align: justify; }
         .article-content h2 { font-size: 1.6rem; color: var(--text-main); margin: 56px 0 24px; font-weight: 800; border-bottom: 1px solid var(--glass-border); padding-bottom: 12px; }
-        .article-content h3 { font-size: 1.25rem; color: var(--secondary); margin: 36px 0 16px; font-weight: 700; }
+        .article-content h3 { font-size: 1.25rem; color: var(--primary); margin: 36px 0 16px; font-weight: 700; }
         .article-content p { margin-bottom: 24px; }
         .article-content ul, .article-content ol { padding-left: 24px; margin-bottom: 28px; }
         .article-content li { margin-bottom: 12px; line-height: 1.7; }
@@ -114,9 +113,8 @@ const template = `<!DOCTYPE html>
             font-style: italic; 
             color: var(--text-dim); 
             margin: 36px 0; 
-            background: rgba(255,255,255,0.02); 
-            border-radius: 0 var(--radius-md) var(--radius-md) 0; 
-            box-shadow: inset 2px 0 10px rgba(0,0,0,0.1);
+            background: var(--bg-section); 
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
         }
         .article-content table {
             width: 100%;
@@ -130,11 +128,11 @@ const template = `<!DOCTYPE html>
         .article-content th, .article-content td {
             padding: 14px 18px;
             text-align: left;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid var(--glass-border);
             font-size: 0.95rem;
         }
         .article-content th {
-            background: rgba(255,255,255,0.05);
+            background: var(--primary-dim);
             font-weight: 700;
             color: var(--primary);
         }
@@ -142,13 +140,13 @@ const template = `<!DOCTYPE html>
             border-bottom: none;
         }
         .cta-banner { 
-            margin-top: 80px; 
-            padding: 40px; 
-            background: var(--glass); 
-            border: 1px solid var(--primary); 
+            margin-top: 60px; 
+            padding: 36px; 
+            background: linear-gradient(135deg, #FFF0E8 0%, #FFF5F5 50%, #F0E8FF 100%); 
+            border: 1px solid var(--glass-border); 
             border-radius: var(--radius-lg); 
             text-align: center; 
-            box-shadow: var(--shadow-glow);
+            box-shadow: var(--shadow-card);
         }
         .cta-banner h3 { margin-bottom: 16px; color: var(--text-main); font-weight: 800; font-size: 1.4rem; }
         .cta-banner p { margin-bottom: 24px; font-size: 1rem; color: var(--text-body); }
@@ -169,13 +167,13 @@ const template = `<!DOCTYPE html>
     <nav class="nav scrolled">
         <div class="nav__inner">
             <a href="/index.html" class="nav__logo">
-                Mirror Inside <span class="nav__logo-sub">Parenting</span>
+                🪞 Mirror Inside <span class="nav__logo-sub">Parenting</span>
             </a>
             <ul class="nav__links">
-                <li><a href="/index.html" class="nav__link">홈</a></li>
-                <li><a href="/gallery.html" class="nav__link">갤러리</a></li>
-                <li><a href="/columns.html" class="nav__link active">칼럼</a></li>
-                <li><a href="/test.html" class="nav__cta"><i class="fas fa-play"></i> 진단 시작</a></li>
+                <li><a href="/columns.html" class="nav__link" style="color:var(--primary)">육아 칼럼</a></li>
+                <li><a href="/gallery.html" class="nav__link">나의 기록</a></li>
+                <li><a href="/about.html" class="nav__link">소개</a></li>
+                <li><a href="/test.html" class="nav__cta">🪞 나의 육아 스타일 알아보기</a></li>
             </ul>
         </div>
     </nav>
@@ -220,9 +218,9 @@ const template = `<!DOCTYPE html>
         </div>
         
         <div class="cta-banner">
-            <h3>나는 어떤 육아 스타일일까?</h3>
-            <p>단 3분 만에 나의 육아 유전자와 종합 페르소나를 측정하고, 오은영 박사님 부럽지 않은 맞춤 솔루션을 확인해보세요.</p>
-            <a href="/test.html" class="btn btn--primary btn--large btn--glow" style="display:inline-flex; align-items:center; gap:8px;"><i class="fas fa-play"></i> 무료 양육 DNA 진단 시작하기</a>
+            <h3>나는 어떤 육아 스타일일까? 🪞</h3>
+            <p>3분이면 충분해요! 나만의 육아 페르소나를 발견하고 맞춤 솔루션을 확인해보세요 ✨</p>
+            <a href="/test.html" class="btn btn--primary btn--large btn--glow" style="display:inline-flex; align-items:center; gap:8px;">🪞 나의 육아 스타일 알아보기</a>
         </div>
 
         <div style="margin-top: 60px; text-align:center;">
