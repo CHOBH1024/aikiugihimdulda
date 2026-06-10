@@ -85,6 +85,7 @@
         </p>
     </footer>
 
+    <script src="chemistry_data.js"></script>
     <script src="/data.js"></script>
     <script>
         const mySelect = document.getElementById('myPersona');
@@ -158,11 +159,11 @@
                 <div class="chem-grid">
                     <div class="chem-card clash">
                         <h3>⚡ 주요 갈등 포인트 (Conflict)</h3>
-                        <p>${chem.clash}</p>
+                        <div style="font-size: 1.05rem; line-height: 1.7; color: var(--text-body);">${chem.clash}</div>
                     </div>
                     <div class="chem-card synergy">
                         <h3>🤝 상호 보완 솔루션 (Synergy)</h3>
-                        <p>${chem.synergy}</p>
+                        <div style="font-size: 1.05rem; line-height: 1.7; color: var(--text-body);">${chem.synergy}</div>
                     </div>
                 </div>
                 

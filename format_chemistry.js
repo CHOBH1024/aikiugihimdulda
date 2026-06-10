@@ -1,0 +1,156 @@
+const fs = require('fs');
+
+const PERSONAS = {
+  warm: { name: "포근한 수용형", core: "아이의 감정적 안전기지가 되어주는 것", strength: "따뜻한 공감과 끝없는 수용력", weakness: "단호한 한계 설정과 훈육의 부재" },
+  structured: { name: "단단한 규칙형", core: "예측 가능하고 안정적인 체계 구축", strength: "일관된 규율과 흔들림 없는 훈육", weakness: "유연성 부족과 아이 감정에 대한 공감 부족" },
+  free: { name: "방목형 자유형", core: "아이 스스로 경험을 통해 배우게 하는 것", strength: "자율성 존중과 경험 중심의 양육", weakness: "방임으로 이어질 수 있는 일관성 부족" },
+  wise: { name: "깊은 통찰형", core: "논리적 인지와 삶의 지혜를 가르치는 것", strength: "이성적인 대화와 객관적인 상황 분석", weakness: "감정보다 논리를 앞세워 아이가 서운해할 수 있음" },
+  balanced: { name: "흔들림 없는 안정형", core: "어떤 상황에서도 평정심을 유지하는 것", strength: "극단으로 치우치지 않는 무던함", weakness: "상대적으로 반응이 밋밋하여 무심해 보일 수 있음" },
+  empathetic: { name: "섬세한 공감형", core: "아이의 미세한 감정 변화까지 읽어내는 것", strength: "뛰어난 감정 코칭과 정서적 지지", weakness: "아이의 부정적 감정에 부모가 함께 매몰되기 쉬움" },
+  creative: { name: "엉뚱발랄 창의형", core: "틀에 갇히지 않은 자유로운 상상력을 자극하는 것", strength: "놀이 중심의 유쾌함과 창의적 문제 해결", weakness: "일상의 루틴과 생활 습관을 잡아주는 것에 취약함" },
+  resilient: { name: "강철 멘탈 회복형", core: "실패를 성장의 발판으로 재해석하는 것", strength: "위기 상황에서의 회복 탄력성과 낙관주의", weakness: "아이가 슬픔을 충분히 느낄 시간을 주지 않고 성급하게 긍정을 강요함" }
+};
+
+const getBaseScore = (a, b) => {
+  if (a === b) return 70;
+  const highPairs = [
+    ['structured', 'warm'], ['structured', 'empathetic'],
+    ['free', 'wise'], ['creative', 'structured'],
+    ['resilient', 'empathetic'], ['balanced', 'free'],
+    ['wise', 'warm']
+  ];
+  const lowPairs = [
+    ['structured', 'free'], ['structured', 'creative'],
+    ['warm', 'free'], ['wise', 'empathetic']
+  ];
+  for (let pair of highPairs) {
+    if ((pair[0] === a && pair[1] === b) || (pair[0] === b && pair[1] === a)) return 85;
+  }
+  for (let pair of lowPairs) {
+    if ((pair[0] === a && pair[1] === b) || (pair[0] === b && pair[1] === a)) return 45;
+  }
+  if (a === 'balanced' || b === 'balanced') return 75;
+  return 60;
+};
+
+// Generate 36 pairs with rich formatting
+const CHEMISTRY_MAP = {};
+const keys = Object.keys(PERSONAS);
+
+for (let i = 0; i < keys.length; i++) {
+  for (let j = i; j < keys.length; j++) {
+    const a = keys[i];
+    const b = keys[j];
+    
+    const key = [a, b].sort().join('-');
+    const score = getBaseScore(a, b);
+    
+    let title = "";
+    let clash = "";
+    let synergy = "";
+    let summary = "";
+
+    const pA = PERSONAS[a];
+    const pB = PERSONAS[b];
+
+    if (a === b) {
+      title = `거울을 보는 듯한 동지 (${pA.name})`;
+      
+      summary = `양육 가치관이 100% 일치하는 가장 든든한 동지이지만, 두 사람 모두 <strong>'${pA.weakness}'</strong>이라는 동일한 약점을 가지고 있어 브레이크가 없습니다.`;
+
+      clash = `두 분 모두 <strong>'${pA.core}'</strong>을(를) 양육의 최우선 가치로 삼고 있습니다. 가치관이 일치한다는 것은 큰 축복이지만, 육아라는 현실에서는 치명적인 사각지대를 만들어냅니다.<br><br>
+💣 <strong>단점이 극대화되는 순간</strong><br>
+특히 <strong>'${pA.weakness}'</strong>이라는 치명적인 단점이 발생했을 때, 이를 제어하고 브레이크를 걸어줄 사람이 가정 내에 아무도 없다는 것이 가장 큰 문제입니다.<br><br>
+예를 들어, 아이가 훈육이 필요한 상황이거나 부모의 지도가 절실할 때 두 분 모두 본인들의 기존 성향대로만 대응하다 보니, 아이의 문제 행동이 방치되거나 혹은 지나치게 통제되는 극단적인 결과를 낳을 수 있습니다.<br><br>
+⚠️ <strong>가장 주의해야 할 점</strong><br>
+아이는 다양한 각도에서 세상을 배우기보다는 두 분이 만들어놓은 매우 강력하지만 단일한 프레임 안에서만 세상을 인지하게 될 위험이 있습니다. 또한 부부 중 한 명이 지쳐 쓰러졌을 때 다른 한 명 역시 동일한 이유로 번아웃에 빠져 있을 확률이 높아 위기 대처 능력이 떨어집니다.`;
+      
+      synergy = `하지만 그만큼 두 분의 결속력은 타의 추종을 불허합니다. 육아 퇴근 후 맥주 한 캔을 마시며 "오늘 아이가 이랬어"라고 말할 때, 상대방에게 내 방식의 정당성을 구구절절 설명할 필요가 없습니다.<br><br>
+🛡️ <strong>가장 든든한 전우</strong><br>
+눈빛만 봐도 서로가 100% 이해하고 공감합니다. 아이 입장에서도 부모의 양육 태도가 일관되기 때문에 혼란스러워하지 않고 강한 안정감을 느낍니다.<br><br>
+✨ <strong>아이에게 미치는 긍정적 영향</strong><br>
+<strong>'${pA.strength}'</strong>이(가) 집안의 굳건한 분위기로 자리 잡아, 아이는 이 부분에 있어서만큼은 또래 중 가장 압도적인 강점을 가진 아이로 성장하게 됩니다.<br><br>
+💡 <strong>솔루션</strong><br>
+서로가 서로의 거울이 되어 긍정적인 면을 극대화하되, 때로는 의도적으로 평소와 다른 방식(예: 단호할 땐 아주 단호하게)을 연습해보는 것이 좋습니다.`;
+      
+    } else {
+      
+      if (score >= 80) {
+        title = `환상의 짝꿍: ${pA.name} × ${pB.name}`;
+        
+        summary = `완벽한 상호 보완 관계입니다! <strong>${pA.name}</strong>의 부족한 점을 <strong>${pB.name}</strong>이 채워주며 아이에게 '굿캅 배드캅(Good Cop, Bad Cop)'의 완벽한 밸런스를 제공합니다.`;
+
+        clash = `가장 이상적인 상호보완적 관계이지만, 바로 그 점 때문에 부부 사이의 은근한 신경전이 발생합니다.<br><br>
+💣 <strong>서로에 대한 불만</strong><br>
+<strong>${pA.name}</strong>인 당신은 상대방을 보며 <strong>"${pB.weakness}"</strong>라고 답답해하고, 상대방은 당신을 보며 <strong>"${pA.weakness}"</strong>라며 속으로 비판할 수 있습니다.<br><br>
+🔥 <strong>실제 갈등 상황 예시</strong><br>
+예를 들어 아이가 마트에서 크게 떼를 쓰고 울 때, 한 명은 원칙과 한계 설정을 강조하고 다른 한 명은 아이의 감정을 먼저 다독이려 하면서 아이 앞에서 두 분의 의견 충돌이 적나라하게 드러날 수 있습니다.<br><br>
+⚠️ <strong>가장 주의해야 할 점</strong><br>
+영악한 아이는 무의식적으로 두 분의 이러한 성향 차이를 파악하고 자신에게 유리한 상황을 만들어줄 부모 뒤로 숨는 '편 가르기'를 시도할 수 있습니다. 이런 상황이 반복되면 부부 중 한 명은 악역(Bad Cop)을 도맡게 되어 육아에 대한 피로감과 서운함이 극도로 쌓이게 됩니다.`;
+        
+        synergy = `그럼에도 불구하고 두 분의 조합은 아이에게 완벽에 가까운 입체적 환경을 제공합니다.<br><br>
+🛡️ <strong>최강의 밸런스</strong><br>
+<strong>${pA.name}</strong>의 강점인 <strong>'${pA.strength}'</strong>과(와) <strong>${pB.name}</strong>의 강점인 <strong>'${pB.strength}'</strong>이(가) 만나면서, 아이는 차가운 현실을 살아가는 규칙과 따뜻한 인간관계를 맺는 감성을 동시에 흡수합니다.<br><br>
+✨ <strong>자연스러운 역할 분담</strong><br>
+내가 미처 챙기지 못하고 놓쳐버린 육아의 빈틈을 상대방이 등 뒤에서 너무나도 자연스럽게 채워주고 있습니다.<br><br>
+💡 <strong>솔루션</strong><br>
+두 분이 서로의 방식이 '틀린 것'이 아니라 '다른 것'임을 진심으로 인정하는 것이 핵심입니다. 절대로 아이 앞에서 서로의 훈육 방식을 깎아내리지 않으며 존중하는 태도를 보여주기만 한다면, 아이는 부모라는 가장 완벽한 방패이자 창을 갖게 되는 셈입니다.`;
+      } 
+      else if (score <= 50) {
+        title = `물과 기름의 대환장 파티: ${pA.name} × ${pB.name}`;
+        
+        summary = `극단적으로 다른 양육관 때문에 사사건건 충돌합니다. 하지만 서로의 차이를 진심으로 인정하고 역할을 분담하면, 아이에게 <strong>'최고의 환기구'</strong>가 될 수 있는 잠재력이 있습니다.`;
+
+        clash = `두 분은 아이를 키우는 목적지와 그곳으로 가는 지도 자체가 완전히 다릅니다.<br><br>
+💣 <strong>좁혀지지 않는 평행선</strong><br>
+<strong>${pA.name}</strong>은(는) <strong>'${pA.core}'</strong>을(를) 지향하지만, <strong>${pB.name}</strong>은(는) <strong>'${pB.core}'</strong>을(를) 절대 포기할 수 없습니다.<br><br>
+🔥 <strong>실제 갈등 상황 예시</strong><br>
+이로 인해 수면 교육부터 식사 예절, 미디어 노출, 훈육 방식 등 육아의 A to Z에 걸쳐 사사건건 날카롭게 부딪힙니다. 아이가 밥을 먹지 않고 돌아다닐 때 한쪽은 "억지로 먹이지 마라"고 하고, 한쪽은 "식탁 예절은 칼같이 지켜야 한다"며 대립합니다.<br><br>
+⚠️ <strong>가장 주의해야 할 점</strong><br>
+아이는 도대체 누구의 말을 들어야 할지 혼란스러워하며 눈치만 보는 아이로 자랄 위험이 있습니다. 무엇보다 부부 사이의 육아관 충돌이 아이에 대한 걱정을 넘어 상대방에 대한 인신공격이나 깊은 불신으로 번질 수 있는 가장 위험한 상태입니다.`;
+        
+        synergy = `아이러니하게도 두 사람의 이러한 극단적인 차이는 서로가 완벽하게 타협점을 찾기만 한다면, 아이에게 <strong>'최고의 환기구'</strong>가 되어줄 수 있습니다.<br><br>
+🛡️ <strong>서로의 단점을 막아주는 방패</strong><br>
+한 사람의 방식이 가진 치명적인 약점(<strong>${pA.weakness}</strong> 또는 <strong>${pB.weakness}</strong>)을 다른 한 사람이 완벽하게 제어해 줄 수 있기 때문입니다.<br><br>
+✨ <strong>아이에게 미치는 긍정적 영향</strong><br>
+아이는 부모의 다름을 통해 세상에는 다양한 방식의 삶과 해결책이 존재한다는 것을 집 안에서부터 자연스럽게 배웁니다.<br><br>
+💡 <strong>솔루션</strong><br>
+이를 위해서는 절대로 아이 앞에서 상대방의 육아 방식을 비난하지 않는다는 철칙을 세워야 합니다. 학습은 A가, 정서 지지는 B가 담당하는 식으로 육아의 영역을 명확하게 분담하여 상대방의 영역을 침범하지 않는 쿨한 인정이 반드시 필요합니다.`;
+      } 
+      else {
+        title = `서로의 빈틈을 채우는 퍼즐: ${pA.name} × ${pB.name}`;
+        
+        summary = `서로의 다름이 때로는 불안감을 유발하지만, 톱니바퀴처럼 서로의 빈틈을 메워주는 훌륭한 파트너입니다. <strong>큰 틀의 방향성만 합의</strong>하면 엄청난 시너지가 납니다.`;
+
+        clash = `두 분은 서로의 다름을 어느 정도 인정하면서도 내심 상대방의 양육 방식에 대한 불안감을 거두지 못하고 있습니다.<br><br>
+💣 <strong>은근한 불만과 불안감</strong><br>
+<strong>${pA.name}</strong>은(는) 상대방의 <strong>'${pB.weakness}'</strong>(을)를 볼 때마다 내가 나서서 수습해야 한다는 의무감을 느끼고, <strong>${pB.name}</strong> 역시 상대의 <strong>'${pA.weakness}'</strong>에 답답함을 느낍니다.<br><br>
+🔥 <strong>실제 갈등 상황 예시</strong><br>
+평소에는 무난하게 흘러가지만, 아이가 크게 아프거나 유치원/학교에서 문제가 발생하는 등 예기치 못한 위기 상황이 닥쳤을 때 각자의 본성이 튀어나오며 크게 대립할 수 있습니다.<br><br>
+⚠️ <strong>가장 주의해야 할 점</strong><br>
+아이 입장에서는 엄마 아빠의 톤앤매너가 미묘하게 엇박자를 낸다는 것을 감지하고, 자신이 원하는 바를 얻기 위해 누구에게 접근해야 할지 치밀하게 눈치를 살피게 될 수 있습니다.`;
+        
+        synergy = `하지만 일상적인 상황에서 두 분은 톱니바퀴처럼 서로의 부족한 점을 훌륭하게 상쇄해 주고 있습니다.<br><br>
+🛡️ <strong>안정적인 보완 관계</strong><br>
+<strong>${pA.name}</strong>의 <strong>'${pA.strength}'</strong>이(가) 아이의 단단한 뼈대를 만들어 준다면, <strong>${pB.name}</strong>의 <strong>'${pB.strength}'</strong>은(는) 아이의 살결을 부드럽게 채워주는 역할을 합니다.<br><br>
+✨ <strong>완벽한 릴레이 육아</strong><br>
+한 명이 체력적으로나 정신적으로 번아웃에 빠졌을 때, 완전히 다른 성향을 가진 상대방이 아이에게 새로운 자극과 휴식을 제공하며 자연스럽게 배턴을 이어받을 수 있습니다.<br><br>
+💡 <strong>솔루션</strong><br>
+두 분이 서로가 아이에게 제공하는 각기 다른 가치들을 인정하고, 주기적인 육아 회의를 통해 큰 틀에서의 방향성(예: 수면 시간, 스마트폰 사용 원칙 등)만 합의해 둔다면 훨씬 매끄러운 릴레이 육아가 가능해집니다.`;
+      }
+    }
+    
+    CHEMISTRY_MAP[key] = { score, title, summary, clash, synergy };
+  }
+}
+
+const fileContent = `// ============================================================
+// 육아 궁합 매핑 데이터 (36 고유 조합 - 심층 상세 분석)
+// 결과 길이를 500자 이상으로 확장하여 매우 구체적인 사례를 포함합니다.
+// ============================================================
+
+const CHEMISTRY_MAP = ${JSON.stringify(CHEMISTRY_MAP, null, 2)};
+`;
+
+fs.writeFileSync('chemistry_data.js', fileContent);
+console.log('✅ chemistry_data.js 리치 텍스트 포맷 (이모티콘, 볼드, 문단 구분) 적용 완료.');
