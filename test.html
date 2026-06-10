@@ -208,12 +208,12 @@
             width: 100%;
             text-align: left;
             padding: 24px 28px;
-            background: rgba(30, 41, 59, 0.4);
-            border: 2px solid transparent;
+            background: #FFFFFF;
+            border: 2px solid #E2E8F0;
             border-radius: var(--radius-lg);
-            color: var(--text-body);
+            color: #1E293B;
             font-size: 1.05rem;
-            font-weight: 500;
+            font-weight: 600;
             line-height: 1.6;
             word-break: keep-all;
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -222,32 +222,32 @@
             overflow: hidden;
             display: flex;
             align-items: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
         }
 
         .option-btn::before {
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(135deg, rgba(52, 211, 153, 0.15), rgba(251, 113, 133, 0.05));
+            background: linear-gradient(135deg, rgba(52, 211, 153, 0.1), rgba(52, 211, 153, 0.02));
             opacity: 0;
             transition: opacity 0.3s ease;
         }
 
         .option-btn:hover {
-            border-color: rgba(52, 211, 153, 0.5);
-            color: var(--text-main);
+            border-color: var(--primary);
+            color: #0F172A;
             transform: translateY(-4px) scale(1.01);
-            box-shadow: 0 12px 24px rgba(0,0,0,0.2), var(--shadow-glow);
-            background: rgba(30, 41, 59, 0.8);
+            box-shadow: 0 12px 24px rgba(52,211,153,0.15);
+            background: rgba(52, 211, 153, 0.06);
         }
 
         .option-btn:hover::before { opacity: 1; }
 
         .option-btn.selected {
             border-color: var(--primary);
-            background: var(--primary-dim);
-            color: var(--text-main);
+            background: rgba(52, 211, 153, 0.1);
+            color: #0F172A;
             transform: scale(0.98);
             box-shadow: inset 0 0 20px rgba(52, 211, 153, 0.2);
         }
@@ -994,7 +994,8 @@
         </div>
     </div>
 
-    <script src="chemistry_data.js"></script>\n    <script src="data.js"></script>
+    \n    <script src="chemistry_data.js"></script>
+    <script src="data.js"></script>
     <script>
         // === State ===
         let currentIndex = 0;
