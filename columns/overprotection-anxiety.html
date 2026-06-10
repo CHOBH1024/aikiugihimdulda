@@ -195,6 +195,7 @@
     </footer>
 
 
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <!-- High-Performance Script Blocks -->
     <script>
         // 1. Google-Style Scroll Progress Bar logic
@@ -245,12 +246,32 @@
                         btn.style.borderColor = 'var(--primary)';
                         btn.style.background = 'rgba(52, 211, 153, 0.08)';
                         
-                        // Spawn 15 colorful physics emoji particles
+                        // 1. Confetti explosion
+                        confetti({
+                            particleCount: 80,
+                            spread: 60,
+                            origin: { y: 0.85 },
+                            colors: ['#FF6B6B', '#FFD966', '#4ade80', '#60a5fa', '#c084fc']
+                        });
+
+                        // 2. Spawn 15 colorful physics emoji particles
                         for(let i=0; i<15; i++) {
                             createParticle(btn, emoji);
                         }
                     }
                 });
+            });
+
+            // 3. Listen to storage changes for real-time count sync
+            window.addEventListener('storage', (e) => {
+                if (e.key && e.key.startsWith('reaction_' + pageId)) {
+                    const emoji = e.key.split('_').pop();
+                    const targetBtn = document.querySelector('.reaction-btn[data-emoji="' + emoji + '"]');
+                    if (targetBtn) {
+                        const countSpan = targetBtn.querySelector('.react-count');
+                        countSpan.textContent = e.newValue;
+                    }
+                }
             });
             
             function createParticle(parentBtn, emoji) {
