@@ -124,8 +124,8 @@
             const card = document.getElementById(cardId);
             
             card.innerHTML = `
-                <div style="font-size:3rem; margin-bottom:12px;">${persona.image}</div>
-                <div style="font-size:1.1rem; font-weight:800; color:var(--text-main); margin-bottom:8px;">${persona.name}</div>
+                <img src="${persona.imageUrl}" alt="${persona.name}" style="width:120px; height:120px; border-radius:50%; object-fit:cover; border:4px solid var(--primary-dim); margin: 0 auto 16px; display:block; box-shadow: var(--shadow-soft);">
+                <div style="font-size:1.15rem; font-weight:800; color:var(--text-main); margin-bottom:8px;">${persona.name}</div>
                 <div style="font-size:0.85rem; color:var(--text-dim); line-height:1.4;">${persona.keywords}</div>
             `;
             card.style.display = 'block';
