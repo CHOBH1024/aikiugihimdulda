@@ -571,7 +571,11 @@ blogDirs.forEach(dir => {
     
     files.forEach(file => {
         const mdContent = fs.readFileSync(path.join(dir, file), 'utf8');
-        const htmlContent = marked.parse(mdContent);
+        // Remove the first # heading from markdown before parsing to avoid duplicate title in article body
+        const mdContentNoTitle = mdContent.replace(/^#\s+.+\n?/m, '');
+        let htmlContent = marked.parse(mdContentNoTitle);
+        // Also strip any leading <h1> tag that might remain
+        htmlContent = htmlContent.replace(/^<h1[^>]*>.*?<\/h1>\s*/i, '');
         
         const titleMatch = mdContent.match(/^#\s+(.*)/m);
         const title = titleMatch ? titleMatch[1] : '육아 칼럼';

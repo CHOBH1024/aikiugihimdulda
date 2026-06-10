@@ -160,8 +160,15 @@
                     </div>
                 </div>
                 
-                <div style="text-align:center; margin-top:40px;">
-                    <button class="btn btn--secondary" onclick="shareKakao()">💬 결과 카톡으로 보내기</button>
+                <div style="text-align:center; margin-top:40px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+                    <button class="btn btn--secondary" id="btnShareKakao" onclick="shareKakao()" style="display:inline-flex; align-items:center; gap:8px;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.48 3 2 6.48 2 10.8c0 2.64 1.44 4.98 3.6 6.48L4.8 21l4.32-2.88C9.66 18.36 10.8 18.6 12 18.6c5.52 0 10-3.48 10-7.8S17.52 3 12 3z"/></svg>
+                        카카오톡으로 공유하기
+                    </button>
+                    <button class="btn btn--outline" id="btnCopyLink" onclick="copyLink()" style="display:inline-flex; align-items:center; gap:8px;">
+                        <i class="fas fa-link"></i>
+                        링크 복사하기
+                    </button>
                 </div>
             `;
             
@@ -175,7 +182,71 @@
         });
 
         function shareKakao() {
-            alert('카카오톡 공유 API가 연동될 예정입니다. 링크 복사 완료!');
+            const myVal = document.getElementById('myPersona').value;
+            const partnerVal = document.getElementById('partnerPersona').value;
+            const myP = OVERALL_TITLES.find(t => t.combo === myVal);
+            const partnerP = OVERALL_TITLES.find(t => t.combo === partnerVal);
+            
+            const siteUrl = 'https://aikiugihimdulda.vercel.app/chemistry.html';
+            let shareText = '🪞 Mirror Inside Parenting — 육아 궁합 진단 결과\n\n';
+            if (myP && partnerP) {
+                const chem = calculateChemistry(myVal, partnerVal);
+                shareText += `👤 나: ${myP.name} vs 👤 배우자: ${partnerP.name}\n`;
+                if (chem) shareText += `❤️ 매칭 점수: ${chem.score}% — "${chem.title}"\n\n`;
+            }
+            shareText += `우리 부부의 육아 궁합을 알아보세요!\n👉 ${siteUrl}`;
+
+            if (navigator.share) {
+                navigator.share({
+                    title: '🪞 Mirror Inside — 육아 궁합 진단',
+                    text: shareText,
+                    url: siteUrl
+                }).catch(err => {
+                    if (err.name !== 'AbortError') copyToClipboard(shareText);
+                });
+            } else {
+                copyToClipboard(shareText);
+            }
+        }
+
+        function copyLink() {
+            const siteUrl = 'https://aikiugihimdulda.vercel.app/chemistry.html';
+            copyToClipboard(siteUrl, true);
+        }
+
+        function copyToClipboard(text, isUrlOnly = false) {
+            navigator.clipboard.writeText(text).then(() => {
+                const msg = isUrlOnly
+                    ? '✅ 링크가 클립보드에 복사되었습니다!\n카카오톡 채팅창에 붙여넣기 하여 공유해보세요.'
+                    : '✅ 결과 내용이 클립보드에 복사되었습니다!\n카카오톡 채팅창에 붙여넣기 하여 공유해보세요.';
+                showToast(msg.split('\n')[0]);
+            }).catch(() => {
+                showToast('❌ 복사에 실패했습니다. URL을 직접 복사해 주세요.');
+            });
+        }
+
+        function showToast(message) {
+            let toast = document.getElementById('shareToast');
+            if (!toast) {
+                toast = document.createElement('div');
+                toast.id = 'shareToast';
+                toast.style.cssText = `
+                    position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%);
+                    background: rgba(15,23,42,0.95); color: #F8FAFC;
+                    padding: 14px 28px; border-radius: 30px;
+                    font-size: 0.95rem; font-weight: 600;
+                    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+                    z-index: 99999; opacity: 0; transition: opacity 0.3s;
+                    border: 1px solid rgba(52,211,153,0.3);
+                    backdrop-filter: blur(10px);
+                    white-space: nowrap;
+                `;
+                document.body.appendChild(toast);
+            }
+            toast.textContent = message;
+            toast.style.opacity = '1';
+            clearTimeout(toast._timer);
+            toast._timer = setTimeout(() => { toast.style.opacity = '0'; }, 2800);
         }
     </script>
 </body>

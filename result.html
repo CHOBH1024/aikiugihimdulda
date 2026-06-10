@@ -827,19 +827,19 @@
         function shareKakao() {
             const url = 'https://aikiugihimdulda.vercel.app';
             const resultUrl = window.location.href;
-            const text = `🪞 Mirror Inside Parenting\n\n나의 육아 페르소나 진단 결과가 나왔어요!\n\n👉 나의 결과 보기:\n${resultUrl}\n\n👉 직접 테스트해보기:\n${url}`;
+            const personaName = results && results.overallPersona ? results.overallPersona.name : '';
+            const text = `🪞 Mirror Inside Parenting${personaName ? `\n\n✨ 나의 육아 페르소나: ${personaName}` : ''}\n\n나는 어떤 유형의 부모일까요? 3분 진단으로 알아보세요!\n👉 ${url}/test.html`;
 
             if (navigator.share) {
                 navigator.share({
                     title: 'Mirror Inside 육아 진단',
-                    text: text
-                }).catch(console.error);
-            } else {
-                navigator.clipboard.writeText(text).then(() => {
-                    alert('결과 링크와 내용이 클립보드에 복사되었습니다!\n카카오톡 대화창에 붙여넣기 하여 공유해보세요.');
-                }).catch(() => {
-                    alert('클립보드 복사에 실패했습니다. 브라우저의 URL을 직접 복사해 주세요.');
+                    text: text,
+                    url: url
+                }).catch(err => {
+                    if (err.name !== 'AbortError') copyAndToast(text);
                 });
+            } else {
+                copyAndToast(text);
             }
         }
 
@@ -849,10 +849,44 @@
             text += `✨ 나의 육아 페르소나: ${results.overallPersona.name}\n`;
             text += `${results.overallPersona.desc}\n\n`;
             text += `🔗 나도 알아보기: ${window.location.origin}/test.html`;
+            copyAndToast(text);
+        }
 
+        function copyAndToast(text) {
             navigator.clipboard.writeText(text).then(() => {
-                alert('결과 링크가 복사되었습니다!');
+                showShareToast('✅ 클립보드에 복사되었습니다! 카카오톡 채팅창에 붙여넣기하세요 🙌');
+            }).catch(() => {
+                showShareToast('❌ 복사 실패. 브라우저 URL을 직접 복사해주세요.');
             });
+        }
+
+        function showShareToast(message) {
+            let toast = document.getElementById('shareToastResult');
+            if (!toast) {
+                toast = document.createElement('div');
+                toast.id = 'shareToastResult';
+                toast.style.cssText = `
+                    position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(20px);
+                    background: rgba(15,23,42,0.96); color: #F8FAFC;
+                    padding: 14px 28px; border-radius: 30px;
+                    font-size: 0.95rem; font-weight: 600;
+                    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+                    z-index: 99999; opacity: 0;
+                    transition: opacity 0.3s ease, transform 0.3s ease;
+                    border: 1px solid rgba(52,211,153,0.4);
+                    backdrop-filter: blur(12px);
+                    white-space: nowrap; max-width: 90vw;
+                `;
+                document.body.appendChild(toast);
+            }
+            toast.textContent = message;
+            toast.style.opacity = '1';
+            toast.style.transform = 'translateX(-50%) translateY(0)';
+            clearTimeout(toast._timer);
+            toast._timer = setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(-50%) translateY(20px)';
+            }, 3000);
         }
     </script>
     <!-- The Ultimate Tear-Jerker Easter Egg -->
