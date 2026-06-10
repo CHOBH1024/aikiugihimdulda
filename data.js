@@ -3650,6 +3650,7 @@ function calculateChemistry(comboA, comboB) {
     personaB: pB, 
     score: finalScore, 
     title: result.title, 
+    summary: result.summary, 
     clash: result.clash, 
     synergy: result.synergy 
   };
