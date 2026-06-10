@@ -35,7 +35,7 @@ Mirror Inside Parenting의 알고리즘이 분석한 상위 3%의 멘토, 바로
 ---
 
 
-## 💣 팩트 폭격과 뼈 때리는 조언 (Brutal Truth)
+## 💡 객관적 진단 및 제안 (Objective Analysis)
 
 > **" 애가 슬퍼서 우는데 원인 분석표 꺼내는 피도 눈물도 없는 T형 팩력배. 정서 지능 발달 가로막는 주범. "**
 

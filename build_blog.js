@@ -222,7 +222,7 @@ const template = `<!DOCTYPE html>
             <div class="newsletter-content">
                 <div class="newsletter-badge">매주 금요일 발행</div>
                 <h3 class="newsletter-title">위로만 하는 뻔한 육아책에 지치셨나요?</h3>
-                <p class="newsletter-desc">정신이 번쩍 드는 '매운맛 육아 팩트폭격'을 메일로 꽂아드립니다.</p>
+                <p class="newsletter-desc">객관적인 뇌과학 분석에 기반한 육아 통찰 리포트를 메일로 전해드립니다.</p>
                 <form class="newsletter-form" onsubmit="event.preventDefault(); alert('구독이 완료되었습니다! 매주 금요일에 만나요 💌');">
                     <input type="email" class="newsletter-input" placeholder="이메일 주소를 입력하세요" required>
                     <button type="submit" class="newsletter-btn">구독하기</button>
@@ -428,7 +428,7 @@ const METADATA_MAPPING = {
     icon: '⚡',
     gradient: 'linear-gradient(135deg, #f43f5e 0%, #be123c 100%)',
     readTime: '9 min read',
-    excerpt: '산만하면 무조건 ADHD일까요? 전두엽의 실행기능을 마비시키고 팝콘 브레인을 만든 진짜 범인, 부모의 디지털 방임에 대한 뼈 때리는 팩트 체크.'
+    excerpt: '산만하면 무조건 ADHD일까요? 전두엽의 실행기능을 마비시키고 팝콘 브레인을 만든 진짜 원인, 부모의 디지털 노출 습관에 대한 객관적인 팩트 체크.'
   },
   'narcissistic-parenting.md': {
     category: '현대 육아 고민',
@@ -449,7 +449,7 @@ const METADATA_MAPPING = {
     icon: '👨‍👧',
     gradient: 'linear-gradient(135deg, #64748b 0%, #334155 100%)',
     readTime: '7 min read',
-    excerpt: '주말 내내 소파에 누워 돈 벌어오니까 끝이라는 아빠들. 거친 신체 놀이가 뇌 발달에 미치는 압도적인 아빠 효과를 날려버리고 있는 당신을 향한 팩트 폭격.'
+    excerpt: '주말 내내 소파에 누워 육아를 외면하는 아빠들. 거친 신체 놀이가 뇌 발달에 미치는 아빠 효과를 간과하는 현대 아빠들을 향한 따끔한 통찰과 제안.'
   },
   'separation-anxiety.md': {
     category: '현대 육아 고민',
