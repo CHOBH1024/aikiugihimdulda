@@ -260,6 +260,7 @@
         <div class="capture-footer"><span class="capture-footer-icon">🪞</span> Mirror Inside Parenting</div>
     </div>
 
+    <script src="chemistry_data.js"></script>
     <script src="data.js"></script>
     <script>
         let results = null;
@@ -288,7 +289,7 @@
                 </div>
             `;
         } else {
-            renderResults(results);
+            try { renderResults(results); } catch(e) { console.error("RENDER ERROR: " + e.stack); }
         }
 
         function renderResults(results) {
@@ -369,180 +370,15 @@
                                     <div class="fact-bomb-container" id="factBombContainer">
                                         <div class="fact-bomb-overlay" id="factBombOverlay">
                                             <i class="fas fa-bomb" style="font-size:2.5rem; color:#ef4444; margin-bottom:12px; filter: drop-shadow(0 4px 10px rgba(239,68,68,0.4));"></i>
-                                            <h4 style="font-size: 1.2rem; font-weight: 800; color: #ef4444; margin-bottom: 8px; letter-spacing: -0.5px;">🚨 객관적 진단</h4>
-                                            <p style="font-size: 0.9rem; color: var(--text-body); margin-bottom: 20px; word-break: keep-all; line-height: 1.4;">양육 방식의 사각지대를 분석한 결과입니다.<br>객관적인 피드백을 확인하려면 해제하세요.</p>
-                                            <button class="btn-unlock-fact" onclick="unlockFactBomb()">🔓 분석 결과 확인하기</button>
+                                            <h4 style="font-size: 1.2rem; font-weight: 800; color: #ef4444; margin-bottom: 8px; letter-spacing: -0.5px;">🚨 열람 주의</h4>
+                                            <p style="font-size: 0.9rem; color: var(--text-body); margin-bottom: 20px; word-break: keep-all; line-height: 1.4;">이 조언은 매우 직설적입니다.<br>뼈 맞을 각오가 되셨다면 해제하세요.</p>
+                                            <button class="btn-unlock-fact" onclick="unlockFactBomb()">🔓 잠금 해제하기</button>
                                         </div>
                                         <div class="fact-bomb-content" id="factBombContent">
-                                            <h4 style="font-size: 1.1rem; color: #ef4444; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;"><i class="fas fa-bolt"></i> 성장을 위한 객관적 분석</h4>
+                                            <h4 style="font-size: 1.1rem; color: #ef4444; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;"><i class="fas fa-bolt"></i> 성장을 위한 뼈 때리는 조언</h4>
                                             <p style="font-size: 0.95rem; color: var(--text-main); line-height: 1.6; font-weight: 600; margin-bottom: 24px; word-break: keep-all;">${overallPersona.harshAdvice || '균형을 잃지 않는 것이 가장 중요합니다.'}</p>
-                                            <button class="btn-share-postcard" onclick="downloadPostcard()"><i class="fas fa-camera-retro"></i> 이 분석을 엽서로 저장하기</button>
+                                            <button class="btn-share-postcard" onclick="downloadPostcard()"><i class="fas fa-camera-retro"></i> 이 조언을 엽서로 저장하기</button>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="action-buttons">
-                            <button class="btn btn--large btn-insta" onclick="downloadImage()"><i class="fab fa-instagram"></i> 인스타 스토리에 공유하기 (이미지 저장)</button>
-                            <button class="btn btn--large btn-kakao" onclick="shareKakao()"><i class="fas fa-comment"></i> 카카오톡으로 결과 보내기</button>
-                            <button class="btn btn--secondary btn--large" onclick="copyResult()"><i class="fas fa-link"></i> 링크 복사하기</button>
-                        </div>
-                        <p style="text-align: center; font-size: 0.85rem; color: var(--text-dim); margin-top: 4px;">
-                            💡 '인스타 스토리 공유' 버튼을 누르면 이미지가 저장됩니다.
-                        </p>
-                    </div>
-
-                    <div class="result-layout__right">
-                        ${deepAnalysisHTML}
-
-                        <div class="carousel-section" style="margin-top:0;">
-                            ${overallPersona.ageAdvice && overallPersona.ageAdvice[childAge] ? `
-                            <div class="carousel-card" style="border-color: var(--primary); background: rgba(52, 211, 153, 0.05);">
-                                <h3>👶 ${ageMap[childAge]} 맞춤 육아 가이드</h3>
-                                <p style="font-size: 1rem; color: var(--text-main); font-weight: 700; line-height: 1.6; word-break: keep-all;">
-                                    ${overallPersona.ageAdvice[childAge]}
-                                </p>
-                            </div>
-                            ` : ''}
-
-                            <div class="carousel-card">
-                                <h3>✨ 나의 빛나는 장점</h3>
-                                <ul>${overallPersona.strengths.map(s => `<li>${s}</li>`).join('')}</ul>
-                            </div>
-                            <div class="carousel-card">
-                                <h3>🥺 육아하며 느끼는 아쉬움</h3>
-                                <ul>${overallPersona.weaknesses.map(s => `<li>${s}</li>`).join('')}</ul>
-                            </div>
-                            
-                            ${overallPersona.deepReflection ? `
-                            <div class="carousel-card" style="background: var(--glass-strong);">
-                                <h3 style="color: #F59E0B;">🪞 나를 깊게 이해하기</h3>
-                                <p style="font-size:1.05rem; font-weight:800; color:var(--text-main); margin-bottom:12px; font-style:italic;">
-                                    "${overallPersona.deepReflection.question}"
-                                </p>
-                                <p style="font-size:0.95rem; color:var(--text-body); line-height:1.6;">
-                                    ${overallPersona.deepReflection.meaning}
-                                </p>
-                            </div>
-                            ` : ''}
-
-                            <div class="carousel-card">
-                                <h3>💡 사각지대 보완 팁</h3>
-                                <p style="font-size:0.95rem; color:var(--text-body); line-height:1.6;">
-                                    <strong style="color:#ef4444;">❌ 무의식적인 반응:</strong><br>${results.simulation.wrong}<br><br>
-                                    <strong style="color:var(--primary);">✅ 추천하는 솔루션:</strong><br>${results.simulation.correct}
-                                </p>
-                            </div>
-                            
-                            <div style="margin-top: 32px;">
-                                <h3 style="font-size: 1.1rem; margin-bottom: 16px; color: var(--text-main); font-weight: 800; text-align:center;">5가지 상세 육아 차원</h3>
-                                ${dimsHTML}
-                            </div>
-                            
-                            <div style="margin-top: 32px; text-align: center;">
-                                <a href="/columns/persona_deepdive.html" class="btn btn--primary" style="width: 100%;">📚 내 페르소나 심층 칼럼 읽기</a>
-                            </div>
-                        </div>
-
-                        ${recColsHTML}
-                    </div>
-                </div>
-            `;
-
-            // trigger lock animation if needed
-            if (testMode === 'pro' && results.subtypeIndex !== undefined) {
-                setTimeout(() => {
-                    const lock = document.getElementById('deepAnalysisLock');
-                    const content = document.getElementById('deepAnalysisContent');
-                    if(lock && content) {
-                        lock.style.display = 'none';
-                        content.style.display = 'block';
-                        content.classList.add('fade-in');
-                    }
-                }, 1000);
-            }
-
-            
-        }
-
-        function drawRadarChart(dimensionTypes) {
-            const canvas = document.getElementById('radarCanvas');
-            if (!canvas) return;
-            const ctx = canvas.getContext('2d');
-            const dpr = window.devicePixelRatio || 1;
-            
-            const rect = canvas.parentElement.getBoundingClientRect();
-            const size = Math.min(rect.width, 300);
-            
-            canvas.width = size * dpr;
-            canvas.height = size * dpr;
-            canvas.style.width = size + 'px';
-            canvas.style.height = size + 'px';
-            ctx.scale(dpr, dpr);
-
-            const cx = size / 2;
-            const cy = size / 2 + 10;
-            const maxR = size / 2 - 40;
-            const n = 5;
-            const angles = [];
-            for (let i = 0; i < n; i++) {
-                angles.push((Math.PI * 2 * i / n) - Math.PI / 2);
-            }
-
-            const dataValues = DIMENSIONS.map(d => dimensionTypes[d.id].normalizedScore);
-            const labels = DIMENSIONS.map(d => d.name);
-
-            // Draw Grid
-            for (let ring = 1; ring <= 4; ring++) {
-                const r = (maxR / 4) * ring;
-                ctx.beginPath();
-                for (let i = 0; i < n; i++) {
-                    const x = cx + r * Math.cos(angles[i]);
-                    const y = cy + r * Math.sin(angles[i]);
-                    if (i === 0) ctx.moveTo(x, y);
-                    else ctx.lineTo(x, y);
-                }
-                ctx.closePath();
-                ctx.strokeStyle = 'rgba(0,0,0,0.05)';
-                ctx.lineWidth = 1;
-                ctx.stroke();
-            }
-
-            // Draw Axes & Labels
-            for (let i = 0; i < n; i++) {
-                ctx.beginPath();
-                ctx.moveTo(cx, cy);
-                ctx.lineTo(cx + maxR * Math.cos(angles[i]), cy + maxR * Math.sin(angles[i]));
-                ctx.strokeStyle = 'rgba(0,0,0,0.05)';
-                ctx.stroke();
-
-                const lr = maxR + 20;
-                const x = cx + lr * Math.cos(angles[i]);
-                const y = cy + lr * Math.sin(angles[i]);
-                ctx.font = '700 12px Pretendard';
-                ctx.fillStyle = 'rgba(0,0,0,0.5)';
-                ctx.textAlign = 'center';
-                ctx.fillText(labels[i], x, y + 4);
-            }
-
-            // Draw Data
-            ctx.beginPath();
-            dataValues.forEach((v, i) => {
-                const r = maxR * v;
-                const x = cx + r * Math.cos(angles[i]);
-                const y = cy + r * Math.sin(angles[i]);
-                if (i === 0) ctx.moveTo(x, y);
-                else ctx.lineTo(x, y);
-            });
-            ctx.closePath();
-            
-            const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, maxR);
-            grad.addColorStop(0, 'rgba(255, 107, 107, 0.25)');
-            grad.addColorStop(1, 'rgba(255, 218, 193, 0.15)');
-            ctx.fillStyle = grad;
-            ctx.fill();
-            
                                     </div>
                                 </div>
                             </div>
@@ -751,12 +587,7 @@
             try {
                 await document.fonts.ready;
                 await new Promise(r => setTimeout(r, 250));
-                const canvas = await html2canvas(el, { 
-                    scale: 2, 
-                    backgroundColor: '#FFF5F5',
-                    useCORS: true,
-                    logging: false
-                });
+                const canvas = await html2canvas(el, { scale: 2, backgroundColor: '#FFF5F5', useCORS: true, logging: false });
                 const link = document.createElement('a');
                 link.download = `mirror_inside_result.png`;
                 link.href = canvas.toDataURL('image/png');
@@ -799,14 +630,11 @@
             el.style.visibility = 'visible';
             
             try {
+                // Wait briefly for DOM to settle
+                await new Promise(r => setTimeout(r, 100));
                 await document.fonts.ready;
                 await new Promise(r => setTimeout(r, 250));
-                const canvas = await html2canvas(el, { 
-                    scale: 3, 
-                    backgroundColor: '#0F172A', 
-                    useCORS: true,
-                    logging: false
-                });
+                const canvas = await html2canvas(el, { scale: 3, backgroundColor: '#0F172A', useCORS: true, logging: false });
                 const link = document.createElement('a');
                 link.download = `mirror_inside_fact_bomb.png`;
                 link.href = canvas.toDataURL('image/png', 1.0);
@@ -827,19 +655,19 @@
         function shareKakao() {
             const url = 'https://aikiugihimdulda.vercel.app';
             const resultUrl = window.location.href;
-            const personaName = results && results.overallPersona ? results.overallPersona.name : '';
-            const text = `🪞 Mirror Inside Parenting${personaName ? `\n\n✨ 나의 육아 페르소나: ${personaName}` : ''}\n\n나는 어떤 유형의 부모일까요? 3분 진단으로 알아보세요!\n👉 ${url}/test.html`;
+            const text = `🪞 Mirror Inside Parenting\n\n나의 육아 페르소나 진단 결과가 나왔어요!\n\n👉 나의 결과 보기:\n${resultUrl}\n\n👉 직접 테스트해보기:\n${url}`;
 
             if (navigator.share) {
                 navigator.share({
                     title: 'Mirror Inside 육아 진단',
-                    text: text,
-                    url: url
-                }).catch(err => {
-                    if (err.name !== 'AbortError') copyAndToast(text);
-                });
+                    text: text
+                }).catch(console.error);
             } else {
-                copyAndToast(text);
+                navigator.clipboard.writeText(text).then(() => {
+                    alert('결과 링크와 내용이 클립보드에 복사되었습니다!\n카카오톡 대화창에 붙여넣기 하여 공유해보세요.');
+                }).catch(() => {
+                    alert('클립보드 복사에 실패했습니다. 브라우저의 URL을 직접 복사해 주세요.');
+                });
             }
         }
 
@@ -849,44 +677,10 @@
             text += `✨ 나의 육아 페르소나: ${results.overallPersona.name}\n`;
             text += `${results.overallPersona.desc}\n\n`;
             text += `🔗 나도 알아보기: ${window.location.origin}/test.html`;
-            copyAndToast(text);
-        }
 
-        function copyAndToast(text) {
             navigator.clipboard.writeText(text).then(() => {
-                showShareToast('✅ 클립보드에 복사되었습니다! 카카오톡 채팅창에 붙여넣기하세요 🙌');
-            }).catch(() => {
-                showShareToast('❌ 복사 실패. 브라우저 URL을 직접 복사해주세요.');
+                alert('결과 링크가 복사되었습니다!');
             });
-        }
-
-        function showShareToast(message) {
-            let toast = document.getElementById('shareToastResult');
-            if (!toast) {
-                toast = document.createElement('div');
-                toast.id = 'shareToastResult';
-                toast.style.cssText = `
-                    position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(20px);
-                    background: rgba(15,23,42,0.96); color: #F8FAFC;
-                    padding: 14px 28px; border-radius: 30px;
-                    font-size: 0.95rem; font-weight: 600;
-                    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-                    z-index: 99999; opacity: 0;
-                    transition: opacity 0.3s ease, transform 0.3s ease;
-                    border: 1px solid rgba(52,211,153,0.4);
-                    backdrop-filter: blur(12px);
-                    white-space: nowrap; max-width: 90vw;
-                `;
-                document.body.appendChild(toast);
-            }
-            toast.textContent = message;
-            toast.style.opacity = '1';
-            toast.style.transform = 'translateX(-50%) translateY(0)';
-            clearTimeout(toast._timer);
-            toast._timer = setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transform = 'translateX(-50%) translateY(20px)';
-            }, 3000);
         }
     </script>
     <!-- The Ultimate Tear-Jerker Easter Egg -->
@@ -904,10 +698,12 @@
                 양육의 무게를 묵묵히 견디는 당신에게
             </h2>
             <p style="font-size: 1.1rem; color: #94A3B8; line-height: 1.9; margin-bottom: 24px; word-break: keep-all; text-align: left;">
-                누구도 완벽한 정답을 알려주지 않는 육아의 여정에서, 끊임없이 고민하며 여기까지 글을 읽어오셨습니다.<br><br>
-                부족함을 느끼는 것은 당신이 부족한 부모이기 때문이 아닙니다. 아이에게 더 건강한 환경을 제공하고자 깊이 고민하는 주체적인 양육자이기 때문입니다.<br><br>
-                완벽한 부모가 아니어도 괜찮습니다. 고민하고 조율해 나가는 과정 자체가 아이에게 가장 훌륭한 환경이자 든든한 울타리입니다.<br><br>
-                오늘의 크고 작은 고민들이 모여 더 단단한 부모와 아이의 관계를 만들어갈 것입니다. 당신의 수고와 노력을 진심으로 응원합니다.
+                우리가 그토록 아프게 뼈를 때렸는데도, 당신은 창을 닫지 않고 여기까지 스크롤을 내렸습니다.<br><br>
+                왜일까요?<br>
+                당신이 부족한 부모라서가 아닙니다. 당신이 <strong>누구보다 아이를 미치도록 사랑하는 부모</strong>이기 때문입니다.<br><br>
+                어젯밤, 잠든 아이의 이마를 쓸어넘기며 '오늘 화내서 미안해'라고 속으로 눈물 삼켰던 당신의 그 죄책감은, 당신이 얼마나 훌륭한 부모가 되고 싶어 하는지를 증명하는 가장 눈부신 훈장입니다.<br><br>
+                아이에게 완벽한 부모는 필요 없습니다. <strong>오늘 하루 실수했더라도, 내일 다시 안아주려고 노력하는 당신의 그 뒷모습</strong>만으로도 아이의 우주는 이미 완벽하게 따뜻합니다.<br><br>
+                고생하셨습니다. 당신은 이미 충분히 좋은 부모입니다.
             </p>
             <button onclick="closeTearJerker()" style="margin-top: 32px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: #F8FAFC; padding: 12px 32px; border-radius: 30px; font-size: 1rem; cursor: pointer; transition: all 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">
                 닫기
