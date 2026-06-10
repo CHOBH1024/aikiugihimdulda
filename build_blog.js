@@ -172,6 +172,7 @@ const template = `<!DOCTYPE html>
             <ul class="nav__links">
                 <li><a href="/columns.html" class="nav__link" style="color:var(--primary)">육아 칼럼</a></li>
                 <li><a href="/gallery.html" class="nav__link">나의 기록</a></li>
+                <li><a href="/chemistry.html" class="nav__link">❤️ 육아 궁합 진단</a></li>
                 <li><a href="/about.html" class="nav__link">소개</a></li>
                 <li><a href="/test.html" class="nav__cta">🪞 나의 육아 스타일 알아보기</a></li>
             </ul>
@@ -214,6 +215,18 @@ const template = `<!DOCTYPE html>
                 <button class="reaction-btn" data-emoji="😮" style="font-size:1.6rem; padding:10px 20px; border-radius:30px; border:1px solid var(--glass-border); background:rgba(255,255,255,0.03); transition:all 0.2s; position:relative; overflow:visible; display:inline-flex; align-items:center;">
                     😮 <span class="react-count" style="font-size:0.9rem; color:var(--text-dim); margin-left:6px; font-weight:700;">0</span>
                 </button>
+            </div>
+        </div>
+        
+        <div class="newsletter-section">
+            <div class="newsletter-content">
+                <div class="newsletter-badge">매주 금요일 발행</div>
+                <h3 class="newsletter-title">위로만 하는 뻔한 육아책에 지치셨나요?</h3>
+                <p class="newsletter-desc">정신이 번쩍 드는 '매운맛 육아 팩트폭격'을 메일로 꽂아드립니다.</p>
+                <form class="newsletter-form" onsubmit="event.preventDefault(); alert('구독이 완료되었습니다! 매주 금요일에 만나요 💌');">
+                    <input type="email" class="newsletter-input" placeholder="이메일 주소를 입력하세요" required>
+                    <button type="submit" class="newsletter-btn">구독하기</button>
+                </form>
             </div>
         </div>
         
@@ -395,6 +408,48 @@ const METADATA_MAPPING = {
     gradient: 'linear-gradient(135deg, #10b981 0%, #047857 100%)',
     readTime: '8 min read',
     excerpt: '머리가 좋다는 칭찬이 오히려 아이의 도전을 가로막는다는 놀라운 학술 연구. 똑똑함을 칭찬하여 고정 마인드셋을 만드는 칭찬의 부작용을 극복하고, 과정을 격려하는 올바른 성장 마인드셋 육아법을 제안합니다.'
+  },
+  'eating-habits.md': {
+    category: '현대 육아 고민',
+    icon: '🥦',
+    gradient: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+    readTime: '7 min read',
+    excerpt: '밥 안 먹는 아이를 따라다니며 스마트폰을 보여주는 당신. 식탁 위 권력 투쟁과 고전적 조건화가 만든 끔찍한 편식의 심리학적 진실을 폭로합니다.'
+  },
+  'sleep-training.md': {
+    category: '현대 육아 고민',
+    icon: '🌙',
+    gradient: 'linear-gradient(135deg, #4f46e5 0%, #3730a3 100%)',
+    readTime: '8 min read',
+    excerpt: '울다 지쳐 잠든 아이를 두고 수면 교육 성공이라 부르는 잔인한 착각. 뇌과학이 밝히는 코르티솔 중독과 학습된 무기력의 끔찍한 민낯을 고발합니다.'
+  },
+  'adhd-vs-energy.md': {
+    category: '현대 육아 고민',
+    icon: '⚡',
+    gradient: 'linear-gradient(135deg, #f43f5e 0%, #be123c 100%)',
+    readTime: '9 min read',
+    excerpt: '산만하면 무조건 ADHD일까요? 전두엽의 실행기능을 마비시키고 팝콘 브레인을 만든 진짜 범인, 부모의 디지털 방임에 대한 뼈 때리는 팩트 체크.'
+  },
+  'narcissistic-parenting.md': {
+    category: '현대 육아 고민',
+    icon: '🏆',
+    gradient: 'linear-gradient(135deg, #d946ef 0%, #a21caf 100%)',
+    readTime: '8 min read',
+    excerpt: '아이의 성취를 인스타그램에 자랑하며 열등감을 채우는 부모들. 대상관계이론이 밝히는 거짓 자아의 비극과, 아이를 트로피로 전락시키는 나르시시즘 육아의 소름 돋는 진실.'
+  },
+  'overprotection-anxiety.md': {
+    category: '현대 육아 고민',
+    icon: '🚁',
+    gradient: 'linear-gradient(135deg, #0ea5e9 0%, #0369a1 100%)',
+    readTime: '9 min read',
+    excerpt: '아이가 넘어질까 봐 모든 장애물을 치워주는 헬리콥터 부모님들. 당신의 숨 막히는 통제가 서른 살에도 엄마를 찾는 무능력한 성인 아이를 양산하는 과정을 고발합니다.'
+  },
+  'father-effect.md': {
+    category: '현대 육아 고민',
+    icon: '👨‍👧',
+    gradient: 'linear-gradient(135deg, #64748b 0%, #334155 100%)',
+    readTime: '7 min read',
+    excerpt: '주말 내내 소파에 누워 돈 벌어오니까 끝이라는 아빠들. 거친 신체 놀이가 뇌 발달에 미치는 압도적인 아빠 효과를 날려버리고 있는 당신을 향한 팩트 폭격.'
   },
   'separation-anxiety.md': {
     category: '현대 육아 고민',
