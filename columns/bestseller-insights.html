@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>대한민국을 흔든 육아 베스트셀러, 핵심만 골라 읽기 | Mirror Inside Parenting</title>
+    <link rel="icon" href="/assets/images/icons/favicon.png" type="image/png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        .article-wrap { padding-top: 120px; padding-bottom: 80px; max-width: 800px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+        .article-header { text-align: center; margin-bottom: 48px; }
+        .article-category { font-size: 0.9rem; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px; display: block; }
+        .article-title { font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 900; line-height: 1.35; margin-bottom: 24px; word-break: keep-all; color: var(--text-main); }
+        .article-meta { font-size: 0.9rem; color: var(--text-dim); display: flex; justify-content: center; gap: 16px; align-items: center; }
+        .article-hero-img { 
+            width: 100%; 
+            height: 280px; 
+            border-radius: var(--radius-xl); 
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 5rem; 
+            margin-bottom: 60px; 
+            box-shadow: var(--shadow-card);
+            border: 1px solid var(--glass-border);
+        }
+        .article-content { font-size: 1.08rem; line-height: 1.9; color: var(--text-body); word-break: keep-all; text-align: justify; }
+        .article-content h2 { font-size: 1.6rem; color: var(--text-main); margin: 56px 0 24px; font-weight: 800; border-bottom: 1px solid var(--glass-border); padding-bottom: 12px; }
+        .article-content h3 { font-size: 1.25rem; color: var(--primary); margin: 36px 0 16px; font-weight: 700; }
+        .article-content p { margin-bottom: 24px; }
+        .article-content ul, .article-content ol { padding-left: 24px; margin-bottom: 28px; }
+        .article-content li { margin-bottom: 12px; line-height: 1.7; }
+        .article-content strong { color: var(--text-main); font-weight: 700; }
+        .article-content blockquote { 
+            border-left: 4px solid var(--primary); 
+            padding: 24px; 
+            font-style: italic; 
+            color: var(--text-dim); 
+            margin: 36px 0; 
+            background: var(--bg-section); 
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+        }
+        .article-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 32px 0;
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+        }
+        .article-content th, .article-content td {
+            padding: 14px 18px;
+            text-align: left;
+            border-bottom: 1px solid var(--glass-border);
+            font-size: 0.95rem;
+        }
+        .article-content th {
+            background: var(--primary-dim);
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .article-content tr:last-child td {
+            border-bottom: none;
+        }
+        .cta-banner { 
+            margin-top: 60px; 
+            padding: 36px; 
+            background: linear-gradient(135deg, #FFF0E8 0%, #FFF5F5 50%, #F0E8FF 100%); 
+            border: 1px solid var(--glass-border); 
+            border-radius: var(--radius-lg); 
+            text-align: center; 
+            box-shadow: var(--shadow-card);
+        }
+        .cta-banner h3 { margin-bottom: 16px; color: var(--text-main); font-weight: 800; font-size: 1.4rem; }
+        .cta-banner p { margin-bottom: 24px; font-size: 1rem; color: var(--text-body); }
+    </style>
+</head>
+<body>
+    <!-- Scroll Progress Indicator -->
+    <div id="scrollIndicator" style="position:fixed; top:0; left:0; height:4px; width:0%; background:linear-gradient(90deg, var(--primary), var(--secondary)); z-index:9999; transition:width 0.15s ease;"></div>
+
+    <!-- Drifting Glow Orbs Background -->
+    <div class="glow-orb-container">
+        <div class="glow-orb glow-orb--1"></div>
+        <div class="glow-orb glow-orb--2"></div>
+        <div class="glow-orb glow-orb--3"></div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="nav scrolled">
+        <div class="nav__inner">
+            <a href="/index.html" class="nav__logo">
+                🪞 Mirror Inside <span class="nav__logo-sub">Parenting</span>
+            </a>
+            <ul class="nav__links">
+                <li><a href="/columns.html" class="nav__link" style="color:var(--primary)">육아 칼럼</a></li>
+                <li><a href="/gallery.html" class="nav__link">나의 기록</a></li>
+                <li><a href="/chemistry.html" class="nav__link">❤️ 육아 궁합 진단</a></li>
+                <li><a href="/about.html" class="nav__link">소개</a></li>
+                <li><a href="/test.html" class="nav__cta">🪞 나의 육아 스타일 알아보기</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="article-wrap container">
+        <header class="article-header">
+            <span class="article-category">육아 칼럼</span>
+            <h1 class="article-title">대한민국을 흔든 육아 베스트셀러, 핵심만 골라 읽기</h1>
+            <div class="article-meta">
+                <span><i class="far fa-calendar-alt"></i> 2026.05.29</span>
+                <span><i class="far fa-clock"></i> 6 min read</span>
+            </div>
+        </header>
+
+        <div class="article-hero-img">📚</div>
+
+        <article class="article-content">
+            <blockquote>
+<p>단호하면서도 다정한 부모가 되기 위한 세계적인 전문가들의 조언</p>
+</blockquote>
+<p><img src="/assets/images/personas/animal_wise.png" alt="베스트셀러 모음"></p>
+<p>서점에 가면 쏟아지는 육아 서적들. 어떤 책은 &quot;단호해야 한다&quot;고 하고, 어떤 책은 &quot;무조건 수용하라&quot;고 합니다. 부모 입장에서는 혼란스러울 수밖에 없죠. Mirror Inside 연구팀은 <strong>대한민국 부모들이 가장 많이 읽고 공감한 육아 베스트셀러 5권</strong>의 핵심 철학을 분석하여, 하나의 일관된 메시지로 정리해 보았습니다.</p>
+<p>우리의 진단 테스트에도 이 철학들이 깊게 녹아 있습니다. 어떤 책의 철학이 나의 양육 스타일과 가장 맞닿아 있을까요?</p>
+<hr>
+<h2>1. 뼈대는 단단하게, 마음은 부드럽게: 『본질육아』 (지나영)</h2>
+<p>존스홉킨스 소아정신과 교수 지나영 박사의 <strong>본질육아</strong>는 한 문장으로 &quot;자립심을 키워주는 것&quot;입니다.</p>
+<ul>
+<li><strong>핵심 철학</strong>: 부모의 궁극적인 목표는 아이가 스무 살이 되었을 때 부모 없이도 밥벌이를 하고 독립적으로 살아가게 하는 것입니다.</li>
+<li><strong>실전 팁</strong>: 규칙의 뼈대는 흔들림 없이 굵어야 합니다. 아이가 장난감을 사달라고 마트 바닥에 드러누울 때, 시선이 두려워 사주면 아이는 &#39;드러누우면 해결된다&#39;는 공식을 배웁니다. 마음은 읽어주되 행동은 단호하게 통제하세요.</li>
+</ul>
+<blockquote>
+<p><strong>💡 Mirror Inside 진단 포인트</strong><br>진단 결과에서 <strong>[규칙과 훈육]</strong> 차원의 점수가 높다면, 당신은 이미 &#39;단단한 뼈대&#39;를 지닌 부모입니다. 반대로 점수가 낮다면 지나영 교수의 철학을 참고하여 &#39;비협상 영역(Non-negotiable)&#39;을 정해보세요.</p>
+</blockquote>
+<hr>
+<h2>2. 훈육의 정석: 『삐뽀삐뽀 119 소아과』 (하정훈)</h2>
+<p>육아의 바이블로 불리는 하정훈 전문의의 철학은 **&quot;권위 있는 부모&quot;**를 강조합니다. </p>
+<ul>
+<li><strong>핵심 철학</strong>: 아이와 부모는 동등한 친구가 아닙니다. 부모는 아이를 이끌고 가르쳐야 하는 선장입니다.</li>
+<li><strong>실전 팁</strong>: 아이에게 선택권을 너무 많이 주지 마세요. 양치질을 할지 말지는 아이의 선택이 아닙니다. &quot;양치할래?&quot;가 아니라 &quot;양치할 시간이야&quot;라고 지시해야 합니다. 수면 교육과 식사 예절 등 기본 생활 습관에 대해서는 타협하지 않는 부모의 권위가 아이에게 최고의 안정감을 줍니다.</li>
+</ul>
+<hr>
+<h2>3. 단호하지만 부드럽게: 『어떻게 말해줘야 할까』 (오은영)</h2>
+<p>국민 육아 멘토 오은영 박사의 훈육 원칙은 명확합니다. 감정은 100% 수용하되 행동은 통제하라는 것입니다.</p>
+<ul>
+<li><strong>핵심 철학</strong>: 아이의 감정에는 옳고 그름이 없습니다. 하지만 감정을 표현하는 &#39;행동&#39;에는 옳고 그름이 있습니다.</li>
+<li><strong>실전 팁</strong>: 아이가 동생을 때렸을 때, &quot;네가 동생을 때리다니 넌 나쁜 아이야&quot;가 아니라 &quot;동생이 내 장난감을 가져가서 화가 많이 났구나(감정 수용). 하지만 사람을 때리는 건 절대 안 돼(행동 통제)&quot;라고 말해주는 것이 오은영식 훈육의 핵심입니다.</li>
+</ul>
+<hr>
+<h2>4. 재능이 아닌 노력을 칭찬하라: 『마인드셋』 (캐럴 드웩)</h2>
+<p>스탠퍼드 대학교 캐럴 드웩 교수의 연구는 우리가 아이를 칭찬하는 방식을 완전히 바꿔놓았습니다.</p>
+<ul>
+<li><strong>핵심 철학</strong>: &quot;너는 정말 똑똑해&quot;라는 고정 마인드셋 칭찬은 아이가 실패를 두려워하게 만듭니다. 반면 &quot;포기하지 않고 끝까지 노력했구나&quot;라는 성장 마인드셋 칭찬은 아이를 도전에 강하게 만듭니다.</li>
+<li><strong>실전 팁</strong>: 아이가 100점을 받아왔을 때 결과 자체보다는 그 과정을 조명해주세요. &quot;어제 늦게까지 모르는 문제를 풀려고 애쓰더니, 그 노력이 빛을 발했네!&quot;라고 말해주면 아이는 &#39;노력의 가치&#39;를 내면화하게 됩니다.</li>
+</ul>
+<hr>
+<h2>5. 통제를 내려놓을 때 피어나는 자율성: 『아들 맘의 자율성』 (최민준)</h2>
+<p>아들연구소 최민준 소장은, 특히 활동적이고 자기 주장이 강한 아이들을 기를 때 &#39;통제를 내려놓는 용기&#39;가 필요하다고 말합니다.</p>
+<ul>
+<li><strong>핵심 철학</strong>: 아이가 스스로 깨닫게 하려면 부모가 먼저 정답을 주고 지시하는 것을 멈춰야 합니다. 실패할 기회를 주어야 스스로 일어섭니다.</li>
+<li><strong>실전 팁</strong>: 내일 학교 준비물을 챙기지 않는 아이를 대신 챙겨주지 마세요. 학교에 가서 준비물이 없어 불편함을 겪어보는 뼈아픈 결과(Natural Consequence)가 백 번의 잔소리보다 강력한 최고의 스승입니다.</li>
+</ul>
+<hr>
+<h2>맺음말: 나의 페르소나에는 어떤 철학이 담겨있을까?</h2>
+<p>결국 최고의 육아법이란 **&quot;내 아이의 기질과 나의 양육 방식에 맞는 균형&quot;**을 찾는 것입니다. 
+Mirror Inside의 진단 테스트는 위 베스트셀러들의 학술적, 실전적 철학을 바탕으로 당신의 성향을 35가지 페르소나로 분석합니다. </p>
+<p>아직 나의 양육 스타일을 점검해보지 않으셨다면, 3분 진단 테스트를 통해 내 안에 숨겨진 부모로서의 강점과 보완점을 발견해보세요.</p>
+<div style="text-align: center; margin-top: 40px; margin-bottom: 20px;">
+    <a href="/test.html" class="btn btn--primary btn--large" style="padding: 16px 32px; font-size: 1.1rem; border-radius: 30px; display: inline-flex; align-items: center; gap: 8px;">
+        <i class="fas fa-play"></i> 나의 육아 페르소나 진단하기
+    </a>
+</div>
+
+        </article>
+
+        <!-- Instagram-style Reaction Dock -->
+        <div class="reaction-dock" style="margin-top: 60px; display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 28px; background: var(--bg-card); border: 1px solid var(--glass-border); border-radius: var(--radius-md); box-shadow: var(--shadow-card); text-align:center;">
+            <h4 style="font-size:1.1rem; font-weight:800; color:var(--text-main); margin:0;">이 칼럼이 도움이 되셨나요? 공감을 남겨보세요!</h4>
+            <p style="font-size:0.85rem; color:var(--text-dim); margin:-8px 0 8px;">실시간 이모지 공감 터치 시 화려한 폭죽 효과가 펑 터집니다 💫</p>
+            <div style="display:flex; gap:16px; flex-wrap:wrap; justify-content:center;">
+                <button class="reaction-btn" data-emoji="❤️" style="font-size:1.6rem; padding:10px 20px; border-radius:30px; border:1px solid var(--glass-border); background:rgba(255,255,255,0.03); transition:all 0.2s; position:relative; overflow:visible; display:inline-flex; align-items:center;">
+                    ❤️ <span class="react-count" style="font-size:0.9rem; color:var(--text-dim); margin-left:6px; font-weight:700;">0</span>
+                </button>
+                <button class="reaction-btn" data-emoji="👍" style="font-size:1.6rem; padding:10px 20px; border-radius:30px; border:1px solid var(--glass-border); background:rgba(255,255,255,0.03); transition:all 0.2s; position:relative; overflow:visible; display:inline-flex; align-items:center;">
+                    👍 <span class="react-count" style="font-size:0.9rem; color:var(--text-dim); margin-left:6px; font-weight:700;">0</span>
+                </button>
+                <button class="reaction-btn" data-emoji="💡" style="font-size:1.6rem; padding:10px 20px; border-radius:30px; border:1px solid var(--glass-border); background:rgba(255,255,255,0.03); transition:all 0.2s; position:relative; overflow:visible; display:inline-flex; align-items:center;">
+                    💡 <span class="react-count" style="font-size:0.9rem; color:var(--text-dim); margin-left:6px; font-weight:700;">0</span>
+                </button>
+                <button class="reaction-btn" data-emoji="🥺" style="font-size:1.6rem; padding:10px 20px; border-radius:30px; border:1px solid var(--glass-border); background:rgba(255,255,255,0.03); transition:all 0.2s; position:relative; overflow:visible; display:inline-flex; align-items:center;">
+                    🥺 <span class="react-count" style="font-size:0.9rem; color:var(--text-dim); margin-left:6px; font-weight:700;">0</span>
+                </button>
+                <button class="reaction-btn" data-emoji="😮" style="font-size:1.6rem; padding:10px 20px; border-radius:30px; border:1px solid var(--glass-border); background:rgba(255,255,255,0.03); transition:all 0.2s; position:relative; overflow:visible; display:inline-flex; align-items:center;">
+                    😮 <span class="react-count" style="font-size:0.9rem; color:var(--text-dim); margin-left:6px; font-weight:700;">0</span>
+                </button>
+            </div>
+        </div>
+        
+
+        
+        <div class="cta-banner">
+            <h3>나는 어떤 육아 스타일일까? 🪞</h3>
+            <p>3분이면 충분해요! 나만의 육아 페르소나를 발견하고 맞춤 솔루션을 확인해보세요 ✨</p>
+            <a href="/test.html" class="btn btn--primary btn--large btn--glow" style="display:inline-flex; align-items:center; gap:8px;">🪞 나의 육아 스타일 알아보기</a>
+        </div>
+
+        <div style="margin-top: 60px; text-align:center;">
+            <a href="/columns.html" class="btn btn--outline" style="padding: 12px 30px;"><i class="fas fa-arrow-left"></i> 목록으로 돌아가기</a>
+        </div>
+    </main>
+
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <p style="font-size: 1.1rem; margin-bottom: 12px;">🪞 Mirror Inside Parenting</p>
+        <p style="font-size: 0.85rem; color: var(--text-body); margin-bottom: 16px;">함께 성장하는 육아, 거울 속에서 만나요</p>
+        <p>&copy; 2026 Mirror Inside Parenting. All rights reserved.</p>
+        <p style="font-size: 0.75rem; margin-top: 8px; color: var(--text-dim);">
+            <a href="/terms.html">이용약관</a> · <a href="/privacy.html">개인정보처리방침</a> · <a href="/contact.html">문의하기</a>
+        </p>
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- High-Performance Script Blocks -->
+    <script>
+        // 1. Google-Style Scroll Progress Bar logic
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+            document.getElementById('scrollIndicator').style.width = scrolled + '%';
+        });
+
+        // 2. Instagram-Style Reaction & Particle Burst logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const pageId = window.location.pathname.split('/').pop() || 'index.html';
+            const reactionBtns = document.querySelectorAll('.reaction-btn');
+            
+            reactionBtns.forEach(btn => {
+                const emoji = btn.getAttribute('data-emoji');
+                const countSpan = btn.querySelector('.react-count');
+                const storageKey = 'reaction_' + pageId + '_' + emoji;
+                const userReactedKey = 'reacted_' + pageId + '_' + emoji;
+                
+                // Set reasonable default mock counts + storage lookup
+                let count = parseInt(localStorage.getItem(storageKey));
+                if (isNaN(count)) {
+                    count = Math.floor(Math.random() * 45) + 8;
+                    localStorage.setItem(storageKey, count);
+                }
+                countSpan.textContent = count;
+                
+                if (localStorage.getItem(userReactedKey)) {
+                    btn.style.borderColor = 'var(--primary)';
+                    btn.style.background = 'rgba(52, 211, 153, 0.08)';
+                }
+                
+                btn.addEventListener('click', () => {
+                    if (localStorage.getItem(userReactedKey)) {
+                        count--;
+                        localStorage.setItem(storageKey, count);
+                        countSpan.textContent = count;
+                        localStorage.removeItem(userReactedKey);
+                        btn.style.borderColor = 'var(--glass-border)';
+                        btn.style.background = 'rgba(255,255,255,0.03)';
+                    } else {
+                        count++;
+                        localStorage.setItem(storageKey, count);
+                        countSpan.textContent = count;
+                        localStorage.setItem(userReactedKey, 'true');
+                        btn.style.borderColor = 'var(--primary)';
+                        btn.style.background = 'rgba(52, 211, 153, 0.08)';
+                        
+                        // 1. Confetti explosion
+                        confetti({
+                            particleCount: 80,
+                            spread: 60,
+                            origin: { y: 0.85 },
+                            colors: ['#FF6B6B', '#FFD966', '#4ade80', '#60a5fa', '#c084fc']
+                        });
+
+                        // 2. Spawn 15 colorful physics emoji particles
+                        for(let i=0; i<15; i++) {
+                            createParticle(btn, emoji);
+                        }
+                    }
+                });
+            });
+
+            // 3. Listen to storage changes for real-time count sync
+            window.addEventListener('storage', (e) => {
+                if (e.key && e.key.startsWith('reaction_' + pageId)) {
+                    const emoji = e.key.split('_').pop();
+                    const targetBtn = document.querySelector('.reaction-btn[data-emoji="' + emoji + '"]');
+                    if (targetBtn) {
+                        const countSpan = targetBtn.querySelector('.react-count');
+                        countSpan.textContent = e.newValue;
+                    }
+                }
+            });
+            
+            function createParticle(parentBtn, emoji) {
+                const p = document.createElement('span');
+                p.textContent = emoji;
+                p.style.position = 'absolute';
+                p.style.pointerEvents = 'none';
+                p.style.fontSize = '1.3rem';
+                p.style.zIndex = '999';
+                
+                const rect = parentBtn.getBoundingClientRect();
+                const startX = rect.left + rect.width / 2 + window.scrollX;
+                const startY = rect.top + rect.height / 2 + window.scrollY;
+                
+                document.body.appendChild(p);
+                
+                const angle = Math.random() * Math.PI * 2;
+                const speed = 4 + Math.random() * 7;
+                const vx = Math.cos(angle) * speed;
+                const vy = Math.sin(angle) * speed - 3; // strong upward force
+                
+                let posX = startX;
+                let posY = startY;
+                let opacity = 1.0;
+                let scale = 1.0;
+                
+                function frame() {
+                    posX += vx;
+                    posY += vy;
+                    opacity -= 0.02;
+                    scale -= 0.015;
+                    
+                    p.style.left = posX + 'px';
+                    p.style.top = posY + 'px';
+                    p.style.opacity = opacity;
+                    p.style.transform = 'scale(' + scale + ')';
+                    
+                    if (opacity > 0) {
+                        requestAnimationFrame(frame);
+                    } else {
+                        p.remove();
+                    }
+                }
+                requestAnimationFrame(frame);
+            }
+        });
+    </script>
+</body>
+</html>

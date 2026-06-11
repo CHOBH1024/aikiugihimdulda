@@ -8,6 +8,11 @@
     <meta name="description" content="3분이면 충분해요. 당신만의 육아 페르소나를 발견하고, 아이와 더 가까워지는 방법을 알아보세요.">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <meta property="og:title" content="Mirror Inside Parenting — 나의 육아 스타일, 거울 속에서 만나보세요 🪞">
+    <meta property="og:description" content="3분이면 충분해요. 당신만의 육아 페르소나를 발견하고, 아이와 더 가까워지는 방법을 알아보세요.">
+    <meta property="og:image" content="https://aikiugihimdulda.vercel.app/assets/images/icons/hello.png">
+    <meta property="og:url" content="https://aikiugihimdulda.vercel.app/">
+    <meta property="og:type" content="website">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="/style.css">
     <style>
@@ -326,42 +331,6 @@
 
     
 
-
-    
-
-
-    
-
-
-    
-
-
-    
-
-
-    
-
-
-    
-
-
-    
-
-
-    
-
-
-    
-
-
-    
-
-
-    
-
-
-    
-
     <!-- Navigation -->
     <nav class="nav" id="mainNav">
         <div class="nav__inner">
@@ -462,7 +431,6 @@
                 }
             });
         </script>
-
 
         <div class="stat-pills">
             <div class="stat-pill">
@@ -601,7 +569,6 @@
         </div>
     </section>
 
-    
     \n    <script src="chemistry_data.js"></script>
     <script src="data.js"></script>
     <script>
@@ -787,41 +754,16 @@
 
     
 
-
-    
-
-
-    
-
-
-    
-
-
-    
-
-
-    
-
-
-    
-
-
-    
-
-
-    
-
-
-    
-
-
-    
-
-
-    
-
-
-    
+    <!-- MBTI Modal for Index -->
+    <div id="indexMbtiModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center; backdrop-filter:blur(4px);">
+        <div style="background:#fff; width:90%; max-width:400px; border-radius:24px; padding:24px; max-height:80vh; overflow-y:auto; box-shadow:0 20px 40px rgba(0,0,0,0.2); position:relative;">
+            <button onclick="closeIndexMbtiModal()" style="position:absolute; top:16px; right:16px; background:none; border:none; font-size:1.5rem; cursor:pointer; color:#94A3B8;">✕</button>
+            <h3 style="font-size:1.2rem; font-weight:800; margin-bottom:20px; color:#1E293B; text-align:center;">나의 MBTI 선택</h3>
+            <div id="indexMbtiGrid" style="display:grid; grid-template-columns:repeat(4, 1fr); gap:8px;">
+                <!-- Buttons injected via JS -->
+            </div>
+        </div>
+    </div>
 
 
     <!-- Footer -->
@@ -833,18 +775,6 @@
             <a href="/terms.html">이용약관</a> · <a href="/privacy.html">개인정보처리방침</a> · <a href="/contact.html">문의하기</a>
         </p>
     </footer>
-
-
-    <!-- MBTI Modal for Index -->
-    <div id="indexMbtiModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center; backdrop-filter:blur(4px);">
-        <div style="background:#fff; width:90%; max-width:400px; border-radius:24px; padding:24px; max-height:80vh; overflow-y:auto; box-shadow:0 20px 40px rgba(0,0,0,0.2); position:relative;">
-            <button onclick="closeIndexMbtiModal()" style="position:absolute; top:16px; right:16px; background:none; border:none; font-size:1.5rem; cursor:pointer; color:#94A3B8;">✕</button>
-            <h3 style="font-size:1.2rem; font-weight:800; margin-bottom:20px; color:#1E293B; text-align:center;">나의 MBTI 선택</h3>
-            <div id="indexMbtiGrid" style="display:grid; grid-template-columns:repeat(4, 1fr); gap:8px;">
-                <!-- Buttons injected via JS -->
-            </div>
-        </div>
-    </div>
 
 </body>
 </html>
