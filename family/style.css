@@ -1,0 +1,80 @@
+/* ============================================================
+   참사랑 거울 육아 (가정연합 편) — Heavenly Violet & Gold Design System
+   ============================================================ */
+
+@import "../style.css";
+
+:root {
+  --primary: #5A2C87; /* Deep Heavenly Violet */
+  --primary-dim: rgba(90, 44, 135, 0.12);
+  --primary-glow: rgba(90, 44, 135, 0.3);
+  --secondary: #D4AF37; /* Champagne Gold */
+  --secondary-dim: rgba(212, 175, 55, 0.15);
+  --accent: #E58C8A; /* Rose Gold / Warm Pink */
+  --accent-dim: rgba(229, 140, 138, 0.15);
+  --peach: #FFF0D4; /* Soft Ivory Peach */
+  --baby-blue: #D5E2EC;
+  --soft-yellow: #FFF9E6;
+
+  --bg-main: #FAF8FD; /* Soft Heavenly Lavender White */
+  --bg-card: #FFFFFF;
+  --bg-card-hover: #F5EFFF;
+  --bg-section: #F3EBFC;
+
+  --glass-border-hover: rgba(90, 44, 135, 0.25);
+  --shadow-card-hover: 0 8px 40px rgba(90, 44, 135, 0.1);
+}
+
+/* Custom Overrides for FFWPU Theme */
+.text-gradient {
+  background: linear-gradient(135deg, var(--primary) 0%, #8E44AD 50%, var(--secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.btn-insta {
+  background: linear-gradient(45deg, #5A2C87 0%, #8E44AD 50%, #D4AF37 100%) !important;
+  color: #fff;
+  border: none;
+  font-weight: 700;
+}
+
+/* Off-screen capture area for FFWPU theme */
+#captureArea {
+  background: #F5EFFF !important;
+}
+
+.capture-card {
+  box-shadow: 0 40px 100px rgba(90, 44, 135, 0.15) !important;
+}
+
+.capture-tags span {
+  background: rgba(90, 44, 135, 0.1) !important;
+}
+
+.capture-footer {
+  color: var(--primary) !important;
+}
+
+/* Additional FFWPU-specific visual touches */
+.hero__badge {
+  background: var(--primary-dim) !important;
+  border: 1px solid rgba(90, 44, 135, 0.15) !important;
+  color: var(--primary) !important;
+}
+
+.section-tag {
+  background: var(--primary-dim) !important;
+  color: var(--primary) !important;
+}
+
+.step-num {
+  background: linear-gradient(135deg, var(--primary), var(--secondary)) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+.stat-pill__num {
+  color: var(--primary) !important;
+}

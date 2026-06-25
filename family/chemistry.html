@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>부부 참사랑 궁합 진단 | 참사랑 거울 육아</title>
+    <link rel="icon" href="/assets/images/icons/favicon.png" type="image/png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <meta property="og:title" content="부부 참사랑 궁합 진단 | 참사랑 거울 육아">
+    <meta property="og:description" content="우리 부부의 참사랑 양육 성향 매칭 점수와 상호 관계성 및 신앙 갈등 분석 리포트를 확인하세요.">
+    <meta property="og:image" content="https://aikiugihimdulda.vercel.app/assets/images/icons/hello.png">
+    <meta property="og:url" content="https://aikiugihimdulda.vercel.app/family/chemistry.html">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Pastel Floating Blobs Background -->
+    <div class="glow-orb-container">
+        <div class="glow-orb glow-orb--1"></div>
+        <div class="glow-orb glow-orb--2"></div>
+        <div class="glow-orb glow-orb--3"></div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="nav scrolled">
+        <div class="nav__inner">
+            <a href="index.html" class="nav__logo">🪞 참사랑 거울 <span class="nav__logo-sub">가정연합 편</span></a>
+            <ul class="nav__links" id="navLinks">
+                <li><a href="columns.html" class="nav__link">신앙 칼럼</a></li>
+                <li><a href="chemistry.html" class="nav__link" style="color:var(--primary)">❤️ 부부 참사랑 궁합</a></li>
+                <li><a href="about.html" class="nav__link">소개</a></li>
+                <li><a href="test.html" class="nav__cta">🪞 나의 참사랑 스타일 알아보기</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container" style="padding-top:120px; padding-bottom:80px; min-height:80vh;">
+        <div class="text-center" style="margin-bottom: 48px;">
+            <div class="hero__badge" style="display:inline-block; margin-bottom:16px;">부부 참사랑 케미스트리</div>
+            <h1 style="font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 900; color: var(--text-main); margin-bottom: 16px; word-break:keep-all;">
+                우리 부부는 과연 참사랑의 완성 짝꿍일까? 👩‍❤️‍👨
+            </h1>
+            <p style="font-size: 1.1rem; color: var(--text-body); max-width: 600px; margin: 0 auto; line-height: 1.6; word-break:keep-all;">
+                나의 참사랑 페르소나와 배우자의 페르소나를 선택하여 참사랑 매칭 점수와 상호 관계성 및 신앙 갈등 분석 리포트를 확인하세요.
+            </p>
+        </div>
+
+        <div class="chemistry-selector" style="flex-direction: column; align-items: center; gap: 32px;">
+            <div style="display: flex; gap: 24px; align-items: stretch; width: 100%; max-width: 600px; justify-content: space-between;">
+                <div class="selector-box" style="flex: 1; display: flex; flex-direction: column; align-items: center;">
+                    <h3 class="selector-title" style="margin-bottom: 16px;">나의 페르소나</h3>
+                    <button class="btn btn--outline" id="btnMyPersona" onclick="openPersonaModal('my')" style="width: 100%; min-height: 60px; font-size: 1.1rem; border-style: dashed; border-width: 2px;">
+                        + 탭하여 선택
+                    </button>
+                    <div id="myPersonaCard" class="preview-card" style="display:none; width: 100%; cursor: pointer;" onclick="openPersonaModal('my')"></div>
+                    <input type="hidden" id="myPersona" value="">
+                </div>
+                
+                <div class="vs-badge" style="align-self: center; margin: 0 10px;">VS</div>
+                
+                <div class="selector-box" style="flex: 1; display: flex; flex-direction: column; align-items: center;">
+                    <h3 class="selector-title" style="margin-bottom: 16px;">배우자 페르소나</h3>
+                    <button class="btn btn--outline" id="btnPartnerPersona" onclick="openPersonaModal('partner')" style="width: 100%; min-height: 60px; font-size: 1.1rem; border-style: dashed; border-width: 2px;">
+                        + 탭하여 선택
+                    </button>
+                    <div id="partnerPersonaCard" class="preview-card" style="display:none; width: 100%; cursor: pointer;" onclick="openPersonaModal('partner')"></div>
+                    <input type="hidden" id="partnerPersona" value="">
+                </div>
+            </div>
+        </div>
+
+        <!-- Persona Modal -->
+        <div id="personaModal" style="display:none; position: fixed; inset: 0; background: rgba(15,23,42,0.8); backdrop-filter: blur(8px); z-index: 10000; align-items: center; justify-content: center; padding: 20px;">
+            <div style="background: #ffffff; border-radius: 24px; padding: 32px; max-width: 700px; width: 100%; max-height: 85vh; overflow-y: auto; position: relative; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);">
+                <button onclick="closePersonaModal()" style="position: absolute; top: 20px; right: 24px; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #64748B;">&times;</button>
+                <h2 style="color: #0F172A; text-align: center; margin-bottom: 24px; font-size: 1.5rem;">페르소나 선택하기</h2>
+                <div id="modalGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px;">
+                    <!-- Modal items will be injected here -->
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center" style="margin: 40px 0 60px;">
+            <button id="btnCalculate" class="btn btn--primary btn--large btn--glow" style="width:100%; max-width:400px; font-size:1.2rem; padding:18px;" disabled>
+                ❤️ 궁합 결과 보기
+            </button>
+        </div>
+
+        <div id="chemistryResult" class="chemistry-result" style="display:none;">
+            <!-- Rendered by JS -->
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p style="font-size: 1.1rem; margin-bottom: 12px;">🪞 참사랑 거울 육아 (가정연합 편)</p>
+        <p style="font-size: 0.85rem; color: var(--text-body); margin-bottom: 16px;">함께 참사랑을 상속하고 성장하는 참가정 공동체</p>
+        <p>&copy; 2026 참사랑 거울 육아. All rights reserved.</p>
+        <p style="font-size: 0.75rem; margin-top: 8px; color: var(--text-dim);">
+            <a href="terms.html">이용약관</a> · <a href="privacy.html">개인정보처리방침</a> · <a href="contact.html">문의하기</a>
+        </p>
+    </footer>
+
+    <script src="../chemistry_data.js"></script>
+    <script src="chemistry_data.js"></script>
+    <script src="data.js"></script>
+    <script>
+        const mySelect = document.getElementById('myPersona');
+        const partnerSelect = document.getElementById('partnerPersona');
+        const btnCalculate = document.getElementById('btnCalculate');
+        const resultContainer = document.getElementById('chemistryResult');
+        
+        let currentSelectingTarget = null; // 'my' or 'partner'
+
+        const MBTI_MAP = {
+            'INTJ': 'wise', 'INTP': 'wise', 'ENTJ': 'structured', 'ENTP': 'creative',
+            'INFJ': 'empathetic', 'INFP': 'empathetic', 'ENFJ': 'warm', 'ENFP': 'creative',
+            'ISTJ': 'structured', 'ISFJ': 'warm', 'ESTJ': 'structured', 'ESFJ': 'warm',
+            'ISTP': 'free', 'ISFP': 'free', 'ESTP': 'resilient', 'ESFP': 'resilient'
+        };
+
+        function openPersonaModal(target) {
+            currentSelectingTarget = target;
+            const modal = document.getElementById('personaModal');
+            const grid = document.getElementById('modalGrid');
+            grid.innerHTML = '';
+            
+            // Add MBTI Grid at the top
+            const mbtiContainer = document.createElement('div');
+            mbtiContainer.style.gridColumn = '1 / -1';
+            mbtiContainer.style.marginBottom = '24px';
+            
+            const mbtiTitle = document.createElement('h4');
+            mbtiTitle.textContent = '🤔 MBTI로 빠르게 찾기';
+            mbtiTitle.style.cssText = 'font-size:1rem; color:#475569; margin-bottom:12px; font-weight:700; text-align:center;';
+            mbtiContainer.appendChild(mbtiTitle);
+            
+            const mbtiGrid = document.createElement('div');
+            mbtiGrid.style.cssText = 'display:grid; grid-template-columns:repeat(4, 1fr); gap:8px;';
+            Object.keys(MBTI_MAP).forEach(m => {
+                const btn = document.createElement('button');
+                btn.textContent = m;
+                btn.style.cssText = 'padding:10px 4px; border:2px solid #E2E8F0; border-radius:10px; background:#F8FAFC; color:#1E293B; font-weight:700; cursor:pointer; transition:all 0.2s; font-size:0.9rem;';
+                btn.onmouseover = () => { btn.style.borderColor='var(--primary)'; btn.style.background='rgba(90,44,135,0.05)'; };
+                btn.onmouseout = () => { btn.style.borderColor='#E2E8F0'; btn.style.background='#F8FAFC'; };
+                btn.onclick = () => selectByMBTI(m);
+                mbtiGrid.appendChild(btn);
+            });
+            mbtiContainer.appendChild(mbtiGrid);
+            
+            const hr = document.createElement('div');
+            hr.style.cssText = 'height:1px; background:#E2E8F0; margin: 20px 0;';
+            mbtiContainer.appendChild(hr);
+            
+            const pTitle = document.createElement('h4');
+            pTitle.textContent = '✨ 참사랑 페르소나로 찾기';
+            pTitle.style.cssText = 'font-size:1rem; color:#475569; margin-bottom:12px; font-weight:700; text-align:center;';
+            mbtiContainer.appendChild(pTitle);
+            
+            grid.appendChild(mbtiContainer);
+
+            OVERALL_TITLES.forEach(p => {
+                if(p.combo === 'balanced') return;
+                const div = document.createElement('div');
+                div.style.cssText = 'background: #F8FAFC; border: 2px solid transparent; border-radius: 16px; padding: 16px; text-align: center; cursor: pointer; transition: all 0.2s;';
+                div.onmouseover = () => { div.style.borderColor = 'var(--primary)'; div.style.background = 'rgba(90, 44, 135, 0.05)'; };
+                div.onmouseout = () => { div.style.borderColor = 'transparent'; div.style.background = '#F8FAFC'; };
+                div.onclick = () => selectPersona(p.combo);
+                
+                div.innerHTML = `
+                    <img src="${p.imageUrl}" alt="${p.name}" style="width: 70px; height: 70px; object-fit: contain; margin-bottom: 12px;">
+                    <h4 style="margin:0; font-size:1rem; color:#1E293B; word-break: keep-all;">${p.name}</h4>
+                `;
+                grid.appendChild(div);
+            });
+            
+            modal.style.display = 'flex';
+        }
+
+        function closePersonaModal() {
+            document.getElementById('personaModal').style.display = 'none';
+        }
+
+        function selectByMBTI(mbti) {
+            if(!mbti) return;
+            const combo = MBTI_MAP[mbti];
+            if(combo) selectPersona(combo);
+        }
+
+        function selectPersona(combo) {
+            const inputId = currentSelectingTarget === 'my' ? 'myPersona' : 'partnerPersona';
+            const btnId = currentSelectingTarget === 'my' ? 'btnMyPersona' : 'btnPartnerPersona';
+            const cardId = currentSelectingTarget === 'my' ? 'myPersonaCard' : 'partnerPersonaCard';
+            
+            document.getElementById(inputId).value = combo;
+            document.getElementById(btnId).style.display = 'none';
+            
+            const persona = OVERALL_TITLES.find(t => t.combo === combo);
+            const card = document.getElementById(cardId);
+            card.innerHTML = `
+                <img src="${persona.imageUrl}" alt="${persona.name}" style="width: 80px; height: 80px; object-fit: contain; margin-bottom: 12px;">
+                <h4 style="margin:0; font-size:1.1rem; color:var(--text-main); line-height:1.2;">${persona.name}</h4>
+                <div style="font-size:0.85rem; color:var(--primary); margin-top:8px;">탭하여 변경</div>
+            `;
+            card.style.display = 'block';
+            card.classList.add('fade-in');
+            
+            closePersonaModal();
+
+            if (document.getElementById('myPersona').value && document.getElementById('partnerPersona').value) {
+                btnCalculate.disabled = false;
+            }
+        }
+
+        // Auto load my results
+        const mySavedResult = loadResults();
+        if (mySavedResult && mySavedResult.overallPersona && mySavedResult.overallPersona.combo !== 'balanced') {
+            currentSelectingTarget = 'my';
+            selectPersona(mySavedResult.overallPersona.combo);
+        }
+
+        btnCalculate.addEventListener('click', () => {
+            const chem = calculateChemistry(mySelect.value, partnerSelect.value);
+            if(!chem) return;
+            
+            const scoreColor = chem.score >= 80 ? '#34d399' : (chem.score >= 60 ? '#fbbf24' : '#ef4444');
+            
+            resultContainer.innerHTML = `
+                <div class="chem-header" style="text-align:center; margin-bottom:40px;">
+                    <div style="font-size:5rem; font-weight:900; color:${scoreColor}; font-family:'Nunito', sans-serif; line-height:1; margin-bottom:16px;">${chem.score}<span style="font-size:2.5rem;">%</span></div>
+                    <h2 style="font-size:1.8rem; font-weight:900; color:var(--text-main); margin-bottom:12px;">"${chem.title}"</h2>
+                </div>
+
+                <div class="chem-summary" style="background: rgba(90, 44, 135, 0.05); padding: 20px; border-radius: 12px; margin-bottom: 24px; border: 1px solid var(--glass-border);">
+                    <h3 style="margin-top: 0; color: var(--primary); font-size: 1.2rem; margin-bottom: 10px;">💡 한 줄 요약</h3>
+                    <p style="margin-bottom: 0; font-size: 1.1rem; line-height: 1.6; color: var(--text-main);">${chem.summary || "서로의 다름을 인정하고 역할을 분담하면 최고의 시너지를 낼 수 있습니다."}</p>
+                </div>
+                
+                <div class="chem-grid">
+                    <div class="chem-card clash">
+                        <h3>⚡ 주요 갈등 포인트 (Conflict)</h3>
+                        <div style="font-size: 1.05rem; line-height: 1.7; color: var(--text-body);">${chem.clash}</div>
+                    </div>
+                    <div class="chem-card synergy">
+                        <h3>🤝 상호 보완 솔루션 (Synergy)</h3>
+                        <div style="font-size: 1.05rem; line-height: 1.7; color: var(--text-body);">${chem.synergy}</div>
+                    </div>
+                </div>
+                
+                <div style="text-align:center; margin-top:40px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+                    <button class="btn btn--secondary" id="btnShareKakao" onclick="shareKakao()" style="display:inline-flex; align-items:center; gap:8px;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.48 3 2 6.48 2 10.8c0 2.64 1.44 4.98 3.6 6.48L4.8 21l4.32-2.88C9.66 18.36 10.8 18.6 12 18.6c5.52 0 10-3.48 10-7.8S17.52 3 12 3z"/></svg>
+                        결과 공유하기
+                    </button>
+                    <button class="btn btn--outline" id="btnCopyLink" onclick="copyLink()" style="display:inline-flex; align-items:center; gap:8px;">
+                        <i class="fas fa-link"></i>
+                        링크 복사하기
+                    </button>
+                </div>
+            `;
+            
+            resultContainer.style.display = 'block';
+            resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            
+            resultContainer.classList.remove('fade-in');
+            void resultContainer.offsetWidth;
+            resultContainer.classList.add('fade-in');
+        });
+
+        function shareKakao() {
+            const myVal = document.getElementById('myPersona').value;
+            const partnerVal = document.getElementById('partnerPersona').value;
+            const myP = OVERALL_TITLES.find(t => t.combo === myVal);
+            const partnerP = OVERALL_TITLES.find(t => t.combo === partnerVal);
+            
+            const siteUrl = `${window.location.origin}/family/chemistry.html`;
+            let shareText = '🪞 참사랑 거울 육아 — 부부 참사랑 궁합 진단 결과\n\n';
+            if (myP && partnerP) {
+                const chem = calculateChemistry(myVal, partnerVal);
+                shareText += `👤 나: ${myP.name} vs 👤 배우자: ${partnerP.name}\n`;
+                if (chem) shareText += `❤️ 매칭 점수: ${chem.score}% — "${chem.title}"\n\n`;
+            }
+            shareText += `우리 부부의 참사랑 궁합을 알아보세요!\n👉 ${siteUrl}`;
+
+            if (navigator.share) {
+                navigator.share({
+                    title: '🪞 참사랑 거울 육아 — 부부 궁합 진단',
+                    text: shareText,
+                    url: siteUrl
+                }).catch(err => {
+                    if (err.name !== 'AbortError') copyToClipboard(shareText);
+                });
+            } else {
+                copyToClipboard(shareText);
+            }
+        }
+
+        function copyLink() {
+            const siteUrl = `${window.location.origin}/family/chemistry.html`;
+            copyToClipboard(siteUrl, true);
+        }
+
+        function copyToClipboard(text, isUrlOnly = false) {
+            navigator.clipboard.writeText(text).then(() => {
+                const msg = isUrlOnly
+                    ? '✅ 링크가 클립보드에 복사되었습니다!\n카카오톡 채팅창에 붙여넣기 하여 공유해 보세요.'
+                    : '✅ 결과 내용이 클립보드에 복사되었습니다!\n카카오톡 채팅창에 붙여넣기 하여 공유해 보세요.';
+                showToast(msg.split('\n')[0]);
+            }).catch(() => {
+                showToast('❌ 복사에 실패했습니다. URL을 직접 복사해 주세요.');
+            });
+        }
+
+        function showToast(message) {
+            let toast = document.getElementById('shareToast');
+            if (!toast) {
+                toast = document.createElement('div');
+                toast.id = 'shareToast';
+                toast.style.cssText = `
+                    position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%);
+                    background: rgba(15,23,42,0.95); color: #F8FAFC;
+                    padding: 14px 28px; border-radius: 30px;
+                    font-size: 0.95rem; font-weight: 600;
+                    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+                    z-index: 99999; opacity: 0; transition: opacity 0.3s;
+                    border: 1px solid rgba(90,44,135,0.3);
+                    backdrop-filter: blur(10px);
+                    white-space: nowrap;
+                `;
+                document.body.appendChild(toast);
+            }
+            toast.textContent = message;
+            toast.style.opacity = '1';
+            clearTimeout(toast._timer);
+            toast._timer = setTimeout(() => { toast.style.opacity = '0'; }, 2800);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/assets/images/icons/favicon.png" type="image/png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>문의하기 | 참사랑 거울 육아</title>
+    <meta name="description" content="참사랑 거울 육아에 대한 문의, 피드백, 제안을 보내주세요.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://aikiugihimdulda.vercel.app/family/contact.html">
+    <meta property="og:title" content="문의하기 | 참사랑 거울 육아">
+    <meta property="og:description" content="참사랑 거울 육아에 대한 문의, 피드백, 제안을 보내주세요.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://aikiugihimdulda.vercel.app/family/contact.html">
+    <meta property="og:locale" content="ko_KR">
+    <meta property="og:site_name" content="참사랑 거울 육아">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .contact-page { padding-top: 140px; padding-bottom: 80px; }
+        .contact-hero { text-align: center; margin-bottom: 60px; }
+        .contact-hero h1 { margin-bottom: 16px; }
+        .contact-hero p { color: var(--text-body); font-size: 1.1rem; word-break: keep-all; }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 60px;
+        }
+
+        .contact-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            text-align: center;
+            transition: var(--transition-base);
+        }
+
+        .contact-card:hover {
+            border-color: var(--glass-border-hover);
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .contact-card__icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .contact-card h3 { margin-bottom: 10px; font-size: 1.2rem; }
+        .contact-card p { color: var(--text-body); font-size: 0.95rem; word-break: keep-all; margin-bottom: 16px; }
+
+        .contact-card__link {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: var(--transition-fast);
+        }
+
+        .contact-card__link:hover { gap: 10px; }
+
+        .faq-section { margin-top: 80px; }
+        .faq-section h2 { text-align: center; margin-bottom: 40px; }
+
+        .faq-item {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            margin-bottom: 12px;
+            overflow: hidden;
+            transition: var(--transition-fast);
+        }
+
+        .faq-item:hover { border-color: var(--glass-border-hover); }
+
+        .faq-question {
+            width: 100%;
+            text-align: left;
+            padding: 20px 24px;
+            color: var(--text-main);
+            font-size: 1.05rem;
+            font-weight: 700;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-family: inherit;
+            word-break: keep-all;
+        }
+
+        .faq-question i { color: var(--text-dim); transition: var(--transition-fast); font-size: 0.85rem; }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .faq-answer__inner {
+            padding: 0 24px 20px;
+            color: var(--text-body);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            word-break: keep-all;
+        }
+
+        .faq-item.open .faq-answer { max-height: 300px; }
+        .faq-item.open .faq-question i { transform: rotate(180deg); }
+    </style>
+</head>
+<body>
+
+    <!-- Pastel Floating Blobs -->
+    <div class="glow-orb-container">
+        <div class="glow-orb glow-orb--1"></div>
+        <div class="glow-orb glow-orb--2"></div>
+        <div class="glow-orb glow-orb--3"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav scrolled">
+        <div class="nav__inner">
+            <a href="index.html" class="nav__logo">🪞 참사랑 거울 <span class="nav__logo-sub">가정연합 편</span></a>
+            <ul class="nav__links" id="navLinks">
+                <li><a href="columns.html" class="nav__link">신앙 칼럼</a></li>
+                <li><a href="chemistry.html" class="nav__link">❤️ 부부 참사랑 궁합</a></li>
+                <li><a href="about.html" class="nav__link">소개</a></li>
+                <li><a href="index.html" class="nav__link"><i class="fas fa-arrow-left"></i> 홈</a></li>
+                <li><a href="test.html" class="nav__cta">🪞 나의 참사랑 스타일 알아보기</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="contact-page container container--narrow">
+        <div class="contact-hero">
+            <span class="section-tag">Contact Us</span>
+            <h1>문의하기</h1>
+            <p>서비스에 대한 질문, 피드백, 제안이 있으시면 언제든 연락주세요.</p>
+        </div>
+
+        <div class="contact-grid">
+            <div class="contact-card">
+                <span class="contact-card__icon">📧</span>
+                <h3>이메일 문의</h3>
+                <p>일반 문의, 서비스 피드백, 제휴 및 협력 제안</p>
+                <a href="mailto:mirririnside1024@gmail.com" class="contact-card__link">
+                    mirririnside1024@gmail.com <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            <div class="contact-card">
+                <span class="contact-card__icon">🔒</span>
+                <h3>개인정보 관련</h3>
+                <p>개인정보 열람, 수정, 삭제 요청 및 관련 문의</p>
+                <a href="mailto:mirririnside1024@gmail.com" class="contact-card__link">
+                    mirririnside1024@gmail.com <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            <div class="contact-card">
+                <span class="contact-card__icon">📢</span>
+                <h3>광고 및 제휴</h3>
+                <p>광고 문의, 브랜드 협업, 콘텐츠 파트너십</p>
+                <a href="mailto:mirririnside1024@gmail.com" class="contact-card__link">
+                    mirririnside1024@gmail.com <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- FAQ -->
+        <section class="faq-section">
+            <span class="section-tag text-center" style="display:block;">FAQ</span>
+            <h2>자주 묻는 질문</h2>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                    진단은 무료인가요? <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer__inner">
+                        네, 참사랑 양육 성향 진단(Lite 25문항 / Pro 40문항)과 결과 리포트는 완전히 무료입니다. 별도의 회원가입 없이 이용하실 수 있으며, 결과에는 참사랑 페르소나 유형, 5대 심정 차원 레이더 차트, 차원별 상세 진단, 강점 분석, 말씀 훈육 성장 팁이 포함됩니다.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                    진단 결과의 가이드라인은 믿을 수 있나요? <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer__inner">
+                        본 서비스는 가정연합 참부모님의 참사랑 양육론과 말씀 규범에 입각한 가치관을 현대 영유아 및 학령기 아동 발달심리학과 결합하여 구성했습니다. 다만, 이는 일상 양육을 성찰하기 위한 참고 자가진단 도구이므로 자녀의 특수한 영적/정서적 케어 및 상담이 필요한 경우에는 전문적인 기관이나 전문가의 자문을 병행하시는 것을 추천합니다.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                    개인정보나 진단 응답 결과가 서버에 저장되나요? <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer__inner">
+                        이용자님의 진단 응답 데이터는 서버로 절대 전송되지 않으며, 오직 이용하시는 브라우저의 저장소(LocalStorage)에만 비식별 상태(`_family` 접미사가 붙은 키)로 안전하게 보관됩니다. 브라우저 쿠키 및 저장소 데이터를 삭제하시면 즉시 영구 파기됩니다.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                    부부 참사랑 궁합은 어떻게 분석하나요? <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer__inner">
+                        '❤️ 부부 참사랑 궁합' 탭에서 나와 배우자의 참사랑 페르소나 유형을 선택하시면 됩니다. 각 조합별로 서로 다른 심정적 강점과 훈육 방식의 차이에서 올 수 있는 갈등 요인, 그리고 두 참부모가 하늘의 은혜 안에서 어떻게 신앙적 시너지를 발휘해 참가정을 형성할 수 있는지 구체적인 가이드를 제공합니다.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                    5대 참사랑 양육 차원은 구체적으로 무엇인가요? <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer__inner">
+                        축복가정 양육의 5가지 차원으로 구성되어 있습니다: 
+                        1) <strong>심정교감</strong> (정서적 유대와 참사랑 교감), 
+                        2) <strong>말씀규범</strong> (천법적 훈육과 말씀 규범 확립), 
+                        3) <strong>개성완성지원</strong> (자녀의 자율성과 창의적인 개성 발달 지원), 
+                        4) <strong>신앙상속</strong> (예배, 훈독회, 신앙적 전수), 
+                        5) <strong>참사랑회복</strong> (양육 스트레스 및 위기 상황에서의 심정적 회복력).
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function toggleFaq(btn) {
+            const item = btn.closest('.faq-item');
+            document.querySelectorAll('.faq-item').forEach(el => {
+                if (el !== item) el.classList.remove('open');
+            });
+            item.classList.toggle('open');
+        }
+    </script>
+
+    <!-- Mobile Bottom Navigation -->
+    <nav class="bottom-nav">
+        <div class="bottom-nav__inner">
+            <a href="index.html" class="bottom-nav__item">
+                <i class="fas fa-home"></i>
+                <span>홈</span>
+            </a>
+            <a href="test.html" class="bottom-nav__item">
+                <i class="fas fa-clipboard-check"></i>
+                <span>진단</span>
+            </a>
+            <a href="columns.html" class="bottom-nav__item">
+                <i class="fas fa-book-open"></i>
+                <span>칼럼</span>
+            </a>
+            <a href="chemistry.html" class="bottom-nav__item">
+                <i class="fas fa-heart"></i>
+                <span>부부궁합</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p style="font-size: 1.1rem; margin-bottom: 12px;">🪞 참사랑 거울 육아 (가정연합 편)</p>
+        <p style="font-size: 0.85rem; color: var(--text-body); margin-bottom: 16px;">함께 참사랑을 상속하고 성장하는 참가정 공동체</p>
+        <p>&copy; 2026 참사랑 거울 육아. All rights reserved.</p>
+        <p style="font-size: 0.75rem; margin-top: 8px; color: var(--text-dim);">
+            <a href="terms.html">이용약관</a> · <a href="privacy.html">개인정보처리방침</a> · <a href="contact.html">문의하기</a>
+        </p>
+    </footer>
+
+</body>
+</html>

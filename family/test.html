@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/assets/images/icons/favicon.png" type="image/png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>진단 시작 | 참사랑 거울 육아</title>
+    <meta name="description" content="25~40개의 실제 축복가정 양육 시나리오를 통해 당신의 참가정 양육 DNA를 분석합니다.">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+    <meta property="og:title" content="참사랑 거울 육아 — 나의 참가정 양육 DNA 찾기 🪞">
+    <meta property="og:description" content="25~40개의 실제 축복가정 양육 시나리오를 통해 당신의 참가정 양육 DNA를 분석합니다.">
+    <meta property="og:image" content="https://aikiugihimdulda.vercel.app/assets/images/icons/hello.png">
+    <meta property="og:url" content="https://aikiugihimdulda.vercel.app/family/test.html">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* === Test Page Specific === */
+        .test-wrapper {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .test-top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: var(--glass-strong);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 16px 24px;
+        }
+
+        .test-top-bar__inner {
+            max-width: 700px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .test-top-bar__row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .test-top-bar__back {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: var(--transition-fast);
+        }
+
+        .test-top-bar__back:hover { color: var(--text-main); }
+
+        .test-top-bar__info {
+            text-align: right;
+        }
+
+        .test-top-bar__dimension {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .test-top-bar__count {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+        }
+
+        .test-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 24px 60px;
+            max-width: 680px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Intro Screen */
+        .test-intro {
+            text-align: center;
+            animation: fadeInUp 0.8s ease both;
+        }
+
+        .test-intro__icon {
+            font-size: 4rem;
+            margin-bottom: 32px;
+            display: block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .test-intro h1 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+        }
+
+        .test-intro p {
+            color: var(--text-body);
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+            word-break: keep-all;
+        }
+
+        .test-intro__features {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .test-intro__feature {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-body);
+            font-size: 0.95rem;
+        }
+
+        .test-intro__feature i {
+            color: var(--primary);
+        }
+
+        /* Question Card */
+        .question-card {
+            width: 100%;
+            animation: slideInRight 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        .question-card.exit-left {
+            animation: slideOutLeft 0.3s ease both;
+        }
+
+        @keyframes slideOutLeft {
+            to { opacity: 0; transform: translateX(-60px); }
+        }
+
+        .question-card__dimension-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            background: var(--primary-dim);
+            border: 1px solid rgba(90, 44, 135, 0.15);
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 28px;
+        }
+
+        .question-card__dimension-icon {
+            font-size: 1rem;
+        }
+
+        .question-card__dimension-name {
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .question-card__scenario {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            padding: 24px 28px;
+            margin-bottom: 28px;
+            color: var(--text-body);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            word-break: keep-all;
+            position: relative;
+        }
+
+        .question-card__scenario::before {
+            content: '📌';
+            position: absolute;
+            top: -12px;
+            left: 16px;
+            font-size: 1.2rem;
+        }
+
+        .question-card__text {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 32px;
+            line-height: 1.6;
+            word-break: keep-all;
+        }
+
+        .question-card__options {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .option-btn {
+            width: 100%;
+            text-align: left;
+            padding: 24px 28px;
+            background: #FFFFFF;
+            border: 2px solid #E2E8F0;
+            border-radius: var(--radius-lg);
+            color: #1E293B;
+            font-size: 1.05rem;
+            font-weight: 600;
+            line-height: 1.6;
+            word-break: keep-all;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .option-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(90, 44, 135, 0.1), rgba(90, 44, 135, 0.02));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .option-btn:hover {
+            border-color: var(--primary);
+            color: #0F172A;
+            transform: translateY(-4px) scale(1.01);
+            box-shadow: 0 12px 24px rgba(90, 44, 135, 0.15);
+            background: rgba(90, 44, 135, 0.06);
+        }
+
+        .option-btn:hover::before { opacity: 1; }
+
+        .option-btn.selected {
+            border-color: var(--primary);
+            background: rgba(90, 44, 135, 0.1);
+            color: #0F172A;
+            transform: scale(0.98);
+            box-shadow: inset 0 0 20px rgba(90, 44, 135, 0.2);
+        }
+
+        .option-btn__label {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #F1F5F9; color: #475569;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 1rem;
+            margin-right: 16px;
+            flex-shrink: 0;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 2px solid transparent;
+        }
+
+        .option-btn:hover .option-btn__label {
+            background: transparent;
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .option-btn.selected .option-btn__label {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: var(--bg-main);
+            transform: scale(1.2);
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .progress-bar__fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+            background-size: 200% 100%;
+            border-radius: 6px;
+            transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            animation: gradientMove 3s ease infinite;
+        }
+        
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Completion Screen */
+        .test-complete {
+            text-align: center;
+            animation: scaleIn 0.6s ease both;
+        }
+
+        .test-complete__icon {
+            font-size: 5rem;
+            margin-bottom: 32px;
+            display: block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .test-complete h2 {
+            margin-bottom: 20px;
+        }
+
+        .test-complete p {
+            color: var(--text-body);
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            word-break: keep-all;
+        }
+
+        .loading-dots {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin: 40px 0;
+        }
+
+        .loading-dots span {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--primary);
+            animation: pulse 1.4s ease-in-out infinite;
+        }
+
+        .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+        /* AI Scanning Animation */
+        .ai-scanner {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 40px;
+            border-radius: 50%;
+            background: rgba(30, 41, 59, 0.5);
+            border: 2px solid rgba(90, 44, 135, 0.2);
+            overflow: hidden;
+            box-shadow: 0 0 40px rgba(90, 44, 135, 0.15);
+        }
+
+        .ai-scanner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(transparent, rgba(90, 44, 135, 0.1), rgba(90, 44, 135, 0.8), transparent 60%);
+            animation: radarScan 2s linear infinite;
+        }
+
+        .ai-scanner::after {
+            content: '🧬';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes radarScan {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .ai-text-box {
+            min-height: 80px;
+        }
+
+        .ai-step-text {
+            font-size: 1.3rem;
+            color: var(--text-main);
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: none;
+            animation: fadeInUp 0.4s ease both;
+        }
+
+        .ai-step-text.active {
+            display: block;
+        }
+
+        /* ===== Preview Pick Buttons ===== */
+        .preview-pick-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 18px 12px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.25s ease;
+            color: var(--text-main);
+        }
+        .preview-pick-btn:hover {
+            background: var(--glass-strong);
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(90, 44, 135, 0.15);
+        }
+        .preview-pick-btn__icon { font-size: 2rem; }
+        .preview-pick-btn__label { font-size: 0.85rem; font-weight: 700; text-align: center; line-height: 1.4; }
+
+        /* ===== Picker Modal ===== */
+        .picker-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(12px);
+            z-index: 9000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .picker-modal.active { display: flex; animation: fadeInUp 0.3s ease both; }
+        .picker-modal__box {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            max-width: 520px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+        }
+        .picker-modal__header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .picker-modal__title { font-size: 1.2rem; font-weight: 800; color: var(--text-main); }
+        .picker-modal__close {
+            background: none; border: none; font-size: 1.4rem;
+            color: var(--text-dim); cursor: pointer; padding: 4px 8px;
+            border-radius: 8px; transition: all 0.2s;
+        }
+        .picker-modal__close:hover { background: var(--glass); color: var(--text-main); }
+        .picker-modal__desc { color: var(--text-body); font-size: 0.9rem; margin-bottom: 24px; }
+
+        /* MBTI Grid */
+        .mbti-grid { display: flex; flex-direction: column; gap: 20px; }
+        .mbti-group__label {
+            font-size: 0.8rem; font-weight: 800; color: var(--text-dim);
+            text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px;
+        }
+        .mbti-group__items { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .mbti-chip {
+            display: flex; flex-direction: column; align-items: flex-start;
+            padding: 12px 14px;
+            background: var(--glass); border: 1px solid var(--glass-border);
+            border-radius: 12px; cursor: pointer; transition: all 0.2s;
+            text-align: left; color: var(--text-main);
+        }
+        .mbti-chip:hover {
+            border-color: var(--primary); background: rgba(90, 44, 135, 0.08);
+            transform: translateY(-2px); box-shadow: 0 4px 16px rgba(90, 44, 135, 0.15);
+        }
+        .mbti-chip span { font-size: 1.15rem; font-weight: 900; font-family: 'Outfit', sans-serif; }
+        .mbti-chip small { font-size: 0.72rem; color: var(--text-dim); margin-top: 2px; }
+
+        /* Persona Grid */
+        .persona-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .persona-chip {
+            display: flex; flex-direction: column; align-items: center; gap: 8px;
+            padding: 16px 10px;
+            background: var(--glass); border: 1px solid var(--glass-border);
+            border-radius: 16px; cursor: pointer; transition: all 0.25s;
+            color: var(--text-main); position: relative; overflow: hidden;
+        }
+        .persona-chip:hover {
+            border-color: var(--primary); background: rgba(90, 44, 135, 0.06);
+            transform: translateY(-4px); box-shadow: 0 8px 24px rgba(90, 44, 135, 0.2);
+        }
+        .persona-chip__img {
+            width: 64px; height: 64px; border-radius: 50%;
+            object-fit: cover; border: 2px solid var(--glass-border);
+        }
+        .persona-chip__emoji { font-size: 1.5rem; }
+        .persona-chip__name { font-size: 0.8rem; font-weight: 800; text-align: center; line-height: 1.4; }
+        .persona-chip__rarity {
+            font-size: 0.7rem; font-weight: 700; color: var(--primary);
+            background: rgba(90, 44, 135, 0.12); padding: 2px 8px; border-radius: 20px;
+        }
+
+        /* ===== Mobile Responsive ===== */
+        @media (max-width: 768px) {
+            .test-content {
+                padding: 88px 14px 80px;
+                justify-content: flex-start;
+            }
+
+            .question-card__scenario {
+                padding: 14px 16px;
+                margin-bottom: 14px;
+                font-size: 0.95rem;
+            }
+
+            .question-card__text {
+                font-size: 1.05rem;
+                margin-bottom: 16px;
+            }
+
+            .question-card__options {
+                gap: 8px;
+            }
+
+            .option-btn {
+                padding: 13px 16px;
+                font-size: 0.95rem;
+            }
+
+            .option-btn__label {
+                width: 28px;
+                height: 28px;
+                font-size: 0.8rem;
+                margin-right: 10px;
+                flex-shrink: 0;
+            }
+        }
+
+        /* ===== Age Selection Buttons ===== */
+        .age-btn {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            width: 100%;
+            padding: 18px 24px;
+            background: #FFFFFF;
+            border: 2px solid #E2E8F0;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            color: #1E293B;
+            text-align: left;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .age-btn:hover {
+            border-color: var(--primary);
+            background: rgba(90, 44, 135, 0.06);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(90, 44, 135, 0.18);
+            color: #0F172A;
+        }
+        .age-btn__emoji { font-size: 2rem; flex-shrink: 0; }
+        .age-btn__label { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+        .age-btn__label strong { font-size: 1.05rem; font-weight: 800; color: #1E293B; }
+        .age-btn__label small { font-size: 0.85rem; color: #64748B; font-weight: 500; }
+        .age-btn__arrow { color: #94A3B8; font-size: 0.85rem; }
+        .age-btn:hover .age-btn__arrow { color: var(--primary); }
+
+        /* ===== Mode Cards ===== */
+        .mode-card {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+            padding: 24px;
+            background: rgba(255,255,255,0.06);
+            border: 2px solid var(--glass-border);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text-main);
+            text-align: left;
+        }
+        .mode-card:hover {
+            border-color: var(--primary);
+            background: rgba(90, 44, 135, 0.08);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(90, 44, 135, 0.15);
+        }
+        .mode-card--pro { border-color: rgba(192,132,252,0.3); }
+        .mode-card--pro:hover { border-color: #c084fc; background: rgba(192,132,252,0.06); }
+        .mode-card__header { display: flex; align-items: center; gap: 14px; }
+        .mode-card__icon { font-size: 2rem; }
+        .mode-card__title { font-size: 1.1rem; font-weight: 800; color: var(--text-main); }
+        .mode-card__meta { font-size: 0.85rem; color: var(--primary); font-weight: 700; margin-top: 2px; }
+        .mode-card--pro .mode-card__meta { color: #c084fc; }
+        .mode-card__badge {
+            margin-left: auto;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            background: rgba(90, 44, 135, 0.15);
+            color: var(--primary);
+            border: 1px solid rgba(90, 44, 135, 0.3);
+        }
+        .mode-card__badge--pro {
+            background: rgba(192,132,252,0.15);
+            color: #c084fc;
+            border-color: rgba(192,132,252,0.3);
+        }
+        .mode-card__desc { font-size: 0.9rem; color: var(--text-body); line-height: 1.6; word-break: keep-all; margin: 0; }
+
+    </style>
+</head>
+<body>
+
+    <!-- Pastel Floating Blobs -->
+    <div class="glow-orb-container">
+        <div class="glow-orb glow-orb--1"></div>
+        <div class="glow-orb glow-orb--2"></div>
+        <div class="glow-orb glow-orb--3"></div>
+    </div>
+
+    <div class="test-wrapper">
+        <!-- Top Bar -->
+        <div class="test-top-bar" id="testTopBar">
+            <div class="test-top-bar__inner">
+                <div class="test-top-bar__row">
+                    <div style="display: flex; gap: 16px; align-items: center;">
+                        <a href="index.html" class="test-top-bar__back" id="homeBtn">
+                            <i class="fas fa-home"></i> 홈
+                        </a>
+                        <button class="test-top-bar__back" id="prevBtn" onclick="prevQuestion()" style="display:none; background:none; border:none; padding:0; cursor:pointer;">
+                            <i class="fas fa-arrow-left"></i> 이전
+                        </button>
+                    </div>
+                    <div class="test-top-bar__info" id="topInfo" style="display:none;">
+                        <div class="test-top-bar__dimension" id="topDimension"></div>
+                        <div class="test-top-bar__count" id="topCount"></div>
+                    </div>
+                </div>
+                <div class="progress-bar" id="topProgress" style="display:none; margin-top:12px;">
+                    <div class="progress-bar__fill" id="progressFill" style="width: 0%"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Area -->
+        <div class="test-content" id="testContent">
+            <!-- Intro Screen (default) -->
+            <div class="test-intro" id="testIntro">
+                <img src="/assets/images/icons/thinking.png" alt="Thinking Emotion" style="width: 100px; height: 100px; margin-bottom: 20px; animation: float 3s ease-in-out infinite;">
+                <h1>나의 <span class="text-gradient">참사랑 양육 DNA</span> 진단</h1>
+                <p style="font-size: 1.3rem; font-weight: 800; color: var(--text-main); margin-bottom: 12px;">
+                    당신, 지금 어떤 참부모인지 알고 있나요?
+                </p>
+                <p>
+                    축복가정 양육 현장에서 벌어지는 25~40가지 실제 양육 시나리오를 통해<br>
+                    내 안에 숨어 있던 진짜 참사랑 양육 DNA를 꺼냅니다.
+                </p>
+                <p class="text-dim" style="font-size:0.95rem;">
+                    정답은 없습니다. 가장 솔직하게 느껴지는 선택지를 골라주세요.
+                </p>
+
+                <div class="test-intro__features">
+                    <div class="test-intro__feature">
+                        <i class="fas fa-clock"></i> 약 5~10분
+                    </div>
+                    <div class="test-intro__feature">
+                        <i class="fas fa-list-check"></i> 25 / 40문항
+                    </div>
+                    <div class="test-intro__feature">
+                        <i class="fas fa-bolt"></i> 결과 즉시 확인
+                    </div>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 16px; width: 100%; max-width: 360px; margin: 0 auto;">
+                    <button class="btn btn--primary btn--large btn--glow" id="startTestBtn" onclick="showAgeSelection()">
+                        <i class="fas fa-dna"></i> 지금 바로 분석하기 (무료)
+                    </button>
+                    
+                    <div style="position: relative; text-align: center; margin: 8px 0;">
+                        <div style="border-top: 1px solid var(--glass-border); position: absolute; top: 50%; width: 100%; z-index: 1;"></div>
+                        <span style="background: var(--bg-main); padding: 0 16px; color: var(--text-dim); font-size: 0.85rem; position: relative; z-index: 2;">결과 미리 구경하기</span>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <button class="preview-pick-btn" onclick="openMbtiModal()">
+                            <span class="preview-pick-btn__icon">🧬</span>
+                            <span class="preview-pick-btn__label">MBTI로<br>예측해보기</span>
+                        </button>
+                        <button class="preview-pick-btn" onclick="openPersonaModal()">
+                            <span class="preview-pick-btn__icon">🦁</span>
+                            <span class="preview-pick-btn__label">페르소나<br>직접 선택</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="resumeNotice" style="display:none; margin-top:24px;">
+                    <p class="text-body" style="font-size:0.9rem; margin-bottom:12px;">
+                        이전에 진행하던 테스트가 있습니다.
+                    </p>
+                    <button class="btn btn--secondary" onclick="resumeTest()" style="margin-right:8px;">
+                        <i class="fas fa-rotate-right"></i> 이어하기
+                    </button>
+                    <button class="btn btn--secondary" onclick="startFresh()">
+                        <i class="fas fa-redo"></i> 처음부터
+                    </button>
+                </div>
+            </div>
+
+            <!-- Age Selection Screen -->
+            <div class="test-intro" id="ageSelectionScreen" style="display:none;">
+                <img src="/assets/images/icons/thinking.png" alt="Thinking" style="width: 100px; height: 100px; margin-bottom: 20px; animation: float 3s ease-in-out infinite;">
+                <h1>자녀의 <span class="text-gradient">연령대</span>를 알려주세요</h1>
+                <p style="font-size: 1.1rem; color: var(--text-body); margin-bottom: 32px; word-break: keep-all;">
+                    축복자녀의 발달 단계에 꼭 맞는 맞춤형 양육 가이드를 준비해 드릴게요.
+                </p>
+
+                <div style="display: flex; flex-direction: column; gap: 14px; width: 100%; max-width: 420px; margin: 0 auto;">
+                    <button class="age-btn" onclick="selectAge('infant')">
+                        <span class="age-btn__emoji">👶</span>
+                        <span class="age-btn__label">
+                            <strong>영아기</strong>
+                            <small>0 ~ 12개월</small>
+                        </span>
+                        <i class="fas fa-chevron-right age-btn__arrow"></i>
+                    </button>
+                    <button class="age-btn" onclick="selectAge('toddler')">
+                        <span class="age-btn__emoji">🍼</span>
+                        <span class="age-btn__label">
+                            <strong>걸음마기</strong>
+                            <small>1 ~ 3세</small>
+                        </span>
+                        <i class="fas fa-chevron-right age-btn__arrow"></i>
+                    </button>
+                    <button class="age-btn" onclick="selectAge('preschool')">
+                        <span class="age-btn__emoji">🧸</span>
+                        <span class="age-btn__label">
+                            <strong>유아기</strong>
+                            <small>4 ~ 7세</small>
+                        </span>
+                        <i class="fas fa-chevron-right age-btn__arrow"></i>
+                    </button>
+                    <button class="age-btn" onclick="selectAge('school')">
+                        <span class="age-btn__emoji">🎒</span>
+                        <span class="age-btn__label">
+                            <strong>학령기</strong>
+                            <small>8세 이상</small>
+                        </span>
+                        <i class="fas fa-chevron-right age-btn__arrow"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mode Selection Screen -->
+            <div class="test-intro" id="modeSelectionScreen" style="display:none;">
+                <img src="/assets/images/icons/reading.png" alt="Reading" style="width: 100px; height: 100px; margin-bottom: 20px; animation: float 3s ease-in-out infinite;">
+                <h1>어떤 <span class="text-gradient">진단 모드</span>를 원하시나요?</h1>
+                <p style="font-size: 1.1rem; color: var(--text-body); margin-bottom: 32px; word-break: keep-all;">
+                    시간적 여유에 따라 선택해 주세요. 두 모드 모두 정교한 결과를 제공합니다.
+                </p>
+
+                <div style="display: flex; flex-direction: column; gap: 16px; width: 100%; max-width: 440px; margin: 0 auto;">
+                    <button class="mode-card" onclick="selectMode('lite')">
+                        <div class="mode-card__header">
+                            <span class="mode-card__icon">⏱️</span>
+                            <div>
+                                <div class="mode-card__title">표준 진단</div>
+                                <div class="mode-card__meta">25문항 · 약 5분</div>
+                            </div>
+                            <span class="mode-card__badge">추천</span>
+                        </div>
+                        <p class="mode-card__desc">참사랑·훈독 철학 기반 핵심 5개 차원, 각 5문항으로 균형 잡힌 결과를 제공합니다.</p>
+                    </button>
+                    <button class="mode-card mode-card--pro" onclick="selectMode('pro')">
+                        <div class="mode-card__header">
+                            <span class="mode-card__icon">🔬</span>
+                            <div>
+                                <div class="mode-card__title">심층 진단</div>
+                                <div class="mode-card__meta">40문항 · 약 10분</div>
+                            </div>
+                            <span class="mode-card__badge mode-card__badge--pro">정밀</span>
+                        </div>
+                        <p class="mode-card__desc">참사랑 영성 발달 이론을 반영한 심층 문항으로 서브타입 분석까지 정밀 진행합니다.</p>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MBTI Modal -->
+    <div id="mbtiModal" class="picker-modal" onclick="closeMbtiModal(event)">
+        <div class="picker-modal__box">
+            <div class="picker-modal__header">
+                <span class="picker-modal__title">🧬 MBTI로 내 유형 예측하기</span>
+                <button class="picker-modal__close" onclick="closeMbtiModalDirect()">✕</button>
+            </div>
+            <p class="picker-modal__desc">당신의 MBTI를 선택하면 가장 잘 맞는 양육 페르소나를 미리 볼 수 있어요!</p>
+            <div class="mbti-grid">
+                <div class="mbti-group">
+                    <div class="mbti-group__label">분석가형 🔵</div>
+                    <div class="mbti-group__items">
+                        <button class="mbti-chip" onclick="goMbti('INTJ')"><span>INTJ</span><small>용의주도한 전략가</small></button>
+                        <button class="mbti-chip" onclick="goMbti('INTP')"><span>INTP</span><small>논리적인 사색가</small></button>
+                        <button class="mbti-chip" onclick="goMbti('ENTJ')"><span>ENTJ</span><small>대담한 통솔자</small></button>
+                        <button class="mbti-chip" onclick="goMbti('ENTP')"><span>ENTP</span><small>뜨거운 논쟁가</small></button>
+                    </div>
+                </div>
+                <div class="mbti-group">
+                    <div class="mbti-group__label">외교관형 💚</div>
+                    <div class="mbti-group__items">
+                        <button class="mbti-chip" onclick="goMbti('INFJ')"><span>INFJ</span><small>선의의 옹호자</small></button>
+                        <button class="mbti-chip" onclick="goMbti('INFP')"><span>INFP</span><small>열정적인 중재자</small></button>
+                        <button class="mbti-chip" onclick="goMbti('ENFJ')"><span>ENFJ</span><small>정의로운 사회운동가</small></button>
+                        <button class="mbti-chip" onclick="goMbti('ENFP')"><span>ENFP</span><small>재기발랄한 활동가</small></button>
+                    </div>
+                </div>
+                <div class="mbti-group">
+                    <div class="mbti-group__label">관리자형 🟡</div>
+                    <div class="mbti-group__items">
+                        <button class="mbti-chip" onclick="goMbti('ISTJ')"><span>ISTJ</span><small>청렴결백한 논리주의자</small></button>
+                        <button class="mbti-chip" onclick="goMbti('ISFJ')"><span>ISFJ</span><small>용감한 수호자</small></button>
+                        <button class="mbti-chip" onclick="goMbti('ESTJ')"><span>ESTJ</span><small>엄격한 관리자</small></button>
+                        <button class="mbti-chip" onclick="goMbti('ESFJ')"><span>ESFJ</span><small>사교적인 외교관</small></button>
+                    </div>
+                </div>
+                <div class="mbti-group">
+                    <div class="mbti-group__label">탐험가형 🔴</div>
+                    <div class="mbti-group__items">
+                        <button class="mbti-chip" onclick="goMbti('ISTP')"><span>ISTP</span><small>만능 재주꾼</small></button>
+                        <button class="mbti-chip" onclick="goMbti('ISFP')"><span>ISFP</span><small>호기심 많은 예술가</small></button>
+                        <button class="mbti-chip" onclick="goMbti('ESTP')"><span>ESTP</span><small>모험을 즐기는 사업가</small></button>
+                        <button class="mbti-chip" onclick="goMbti('ESFP')"><span>ESFP</span><small>자유로운 연예인</small></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Persona Modal -->
+    <div id="personaModal" class="picker-modal" onclick="closePersonaModal(event)">
+        <div class="picker-modal__box">
+            <div class="picker-modal__header">
+                <span class="picker-modal__title">🦁 양육 페르소나 직접 선택</span>
+                <button class="picker-modal__close" onclick="closePersonaModalDirect()">✕</button>
+            </div>
+            <p class="picker-modal__desc">8가지 참사랑 페르소나 중 하나를 골라 결과를 미리 확인해 보세요!</p>
+            <div class="persona-grid">
+                <button class="persona-chip" onclick="goPersona('warm')">
+                    <img src="../assets/images/personas/animal_warm.png" alt="참사랑 햇살" class="persona-chip__img">
+                    <span class="persona-chip__emoji">☀️</span>
+                    <span class="persona-chip__name">참사랑 햇살 부모</span>
+                    <span class="persona-chip__rarity">상위 12%</span>
+                </button>
+                <button class="persona-chip" onclick="goPersona('structured')">
+                    <img src="../assets/images/personas/animal_structured.png" alt="훈독 설계자" class="persona-chip__img">
+                    <span class="persona-chip__emoji">📐</span>
+                    <span class="persona-chip__name">훈독 말씀 설계자 부모</span>
+                    <span class="persona-chip__rarity">상위 8%</span>
+                </button>
+                <button class="persona-chip" onclick="goPersona('free')">
+                    <img src="../assets/images/personas/animal_free.png" alt="개성 신뢰" class="persona-chip__img">
+                    <span class="persona-chip__emoji">🌱</span>
+                    <span class="persona-chip__name">개성 존중의 믿음형 부모</span>
+                    <span class="persona-chip__rarity">단 5%</span>
+                </button>
+                <button class="persona-chip" onclick="goPersona('wise')">
+                    <img src="../assets/images/personas/animal_wise.png" alt="말씀 등대" class="persona-chip__img">
+                    <span class="persona-chip__emoji">🔭</span>
+                    <span class="persona-chip__name">지혜로운 말씀 등대 부모</span>
+                    <span class="persona-chip__rarity">상위 3%</span>
+                </button>
+                <button class="persona-chip" onclick="goPersona('balanced')">
+                    <img src="../assets/images/personas/animal_balanced.png" alt="마에스트로" class="persona-chip__img">
+                    <span class="persona-chip__emoji">⚖️</span>
+                    <span class="persona-chip__name">참사랑과 말씀 균형의 부모</span>
+                    <span class="persona-chip__rarity">상위 15%</span>
+                </button>
+                <button class="persona-chip" onclick="goPersona('empathetic')">
+                    <img src="../assets/images/personas/animal_empathetic.png" alt="참거울" class="persona-chip__img">
+                    <span class="persona-chip__emoji">💜</span>
+                    <span class="persona-chip__name">심정을 비추는 참거울 부모</span>
+                    <span class="persona-chip__rarity">상위 7%</span>
+                </button>
+                <button class="persona-chip" onclick="goPersona('creative')">
+                    <img src="../assets/images/personas/animal_creative.png" alt="신앙 놀이터" class="persona-chip__img">
+                    <span class="persona-chip__emoji">🎨</span>
+                    <span class="persona-chip__name">신나는 신앙 놀이터 부모</span>
+                    <span class="persona-chip__rarity">단 4%</span>
+                </button>
+                <button class="persona-chip" onclick="goPersona('resilient')">
+                    <img src="../assets/images/personas/animal_resilient.png" alt="심정 상속" class="persona-chip__img">
+                    <span class="persona-chip__emoji">🌸</span>
+                    <span class="persona-chip__name">시련을 이겨내는 심정상속 부모</span>
+                    <span class="persona-chip__rarity">상위 2%</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="chemistry_data.js"></script>
+    <script src="data.js"></script>
+    <script>
+        // === State ===
+        let currentIndex = 0;
+        let answers = [];
+        let isAnimating = false;
+        let activeQuestions = [];
+
+        // === Check for saved progress ===
+        const saved = loadProgress();
+        if (saved && saved.answers && saved.answers.length > 0 && saved.answers.length < 40) {
+            document.getElementById('resumeNotice').style.display = 'block';
+        }
+
+        // === Modal Controls ===
+        function openMbtiModal() {
+            document.getElementById('mbtiModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeMbtiModal(e) {
+            if (e.target === document.getElementById('mbtiModal')) closeMbtiModalDirect();
+        }
+        function closeMbtiModalDirect() {
+            document.getElementById('mbtiModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        function openPersonaModal() {
+            document.getElementById('personaModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closePersonaModal(e) {
+            if (e.target === document.getElementById('personaModal')) closePersonaModalDirect();
+        }
+        function closePersonaModalDirect() {
+            document.getElementById('personaModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        function goMbti(mbti) { window.location.href = 'result.html?mbti=' + mbti; }
+        function goPersona(persona) { window.location.href = 'result.html?preview=' + persona; }
+
+        function showAgeSelection() {
+            document.getElementById('testIntro').style.display = 'none';
+            document.getElementById('ageSelectionScreen').style.display = 'block';
+        }
+        
+        function selectAge(age) {
+            localStorage.setItem('mirrorInsideChildAge_family', age);
+            document.getElementById('ageSelectionScreen').style.display = 'none';
+            showModeSelection();
+        }
+
+        function showModeSelection() {
+            document.getElementById('ageSelectionScreen').style.display = 'none';
+            document.getElementById('modeSelectionScreen').style.display = 'block';
+        }
+        
+        function selectMode(mode) {
+            localStorage.setItem('mirrorInsideTestMode_family', mode);
+            document.getElementById('modeSelectionScreen').style.display = 'none';
+            if (mode === 'pro') {
+                activeQuestions = QUESTIONS_40;
+            } else {
+                activeQuestions = QUESTIONS_25;
+            }
+            startTest();
+        }
+
+        function resumeTest() {
+            const saved = loadProgress();
+            if (saved) {
+                answers = saved.answers;
+                currentIndex = saved.currentIndex;
+            }
+            const mode = localStorage.getItem('mirrorInsideTestMode_family');
+            activeQuestions = (mode === 'pro') ? QUESTIONS_40 : QUESTIONS_25;
+            startTest();
+        }
+
+        function startFresh() {
+            clearProgress();
+            answers = [];
+            currentIndex = 0;
+            const mode = localStorage.getItem('mirrorInsideTestMode_family');
+            activeQuestions = (mode === 'pro') ? QUESTIONS_40 : QUESTIONS_25;
+            startTest();
+        }
+
+        function startTest() {
+            document.getElementById('topInfo').style.display = 'block';
+            document.getElementById('topProgress').style.display = 'block';
+            renderQuestion(currentIndex);
+        }
+
+        function renderQuestion(index) {
+            if (index >= activeQuestions.length) {
+                showCompletion();
+                return;
+            }
+
+            const q = activeQuestions[index];
+            const dim = DIMENSIONS.find(d => d.id === q.dimension);
+            const qNumInDim = activeQuestions.filter((qq, i) => qq.dimension === q.dimension && i <= index).length;
+            const totalInDim = activeQuestions.filter(qq => qq.dimension === q.dimension).length;
+
+            // Update top bar
+            document.getElementById('prevBtn').style.display = index > 0 ? 'block' : 'none';
+            document.getElementById('topDimension').textContent = `${dim.icon} ${dim.name}`;
+            document.getElementById('topCount').textContent = `${index + 1} / ${activeQuestions.length}`;
+            document.getElementById('progressFill').style.width = `${((index) / activeQuestions.length) * 100}%`;
+
+            const content = document.getElementById('testContent');
+            content.innerHTML = `
+                <div class="question-card" id="questionCard">
+                    <div class="question-card__dimension-badge">
+                        <span class="question-card__dimension-icon">${dim.icon}</span>
+                        <span class="question-card__dimension-name">${dim.name} ${qNumInDim}/${totalInDim}</span>
+                    </div>
+
+                    <div class="question-card__scenario">${q.scenario}</div>
+                    <div class="question-card__text">${q.question}</div>
+
+                    <div class="question-card__options">
+                        ${q.options.map((opt, i) => `
+                            <button class="option-btn" onclick="selectOption(${i})" id="option${i}">
+                                <span class="option-btn__label">${String.fromCharCode(65 + i)}</span>
+                                ${opt.text}
+                            </button>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function selectOption(optionIndex) {
+            if (isAnimating) return;
+            isAnimating = true;
+
+            if (navigator.vibrate) navigator.vibrate(15);
+            
+            const btns = document.querySelectorAll('.option-btn');
+            btns.forEach(btn => btn.classList.remove('selected'));
+            document.getElementById(`option${optionIndex}`).classList.add('selected');
+
+            // Save answer
+            answers[currentIndex] = optionIndex;
+            saveProgress(answers, currentIndex + 1);
+
+            // Animate out and show next
+            setTimeout(() => {
+                const card = document.getElementById('questionCard');
+                if (card) {
+                    card.style.transform = 'scale(0.95) translateY(-20px)';
+                    card.style.opacity = '0';
+                    card.style.transition = 'all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1)';
+                }
+
+                setTimeout(() => {
+                    currentIndex++;
+                    renderQuestion(currentIndex);
+                    isAnimating = false;
+                }, 400);
+            }, 300);
+        }
+
+        function prevQuestion() {
+            if (isAnimating || currentIndex === 0) return;
+            isAnimating = true;
+            
+            if (navigator.vibrate) navigator.vibrate(10);
+
+            // Animate current out to the right
+            const card = document.getElementById('questionCard');
+            if (card) {
+                card.style.transform = 'translateX(60px)';
+                card.style.opacity = '0';
+                card.style.transition = 'all 0.3s ease';
+            }
+
+            setTimeout(() => {
+                currentIndex--;
+                renderQuestion(currentIndex);
+                isAnimating = false;
+            }, 300);
+        }
+
+        function showCompletion() {
+            document.getElementById('testTopBar').style.display = 'none';
+
+            const content = document.getElementById('testContent');
+            content.innerHTML = `
+                <div class="test-complete">
+                    <div class="ai-scanner"></div>
+                    <div class="ai-text-box">
+                        <div class="ai-step-text active" id="aiStep1">응답 신앙 정합성 검증 중...</div>
+                        <div class="ai-step-text" id="aiStep2">5차원 참사랑 양육 DNA 매핑 중...</div>
+                        <div class="ai-step-text" id="aiStep3">8대 참가정 페르소나 매칭 알고리즘 계산 중...</div>
+                        <div class="ai-step-text" id="aiStep4" style="color: var(--primary);">분석 완료! 신앙 솔루션을 로드합니다.</div>
+                    </div>
+                    <div class="loading-dots" style="margin-top: 20px;">
+                        <span></span><span></span><span></span>
+                    </div>
+                </div>
+            `;
+
+            // Calculate results
+            const results = calculateResults(answers, activeQuestions);
+            saveResults(results);
+            clearProgress();
+
+            // Sequence animations
+            setTimeout(() => {
+                document.getElementById('aiStep1').classList.remove('active');
+                document.getElementById('aiStep2').classList.add('active');
+            }, 1500);
+
+            setTimeout(() => {
+                document.getElementById('aiStep2').classList.remove('active');
+                document.getElementById('aiStep3').classList.add('active');
+            }, 3000);
+
+            setTimeout(() => {
+                document.getElementById('aiStep3').classList.remove('active');
+                document.getElementById('aiStep4').classList.add('active');
+            }, 4500);
+
+            // Redirect to result page after animation
+            setTimeout(() => {
+                window.location.href = 'result.html';
+            }, 5500);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (isAnimating) return;
+            const keyMap = { 'a': 0, 'b': 1, 'c': 2, 'd': 3, '1': 0, '2': 1, '3': 2, '4': 3 };
+            const idx = keyMap[e.key.toLowerCase()];
+            if (idx !== undefined && idx < activeQuestions[currentIndex]?.options.length) {
+                selectOption(idx);
+            }
+        });
+    </script>
+
+    <!-- Mobile Bottom Navigation -->
+    <nav class="bottom-nav">
+        <div class="bottom-nav__inner">
+            <a href="index.html" class="bottom-nav__item">
+                <i class="fas fa-home"></i>
+                <span>홈</span>
+            </a>
+            <a href="test.html" class="bottom-nav__item active">
+                <i class="fas fa-clipboard-check"></i>
+                <span>진단</span>
+            </a>
+            <a href="columns.html" class="bottom-nav__item">
+                <i class="fas fa-book-open"></i>
+                <span>칼럼</span>
+            </a>
+            <a href="chemistry.html" class="bottom-nav__item">
+                <i class="fas fa-heart"></i>
+                <span>부부궁합</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p style="font-size: 1.1rem; margin-bottom: 12px;">🪞 참사랑 거울 육아 (가정연합 편)</p>
+        <p style="font-size: 0.85rem; color: var(--text-body); margin-bottom: 16px;">함께 참사랑을 상속하고 성장하는 참가정 공동체</p>
+        <p>&copy; 2026 참사랑 거울 육아. All rights reserved.</p>
+        <p style="font-size: 0.75rem; margin-top: 8px; color: var(--text-dim);">
+            <a href="terms.html">이용약관</a> · <a href="privacy.html">개인정보처리방침</a> · <a href="contact.html">문의하기</a>
+        </p>
+    </footer>
+
+</body>
+</html>
