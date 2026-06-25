@@ -165,7 +165,7 @@ const OVERALL_TITLES = [
     ],
     recommendedColumns: [
       { url: '/columns/heart-bonding.html', title: '자녀의 심정의 문을 여는 참사랑의 대화법', tags: '#심정교감 #참사랑 #눈맞춤' },
-      { url: '/columns/purity-education.html', title: 'secular 사회에서 순결의 가치를 기쁘게 전수하는 법', tags: '#순결교육 #정체성 #참사랑' },
+      { url: 'columns/purity-education.html', title: 'secular 사회에서 순결의 가치를 기쁘게 전수하는 법', tags: '#순결교육 #정체성 #참사랑' },
       { url: '/columns/faith-routine.html', title: '가정예배를 억지로 드리는 자녀를 위한 심정적 처방', tags: '#가정예배 #억지신앙탈출 #심정' }
     ]
   },
