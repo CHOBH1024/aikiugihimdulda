@@ -78,3 +78,33 @@
 .stat-pill__num {
   color: var(--primary) !important;
 }
+
+/* Golden Providential Visual Enhancement */
+.card, .dim-card, .dimension-card, .article-card, .tech-card, 
+.btn-unlock-fact, .fact-bomb-container, .preview-card, 
+.selector-box, .legal-section, .faq-item, .mission-box,
+.photocard, .carousel-card {
+  border: 1px solid rgba(212, 175, 55, 0.3) !important;
+  box-shadow: 0 8px 32px rgba(90, 44, 135, 0.08) !important;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+}
+
+.card:hover, .dim-card:hover, .dimension-card:hover, .article-card:hover, 
+.preview-card:hover, .carousel-card:hover {
+  border-color: rgba(212, 175, 55, 0.6) !important;
+  box-shadow: 0 12px 40px rgba(90, 44, 135, 0.15) !important;
+  transform: translateY(-4px);
+}
+
+.btn--primary, .nav__cta {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%) !important;
+  border: 1px solid rgba(212, 175, 55, 0.5) !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 4px 15px rgba(90, 44, 135, 0.2) !important;
+}
+
+.btn--primary:hover, .nav__cta:hover {
+  border-color: rgba(212, 175, 55, 0.9) !important;
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4) !important;
+  transform: translateY(-2px);
+}

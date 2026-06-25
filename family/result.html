@@ -292,6 +292,7 @@
             `;
         } else {
             try { renderResults(results); } catch(e) { console.error("RENDER ERROR: " + e.stack); }
+            setTimeout(openTearJerker, 10000);
         }
 
         function renderResults(results) {
@@ -390,7 +391,7 @@
                                         <div class="fact-bomb-overlay" id="factBombOverlay">
                                             <i class="fas fa-bomb" style="font-size:2.5rem; color:#ef4444; margin-bottom:12px; filter: drop-shadow(0 4px 10px rgba(239,68,68,0.4));"></i>
                                             <h4 style="font-size: 1.2rem; font-weight: 800; color: #ef4444; margin-bottom: 8px; letter-spacing: -0.5px;">🚨 열람 주의</h4>
-                                            <p style="font-size: 0.9rem; color: var(--text-body); margin-bottom: 20px; word-break: keep-all; line-height: 1.4;">이 신앙 조언은 뼈를 깊게 때립니다.<br>자아 성찰의 준비가 되셨다면 해제하세요.</p>
+                                            <p style="font-size: 0.9rem; color: var(--text-body); margin-bottom: 20px; word-break: keep-all; line-height: 1.4;">이 조언은 스스로의 가식과 안일을 깨트리는 뜨거운 성찰의 불칼과 같습니다.<br>하늘부모님 앞에 양심과 정성을 드릴 준비가 되셨습니까?</p>
                                             <button class="btn-unlock-fact" onclick="unlockFactBomb()">🔓 잠금 해제하기</button>
                                         </div>
                                         <div class="fact-bomb-content" id="factBombContent">

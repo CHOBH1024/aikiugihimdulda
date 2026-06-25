@@ -1278,7 +1278,7 @@ const MBTI_MAPPING = {
   'ENFJ': 'warm', 'ESFJ': 'warm', 'ISFJ': 'warm',
   'ESTJ': 'structured', 'ISTJ': 'structured',
   'ENFP': 'free', 'ESFP': 'free', 'ESTP': 'free',
-  'INTJ': 'wise', 'INTP': 'wise', 'ENTJ': 'wise',
+  'INTJ': 'structured', 'INTP': 'wise', 'ENTJ': 'wise',
   'ISFP': 'empathetic', 'INFJ': 'empathetic',
   'INFP': 'creative', 'ENTP': 'creative',
   'ISTP': 'resilient'
