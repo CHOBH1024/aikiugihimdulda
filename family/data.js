@@ -2003,6 +2003,59 @@ function generateMockResult(combo) {
   };
 }
 
+// ============================================================
+// 상담 연계용 결과 공유 링크 (로그인/서버 저장 없이 URL로 결과 전달)
+// ============================================================
+
+function encodeShareableResult(results, note) {
+  const payload = {
+    d: DIMENSIONS.map(dim => results.dimensionTypes[dim.id].typeIndex),
+    low: results.lowestDimId,
+    note: (note || '').slice(0, 300)
+  };
+  const json = JSON.stringify(payload);
+  const bytes = new TextEncoder().encode(json);
+  let binary = '';
+  bytes.forEach(b => { binary += String.fromCharCode(b); });
+  return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+
+function decodeShareableResult(code) {
+  try {
+    const base64 = code.replace(/-/g, '+').replace(/_/g, '/');
+    const binary = atob(base64);
+    const bytes = new Uint8Array(binary.length);
+    for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+    const json = new TextDecoder().decode(bytes);
+    const payload = JSON.parse(json);
+
+    const dimensionTypes = {};
+    DIMENSIONS.forEach((dim, i) => {
+      const idx = payload.d[i] || 0;
+      dimensionTypes[dim.id] = {
+        typeIndex: idx,
+        type: PERSONA_TYPES[dim.id][idx],
+        normalizedScore: 70
+      };
+    });
+
+    const overallPersona = determineOverallPersona(dimensionTypes);
+    const lowestDimId = payload.low && SIMULATIONS[payload.low] ? payload.low : 'emotional';
+
+    return {
+      dimensionTypes,
+      overallPersona,
+      lowestDimId,
+      simulation: SIMULATIONS[lowestDimId],
+      note: payload.note || '',
+      isShared: true
+    };
+  } catch (e) {
+    console.error('결과 공유 링크 해석 실패:', e);
+    return null;
+  }
+}
+
 function saveResults(results) {
   localStorage.setItem('mirrorInsideResults_family', JSON.stringify(results));
   const timestamp = new Date().toISOString();
