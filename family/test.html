@@ -963,25 +963,36 @@
             document.getElementById('ageSelectionScreen').style.display = 'block';
         }
         
+        function getQuestionsForMode(mode) {
+            if (mode === 'pro') return QUESTIONS_40;
+            if (mode === 'lite') return QUESTIONS_25;
+            if (AGE_QUESTION_SETS[mode]) return AGE_QUESTION_SETS[mode];
+            return QUESTIONS_25;
+        }
+
         function selectAge(age) {
             localStorage.setItem('mirrorInsideChildAge_family', age);
             document.getElementById('ageSelectionScreen').style.display = 'none';
-            showModeSelection();
+            if (age === 'school') {
+                // 학령기(8세 이상)만 표준/심층 모드(25문항/40문항)를 선택할 수 있습니다.
+                showModeSelection();
+            } else {
+                // 영아기/걸음마기/유아기는 연령에 맞춘 전용 20문항 세트로 바로 시작합니다.
+                localStorage.setItem('mirrorInsideTestMode_family', age);
+                activeQuestions = AGE_QUESTION_SETS[age];
+                startTest();
+            }
         }
 
         function showModeSelection() {
             document.getElementById('ageSelectionScreen').style.display = 'none';
             document.getElementById('modeSelectionScreen').style.display = 'block';
         }
-        
+
         function selectMode(mode) {
             localStorage.setItem('mirrorInsideTestMode_family', mode);
             document.getElementById('modeSelectionScreen').style.display = 'none';
-            if (mode === 'pro') {
-                activeQuestions = QUESTIONS_40;
-            } else {
-                activeQuestions = QUESTIONS_25;
-            }
+            activeQuestions = getQuestionsForMode(mode);
             startTest();
         }
 
@@ -992,7 +1003,7 @@
                 currentIndex = saved.currentIndex;
             }
             const mode = localStorage.getItem('mirrorInsideTestMode_family');
-            activeQuestions = (mode === 'pro') ? QUESTIONS_40 : QUESTIONS_25;
+            activeQuestions = getQuestionsForMode(mode);
             startTest();
         }
 
@@ -1001,7 +1012,7 @@
             answers = [];
             currentIndex = 0;
             const mode = localStorage.getItem('mirrorInsideTestMode_family');
-            activeQuestions = (mode === 'pro') ? QUESTIONS_40 : QUESTIONS_25;
+            activeQuestions = getQuestionsForMode(mode);
             startTest();
         }
 
