@@ -629,6 +629,10 @@
         .mode-card__desc { font-size: 0.9rem; color: var(--text-body); line-height: 1.6; word-break: keep-all; margin: 0; }
 
     </style>
+    <link rel="manifest" href="/family/manifest.json">
+    <meta name="theme-color" content="#5A2C87">
+    <!-- Plausible Analytics (가벼운 자가호스팅형 애널리틱스) — plausible.io에서 무료/자가호스팅 계정 생성 후 도메인 인증하면 바로 수집됩니다 -->
+    <script defer data-domain="aikiugihimdulda.vercel.app" src="https://plausible.io/js/script.js"></script>
 </head>
 <body>
 
@@ -646,10 +650,10 @@
                 <div class="test-top-bar__row">
                     <div style="display: flex; gap: 16px; align-items: center;">
                         <a href="index.html" class="test-top-bar__back" id="homeBtn">
-                            <i class="fas fa-home"></i> 홈
+                            <i class="fas fa-home" aria-hidden="true"></i> 홈
                         </a>
                         <button class="test-top-bar__back" id="prevBtn" onclick="prevQuestion()" style="display:none; background:none; border:none; padding:0; cursor:pointer;">
-                            <i class="fas fa-arrow-left"></i> 이전
+                            <i class="fas fa-arrow-left" aria-hidden="true"></i> 이전
                         </button>
                     </div>
                     <div class="test-top-bar__info" id="topInfo" style="display:none;">
@@ -682,19 +686,19 @@
 
                 <div class="test-intro__features">
                     <div class="test-intro__feature">
-                        <i class="fas fa-clock"></i> 약 5~10분
+                        <i class="fas fa-clock" aria-hidden="true"></i> 약 5~10분
                     </div>
                     <div class="test-intro__feature">
-                        <i class="fas fa-list-check"></i> 25 / 40문항
+                        <i class="fas fa-list-check" aria-hidden="true"></i> 25 / 40문항
                     </div>
                     <div class="test-intro__feature">
-                        <i class="fas fa-bolt"></i> 결과 즉시 확인
+                        <i class="fas fa-bolt" aria-hidden="true"></i> 결과 즉시 확인
                     </div>
                 </div>
 
                 <div style="display: flex; flex-direction: column; gap: 16px; width: 100%; max-width: 360px; margin: 0 auto;">
                     <button class="btn btn--primary btn--large btn--glow" id="startTestBtn" onclick="showAgeSelection()">
-                        <i class="fas fa-dna"></i> 지금 바로 분석하기 (무료)
+                        <i class="fas fa-dna" aria-hidden="true"></i> 지금 바로 분석하기 (무료)
                     </button>
                     
                     <div style="position: relative; text-align: center; margin: 8px 0;">
@@ -719,10 +723,10 @@
                         이전에 진행하던 테스트가 있습니다.
                     </p>
                     <button class="btn btn--secondary" onclick="resumeTest()" style="margin-right:8px;">
-                        <i class="fas fa-rotate-right"></i> 이어하기
+                        <i class="fas fa-rotate-right" aria-hidden="true"></i> 이어하기
                     </button>
                     <button class="btn btn--secondary" onclick="startFresh()">
-                        <i class="fas fa-redo"></i> 처음부터
+                        <i class="fas fa-redo" aria-hidden="true"></i> 처음부터
                     </button>
                 </div>
             </div>
@@ -808,11 +812,11 @@
     </div>
 
     <!-- MBTI Modal -->
-    <div id="mbtiModal" class="picker-modal" onclick="closeMbtiModal(event)">
+    <div id="mbtiModal" class="picker-modal" onclick="closeMbtiModal(event)" role="dialog" aria-modal="true" aria-labelledby="mbtiModalTitle">
         <div class="picker-modal__box">
             <div class="picker-modal__header">
-                <span class="picker-modal__title">🧬 MBTI로 내 유형 예측하기</span>
-                <button class="picker-modal__close" onclick="closeMbtiModalDirect()">✕</button>
+                <span class="picker-modal__title" id="mbtiModalTitle">🧬 MBTI로 내 유형 예측하기</span>
+                <button class="picker-modal__close" onclick="closeMbtiModalDirect()" aria-label="닫기">✕</button>
             </div>
             <p class="picker-modal__desc">당신의 MBTI를 선택하면 가장 잘 맞는 양육 페르소나를 미리 볼 수 있어요!</p>
             <div class="mbti-grid">
@@ -857,11 +861,11 @@
     </div>
 
     <!-- Persona Modal -->
-    <div id="personaModal" class="picker-modal" onclick="closePersonaModal(event)">
+    <div id="personaModal" class="picker-modal" onclick="closePersonaModal(event)" role="dialog" aria-modal="true" aria-labelledby="personaModalTitle">
         <div class="picker-modal__box">
             <div class="picker-modal__header">
-                <span class="picker-modal__title">🦁 양육 페르소나 직접 선택</span>
-                <button class="picker-modal__close" onclick="closePersonaModalDirect()">✕</button>
+                <span class="picker-modal__title" id="personaModalTitle">🦁 양육 페르소나 직접 선택</span>
+                <button class="picker-modal__close" onclick="closePersonaModalDirect()" aria-label="닫기">✕</button>
             </div>
             <p class="picker-modal__desc">8가지 참사랑 페르소나 중 하나를 골라 결과를 미리 확인해 보세요!</p>
             <div class="persona-grid">
@@ -1175,19 +1179,19 @@
     <nav class="bottom-nav">
         <div class="bottom-nav__inner">
             <a href="index.html" class="bottom-nav__item">
-                <i class="fas fa-home"></i>
+                <i class="fas fa-home" aria-hidden="true"></i>
                 <span>홈</span>
             </a>
             <a href="test.html" class="bottom-nav__item active">
-                <i class="fas fa-clipboard-check"></i>
+                <i class="fas fa-clipboard-check" aria-hidden="true"></i>
                 <span>진단</span>
             </a>
             <a href="columns.html" class="bottom-nav__item">
-                <i class="fas fa-book-open"></i>
+                <i class="fas fa-book-open" aria-hidden="true"></i>
                 <span>칼럼</span>
             </a>
             <a href="chemistry.html" class="bottom-nav__item">
-                <i class="fas fa-heart"></i>
+                <i class="fas fa-heart" aria-hidden="true"></i>
                 <span>부부궁합</span>
             </a>
         </div>
@@ -1203,5 +1207,13 @@
         </p>
     </footer>
 
+
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/family/sw.js').catch(() => {});
+        });
+      }
+    </script>
 </body>
 </html>

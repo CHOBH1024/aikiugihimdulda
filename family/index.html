@@ -301,6 +301,10 @@
             .empathy-grid { grid-template-columns: 1fr; }
         }
     </style>
+    <link rel="manifest" href="/family/manifest.json">
+    <meta name="theme-color" content="#5A2C87">
+    <!-- Plausible Analytics (가벼운 자가호스팅형 애널리틱스) — plausible.io에서 무료/자가호스팅 계정 생성 후 도메인 인증하면 바로 수집됩니다 -->
+    <script defer data-domain="aikiugihimdulda.vercel.app" src="https://plausible.io/js/script.js"></script>
 </head>
 <body>
 
@@ -712,19 +716,19 @@
     <nav class="bottom-nav">
         <div class="bottom-nav__inner">
             <a href="index.html" class="bottom-nav__item active">
-                <i class="fas fa-home"></i>
+                <i class="fas fa-home" aria-hidden="true"></i>
                 <span>홈</span>
             </a>
             <a href="test.html" class="bottom-nav__item">
-                <i class="fas fa-clipboard-check"></i>
+                <i class="fas fa-clipboard-check" aria-hidden="true"></i>
                 <span>진단</span>
             </a>
             <a href="columns.html" class="bottom-nav__item">
-                <i class="fas fa-book-open"></i>
+                <i class="fas fa-book-open" aria-hidden="true"></i>
                 <span>칼럼</span>
             </a>
             <a href="chemistry.html" class="bottom-nav__item">
-                <i class="fas fa-heart"></i>
+                <i class="fas fa-heart" aria-hidden="true"></i>
                 <span>부부궁합</span>
             </a>
         </div>
@@ -751,5 +755,13 @@
         </p>
     </footer>
 
+
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/family/sw.js').catch(() => {});
+        });
+      }
+    </script>
 </body>
 </html>

@@ -235,7 +235,11 @@
     <meta name="google-site-verification" content="Tb_LmHczAZCjYOkU4RJh-m02RB4srmXHH4OFI3dxxGs" />
     <meta name="google-adsense-account" content="ca-pub-9992037844935954">
     <meta name="naver-site-verification" content="16578f8f79a3870985d38cddf217b1c67a4c4dad" />
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9992037844935954" crossorigin="anonymous"></script>\n</head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9992037844935954" crossorigin="anonymous"></script>\n    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#34d399">
+    <!-- Plausible Analytics (가벼운 자가호스팅형 애널리틱스) — plausible.io에서 무료/자가호스팅 계정 생성 후 도메인 인증하면 바로 수집됩니다 -->
+    <script defer data-domain="aikiugihimdulda.vercel.app" src="https://plausible.io/js/script.js"></script>
+</head>
 <body>
 
     <!-- Pastel Floating Blobs -->
@@ -248,6 +252,18 @@
 
     
 
+
+    
+
+
+    
+
+
+    
+
+
+    
+
     <!-- Navigation -->
     <nav class="nav scrolled">
         <div class="nav__inner">
@@ -256,8 +272,8 @@
             </a>
             <ul class="nav__links" id="navLinks">
                 <li><a href="/columns.html" class="nav__link">칼럼</a></li>
-                <li><a href="/index.html" class="nav__link"><i class="fas fa-arrow-left"></i> 홈</a></li>
-                <li><a href="/test.html" class="nav__cta"><i class="fas fa-play"></i> 진단 시작</a></li>
+                <li><a href="/index.html" class="nav__link"><i class="fas fa-arrow-left" aria-hidden="true"></i> 홈</a></li>
+                <li><a href="/test.html" class="nav__cta"><i class="fas fa-play" aria-hidden="true"></i> 진단 시작</a></li>
             </ul>
             <div class="nav__burger" onclick="document.getElementById('navLinks').classList.toggle('open')">
                 <span></span><span></span><span></span>
@@ -413,23 +429,43 @@
     <nav class="bottom-nav">
         <div class="bottom-nav__inner">
             <a href="/index.html" class="bottom-nav__item">
-                <i class="fas fa-home"></i>
+                <i class="fas fa-home" aria-hidden="true"></i>
                 <span>홈</span>
             </a>
             <a href="/test.html" class="bottom-nav__item">
-                <i class="fas fa-clipboard-check"></i>
+                <i class="fas fa-clipboard-check" aria-hidden="true"></i>
                 <span>진단</span>
             </a>
             <a href="/columns.html" class="bottom-nav__item">
-                <i class="fas fa-book-open"></i>
+                <i class="fas fa-book-open" aria-hidden="true"></i>
                 <span>칼럼</span>
             </a>
             <a href="/gallery.html" class="bottom-nav__item">
-                <i class="fas fa-images"></i>
+                <i class="fas fa-images" aria-hidden="true"></i>
                 <span>기록</span>
             </a>
         </div>
     </nav>
+
+    
+
+
+    
+
+
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(() => {});
+        });
+      }
+    </script>
+
+    
+
+
+    
+
 
     
 

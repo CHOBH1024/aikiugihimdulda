@@ -212,6 +212,10 @@
     <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.6.0/kakao.min.js" integrity="sha384-6MFdIr0zOira1CHQkedUqJVql0YtcZA1P0nbFz52+3y2B1A2P7Z0mR6+i3+R02T2" crossorigin="anonymous"></script>
     <script>Kakao.init('YOUR_KAKAO_APP_KEY');</script>
 <script>/* Samsung Internet animation-suppression fix */(function(){function f(){var animated=document.querySelectorAll('.hero__title,.hero__badge,.result-hero__title,.result-hero__overline,.photocard-container');for(var i=0;i<animated.length;i++){if(parseFloat(window.getComputedStyle(animated[i]).opacity)<0.1){var s=document.createElement('style');s.textContent='*,*::before,*::after{animation-duration:0.001s!important;animation-delay:0s!important;animation-iteration-count:1!important;}';document.head.appendChild(s);return;}};}document.addEventListener('DOMContentLoaded',function(){setTimeout(f,800);});})();</script>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#34d399">
+    <!-- Plausible Analytics (가벼운 자가호스팅형 애널리틱스) — plausible.io에서 무료/자가호스팅 계정 생성 후 도메인 인증하면 바로 수집됩니다 -->
+    <script defer data-domain="aikiugihimdulda.vercel.app" src="https://plausible.io/js/script.js"></script>
 </head>
 <body>
     <!-- Pastel Floating Blobs -->
@@ -348,6 +352,25 @@
                 recColsHTML += `</div></div>`;
             }
 
+            // 추천 도서 링크 (알라딘 도서 검색으로 연결 — 제휴 파트너 코드가 있다면 URL 끝에 &partner=본인코드 형태로 붙이세요)
+            let bookHTML = '';
+            if (overallPersona.book) {
+                const b = overallPersona.book;
+                const searchUrl = `https://www.aladin.co.kr/search/wsearchresult.aspx?SearchTarget=Book&SearchWord=${encodeURIComponent(b.title.replace(/[「」]/g, ''))}`;
+                bookHTML = `
+                <div style="margin-top: 32px; margin-bottom: 32px; background: var(--bg-card); border: 1px solid var(--glass-border); border-radius: 16px; padding: 24px; display:flex; gap:20px; align-items:center; flex-wrap:wrap; transition: all 0.25s cubic-bezier(0.25,0.8,0.25,1);" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='var(--shadow-card-hover)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                    <img src="${b.img}" alt="${b.title}" style="width:80px; height:110px; object-fit:cover; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.15); flex-shrink:0;">
+                    <div style="flex:1; min-width:180px;">
+                        <div style="font-size:0.8rem; color:var(--primary); font-weight:700; margin-bottom:4px;">📖 ${overallPersona.name.split(' ')[0]} 부모님을 위한 추천 도서</div>
+                        <h4 style="font-size:1.05rem; color:var(--text-main); font-weight:800; margin-bottom:6px;">${b.title}</h4>
+                        <p style="font-size:0.88rem; color:var(--text-body); line-height:1.5; margin-bottom:12px;">${b.desc}</p>
+                        <a href="${searchUrl}" target="_blank" rel="noopener sponsored" class="btn btn--outline" style="display:inline-flex; align-items:center; gap:6px; font-size:0.85rem; padding:8px 16px;">
+                            <i class="fas fa-book" aria-hidden="true"></i> 책 보러가기
+                        </a>
+                    </div>
+                </div>`;
+            }
+
             wrapper.innerHTML = `
                 ${noticeBanner}
                 
@@ -386,9 +409,9 @@
                                             <button class="btn-unlock-fact" onclick="unlockFactBomb()">🔓 잠금 해제하기</button>
                                         </div>
                                         <div class="fact-bomb-content" id="factBombContent">
-                                            <h4 style="font-size: 1.1rem; color: #ef4444; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;"><i class="fas fa-bolt"></i> 성장을 위한 뼈 때리는 조언</h4>
+                                            <h4 style="font-size: 1.1rem; color: #ef4444; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;"><i class="fas fa-bolt" aria-hidden="true"></i> 성장을 위한 뼈 때리는 조언</h4>
                                             <p style="font-size: 0.95rem; color: var(--text-main); line-height: 1.6; font-weight: 600; margin-bottom: 24px; word-break: keep-all;">${overallPersona.harshAdvice || '균형을 잃지 않는 것이 가장 중요합니다.'}</p>
-                                            <button class="btn-share-postcard" onclick="downloadPostcard()"><i class="fas fa-camera-retro"></i> 이 조언을 엽서로 저장하기</button>
+                                            <button class="btn-share-postcard" onclick="downloadPostcard()"><i class="fas fa-camera-retro" aria-hidden="true"></i> 이 조언을 엽서로 저장하기</button>
                                         </div>
                                     </div>
                                 </div>
@@ -396,9 +419,9 @@
                         </div>
 
                         <div class="action-buttons">
-                            <button class="btn btn--large btn-insta" onclick="downloadImage()"><i class="fab fa-instagram"></i> 인스타 스토리에 공유하기 (이미지 저장)</button>
-                            <button class="btn btn--large btn-kakao" onclick="shareKakao()"><i class="fas fa-comment"></i> 카카오톡으로 결과 보내기</button>
-                            <button class="btn btn--secondary btn--large" onclick="copyResult()"><i class="fas fa-link"></i> 링크 복사하기</button>
+                            <button class="btn btn--large btn-insta" onclick="downloadImage()"><i class="fab fa-instagram" aria-hidden="true"></i> 인스타 스토리에 공유하기 (이미지 저장)</button>
+                            <button class="btn btn--large btn-kakao" onclick="shareKakao()"><i class="fas fa-comment" aria-hidden="true"></i> 카카오톡으로 결과 보내기</button>
+                            <button class="btn btn--secondary btn--large" onclick="copyResult()"><i class="fas fa-link" aria-hidden="true"></i> 링크 복사하기</button>
                         </div>
                         <p style="text-align: center; font-size: 0.85rem; color: var(--text-dim); margin-top: 4px;">
                             💡 '인스타 스토리 공유' 버튼을 누르면 이미지가 저장됩니다.
@@ -457,6 +480,7 @@
                             </div>
                         </div>
 
+                        ${bookHTML}
                         ${recColsHTML}
                     </div>
                 </div>
@@ -586,7 +610,7 @@
         async function downloadImage() {
             const btn = document.querySelector('.btn-insta');
             const originalText = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 이미지 생성 중...';
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin" aria-hidden="true"></i> 이미지 생성 중...';
             
             const el = document.getElementById('captureArea');
             el.style.left = '0';
@@ -602,7 +626,7 @@
                 link.download = `mirror_inside_result.png`;
                 link.href = canvas.toDataURL('image/png');
                 link.click();
-                btn.innerHTML = '<i class="fas fa-check"></i> 저장 완료! 인스타에 올려보세요';
+                btn.innerHTML = '<i class="fas fa-check" aria-hidden="true"></i> 저장 완료! 인스타에 올려보세요';
             } catch (e) {
                 console.error(e);
                 alert('이미지 저장에 실패했습니다.');
@@ -630,7 +654,7 @@
         async function downloadPostcard() {
             const btn = document.querySelector('.btn-share-postcard');
             const originalText = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 엽서 굽는 중...';
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin" aria-hidden="true"></i> 엽서 굽는 중...';
             
             const el = document.getElementById('postcardArea');
             el.style.left = '0';
@@ -648,7 +672,7 @@
                 link.download = `mirror_inside_fact_bomb.png`;
                 link.href = canvas.toDataURL('image/png', 1.0);
                 link.click();
-                btn.innerHTML = '<i class="fas fa-check"></i> 저장 완료!';
+                btn.innerHTML = '<i class="fas fa-check" aria-hidden="true"></i> 저장 완료!';
             } catch (e) {
                 console.error(e);
                 alert('엽서 저장에 실패했습니다.');
@@ -744,6 +768,14 @@
                 document.body.style.overflow = 'auto';
             }, 1500);
         }
+    </script>
+
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(() => {});
+        });
+      }
     </script>
 </body>
 </html>

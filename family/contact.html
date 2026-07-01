@@ -118,6 +118,8 @@
         .faq-item.open .faq-answer { max-height: 300px; }
         .faq-item.open .faq-question i { transform: rotate(180deg); }
     </style>
+    <!-- Plausible Analytics (가벼운 자가호스팅형 애널리틱스) — plausible.io에서 무료/자가호스팅 계정 생성 후 도메인 인증하면 바로 수집됩니다 -->
+    <script defer data-domain="aikiugihimdulda.vercel.app" src="https://plausible.io/js/script.js"></script>
 </head>
 <body>
 
@@ -136,7 +138,7 @@
                 <li><a href="columns.html" class="nav__link">신앙 칼럼</a></li>
                 <li><a href="chemistry.html" class="nav__link">❤️ 부부 참사랑 궁합</a></li>
                 <li><a href="about.html" class="nav__link">소개</a></li>
-                <li><a href="index.html" class="nav__link"><i class="fas fa-arrow-left"></i> 홈</a></li>
+                <li><a href="index.html" class="nav__link"><i class="fas fa-arrow-left" aria-hidden="true"></i> 홈</a></li>
                 <li><a href="test.html" class="nav__cta">🪞 나의 참사랑 스타일 알아보기</a></li>
             </ul>
         </div>
@@ -155,7 +157,7 @@
                 <h3>이메일 문의</h3>
                 <p>일반 문의, 서비스 피드백, 제휴 및 협력 제안</p>
                 <a href="mailto:mirririnside1024@gmail.com" class="contact-card__link">
-                    mirririnside1024@gmail.com <i class="fas fa-arrow-right"></i>
+                    mirririnside1024@gmail.com <i class="fas fa-arrow-right" aria-hidden="true"></i>
                 </a>
             </div>
             <div class="contact-card">
@@ -163,7 +165,7 @@
                 <h3>개인정보 관련</h3>
                 <p>개인정보 열람, 수정, 삭제 요청 및 관련 문의</p>
                 <a href="mailto:mirririnside1024@gmail.com" class="contact-card__link">
-                    mirririnside1024@gmail.com <i class="fas fa-arrow-right"></i>
+                    mirririnside1024@gmail.com <i class="fas fa-arrow-right" aria-hidden="true"></i>
                 </a>
             </div>
             <div class="contact-card">
@@ -171,7 +173,7 @@
                 <h3>광고 및 제휴</h3>
                 <p>광고 문의, 브랜드 협업, 콘텐츠 파트너십</p>
                 <a href="mailto:mirririnside1024@gmail.com" class="contact-card__link">
-                    mirririnside1024@gmail.com <i class="fas fa-arrow-right"></i>
+                    mirririnside1024@gmail.com <i class="fas fa-arrow-right" aria-hidden="true"></i>
                 </a>
             </div>
         </div>
@@ -183,7 +185,7 @@
 
             <div class="faq-item">
                 <button class="faq-question" onclick="toggleFaq(this)">
-                    진단은 무료인가요? <i class="fas fa-chevron-down"></i>
+                    진단은 무료인가요? <i class="fas fa-chevron-down" aria-hidden="true"></i>
                 </button>
                 <div class="faq-answer">
                     <div class="faq-answer__inner">
@@ -194,7 +196,7 @@
 
             <div class="faq-item">
                 <button class="faq-question" onclick="toggleFaq(this)">
-                    진단 결과의 가이드라인은 믿을 수 있나요? <i class="fas fa-chevron-down"></i>
+                    진단 결과의 가이드라인은 믿을 수 있나요? <i class="fas fa-chevron-down" aria-hidden="true"></i>
                 </button>
                 <div class="faq-answer">
                     <div class="faq-answer__inner">
@@ -205,7 +207,7 @@
 
             <div class="faq-item">
                 <button class="faq-question" onclick="toggleFaq(this)">
-                    개인정보나 진단 응답 결과가 서버에 저장되나요? <i class="fas fa-chevron-down"></i>
+                    개인정보나 진단 응답 결과가 서버에 저장되나요? <i class="fas fa-chevron-down" aria-hidden="true"></i>
                 </button>
                 <div class="faq-answer">
                     <div class="faq-answer__inner">
@@ -216,7 +218,7 @@
 
             <div class="faq-item">
                 <button class="faq-question" onclick="toggleFaq(this)">
-                    부부 참사랑 궁합은 어떻게 분석하나요? <i class="fas fa-chevron-down"></i>
+                    부부 참사랑 궁합은 어떻게 분석하나요? <i class="fas fa-chevron-down" aria-hidden="true"></i>
                 </button>
                 <div class="faq-answer">
                     <div class="faq-answer__inner">
@@ -227,7 +229,7 @@
 
             <div class="faq-item">
                 <button class="faq-question" onclick="toggleFaq(this)">
-                    5대 참사랑 양육 차원은 구체적으로 무엇인가요? <i class="fas fa-chevron-down"></i>
+                    5대 참사랑 양육 차원은 구체적으로 무엇인가요? <i class="fas fa-chevron-down" aria-hidden="true"></i>
                 </button>
                 <div class="faq-answer">
                     <div class="faq-answer__inner">
@@ -257,19 +259,19 @@
     <nav class="bottom-nav">
         <div class="bottom-nav__inner">
             <a href="index.html" class="bottom-nav__item">
-                <i class="fas fa-home"></i>
+                <i class="fas fa-home" aria-hidden="true"></i>
                 <span>홈</span>
             </a>
             <a href="test.html" class="bottom-nav__item">
-                <i class="fas fa-clipboard-check"></i>
+                <i class="fas fa-clipboard-check" aria-hidden="true"></i>
                 <span>진단</span>
             </a>
             <a href="columns.html" class="bottom-nav__item">
-                <i class="fas fa-book-open"></i>
+                <i class="fas fa-book-open" aria-hidden="true"></i>
                 <span>칼럼</span>
             </a>
             <a href="chemistry.html" class="bottom-nav__item">
-                <i class="fas fa-heart"></i>
+                <i class="fas fa-heart" aria-hidden="true"></i>
                 <span>부부궁합</span>
             </a>
         </div>
