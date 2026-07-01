@@ -3976,6 +3976,60 @@ function generateMockResult(combo) {
 }
 
 // ============================================================
+// 상담 연계용 결과 공유 링크 (로그인/서버 저장 없이 URL로 결과 전달)
+// ============================================================
+
+function encodeShareableResult(results, note) {
+  const payload = {
+    d: DIMENSIONS.map(dim => results.dimensionTypes[dim.id].typeIndex),
+    low: results.lowestDimId,
+    note: (note || '').slice(0, 300)
+  };
+  const json = JSON.stringify(payload);
+  // 한글 등 멀티바이트 문자를 안전하게 base64로 변환
+  const bytes = new TextEncoder().encode(json);
+  let binary = '';
+  bytes.forEach(b => { binary += String.fromCharCode(b); });
+  return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+
+function decodeShareableResult(code) {
+  try {
+    const base64 = code.replace(/-/g, '+').replace(/_/g, '/');
+    const binary = atob(base64);
+    const bytes = new Uint8Array(binary.length);
+    for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+    const json = new TextDecoder().decode(bytes);
+    const payload = JSON.parse(json);
+
+    const dimensionTypes = {};
+    DIMENSIONS.forEach((dim, i) => {
+      const idx = payload.d[i] || 0;
+      dimensionTypes[dim.id] = {
+        typeIndex: idx,
+        type: PERSONA_TYPES[dim.id][idx],
+        normalizedScore: 70 // 공유 링크는 실제 점수를 전달하지 않으므로 레이더 차트 표시용 임시값
+      };
+    });
+
+    const overallPersona = determineOverallPersona(dimensionTypes);
+    const lowestDimId = payload.low && SIMULATIONS[payload.low] ? payload.low : 'emotional';
+
+    return {
+      dimensionTypes,
+      overallPersona,
+      lowestDimId,
+      simulation: SIMULATIONS[lowestDimId],
+      note: payload.note || '',
+      isShared: true
+    };
+  } catch (e) {
+    console.error('결과 공유 링크 해석 실패:', e);
+    return null;
+  }
+}
+
+// ============================================================
 // 육아 궁합 (Parenting Chemistry) 매칭 알고리즘
 // ============================================================
 
