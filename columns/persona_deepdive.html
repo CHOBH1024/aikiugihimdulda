@@ -78,7 +78,34 @@
         }
         .cta-banner h3 { margin-bottom: 16px; color: var(--text-main); font-weight: 800; font-size: 1.4rem; }
         .cta-banner p { margin-bottom: 24px; font-size: 1rem; color: var(--text-body); }
+        .related-section { margin-top: 60px; }
+        .related-section h4 { font-size: 1.15rem; font-weight: 800; color: var(--text-main); margin-bottom: 20px; }
+        .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+        .related-card {
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            box-shadow: var(--shadow-card);
+            transition: all 0.3s ease;
+        }
+        .related-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-card-hover, 0 8px 24px rgba(0,0,0,0.1)); }
+        .related-card__img {
+            width: 100%; height: 110px; display: flex; align-items: center; justify-content: center;
+            font-size: 2.2rem;
+        }
+        .related-card__body { padding: 16px; }
+        .related-card__category { font-size: 0.7rem; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; display: block; }
+        .related-card__title { font-size: 0.95rem; font-weight: 700; color: var(--text-main); line-height: 1.4; word-break: keep-all; }
+        .comment-section { margin-top: 60px; }
+        .comment-section h4 { font-size: 1.15rem; font-weight: 800; color: var(--text-main); margin-bottom: 20px; }
     </style>
+    <!-- Plausible Analytics (가벼운 자가호스팅형 애널리틱스) — plausible.io에서 무료/자가호스팅 계정 생성 후 도메인 인증하면 바로 수집됩니다 -->
+    <script defer data-domain="aikiugihimdulda.vercel.app" src="https://plausible.io/js/script.js"></script>
 </head>
 <body>
     <!-- Scroll Progress Indicator -->
@@ -233,9 +260,48 @@
                 </button>
             </div>
         </div>
-        
 
-        
+        <!-- Related Articles -->
+        <div class="related-section">
+            <h4>📚 이런 글도 읽어보세요</h4>
+            <div class="related-grid">
+                
+                <a href="/columns/dimensions_guide.html" class="related-card">
+                    <div class="related-card__img" style="background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%);">🏛️</div>
+                    <div class="related-card__body">
+                        <span class="related-card__category">플랫폼 안내</span>
+                        <h5 class="related-card__title">완벽한 양육을 위한 5개의 기둥: 내 아이를 키우는 5대 핵심 요소 칼럼</h5>
+                    </div>
+                </a>
+
+                <a href="/columns/site_introduction.html" class="related-card">
+                    <div class="related-card__img" style="background: linear-gradient(135deg, #4b5563 0%, #1f2937 100%);">📢</div>
+                    <div class="related-card__body">
+                        <span class="related-card__category">플랫폼 안내</span>
+                        <h5 class="related-card__title">Mirror Inside Parenting: 발달심리학과 데이터가 만난 '육아 DNA' 테스트의 모든 것</h5>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Disqus Comments -->
+        <div class="comment-section">
+            <h4>💬 댓글</h4>
+            <div id="disqus_thread"></div>
+            <script>
+                var disqus_config = function () {
+                    this.page.url = window.location.href;
+                    this.page.identifier = window.location.pathname;
+                };
+                (function() {
+                    var d = document, s = d.createElement('script');
+                    s.src = 'https://YOUR_DISQUS_SHORTNAME.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', +new Date());
+                    (d.head || d.body).appendChild(s);
+                })();
+            </script>
+        </div>
+
         <div class="cta-banner">
             <h3>나는 어떤 육아 스타일일까? 🪞</h3>
             <p>3분이면 충분해요! 나만의 육아 페르소나를 발견하고 맞춤 솔루션을 확인해보세요 ✨</p>

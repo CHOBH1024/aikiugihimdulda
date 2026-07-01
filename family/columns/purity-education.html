@@ -55,7 +55,34 @@
         }
         .cta-banner h3 { margin-bottom: 16px; color: var(--text-main); font-weight: 800; font-size: 1.4rem; }
         .cta-banner p { margin-bottom: 24px; font-size: 1rem; color: var(--text-body); }
+        .related-section { margin-top: 60px; }
+        .related-section h4 { font-size: 1.15rem; font-weight: 800; color: var(--text-main); margin-bottom: 20px; }
+        .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+        .related-card {
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            box-shadow: var(--shadow-card);
+            transition: all 0.3s ease;
+        }
+        .related-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(90, 44, 135, 0.15); }
+        .related-card__img {
+            width: 100%; height: 110px; display: flex; align-items: center; justify-content: center;
+            font-size: 2.2rem;
+        }
+        .related-card__body { padding: 16px; }
+        .related-card__category { font-size: 0.7rem; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; display: block; }
+        .related-card__title { font-size: 0.95rem; font-weight: 700; color: var(--text-main); line-height: 1.4; word-break: keep-all; }
+        .comment-section { margin-top: 60px; }
+        .comment-section h4 { font-size: 1.15rem; font-weight: 800; color: var(--text-main); margin-bottom: 20px; }
     </style>
+    <!-- Plausible Analytics (가벼운 자가호스팅형 애널리틱스) — plausible.io에서 무료/자가호스팅 계정 생성 후 도메인 인증하면 바로 수집됩니다 -->
+    <script defer data-domain="aikiugihimdulda.vercel.app" src="https://plausible.io/js/script.js"></script>
 </head>
 <body>
     <!-- Scroll Progress Indicator -->
@@ -88,8 +115,8 @@
             <span class="article-category">참가정 양육 고민</span>
             <h1 class="article-title">순결 가이드라인과 secular 세상의 미디어 조율 비법 📱</h1>
             <div class="article-meta">
-                <span><i class="far fa-calendar-alt"></i> 2026.06.25</span>
-                <span><i class="far fa-clock"></i> 9 min read</span>
+                <span><i class="far fa-calendar-alt" aria-hidden="true"></i> 2026.06.25</span>
+                <span><i class="far fa-clock" aria-hidden="true"></i> 9 min read</span>
             </div>
         </header>
 
@@ -178,6 +205,38 @@
             </div>
         </div>
 
+        <!-- Related Articles -->
+        <div class="related-section">
+            <h4>📚 함께 읽으면 좋은 글</h4>
+            <div class="related-grid">
+                <a href="parent-burnout.html" class="related-card">
+                    <div class="related-card__img" style="background: linear-gradient(135deg, #D4B5FF 0%, #5A2C87 100%);">☕</div>
+                    <div class="related-card__body">
+                        <span class="related-card__category">참가정 양육 고민</span>
+                        <h5 class="related-card__title">뜻길과 육아에 지친 부모를 위한 번아웃 극복법 (은혜로운 위로)</h5>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Disqus Comments -->
+        <div class="comment-section">
+            <h4>💬 댓글</h4>
+            <div id="disqus_thread"></div>
+            <script>
+                var disqus_config = function () {
+                    this.page.url = window.location.href;
+                    this.page.identifier = window.location.pathname;
+                };
+                (function() {
+                    var d = document, s = d.createElement('script');
+                    s.src = 'https://YOUR_DISQUS_SHORTNAME.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', +new Date());
+                    (d.head || d.body).appendChild(s);
+                })();
+            </script>
+        </div>
+
         <div class="cta-banner">
             <h3>나의 신앙 양육 스타일은 어떤 페르소나일까? 🪞</h3>
             <p>3분이면 충분해요! 나만의 참사랑 양육 페르소나를 발견하고 맞춤 솔루션을 확인해보세요 ✨</p>
@@ -185,7 +244,7 @@
         </div>
 
         <div style="margin-top: 60px; text-align:center;">
-            <a href="../columns.html" class="btn btn--outline" style="padding: 12px 30px;"><i class="fas fa-arrow-left"></i> 목록으로 돌아가기</a>
+            <a href="../columns.html" class="btn btn--outline" style="padding: 12px 30px;"><i class="fas fa-arrow-left" aria-hidden="true"></i> 목록으로 돌아가기</a>
         </div>
     </main>
 

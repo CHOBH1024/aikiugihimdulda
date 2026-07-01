@@ -1,0 +1,25 @@
+{
+  "name": "Mirror Inside Parenting — 육아 페르소나 진단",
+  "short_name": "Mirror Parenting",
+  "description": "나의 육아 스타일과 페르소나를 진단하고, 아이와 더 가까워지는 방법을 알아보세요.",
+  "start_url": "/index.html",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0B1120",
+  "theme_color": "#34d399",
+  "lang": "ko",
+  "icons": [
+    {
+      "src": "/assets/images/icons/favicon.png",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/images/icons/favicon.png",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ]
+}
