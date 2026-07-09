@@ -1,0 +1,25 @@
+{
+  "name": "참사랑 거울 육아 — 참가정 양육 DNA 진단",
+  "short_name": "참사랑 거울 육아",
+  "description": "축복가정의 부모로서 나의 양육 페르소나를 발견하고, 자녀의 심정에 다가서는 지혜를 찾아보세요.",
+  "start_url": "/family/index.html",
+  "scope": "/family/",
+  "display": "standalone",
+  "background_color": "#0B1120",
+  "theme_color": "#5A2C87",
+  "lang": "ko",
+  "icons": [
+    {
+      "src": "/assets/images/icons/favicon.png",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/images/icons/favicon.png",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ]
+}

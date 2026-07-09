@@ -150,7 +150,34 @@ const template = `<!DOCTYPE html>
         }
         .cta-banner h3 { margin-bottom: 16px; color: var(--text-main); font-weight: 800; font-size: 1.4rem; }
         .cta-banner p { margin-bottom: 24px; font-size: 1rem; color: var(--text-body); }
+        .related-section { margin-top: 60px; }
+        .related-section h4 { font-size: 1.15rem; font-weight: 800; color: var(--text-main); margin-bottom: 20px; }
+        .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+        .related-card {
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            box-shadow: var(--shadow-card);
+            transition: all 0.3s ease;
+        }
+        .related-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-card-hover, 0 8px 24px rgba(0,0,0,0.1)); }
+        .related-card__img {
+            width: 100%; height: 110px; display: flex; align-items: center; justify-content: center;
+            font-size: 2.2rem;
+        }
+        .related-card__body { padding: 16px; }
+        .related-card__category { font-size: 0.7rem; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; display: block; }
+        .related-card__title { font-size: 0.95rem; font-weight: 700; color: var(--text-main); line-height: 1.4; word-break: keep-all; }
+        .comment-section { margin-top: 60px; }
+        .comment-section h4 { font-size: 1.15rem; font-weight: 800; color: var(--text-main); margin-bottom: 20px; }
     </style>
+    <!-- Plausible Analytics (가벼운 자가호스팅형 애널리틱스) — plausible.io에서 무료/자가호스팅 계정 생성 후 도메인 인증하면 바로 수집됩니다 -->
+    <script defer data-domain="aikiugihimdulda.vercel.app" src="https://plausible.io/js/script.js"></script>
 </head>
 <body>
     <!-- Scroll Progress Indicator -->
@@ -217,9 +244,33 @@ const template = `<!DOCTYPE html>
                 </button>
             </div>
         </div>
-        
 
-        
+        <!-- Related Articles -->
+        <div class="related-section">
+            <h4>📚 이런 글도 읽어보세요</h4>
+            <div class="related-grid">
+                {{RELATED_ARTICLES}}
+            </div>
+        </div>
+
+        <!-- Disqus Comments -->
+        <div class="comment-section">
+            <h4>💬 댓글</h4>
+            <div id="disqus_thread"></div>
+            <script>
+                var disqus_config = function () {
+                    this.page.url = window.location.href;
+                    this.page.identifier = window.location.pathname;
+                };
+                (function() {
+                    var d = document, s = d.createElement('script');
+                    s.src = 'https://YOUR_DISQUS_SHORTNAME.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', +new Date());
+                    (d.head || d.body).appendChild(s);
+                })();
+            </script>
+        </div>
+
         <div class="cta-banner">
             <h3>나는 어떤 육아 스타일일까? 🪞</h3>
             <p>3분이면 충분해요! 나만의 육아 페르소나를 발견하고 맞춤 솔루션을 확인해보세요 ✨</p>
@@ -565,21 +616,18 @@ if (!fs.existsSync('columns')) {
     fs.mkdirSync('columns');
 }
 
+// 5-1. 1차 패스: 모든 md 파일의 메타데이터(제목+카테고리+URL 등)만 먼저 수집
+// (이렇게 해야 아직 처리되지 않은 "이후" 파일들도 관련 글 후보로 사용할 수 있음)
+const collectedFiles = [];
 blogDirs.forEach(dir => {
     if (!fs.existsSync(dir)) return;
     const files = fs.readdirSync(dir).filter(f => f.endsWith('.md'));
-    
+
     files.forEach(file => {
         const mdContent = fs.readFileSync(path.join(dir, file), 'utf8');
-        // Remove the first # heading from markdown before parsing to avoid duplicate title in article body
-        const mdContentNoTitle = mdContent.replace(/^#\s+.+\n?/m, '');
-        let htmlContent = marked.parse(mdContentNoTitle);
-        // Also strip any leading <h1> tag that might remain
-        htmlContent = htmlContent.replace(/^<h1[^>]*>.*?<\/h1>\s*/i, '');
-        
         const titleMatch = mdContent.match(/^#\s+(.*)/m);
         const title = titleMatch ? titleMatch[1] : '육아 칼럼';
-        
+
         const meta = METADATA_MAPPING[file] || {
             category: '육아 칼럼',
             icon: '📚',
@@ -587,19 +635,11 @@ blogDirs.forEach(dir => {
             readTime: '6 min read',
             excerpt: title
         };
-        
-        const finalHtml = template
-            .replace(/{{TITLE}}/g, title)
-            .replace(/{{CATEGORY}}/g, meta.category)
-            .replace(/{{ICON}}/g, meta.icon)
-            .replace(/{{GRADIENT}}/g, meta.gradient)
-            .replace(/{{READ_TIME}}/g, meta.readTime)
-            .replace(/{{CONTENT}}/g, htmlContent);
-            
+
         const outFileName = file.replace('.md', '.html');
-        fs.writeFileSync(path.join('columns', outFileName), finalHtml);
-        
-        allPosts.push({
+        const postMeta = {
+            file,
+            dir,
             title,
             url: `columns/${outFileName}`,
             category: meta.category,
@@ -607,9 +647,54 @@ blogDirs.forEach(dir => {
             gradient: meta.gradient,
             readTime: meta.readTime,
             excerpt: meta.excerpt
-        });
-        console.log(`Generated HTML for ${file}`);
+        };
+
+        collectedFiles.push(postMeta);
+        allPosts.push(postMeta);
     });
+});
+
+// 5-2. 2차 패스: 실제 HTML 생성 (이제 allPosts에 모든 글의 메타데이터가 채워져 있으므로
+// 같은 category의 "관련 글"을 자유롭게 골라 넣을 수 있음)
+collectedFiles.forEach(postMeta => {
+    const { file, dir, title, url, category, icon, gradient, readTime, excerpt } = postMeta;
+
+    const mdContent = fs.readFileSync(path.join(dir, file), 'utf8');
+    // Remove the first # heading from markdown before parsing to avoid duplicate title in article body
+    const mdContentNoTitle = mdContent.replace(/^#\s+.+\n?/m, '');
+    let htmlContent = marked.parse(mdContentNoTitle);
+    // Also strip any leading <h1> tag that might remain
+    htmlContent = htmlContent.replace(/^<h1[^>]*>.*?<\/h1>\s*/i, '');
+
+    // 같은 category를 가진 다른 글들 중 최대 3개를 "관련 글"로 선정
+    const relatedPosts = allPosts
+        .filter(p => p.url !== url && p.category === category)
+        .slice(0, 3);
+
+    const relatedHtml = relatedPosts.length > 0
+        ? relatedPosts.map(p => `
+                <a href="/${p.url}" class="related-card">
+                    <div class="related-card__img" style="background: ${p.gradient};">${p.icon}</div>
+                    <div class="related-card__body">
+                        <span class="related-card__category">${p.category}</span>
+                        <h5 class="related-card__title">${p.title}</h5>
+                    </div>
+                </a>`).join('\n')
+        : `<p style="color: var(--text-dim); font-size: 0.9rem;">아직 관련된 다른 글이 없어요. 곧 채워질게요!</p>`;
+
+    const finalHtml = template
+        .replace(/{{TITLE}}/g, title)
+        .replace(/{{CATEGORY}}/g, category)
+        .replace(/{{ICON}}/g, icon)
+        .replace(/{{GRADIENT}}/g, gradient)
+        .replace(/{{READ_TIME}}/g, readTime)
+        .replace(/{{CONTENT}}/g, htmlContent)
+        .replace(/{{RELATED_ARTICLES}}/g, relatedHtml);
+
+    const outFileName = file.replace('.md', '.html');
+    fs.writeFileSync(path.join('columns', outFileName), finalHtml);
+
+    console.log(`Generated HTML for ${file}`);
 });
 
 // 6. columns.html 동적 업데이트 & 실시간 검색 & 카테고리 탭 주입

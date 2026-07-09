@@ -15,7 +15,7 @@
     <meta property="og:type" content="website">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js" defer></script>
     <style>
         .result-wrapper { padding-top: 80px; padding-bottom: 80px; }
         
@@ -209,8 +209,12 @@
         .capture-footer-icon { font-size: 44px; }
     </style>
     
-    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.6.0/kakao.min.js" integrity="sha384-6MFdIr0zOira1CHQkedUqJVql0YtcZA1P0nbFz52+3y2B1A2P7Z0mR6+i3+R02T2" crossorigin="anonymous"></script>
-    <script>Kakao.init('YOUR_KAKAO_APP_KEY');</script>
+    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.6.0/kakao.min.js" integrity="sha384-6MFdIr0zOira1CHQkedUqJVql0YtcZA1P0nbFz52+3y2B1A2P7Z0mR6+i3+R02T2" crossorigin="anonymous" defer></script>
+    <script>window.addEventListener('load', function() { if (window.Kakao && !Kakao.isInitialized()) Kakao.init('YOUR_KAKAO_APP_KEY'); });</script>
+    <link rel="manifest" href="/family/manifest.json">
+    <meta name="theme-color" content="#5A2C87">
+    <!-- Plausible Analytics (가벼운 자가호스팅형 애널리틱스) — plausible.io에서 무료/자가호스팅 계정 생성 후 도메인 인증하면 바로 수집됩니다 -->
+    <script defer data-domain="aikiugihimdulda.vercel.app" src="https://plausible.io/js/script.js"></script>
 </head>
 <body>
     <!-- Pastel Floating Blobs -->
@@ -278,6 +282,12 @@
             const combo = params.get('preview');
             results = generateMockResult(combo);
             noticeBanner = `<div class="notice-banner notice-banner--preview">현재 <strong>미리보기 모드</strong>입니다 👀 나의 진짜 참사랑 양육 페르소나가 궁금하다면 진단해보세요!</div>`;
+        } else if (params.has('share')) {
+            results = decodeShareableResult(params.get('share'));
+            if (results) {
+                const noteHTML = results.note ? `<br>남긴 메모: "${results.note}"` : '';
+                noticeBanner = `<div class="notice-banner notice-banner--preview">📮 <strong>상담 참고용으로 공유된 결과</strong>입니다. 본인이 아닌 다른 식구가 상담을 위해 전달한 화면일 수 있어요.${noteHTML}<br><small>※ 이 결과는 참고자료이며 전문 상담·치료를 대체하지 않습니다.</small></div>`;
+            }
         } else {
             results = loadResults();
         }
@@ -358,6 +368,25 @@
                 recColsHTML += `</div></div>`;
             }
 
+            // 추천 도서 링크 (알라딘 도서 검색으로 연결 — 제휴 파트너 코드가 있다면 URL 끝에 &partner=본인코드 형태로 붙이세요)
+            let bookHTML = '';
+            if (overallPersona.book) {
+                const b = overallPersona.book;
+                const searchUrl = `https://www.aladin.co.kr/search/wsearchresult.aspx?SearchTarget=Book&SearchWord=${encodeURIComponent(b.title.replace(/[「」]/g, ''))}`;
+                bookHTML = `
+                <div style="margin-top: 32px; margin-bottom: 32px; background: var(--bg-card); border: 1px solid var(--glass-border); border-radius: 16px; padding: 24px; display:flex; gap:20px; align-items:center; flex-wrap:wrap; transition: all 0.25s cubic-bezier(0.25,0.8,0.25,1);" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='var(--shadow-card-hover)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                    <img src="${b.img}" alt="${b.title}" style="width:80px; height:110px; object-fit:cover; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.15); flex-shrink:0;">
+                    <div style="flex:1; min-width:180px;">
+                        <div style="font-size:0.8rem; color:var(--primary); font-weight:700; margin-bottom:4px;">📖 ${overallPersona.name.split(' ')[0]} 부모님을 위한 추천 도서</div>
+                        <h4 style="font-size:1.05rem; color:var(--text-main); font-weight:800; margin-bottom:6px;">${b.title}</h4>
+                        <p style="font-size:0.88rem; color:var(--text-body); line-height:1.5; margin-bottom:12px;">${b.desc}</p>
+                        <a href="${searchUrl}" target="_blank" rel="noopener sponsored" class="btn btn--outline" style="display:inline-flex; align-items:center; gap:6px; font-size:0.85rem; padding:8px 16px;">
+                            <i class="fas fa-book" aria-hidden="true"></i> 책 보러가기
+                        </a>
+                    </div>
+                </div>`;
+            }
+
             wrapper.innerHTML = `
                 ${noticeBanner}
                 
@@ -395,9 +424,9 @@
                                             <button class="btn-unlock-fact" onclick="unlockFactBomb()">🔓 잠금 해제하기</button>
                                         </div>
                                         <div class="fact-bomb-content" id="factBombContent">
-                                            <h4 style="font-size: 1.1rem; color: #ef4444; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;"><i class="fas fa-bolt"></i> 참사랑을 실천하는 축복부모 완성을 위한 뼈 때리는 말씀 조언</h4>
+                                            <h4 style="font-size: 1.1rem; color: #ef4444; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;"><i class="fas fa-bolt" aria-hidden="true"></i> 참사랑을 실천하는 축복부모 완성을 위한 뼈 때리는 말씀 조언</h4>
                                             <p style="font-size: 0.95rem; color: var(--text-main); line-height: 1.6; font-weight: 600; margin-bottom: 24px; word-break: keep-all;">${overallPersona.factBomb || '참사랑의 균형을 지켜 자녀의 신앙 독립을 돕는 것이 중요합니다.'}</p>
-                                            <button class="btn-share-postcard" onclick="downloadPostcard()"><i class="fas fa-camera-retro"></i> 이 말씀 조언을 엽서로 저장하기</button>
+                                            <button class="btn-share-postcard" onclick="downloadPostcard()"><i class="fas fa-camera-retro" aria-hidden="true"></i> 이 말씀 조언을 엽서로 저장하기</button>
                                         </div>
                                     </div>
                                 </div>
@@ -405,9 +434,9 @@
                         </div>
 
                         <div class="action-buttons">
-                            <button class="btn btn--large btn-insta" onclick="downloadImage()"><i class="fab fa-instagram"></i> 인스타 스토리에 공유하기 (이미지 저장)</button>
-                            <button class="btn btn--large btn-kakao" onclick="shareKakao()"><i class="fas fa-comment"></i> 카카오톡으로 결과 보내기</button>
-                            <button class="btn btn--secondary btn--large" onclick="copyResult()"><i class="fas fa-link"></i> 링크 복사하기</button>
+                            <button class="btn btn--large btn-insta" onclick="downloadImage()"><i class="fab fa-instagram" aria-hidden="true"></i> 인스타 스토리에 공유하기 (이미지 저장)</button>
+                            <button class="btn btn--large btn-kakao" onclick="shareKakao()"><i class="fas fa-comment" aria-hidden="true"></i> 카카오톡으로 결과 보내기</button>
+                            <button class="btn btn--secondary btn--large" onclick="copyResult()"><i class="fas fa-link" aria-hidden="true"></i> 링크 복사하기</button>
                         </div>
                         <p style="text-align: center; font-size: 0.85rem; color: var(--text-dim); margin-top: 4px;">
                             💡 '인스타 스토리 공유' 버튼을 누르면 이미지가 저장됩니다.
@@ -466,16 +495,49 @@
                             </div>
                         </div>
 
+                        ${bookHTML}
                         ${recColsHTML}
+                        ${results.isShared ? '' : `
+                        <div style="margin-top: 32px; background: var(--bg-card); border: 1px solid var(--glass-border); border-radius: 16px; padding: 24px;">
+                            <h3 style="font-size: 1.1rem; margin-bottom: 8px;">📮 목회자·상담자와 결과 나누기</h3>
+                            <p style="font-size: 0.88rem; color: var(--text-body); margin-bottom: 16px;">담임목사님이나 상담 담당 식구와 이 결과를 함께 보고 싶다면, 아래에 상담받고 싶은 내용을 간단히 남기고 링크를 만들어 전달하세요. 서버에 저장되지 않고 링크 안에만 담깁니다.</p>
+                            <textarea id="shareNoteInput" placeholder="예: 요즘 신앙생활에 회의가 들어서 상담받고 싶어요 (선택 입력)" maxlength="300" style="width:100%; min-height:70px; padding:12px; border-radius:10px; border:1px solid var(--glass-border); background:var(--bg-main); color:var(--text-main); font-family:inherit; font-size:0.9rem; resize:vertical;"></textarea>
+                            <button class="btn btn--secondary" style="margin-top:12px;" onclick="generateShareLink()"><i class="fas fa-link" aria-hidden="true"></i> 공유 링크 만들기</button>
+                            <div id="shareLinkBox" style="display:none; margin-top:14px;">
+                                <input type="text" id="shareLinkOutput" readonly style="width:100%; padding:12px; border-radius:10px; border:1px solid var(--glass-border); background:var(--bg-main); color:var(--text-main); font-size:0.85rem; margin-bottom:10px;">
+                                <button class="btn btn--outline" onclick="copyShareLink()"><i class="fas fa-copy" aria-hidden="true"></i> 링크 복사하기</button>
+                            </div>
+                        </div>
+                        `}
                     </div>
                 </div>
             `;
         }
 
+        function generateShareLink() {
+            if (!results || results.isShared) return;
+            const note = (document.getElementById('shareNoteInput') || {}).value || '';
+            const code = encodeShareableResult(results, note);
+            const url = `${window.location.origin}${window.location.pathname}?share=${code}`;
+            const output = document.getElementById('shareLinkOutput');
+            output.value = url;
+            document.getElementById('shareLinkBox').style.display = 'block';
+        }
+
+        function copyShareLink() {
+            const output = document.getElementById('shareLinkOutput');
+            output.select();
+            navigator.clipboard.writeText(output.value).then(() => {
+                alert('✅ 링크가 복사되었습니다!');
+            }).catch(() => {
+                alert('복사에 실패했습니다. 직접 선택해서 복사해주세요.');
+            });
+        }
+
         async function downloadImage() {
             const btn = document.querySelector('.btn-insta');
             const originalText = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 이미지 생성 중...';
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin" aria-hidden="true"></i> 이미지 생성 중...';
             
             const el = document.getElementById('captureArea');
             el.style.left = '0';
@@ -491,7 +553,7 @@
                 link.download = `truefamily_parenting_result.png`;
                 link.href = canvas.toDataURL('image/png');
                 link.click();
-                btn.innerHTML = '<i class="fas fa-check"></i> 저장 완료! 성화 톡방에 공유해 보세요';
+                btn.innerHTML = '<i class="fas fa-check" aria-hidden="true"></i> 저장 완료! 성화 톡방에 공유해 보세요';
             } catch (e) {
                 console.error(e);
                 alert('이미지 저장에 실패했습니다.');
@@ -516,7 +578,7 @@
         async function downloadPostcard() {
             const btn = document.querySelector('.btn-share-postcard');
             const originalText = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 엽서 굽는 중...';
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin" aria-hidden="true"></i> 엽서 굽는 중...';
             
             const el = document.getElementById('postcardArea');
             el.style.left = '0';
@@ -533,7 +595,7 @@
                 link.download = `truefamily_fact_bomb.png`;
                 link.href = canvas.toDataURL('image/png', 1.0);
                 link.click();
-                btn.innerHTML = '<i class="fas fa-check"></i> 저장 완료!';
+                btn.innerHTML = '<i class="fas fa-check" aria-hidden="true"></i> 저장 완료!';
             } catch (e) {
                 console.error(e);
                 alert('엽서 저장에 실패했습니다.');
@@ -627,6 +689,14 @@
                 document.body.style.overflow = 'auto';
             }, 1500);
         }
+    </script>
+
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/family/sw.js').catch(() => {});
+        });
+      }
     </script>
 </body>
 </html>

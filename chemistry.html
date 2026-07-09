@@ -14,6 +14,136 @@
     <meta property="og:type" content="website">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="/style.css">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#34d399">
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js" defer></script>
+    <style>
+        /* Off-screen couple chemistry capture area */
+        #coupleCaptureArea {
+            position: absolute;
+            left: -9999px;
+            top: 0;
+            width: 1080px;
+            height: 1920px; /* 9:16 Story Ratio */
+            background: linear-gradient(160deg, #FFF5F5 0%, #FFFFFF 60%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 80px;
+            box-sizing: border-box;
+            z-index: -100;
+            pointer-events: none;
+            visibility: hidden;
+            font-family: 'Pretendard', sans-serif;
+        }
+
+        .couple-card {
+            background: #fff;
+            width: 100%;
+            border-radius: 60px;
+            overflow: hidden;
+            box-shadow: 0 40px 100px rgba(255, 107, 107, 0.15);
+            border: 4px solid #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 70px 50px;
+            box-sizing: border-box;
+        }
+
+        .couple-card__badge {
+            font-size: 30px;
+            font-weight: 800;
+            color: var(--primary);
+            background: var(--primary-dim);
+            padding: 14px 32px;
+            border-radius: 40px;
+            margin-bottom: 50px;
+            letter-spacing: 1px;
+        }
+
+        .couple-card__row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 36px;
+            width: 100%;
+            margin-bottom: 50px;
+        }
+
+        .couple-card__persona {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .couple-card__persona img {
+            width: 220px;
+            height: 220px;
+            object-fit: contain;
+            margin-bottom: 24px;
+        }
+
+        .couple-card__persona-role {
+            font-size: 26px;
+            color: var(--text-body);
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .couple-card__persona-name {
+            font-size: 34px;
+            color: var(--text-main);
+            font-weight: 900;
+            text-align: center;
+            line-height: 1.3;
+            word-break: keep-all;
+        }
+
+        .couple-card__vs {
+            font-size: 56px;
+            flex-shrink: 0;
+        }
+
+        .couple-card__score {
+            font-size: 130px;
+            font-weight: 900;
+            font-family: 'Nunito', sans-serif;
+            line-height: 1;
+            margin-bottom: 20px;
+        }
+
+        .couple-card__score span { font-size: 60px; }
+
+        .couple-card__title {
+            font-size: 50px;
+            font-weight: 900;
+            color: var(--text-main);
+            text-align: center;
+            line-height: 1.35;
+            word-break: keep-all;
+            padding: 0 20px;
+        }
+
+        .couple-card__footer {
+            margin-top: 70px;
+            text-align: center;
+            font-size: 34px;
+            color: var(--primary);
+            font-weight: 800;
+            font-family: 'Nunito', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .couple-card__footer-icon { font-size: 44px; }
+    </style>
+    <!-- Plausible Analytics (가벼운 자가호스팅형 애널리틱스) — plausible.io에서 무료/자가호스팅 계정 생성 후 도메인 인증하면 바로 수집됩니다 -->
+    <script defer data-domain="aikiugihimdulda.vercel.app" src="https://plausible.io/js/script.js"></script>
 </head>
 <body>
     <!-- Pastel Floating Blobs Background -->
@@ -94,6 +224,29 @@
         </div>
 
     </main>
+
+    <!-- Hidden Couple Chemistry Capture Area -->
+    <div id="coupleCaptureArea">
+        <div class="couple-card">
+            <div class="couple-card__badge">💌 부부 육아 케미스트리</div>
+            <div class="couple-card__row">
+                <div class="couple-card__persona">
+                    <img id="coupleCardMyImg" src="" alt="">
+                    <div class="couple-card__persona-role">나</div>
+                    <div class="couple-card__persona-name" id="coupleCardMyName"></div>
+                </div>
+                <div class="couple-card__vs">❤️</div>
+                <div class="couple-card__persona">
+                    <img id="coupleCardPartnerImg" src="" alt="">
+                    <div class="couple-card__persona-role">배우자</div>
+                    <div class="couple-card__persona-name" id="coupleCardPartnerName"></div>
+                </div>
+            </div>
+            <div class="couple-card__score" id="coupleCardScore">0<span>%</span></div>
+            <div class="couple-card__title" id="coupleCardTitle"></div>
+        </div>
+        <div class="couple-card__footer"><span class="couple-card__footer-icon">🪞</span> Mirror Inside Parenting</div>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">
@@ -258,11 +411,18 @@
                         카카오톡으로 공유하기
                     </button>
                     <button class="btn btn--outline" id="btnCopyLink" onclick="copyLink()" style="display:inline-flex; align-items:center; gap:8px;">
-                        <i class="fas fa-link"></i>
+                        <i class="fas fa-link" aria-hidden="true"></i>
                         링크 복사하기
+                    </button>
+                    <button class="btn btn--outline btn-couple-card" id="btnCoupleCard" onclick="downloadCoupleCard()" style="display:inline-flex; align-items:center; gap:8px;">
+                        <i class="fas fa-download" aria-hidden="true"></i>
+                        💌 커플 궁합 카드 저장하기
                     </button>
                 </div>
             `;
+
+            // Fill (and refresh) the hidden capture card with the freshly calculated result
+            fillCoupleCard(chem);
             
             resultContainer.style.display = 'block';
             resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -272,6 +432,57 @@
             void resultContainer.offsetWidth; // trigger reflow
             resultContainer.classList.add('fade-in');
         });
+
+        function fillCoupleCard(chem) {
+            const myVal = document.getElementById('myPersona').value;
+            const partnerVal = document.getElementById('partnerPersona').value;
+            const myP = OVERALL_TITLES.find(t => t.combo === myVal);
+            const partnerP = OVERALL_TITLES.find(t => t.combo === partnerVal);
+            if (!myP || !partnerP || !chem) return;
+
+            document.getElementById('coupleCardMyImg').src = myP.imageUrl;
+            document.getElementById('coupleCardMyImg').alt = myP.name;
+            document.getElementById('coupleCardMyName').textContent = myP.name;
+
+            document.getElementById('coupleCardPartnerImg').src = partnerP.imageUrl;
+            document.getElementById('coupleCardPartnerImg').alt = partnerP.name;
+            document.getElementById('coupleCardPartnerName').textContent = partnerP.name;
+
+            document.getElementById('coupleCardScore').innerHTML = `${chem.score}<span>%</span>`;
+            document.getElementById('coupleCardTitle').textContent = `"${chem.title}"`;
+        }
+
+        async function downloadCoupleCard() {
+            const btn = document.getElementById('btnCoupleCard');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin" aria-hidden="true"></i> 이미지 생성 중...';
+
+            const el = document.getElementById('coupleCaptureArea');
+            el.style.left = '0';
+            el.style.top = '0';
+            el.style.zIndex = '9999';
+            el.style.visibility = 'visible';
+
+            try {
+                await document.fonts.ready;
+                await new Promise(r => setTimeout(r, 250));
+                const canvas = await html2canvas(el, { scale: 2, backgroundColor: '#FFF5F5', useCORS: true, logging: false });
+                const link = document.createElement('a');
+                link.download = 'mirror_inside_couple_chemistry.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+                btn.innerHTML = '<i class="fas fa-check" aria-hidden="true"></i> 저장 완료! 인스타에 올려보세요';
+            } catch (e) {
+                console.error(e);
+                alert('이미지 저장에 실패했습니다.');
+                btn.innerHTML = originalText;
+            } finally {
+                el.style.left = '-9999px';
+                el.style.zIndex = '-100';
+                el.style.visibility = 'hidden';
+                setTimeout(() => { if (btn.innerHTML.includes('완료')) btn.innerHTML = originalText; }, 3000);
+            }
+        }
 
         function shareKakao() {
             const myVal = document.getElementById('myPersona').value;
@@ -340,6 +551,14 @@
             clearTimeout(toast._timer);
             toast._timer = setTimeout(() => { toast.style.opacity = '0'; }, 2800);
         }
+    </script>
+
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(() => {});
+        });
+      }
     </script>
 </body>
 </html>
