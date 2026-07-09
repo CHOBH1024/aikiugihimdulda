@@ -441,128 +441,70 @@
   <!-- Back to Top Button -->
   <button id="back-to-top" title="위로 가기">↑</button>
 
-  <!-- Global Utility Bar (Theme, BGM, Random Q) -->
+  <!-- Global Utility Bar (Theme, BGM, Random Q, Missions, Dates) -->
   <div class="theme-switcher">
-    <button class="theme-btn" id="btn-random-q" title="오늘의 대화 질문 뽑기">💬 랜덤 질문</button>
+    <button class="theme-btn" data-open-modal="modal-questions" title="대화 주제 뽑기">💬 대화</button>
+    <button class="theme-btn" data-open-modal="modal-mission" title="오늘의 미션 뽑기">💌 미션</button>
+    <button class="theme-btn" data-open-modal="modal-date" title="데이트 룰렛 돌리기">🎪 데이트</button>
+    <div style="width:1px; height:16px; background:var(--glass-border); margin:0 4px;"></div>
     <button class="theme-btn" id="btn-bgm" title="배경음악 켜기/끄기">🎵 BGM <span class="eq-bars"><span></span><span></span><span></span></span></button>
     <div style="width:1px; height:16px; background:var(--glass-border); margin:0 4px;"></div>
-    <button class="theme-btn active" data-set-theme="dark" title="매혹적인 다크 모드">🌙 다크</button>
-    <button class="theme-btn" data-set-theme="lovely" title="사랑스러운 라이트 모드">🌸 러블리</button>
+    <button class="theme-btn active" data-set-theme="dark" title="다크 모드">🌙</button>
+    <button class="theme-btn" data-set-theme="lovely" title="러블리 모드">🌸</button>
   </div>
 
-  <!-- Random Question Modal -->
-  <div class="modal-overlay" id="random-q-modal">
+  <!-- 1. Questions Modal -->
+  <div class="modal-overlay" id="modal-questions">
     <div class="modal-content">
-      <button class="modal-close" id="close-modal">&times;</button>
-      <div class="modal-badge">오늘의 부부 대화 주제</div>
-      <div class="modal-question serif" id="random-q-text">질문을 불러오는 중입니다...</div>
+      <button class="modal-close">&times;</button>
+      <div class="modal-badge">💬 부부 대화 주제</div>
+      <div class="cat-tabs">
+        <button class="cat-tab active" data-cat="deep">🌊 딥토크</button>
+        <button class="cat-tab" data-cat="spicy">🔥 매운맛</button>
+        <button class="cat-tab" data-cat="light">☀️ 일상</button>
+        <button class="cat-tab" data-cat="future">🚀 미래</button>
+      </div>
+      <div class="modal-question serif" id="q-modal-text">질문을 불러오는 중입니다...</div>
       <div class="modal-actions">
         <button class="btn btn-outline" id="btn-new-q">🔄 다른 질문 뽑기</button>
       </div>
     </div>
   </div>
 
+  <!-- 2. Secret Mission Modal -->
+  <div class="modal-overlay" id="modal-mission">
+    <div class="modal-content">
+      <button class="modal-close">&times;</button>
+      <div class="modal-badge" style="color:var(--gold); background:rgba(244,162,97,0.15); border-color:rgba(244,162,97,0.3);">💌 오늘의 시크릿 미션</div>
+      <div class="modal-desc">배우자 몰래 오늘 하루 동안 아래 미션을 실천해보세요!</div>
+      <div class="modal-question serif" id="mission-modal-text">미션을 불러오는 중입니다...</div>
+      <div class="modal-actions">
+        <button class="btn btn-outline" id="btn-new-m">🔄 미션 다시 뽑기</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Date Roulette Modal -->
+  <div class="modal-overlay" id="modal-date">
+    <div class="modal-content">
+      <button class="modal-close">&times;</button>
+      <div class="modal-badge" style="color:#e040fb; background:rgba(224,64,251,0.15); border-color:rgba(224,64,251,0.3);">🎪 데이트 룰렛</div>
+      <div class="modal-desc">이번 주말엔 뭐 하지? 룰렛을 돌려보세요!</div>
+      <div class="modal-question serif" id="date-modal-text" style="color:var(--gold);">버튼을 눌러 룰렛을 돌려보세요!</div>
+      <div class="modal-desc" id="date-modal-desc" style="margin-top:0;"></div>
+      <div class="modal-actions">
+        <button class="btn" id="btn-spin-date" style="width:100%;">🎰 룰렛 돌리기</button>
+      </div>
+    </div>
+  </div>
+
   <!-- External Script for Articles Data -->
   <script src="data_articles.js"></script>
+  <!-- Global Widgets Data & Logic -->
+  <script src="data_widgets.js"></script>
+  <script src="widgets.js"></script>
 
   <script>
-    // ============================================================
-    // GLOBAL WIDGETS LOGIC
-    // ============================================================
-    
-    // 1. Theme Switcher Logic
-    const themeBtns = document.querySelectorAll('[data-set-theme]');
-    const savedTheme = localStorage.getItem('alkong_theme') || 'dark';
-
-    function setTheme(theme) {
-      if (theme === 'lovely') {
-        document.documentElement.setAttribute('data-theme', 'lovely');
-      } else {
-        document.documentElement.removeAttribute('data-theme');
-      }
-      localStorage.setItem('alkong_theme', theme);
-      themeBtns.forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.setTheme === theme);
-      });
-    }
-
-    setTheme(savedTheme);
-
-    themeBtns.forEach(btn => {
-      btn.addEventListener('click', () => setTheme(btn.dataset.setTheme));
-    });
-
-    // 2. Back to Top Button
-    const bttBtn = document.getElementById('back-to-top');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 500) bttBtn.classList.add('visible');
-      else bttBtn.classList.remove('visible');
-    });
-    bttBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-
-    // 3. Random Question Modal
-    const rqBtn = document.getElementById('btn-random-q');
-    const rqModal = document.getElementById('random-q-modal');
-    const rqClose = document.getElementById('close-modal');
-    const rqText = document.getElementById('random-q-text');
-    const rqNew = document.getElementById('btn-new-q');
-
-    const questions = [
-      "최근 나에게 가장 고마웠던 순간은 언제였어?",
-      "우리가 처음 만났을 때, 나의 첫인상은 어땠어?",
-      "만약 우리에게 일주일의 자유 시간과 무제한 예산이 주어진다면 뭘 하고 싶어?",
-      "요즘 당신을 가장 스트레스 받게 하는 것은 뭐야? 내가 도울 수 있을까?",
-      "우리의 침실 라이프에서 새롭게 시도해보고 싶은 판타지가 있어?",
-      "내가 당신을 사랑한다고 가장 크게 느끼는 순간은 언제야?",
-      "과거로 돌아가 우리 연애 시절의 하루를 다시 살 수 있다면 언제로 가고 싶어?",
-      "우리가 10년 뒤에는 어떤 모습의 부부가 되어 있을까?",
-      "나에게 서운했던 적 중에 아직 말하지 못한 것이 있어?",
-      "당신이 생각하는 '완벽한 하루'의 일정표를 짜본다면?"
-    ];
-
-    function showRandomQuestion() {
-      const q = questions[Math.floor(Math.random() * questions.length)];
-      rqText.innerHTML = q;
-    }
-
-    rqBtn.addEventListener('click', () => {
-      showRandomQuestion();
-      rqModal.classList.add('active');
-    });
-    rqClose.addEventListener('click', () => rqModal.classList.remove('active'));
-    rqModal.addEventListener('click', (e) => {
-      if (e.target === rqModal) rqModal.classList.remove('active');
-    });
-    rqNew.addEventListener('click', showRandomQuestion);
-
-    // 4. BGM Player
-    const bgmBtn = document.getElementById('btn-bgm');
-    const eqBars = bgmBtn.querySelector('.eq-bars');
-    let bgmAudio = null;
-    let isPlaying = false;
-
-    // Using a reliable royalty-free romantic lo-fi URL from internet radio/free sources
-    const BGM_URL = "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3";
-
-    bgmBtn.addEventListener('click', () => {
-      if (!bgmAudio) {
-        bgmAudio = new Audio(BGM_URL);
-        bgmAudio.loop = true;
-        bgmAudio.volume = 0.4;
-      }
-      
-      if (isPlaying) {
-        bgmAudio.pause();
-        eqBars.classList.remove('playing');
-        bgmBtn.classList.remove('active');
-      } else {
-        bgmAudio.play().catch(e => console.log('Audio play failed:', e));
-        eqBars.classList.add('playing');
-        bgmBtn.classList.add('active');
-      }
-      isPlaying = !isPlaying;
-    });
-
     // ============================================================
     // HOME ANIMATIONS
     // ============================================================

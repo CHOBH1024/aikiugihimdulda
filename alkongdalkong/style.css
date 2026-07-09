@@ -895,6 +895,44 @@ section { padding: 7rem 0; }
   justify-content: center;
 }
 
+/* Category Tabs for Question Modal */
+.cat-tabs {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+.cat-tab {
+  background: rgba(255,42,109,0.05);
+  border: 1px solid var(--glass-border);
+  color: var(--text-muted);
+  padding: 6px 14px;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.cat-tab:hover {
+  background: rgba(255,42,109,0.1);
+  color: var(--text-main);
+}
+.cat-tab.active {
+  background: var(--grad-primary);
+  color: white;
+  border-color: transparent;
+  box-shadow: var(--neon-sm);
+}
+
+.modal-desc {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-top: -1.5rem;
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+
 /* ======================================================
    MARQUEE / SCROLL TICKER
 ====================================================== */
