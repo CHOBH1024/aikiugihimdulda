@@ -430,8 +430,6 @@
           </ul>
         </div>
       </div>
-
-      <div class="footer-bottom">
         <p class="footer-quote serif">
           "사랑은 바라보는 것이 아니라, 함께 같은 방향을 바라보는 것이다." — 생텍쥐페리
         </p>
@@ -440,7 +438,41 @@
     </div>
   </footer>
 
+  <!-- Theme Switcher -->
+  <div class="theme-switcher">
+    <button class="theme-btn active" data-set-theme="dark" title="매혹적인 다크 모드">🌙 다크</button>
+    <button class="theme-btn" data-set-theme="lovely" title="사랑스러운 라이트 모드">🌸 러블리</button>
+  </div>
+
+  <!-- External Script for Articles Data -->
+  <script src="data_articles.js"></script>
+
   <script>
+    // Theme Switcher Logic
+    const themeBtns = document.querySelectorAll('.theme-btn');
+    const savedTheme = localStorage.getItem('alkong_theme') || 'dark';
+
+    function setTheme(theme) {
+      if (theme === 'lovely') {
+        document.documentElement.setAttribute('data-theme', 'lovely');
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+      }
+      localStorage.setItem('alkong_theme', theme);
+      themeBtns.forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.setTheme === theme);
+      });
+    }
+
+    setTheme(savedTheme);
+
+    themeBtns.forEach(btn => {
+      btn.addEventListener('click', () => setTheme(btn.dataset.setTheme));
+    });
+
+    // 1. Ticker Animation (Continuous horizontal scroll)
+    const track = document.getElementById('tickerTrack');
+
     // ===== HEADER SCROLL =====
     const header = document.getElementById('main-header');
     window.addEventListener('scroll', () => {
