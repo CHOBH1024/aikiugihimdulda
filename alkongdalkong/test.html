@@ -180,101 +180,239 @@
       font-weight: 600;
     }
 
-    #question-container { min-height: 320px; }
+    #question-container { min-height: 380px; }
 
+    /* ---- Question text with slide-in ---- */
     .question-title {
       font-family: var(--font-serif);
       font-size: clamp(1.25rem, 2.5vw, 1.7rem);
       line-height: 1.5;
       color: var(--text-main);
-      margin-bottom: 2rem;
+      margin-bottom: 2.5rem;
       text-align: center;
+      animation: qTitleIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
     }
 
-    .options-grid { display: flex; flex-direction: column; gap: 0.9rem; }
+    @keyframes qTitleIn {
+      from { opacity: 0; transform: translateY(-18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ================================================================
+       CARD GAME OPTION STYLES
+    ================================================================ */
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      perspective: 1000px;
+    }
+
+    /* Each card starts dealt from a deck (bottom-center) */
+    @keyframes cardDeal {
+      0% {
+        opacity: 0;
+        transform: translateY(60px) translateX(var(--deal-x, 0px)) rotate(var(--deal-rot, 0deg)) scale(0.8);
+        filter: blur(4px);
+      }
+      60% {
+        opacity: 1;
+        filter: blur(0);
+      }
+      80% {
+        transform: translateY(-6px) translateX(0) rotate(0deg) scale(1.02);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) translateX(0) rotate(0deg) scale(1);
+        filter: blur(0);
+      }
+    }
 
     .option-btn {
-      background: rgba(10,0,5,0.5);
-      border: 1px solid rgba(255,42,109,0.18);
+      background: linear-gradient(135deg, rgba(20,3,12,0.85) 0%, rgba(35,5,18,0.75) 100%);
+      border: 1px solid rgba(255,42,109,0.22);
       color: var(--text-sub);
-      padding: 1.1rem 1.4rem;
-      border-radius: 14px;
+      padding: 1.15rem 1.5rem;
+      border-radius: 18px;
       cursor: pointer;
       font-size: 1rem;
       text-align: left;
       line-height: 1.5;
-      transition: all 0.3s ease;
-      backdrop-filter: blur(8px);
+      backdrop-filter: blur(12px);
       position: relative;
       overflow: hidden;
+      /* Card deal animation */
+      opacity: 0;
+      animation: cardDeal 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05);
+      /* Smooth hover */
+      transition: transform 0.25s cubic-bezier(0.22,1,0.36,1),
+                  border-color 0.25s ease,
+                  background 0.25s ease,
+                  box-shadow 0.25s ease;
     }
 
-    .option-btn::before {
+    /* Card index label on the left */
+    .option-btn .opt-index {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: rgba(255,42,109,0.15);
+      border: 1px solid rgba(255,42,109,0.3);
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--rose);
+      flex-shrink: 0;
+      margin-right: 12px;
+      transition: all 0.25s ease;
+    }
+
+    .option-btn-inner {
+      display: flex;
+      align-items: flex-start;
+      gap: 0;
+    }
+
+    /* Shimmer sweep on hover */
+    .option-btn::after {
       content: '';
       position: absolute;
-      left: 0; top: 0; bottom: 0;
-      width: 3px;
-      background: var(--grad-primary);
-      opacity: 0;
-      transition: opacity 0.3s;
+      top: 0; left: -100%;
+      width: 60%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+      transform: skewX(-20deg);
+      transition: left 0.5s ease;
     }
 
     .option-btn:hover {
-      background: rgba(255,42,109,0.12);
-      border-color: rgba(255,42,109,0.45);
+      background: linear-gradient(135deg, rgba(255,42,109,0.16) 0%, rgba(89,13,34,0.4) 100%);
+      border-color: rgba(255,42,109,0.6);
       color: var(--text-main);
-      transform: translateX(6px);
-      box-shadow: 0 0 16px rgba(255,42,109,0.12);
+      transform: translateX(10px) scale(1.015);
+      box-shadow: -4px 0 0 var(--rose), 0 12px 32px rgba(255,42,109,0.18), inset 0 1px 0 rgba(255,255,255,0.08);
     }
 
-    .option-btn:hover::before { opacity: 1; }
+    .option-btn:hover::after { left: 140%; }
+
+    .option-btn:hover .opt-index {
+      background: var(--rose);
+      color: white;
+      border-color: transparent;
+      box-shadow: var(--neon-sm);
+    }
 
     .option-btn.selected {
-      background: rgba(255,42,109,0.18);
+      background: linear-gradient(135deg, rgba(255,42,109,0.28) 0%, rgba(89,13,34,0.6) 100%);
       border-color: var(--rose);
       color: white;
+      transform: translateX(10px);
+      box-shadow: -4px 0 0 var(--rose), var(--neon-sm);
     }
 
-    /* Likert row */
+    .option-btn.selected .opt-index {
+      background: var(--rose);
+      color: white;
+      border-color: transparent;
+    }
+
+    /* ---- Likert Cards (bigger, card-game style) ---- */
     .likert-row {
       display: flex;
-      gap: 0.8rem;
+      gap: 0.75rem;
       justify-content: center;
       flex-wrap: wrap;
+      perspective: 800px;
+    }
+
+    @keyframes likertDeal {
+      0% {
+        opacity: 0;
+        transform: translateY(80px) rotate(var(--lrot, 0deg)) scale(0.6);
+        filter: blur(6px);
+      }
+      70% {
+        opacity: 1;
+        transform: translateY(-8px) rotate(0deg) scale(1.04);
+        filter: blur(0);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg) scale(1);
+      }
     }
 
     .likert-btn {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 6px;
-      padding: 1rem 1.5rem;
-      border-radius: 14px;
-      border: 1px solid rgba(255,42,109,0.18);
-      background: rgba(10,0,5,0.5);
+      gap: 8px;
+      padding: 1.2rem 1.1rem;
+      border-radius: 18px;
+      border: 1px solid rgba(255,42,109,0.2);
+      background: linear-gradient(160deg, rgba(20,3,12,0.9) 0%, rgba(40,6,20,0.7) 100%);
       cursor: pointer;
-      transition: all 0.3s ease;
-      min-width: 90px;
+      min-width: 88px;
       color: var(--text-muted);
       font-size: 0.88rem;
+      opacity: 0;
+      animation: likertDeal 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05);
+      transition: transform 0.25s cubic-bezier(0.22,1,0.36,1),
+                  border-color 0.25s, background 0.25s, box-shadow 0.25s;
+      position: relative;
+      overflow: hidden;
     }
 
-    .likert-btn .lnum { font-family: var(--font-serif); font-size: 1.6rem; font-weight: 700; }
-    .likert-btn .ltext { font-size: 0.75rem; line-height: 1.2; text-align: center; }
+    /* suit symbol watermark */
+    .likert-btn::before {
+      content: '♥';
+      position: absolute;
+      bottom: -6px; right: 4px;
+      font-size: 2.5rem;
+      opacity: 0.04;
+      color: var(--rose);
+      pointer-events: none;
+      transition: opacity 0.25s;
+    }
+
+    .likert-btn:hover::before { opacity: 0.12; }
+
+    .likert-btn .lnum {
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      font-weight: 900;
+      line-height: 1;
+      transition: text-shadow 0.25s, transform 0.25s;
+    }
+
+    .likert-btn .ltext { font-size: 0.72rem; line-height: 1.3; text-align: center; }
 
     .likert-btn:hover {
       border-color: var(--rose);
-      background: rgba(255,42,109,0.12);
+      background: linear-gradient(160deg, rgba(255,42,109,0.18) 0%, rgba(89,13,34,0.5) 100%);
       color: var(--text-main);
-      transform: translateY(-4px);
-      box-shadow: var(--neon-sm);
+      transform: translateY(-12px) scale(1.06);
+      box-shadow: 0 0 0 1px var(--rose), var(--neon-md), 0 20px 40px rgba(0,0,0,0.6);
     }
 
-    .likert-btn[data-val="1"] .lnum { color: #888; }
+    .likert-btn:hover .lnum { transform: scale(1.1); }
+
+    .likert-btn.selected {
+      background: linear-gradient(160deg, rgba(255,42,109,0.3) 0%, rgba(89,13,34,0.7) 100%);
+      border-color: var(--rose);
+      transform: translateY(-8px) scale(1.04);
+      box-shadow: var(--neon-md);
+      color: white;
+    }
+
+    .likert-btn[data-val="1"] .lnum { color: #777; }
     .likert-btn[data-val="2"] .lnum { color: #c77d99; }
     .likert-btn[data-val="3"] .lnum { color: #ff9db8; }
-    .likert-btn[data-val="4"] .lnum { color: #ff2a6d; }
-    .likert-btn[data-val="5"] .lnum { color: #f4a261; }
+    .likert-btn[data-val="4"] .lnum { color: #ff2a6d; text-shadow: var(--neon-sm); }
+    .likert-btn[data-val="5"] .lnum { color: #f4a261; text-shadow: 0 0 8px rgba(244,162,97,0.6); }
 
     /* ================================================================
        RESULT SCREEN — SPECTACULAR
@@ -924,6 +1062,13 @@
   // ============================================================
   //  SHOW QUESTION
   // ============================================================
+  // ============================================================
+  //  SHOW QUESTION — CARD GAME DEAL ANIMATION
+  // ============================================================
+  const LABELS = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+  const DEAL_X = ['-40px', '-15px', '15px', '40px'];
+  const DEAL_ROT = ['-6deg', '-2deg', '2deg', '6deg'];
+
   function showQuestion() {
     if (currentQuestionIndex >= currentTestSet.length) {
       showResult();
@@ -939,45 +1084,104 @@
     document.getElementById('quiz-label').textContent = testMode === 'comprehensive' ? '종합 진단 진행 중' : '집중 진단 진행 중';
 
     const qc = document.getElementById('question-container');
+    // Fade out old content
+    qc.style.opacity = '0';
+    qc.style.transform = 'translateY(-10px)';
+    qc.style.transition = 'opacity 0.15s ease, transform 0.15s ease';
 
-    if (testMode === 'comprehensive') {
-      qc.innerHTML = `
-        <h2 class="question-title serif">Q${currentQuestionIndex + 1}. ${q.q}</h2>
-        <div class="likert-row">
-          <button class="likert-btn" data-val="1"><span class="lnum">1</span><span class="ltext">전혀<br>그렇지 않다</span></button>
-          <button class="likert-btn" data-val="2"><span class="lnum">2</span><span class="ltext">그렇지<br>않다</span></button>
-          <button class="likert-btn" data-val="3"><span class="lnum">3</span><span class="ltext">보통<br>이다</span></button>
-          <button class="likert-btn" data-val="4"><span class="lnum">4</span><span class="ltext">그렇다</span></button>
-          <button class="likert-btn" data-val="5"><span class="lnum">5</span><span class="ltext">매우<br>그렇다</span></button>
-        </div>
-      `;
-      qc.querySelectorAll('.likert-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          let val = parseInt(btn.dataset.val);
-          if (q.reverse) val = 6 - val;
-          compScores[q.trait] += val;
-          btn.classList.add('selected');
-          setTimeout(() => { currentQuestionIndex++; showQuestion(); }, 200);
+    setTimeout(() => {
+      qc.style.transition = '';
+      qc.style.opacity = '';
+      qc.style.transform = '';
+
+      if (testMode === 'comprehensive') {
+        // Likert card deal — 5 cards fan out from center
+        const lrotMap = ['-12deg', '-6deg', '0deg', '6deg', '12deg'];
+        const ldelays  = [0, 0.07, 0.14, 0.21, 0.28];
+        qc.innerHTML = `
+          <h2 class="question-title serif">Q${currentQuestionIndex + 1}. ${q.q}</h2>
+          <div class="likert-row" id="likert-row"></div>
+        `;
+        const likertData = [
+          { val: 1, lnum: '1', ltext: '전혀<br>그렇지 않다' },
+          { val: 2, lnum: '2', ltext: '그렇지<br>않다' },
+          { val: 3, lnum: '3', ltext: '보통<br>이다' },
+          { val: 4, lnum: '4', ltext: '그렇다' },
+          { val: 5, lnum: '5', ltext: '매우<br>그렇다' }
+        ];
+        const row = document.getElementById('likert-row');
+        likertData.forEach((d, i) => {
+          const btn = document.createElement('button');
+          btn.className = 'likert-btn';
+          btn.dataset.val = d.val;
+          btn.innerHTML = `<span class="lnum">${d.lnum}</span><span class="ltext">${d.ltext}</span>`;
+          // Custom CSS variables for deal animation
+          btn.style.setProperty('--lrot', lrotMap[i]);
+          btn.style.animationDelay = ldelays[i] + 's';
+          btn.addEventListener('click', () => {
+            if (btn.classList.contains('selected')) return;
+            let val = parseInt(btn.dataset.val);
+            if (q.reverse) val = 6 - val;
+            compScores[q.trait] += val;
+            btn.classList.add('selected');
+            // Fly-out effect before next question
+            row.querySelectorAll('.likert-btn').forEach(b => {
+              b.style.transition = 'all 0.25s ease';
+              b.style.transform = 'translateY(40px) scale(0.8)';
+              b.style.opacity = '0';
+            });
+            setTimeout(() => { currentQuestionIndex++; showQuestion(); }, 280);
+          });
+          row.appendChild(btn);
         });
-      });
-    } else {
-      const optsHTML = q.opts.map((opt, i) =>
-        `<button class="option-btn" data-idx="${i}">${opt.text}</button>`
-      ).join('');
-      qc.innerHTML = `
-        <h2 class="question-title serif">Q${currentQuestionIndex + 1}. ${q.q}</h2>
-        <div class="options-grid">${optsHTML}</div>
-      `;
-      qc.querySelectorAll('.option-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const idx = parseInt(btn.dataset.idx);
-          const scores = q.opts[idx].scores;
-          for (const k in scores) catScores[k] = (catScores[k] || 0) + scores[k];
-          btn.classList.add('selected');
-          setTimeout(() => { currentQuestionIndex++; showQuestion(); }, 220);
+
+      } else {
+        // Category option cards — deal from bottom with stagger
+        const total = q.opts.length;
+        qc.innerHTML = `
+          <h2 class="question-title serif">Q${currentQuestionIndex + 1}. ${q.q}</h2>
+          <div class="options-grid" id="opts-grid"></div>
+        `;
+        const grid = document.getElementById('opts-grid');
+        const optLabels = ['A', 'B', 'C', 'D', 'E', 'F'];
+        q.opts.forEach((opt, i) => {
+          const btn = document.createElement('button');
+          btn.className = 'option-btn';
+          btn.dataset.idx = i;
+          // Fan spread variables: middle-aligned offsets
+          const mid = (total - 1) / 2;
+          const xRatio = (i - mid) / Math.max(mid, 1);
+          const dealX  = `${xRatio * 32}px`;
+          const dealRot = `${xRatio * 4}deg`;
+          btn.style.setProperty('--deal-x',   dealX);
+          btn.style.setProperty('--deal-rot',  dealRot);
+          btn.style.animationDelay = (i * 0.08) + 's';
+
+          btn.innerHTML = `
+            <div class="option-btn-inner">
+              <span class="opt-index">${optLabels[i]}</span>
+              <span>${opt.text}</span>
+            </div>
+          `;
+          btn.addEventListener('click', () => {
+            if (btn.classList.contains('selected')) return;
+            const scores = q.opts[i].scores;
+            for (const k in scores) catScores[k] = (catScores[k] || 0) + scores[k];
+            btn.classList.add('selected');
+            // Dramatic flip-out: non-selected cards slide down
+            grid.querySelectorAll('.option-btn').forEach((b, j) => {
+              if (b !== btn) {
+                b.style.transition = `all ${0.18 + j * 0.04}s ease`;
+                b.style.transform = 'translateX(-30px) scale(0.9)';
+                b.style.opacity = '0.2';
+              }
+            });
+            setTimeout(() => { currentQuestionIndex++; showQuestion(); }, 350);
+          });
+          grid.appendChild(btn);
         });
-      });
-    }
+      }
+    }, 160);
   }
 
   // ============================================================
