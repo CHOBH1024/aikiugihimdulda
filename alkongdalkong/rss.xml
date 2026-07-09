@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+<channel>
+  <title>알콩달콩 - 예비부부를 위한 달콤한 가이드</title>
+  <link>https://alkongdalkong.vercel.app</link>
+  <description>결혼을 앞둔 예비부부를 위한 심리, 대화법, 부부생활, 사랑의 방식 등 모든 것을 담은 달콤한 가이드</description>
+  <item>
+    <title>알콩달콩 메인 테스트</title>
+    <link>https://alkongdalkong.vercel.app/test.html</link>
+    <description>우리 부부의 궁합은? 8가지 집중 진단과 종합 차트로 알아보는 커플 궁합 테스트</description>
+  </item>
+  <item>
+    <title>우리를 위한 이야기</title>
+    <link>https://alkongdalkong.vercel.app/topics.html</link>
+    <description>부부가 함께 읽어보는 현실적이고 깊이 있는 이야기들</description>
+  </item>
+</channel>
+</rss>
