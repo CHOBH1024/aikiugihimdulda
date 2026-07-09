@@ -3,89 +3,480 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>알콩달콩 | 예비부부를 위한 달콤한 가이드</title>
-  <meta name="description" content="결혼을 앞둔 예비부부를 위한 심리, 대화법, 부부생활, 사랑의 방식 등 모든 것을 담은 달콤한 가이드">
-  
+  <title>💍 알콩달콩 | 예비부부를 위한 달콤하고 깊은 가이드</title>
+  <meta name="description" content="결혼을 앞둔 예비부부를 위한 심리, 대화법, 부부생활, 성심리, 사랑의 방식 등 모든 것을 담은 달콤하고 은밀한 가이드">
+  <meta name="keywords" content="예비부부, 부부심리, 부부생활, 궁합테스트, 성심리, 결혼준비, 커플심리테스트, 부부대화법, 사랑의언어">
+  <meta name="author" content="알콩달콩">
+  <meta property="og:title" content="알콩달콩 | 예비부부를 위한 달콤하고 깊은 가이드">
+  <meta property="og:description" content="8가지 분야 240문항 궁합 테스트 · 풍성한 부부 칼럼 · 성심리 · 대화법까지 한 곳에서">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://alkongdalkong.vercel.app">
+
   <!-- SEO & Search Engine Verification -->
   <meta name="google-site-verification" content="Tb_LmHczAZCjYOkU4RJh-m02RB4srmXHH4OFI3dxxGs" />
   <meta name="naver-site-verification" content="71f3a2735ae9f6b6d5d0e18e6af9daac390b022b" />
-  
+
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9992037844935954" crossorigin="anonymous"></script>
 
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Background Shapes for aesthetics -->
-  <div class="shape shape-1"></div>
-  <div class="shape shape-2"></div>
 
-  <header>
+  <!-- Floating Orbs -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <!-- ===== HEADER ===== -->
+  <header id="main-header">
     <div class="container nav-container">
-      <div class="logo">
-        <span class="text-gradient">💍 알콩달콩</span>
-      </div>
+      <a href="index.html" class="logo" style="text-decoration:none;">
+        <span class="logo-emoji">💍</span> 알콩달콩
+      </a>
       <nav class="nav-links">
-        <a href="index.html">홈</a>
-        <a href="topics.html">이야기</a>
-        <a href="test.html">궁합 테스트</a>
-        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Theme">☀️</button>
+        <a href="index.html">🏠 홈</a>
+        <a href="topics.html">📖 이야기</a>
+        <a href="test.html">💌 궁합 테스트</a>
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Theme">🌙</button>
       </nav>
     </div>
   </header>
 
-  <main>
-    <section class="hero container">
-      <div class="hero-content glass">
-        <h1>우리가 진짜 <br><span class="text-gradient">부부</span>가 되어가는 시간</h1>
-        <p>설레는 연애를 넘어, 평생을 함께할 동반자로서 필요한 모든 이야기.<br>대화법, 부부생활, 성심리, 그리고 미래의 아이까지.</p>
-        <div class="hero-buttons">
-          <a href="test.html" class="btn btn-primary">우리 궁합 알아보기</a>
-          <a href="topics.html" class="btn btn-outline">부부 이야기 읽기</a>
-        </div>
-      </div>
-    </section>
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <!-- Falling petals -->
+    <div class="petals" aria-hidden="true" id="petals-container"></div>
 
-    <section class="features-section container">
-      <div class="section-header">
-        <h2>어떤 <span class="text-gradient">비밀</span>을 나눌까요?</h2>
-        <p>우리 부부만의 더 깊고 은밀한 8가지 이야기</p>
+    <div class="hero-inner">
+      <div class="hero-badge">
+        ✨ 대한민국 예비부부 필수 심리 가이드 &nbsp;•&nbsp; NEW 2026
       </div>
-      
-      <div class="grid" id="topics-preview">
-        <!-- Will be populated by JS or just static for now -->
-        <div class="card glass">
-          <div class="card-icon">💋</div>
-          <h3 class="serif-text">가장 깊고 은밀한 교감</h3>
-          <p>단순한 행위를 넘어, 부부의 몸과 마음이 하나가 되는 시간.</p>
-        </div>
-        <div class="card glass">
-          <div class="card-icon">🍷</div>
-          <h3 class="serif-text">서로를 잇는 끈적한 대화법</h3>
-          <p>갈등마저 사랑으로 녹여버리는 소통의 마법.</p>
-        </div>
-        <div class="card glass">
-          <div class="card-icon">🌹</div>
-          <h3 class="serif-text">어른들의 로맨틱 데이트</h3>
-          <p>연애 시절의 짜릿함을 일깨워줄 은밀한 데이트 아이디어.</p>
-        </div>
-        <div class="card glass">
-          <div class="card-icon">🎭</div>
-          <h3 class="serif-text">매혹적인 사고방식</h3>
-          <p>서로를 완전히 다른 우주로 인정하고 존중하는 어른의 심리학.</p>
-        </div>
-      </div>
-      <div style="text-align: center; margin-top: 4rem;">
-        <a href="topics.html" class="btn btn-primary">모든 비밀 이야기 열어보기</a>
-      </div>
-    </section>
-  </main>
 
-  <footer style="text-align: center; padding: 4rem 0; margin-top: 5rem; border-top: 1px solid var(--surface-border);" class="glass">
-    <p style="color: var(--text-muted); font-size: 0.95rem; font-family: var(--font-serif); font-style: italic;">"Love is an irresistible desire to be irresistibly desired."</p>
-    <p style="color: var(--surface-border); font-size: 0.8rem; margin-top: 10px;">© 2026 알콩달콩. All rights reserved.</p>
+      <h1>
+        우리가 진짜<br>
+        <span class="text-gradient">사랑하는</span> 법을<br>
+        배워야 할 시간
+      </h1>
+
+      <p class="hero-sub">
+        💋 설레는 연애를 넘어, 평생을 함께할 반려자로서
+      </p>
+      <p class="hero-desc">
+        대화법 · 성심리 · 부부생활 · 데이트 · 사고방식 · 건강 · 사랑의 언어 · 미래의 아이까지<br>
+        <em>우리 둘 사이의 모든 것</em>을 솔직하게, 그리고 깊게 다룹니다.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="test.html" class="btn btn-primary" id="hero-cta-test">
+          💎 우리 궁합 바로 알아보기
+        </a>
+        <a href="topics.html" class="btn btn-outline" id="hero-cta-topics">
+          📚 부부 이야기 읽기
+        </a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-number text-gradient">240+</div>
+          <div class="stat-label">🔍 심층 진단 문항</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number text-gradient">8</div>
+          <div class="stat-label">🎯 분야별 집중 진단</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number text-gradient">24</div>
+          <div class="stat-label">📝 전문 부부 칼럼</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number text-gradient">100%</div>
+          <div class="stat-label">💯 심리학 기반</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TICKER ===== -->
+  <div class="ticker-wrap" aria-hidden="true">
+    <div class="ticker-track" id="ticker">
+      <div class="ticker-item"><span class="dot">♥</span> 성심리 & 친밀도 진단</div>
+      <div class="ticker-item"><span class="dot">♥</span> 가트먼 대화 이론 기반</div>
+      <div class="ticker-item"><span class="dot">♥</span> 5가지 사랑의 언어 테스트</div>
+      <div class="ticker-item"><span class="dot">♥</span> 부부 성격유형 분석</div>
+      <div class="ticker-item"><span class="dot">♥</span> 어른들의 은밀한 데이트 가이드</div>
+      <div class="ticker-item"><span class="dot">♥</span> 권태기 극복 심리학</div>
+      <div class="ticker-item"><span class="dot">♥</span> 임신 & 가족계획 완전 정복</div>
+      <div class="ticker-item"><span class="dot">♥</span> 양가 부모님 문제 해결법</div>
+      <div class="ticker-item"><span class="dot">♥</span> 성심리 & 친밀도 진단</div>
+      <div class="ticker-item"><span class="dot">♥</span> 가트먼 대화 이론 기반</div>
+      <div class="ticker-item"><span class="dot">♥</span> 5가지 사랑의 언어 테스트</div>
+      <div class="ticker-item"><span class="dot">♥</span> 부부 성격유형 분석</div>
+      <div class="ticker-item"><span class="dot">♥</span> 어른들의 은밀한 데이트 가이드</div>
+      <div class="ticker-item"><span class="dot">♥</span> 권태기 극복 심리학</div>
+      <div class="ticker-item"><span class="dot">♥</span> 임신 & 가족계획 완전 정복</div>
+      <div class="ticker-item"><span class="dot">♥</span> 양가 부모님 문제 해결법</div>
+    </div>
+  </div>
+
+  <!-- ===== FEATURES SECTION ===== -->
+  <section id="features">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">🔥 8가지 심층 진단 분야</div>
+        <h2 class="section-title">
+          우리만의 <span class="text-gradient">비밀</span>을<br>
+          들여다볼 시간
+        </h2>
+        <p class="section-sub">단순한 테스트가 아닙니다. 심리학 이론을 기반으로 구성한 240개 문항으로 우리 부부의 모든 면을 탐색합니다.</p>
+      </div>
+
+      <div class="features-grid">
+        <!-- 1 -->
+        <div class="feat-card reveal" style="transition-delay:0.05s">
+          <span class="feat-icon">💋</span>
+          <span class="feat-label">INTIMACY</span>
+          <h3 class="serif">가장 깊고 은밀한<br>교감</h3>
+          <p>단순한 행위를 넘어 두 사람의 몸과 마음이 온전히 하나가 되는 시간. 스킨십 언어, 성적 취향, 이상형, 욕구의 솔직한 언어를 탐색합니다.</p>
+        </div>
+        <!-- 2 -->
+        <div class="feat-card reveal" style="transition-delay:0.1s">
+          <span class="feat-icon">🍷</span>
+          <span class="feat-label">COMMUNICATION</span>
+          <h3 class="serif">서로를 잇는<br>끈적한 대화법</h3>
+          <p>가트먼의 4가지 독소 이론부터 폭풍 전야의 침묵까지. 갈등마저 애정으로 녹여버리는 소통의 기술을 과학적으로 파헤칩니다.</p>
+        </div>
+        <!-- 3 -->
+        <div class="feat-card reveal" style="transition-delay:0.15s">
+          <span class="feat-icon">🌹</span>
+          <span class="feat-label">DATE</span>
+          <h3 class="serif">어른들의<br>로맨틱 데이트</h3>
+          <p>연애 시절의 짜릿함을 되살릴 은밀하고 설레는 데이트 아이디어. 즉흥 여행부터 호텔룸 깜짝 이벤트까지, 우리 스타일을 진단합니다.</p>
+        </div>
+        <!-- 4 -->
+        <div class="feat-card reveal" style="transition-delay:0.2s">
+          <span class="feat-icon">🏠</span>
+          <span class="feat-label">MARRIED LIFE</span>
+          <h3 class="serif">완벽한 부부생활<br>팀워크</h3>
+          <p>돈 관리, 집안일 분담, 비자금, 양가 문제까지. 현실 속 부부생활의 적나라하고 중요한 이슈들을 미리 파악하고 대비합니다.</p>
+        </div>
+        <!-- 5 -->
+        <div class="feat-card reveal" style="transition-delay:0.25s">
+          <span class="feat-icon">🎭</span>
+          <span class="feat-label">MINDSET</span>
+          <h3 class="serif">매혹적인<br>사고방식</h3>
+          <p>서로를 완전히 다른 우주로 인정하는 어른의 심리학. 프라이버시, SNS, 이성 친구 문제까지 가치관 충돌을 미리 점검합니다.</p>
+        </div>
+        <!-- 6 -->
+        <div class="feat-card reveal" style="transition-delay:0.3s">
+          <span class="feat-icon">🌡️</span>
+          <span class="feat-label">CONDITION</span>
+          <h3 class="serif">서로의 힐링<br>컨디션</h3>
+          <p>상대가 아프거나 번아웃이 왔을 때 어떻게 곁에 있어줄 수 있을까. 정서적 지지와 회복 방식의 궁합을 섬세하게 탐색합니다.</p>
+        </div>
+        <!-- 7 -->
+        <div class="feat-card reveal" style="transition-delay:0.35s">
+          <span class="feat-icon">👶</span>
+          <span class="feat-label">FUTURE CHILD</span>
+          <h3 class="serif">미래의 아이와<br>가족계획</h3>
+          <p>딩크 vs 출산, 훈육 철학, 교육 방식, 임신 준비까지. 우리 두 사람이 함께 그려갈 가족의 미래를 미리 그려봅니다.</p>
+        </div>
+        <!-- 8 -->
+        <div class="feat-card reveal" style="transition-delay:0.4s">
+          <span class="feat-icon">💝</span>
+          <span class="feat-label">LOVE METHODS</span>
+          <h3 class="serif">사랑을 전하는<br>5가지 언어</h3>
+          <p>게리 채프먼의 사랑의 언어 이론 기반. 칭찬, 스킨십, 선물, 함께하는 시간, 봉사 중 우리의 언어는 어떻게 다를까요?</p>
+        </div>
+      </div>
+
+      <div class="ornament-divider">✦ ✦ ✦</div>
+      <div style="text-align:center;">
+        <a href="test.html" class="btn btn-primary" id="feat-cta">
+          💎 지금 바로 8가지 진단 시작하기
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA QUIZ SECTION ===== -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-box reveal">
+        <div class="cta-emoji-row">💍 💋 🥂 💌 🌹</div>
+        <h2 class="serif">
+          우리 부부의 <span class="text-gradient">진짜 궁합</span>은<br>
+          몇 점일까요?
+        </h2>
+        <p>심리학자들이 검증한 8가지 영역, 총 240개의 문항으로 구성된 국내 최대 수준의 부부 궁합 진단. 단순 재미를 넘어 진지한 통찰을 드립니다.</p>
+        <div class="cta-tags">
+          <span class="cta-tag">💋 친밀도 & 성심리</span>
+          <span class="cta-tag">🍷 대화 & 소통</span>
+          <span class="cta-tag">🌹 데이트 스타일</span>
+          <span class="cta-tag">🏠 부부생활 현실</span>
+          <span class="cta-tag">🎭 가치관 & 독립성</span>
+          <span class="cta-tag">🌡️ 감정 지지</span>
+          <span class="cta-tag">👶 가족계획</span>
+          <span class="cta-tag">💝 사랑의 언어</span>
+          <span class="cta-tag">📊 종합 레이더 차트</span>
+        </div>
+        <a href="test.html" class="btn btn-gold" id="cta-quiz-btn">
+          ✨ 무료 궁합 진단 시작하기 →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ARTICLE PREVIEW ===== -->
+  <section class="articles-section">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">📖 프리미엄 부부 칼럼</div>
+        <h2 class="section-title">
+          아무도 알려주지 않던<br><span class="text-gradient">솔직한 이야기</span>들
+        </h2>
+        <p class="section-sub">학교에서도, 부모님도 알려주지 않은 현실적인 부부 이야기. 심리학 기반의 깊고 솔직한 24가지 칼럼을 만나보세요.</p>
+      </div>
+
+      <div class="article-grid">
+        <a href="topics.html" class="article-card reveal" style="transition-delay:0.05s">
+          <div class="article-card-top">
+            <span class="article-card-icon">💋</span>
+            <span class="article-cat">성심리 & 친밀도</span>
+          </div>
+          <div class="article-card-body">
+            <h3 class="serif">부부 사이의 욕망을 솔직하게 말하는 방법</h3>
+            <p>원하는 것을 말하지 못하고 참다가 마음이 멀어지는 이유와, 안전하게 욕망을 표현하는 심리적 기법.</p>
+          </div>
+          <div class="article-card-footer">
+            <span class="article-read">읽어보기</span>
+            <span class="article-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="topics.html" class="article-card reveal" style="transition-delay:0.1s">
+          <div class="article-card-top">
+            <span class="article-card-icon">🍷</span>
+            <span class="article-cat">대화법 & 소통</span>
+          </div>
+          <div class="article-card-body">
+            <h3 class="serif">부부싸움 후 입 닫는 사람 vs 퍼붓는 사람</h3>
+            <p>가트먼이 발견한 이혼 예측 지표 4가지와, 갈등이 오히려 두 사람을 더 가깝게 만드는 법.</p>
+          </div>
+          <div class="article-card-footer">
+            <span class="article-read">읽어보기</span>
+            <span class="article-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="topics.html" class="article-card reveal" style="transition-delay:0.15s">
+          <div class="article-card-top">
+            <span class="article-card-icon">🌹</span>
+            <span class="article-cat">로맨스 & 데이트</span>
+          </div>
+          <div class="article-card-body">
+            <h3 class="serif">10년 된 부부도 가슴 뛰게 하는 데이트의 비밀</h3>
+            <p>심리학적으로 설렘을 유지하는 방법과, 권태기를 날려버릴 어른의 은밀한 데이트 플랜.</p>
+          </div>
+          <div class="article-card-footer">
+            <span class="article-read">읽어보기</span>
+            <span class="article-arrow">→</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="ornament-divider" style="margin-top:3rem;">✦ ✦ ✦</div>
+      <div style="text-align:center; margin-top:1.5rem;">
+        <a href="topics.html" class="btn btn-outline" id="articles-cta">
+          📚 24가지 칼럼 전체 보기 →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== WHY SECTION ===== -->
+  <section class="why-section">
+    <div class="container">
+      <div class="why-grid">
+        <div class="why-text-side reveal">
+          <div class="section-tag" style="margin-bottom:1.5rem">🧠 왜 알콩달콩인가요?</div>
+          <h2 class="serif">
+            연애로는 알 수 없는<br>
+            <span class="text-gradient">결혼의 현실</span>을<br>
+            미리 준비하세요
+          </h2>
+          <p>연애 감정이 식은 뒤에야 진짜 상대방이 보입니다. 그 시점이 결혼 후라면 너무 늦습니다.</p>
+          <p>알콩달콩은 단순히 재밌는 궁합 테스트가 아닙니다. 두 사람의 가치관, 성격, 욕구, 소통 방식을 심리학적으로 탐색하여 갈등을 예방하고 더 깊은 사랑을 만드는 도구입니다.</p>
+          <ul class="why-list">
+            <li>
+              <span class="icon">🔬</span>
+              <span>심리학 & 행동과학 이론에 근거한 문항 설계 (가트먼, 채프먼, 스턴버그 이론 적용)</span>
+            </li>
+            <li>
+              <span class="icon">📊</span>
+              <span>레이더 차트로 시각화된 5개 핵심 지표 분석 (친밀감, 열정, 헌신, 소통, 애착)</span>
+            </li>
+            <li>
+              <span class="icon">💋</span>
+              <span>성심리부터 가족계획까지, 아무도 먼저 꺼내지 않는 이야기를 솔직하게</span>
+            </li>
+            <li>
+              <span class="icon">🔒</span>
+              <span>모든 테스트 결과는 서버에 저장되지 않습니다. 우리 둘만의 비밀로</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="why-visual reveal" style="transition-delay:0.2s">
+          <div class="why-card-stack">
+            <div class="why-stack-item glass">
+              <span class="stack-emoji">📝</span>
+              <div class="stack-title serif">종합 진단 테스트</div>
+              <div class="stack-desc">40문항 · 5개 지표 레이더 차트 · 커플 유형 진단</div>
+            </div>
+            <div class="why-stack-item glass">
+              <span class="stack-emoji">🔍</span>
+              <div class="stack-title serif">집중 진단 (8 분야)</div>
+              <div class="stack-desc">각 분야 30문항 · 심층 특성 분석 · 맞춤형 조언</div>
+            </div>
+            <div class="why-stack-item">
+              <span class="stack-emoji">💎</span>
+              <div class="stack-title serif">지금 무료로 시작하세요</div>
+              <div class="stack-desc">회원가입 없이 즉시 이용 · 두 사람이 함께 해도 좋고, 혼자 먼저 해봐도 좋아요</div>
+              <div class="stack-stars">⭐ ⭐ ⭐ ⭐ ⭐</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== QUOTES SECTION ===== -->
+  <section class="quotes-section">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">💬 사랑에 대한 깊은 통찰</div>
+        <h2 class="section-title serif">
+          사랑을 <span class="text-gradient">다시 배운다</span>는 것
+        </h2>
+      </div>
+
+      <div class="quote-grid">
+        <div class="quote-card reveal" style="transition-delay:0.05s">
+          <span class="quote-mark">"</span>
+          <p class="quote-text">사랑은 단지 느끼는 것이 아닙니다. 사랑은 상대방의 언어로 말하는 법을 배우는 행위입니다. 내가 원하는 방식이 아닌, 상대방이 받고 싶은 방식으로.</p>
+          <div class="quote-author">
+            <span class="quote-avatar">💝</span>
+            <div>
+              <div class="quote-name">게리 채프먼 (Gary Chapman)</div>
+              <div class="quote-meta">《5가지 사랑의 언어》 저자 · 관계 심리학자</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="quote-card reveal" style="transition-delay:0.1s">
+          <span class="quote-mark">"</span>
+          <p class="quote-text">행복한 부부는 갈등이 없는 것이 아닙니다. 그들은 다만 같은 갈등을 반복하지 않는 법을 알고 있을 뿐입니다. 그 비결은 상대방의 내면 세계를 충분히 아는 것입니다.</p>
+          <div class="quote-author">
+            <span class="quote-avatar">🧠</span>
+            <div>
+              <div class="quote-name">존 가트먼 (John Gottman)</div>
+              <div class="quote-meta">이혼 예측률 94% · 부부 심리학의 권위자</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="quote-card reveal" style="transition-delay:0.15s">
+          <span class="quote-mark">"</span>
+          <p class="quote-text">열정은 시간이 지나면 식지만, 친밀감과 헌신은 노력으로 깊어집니다. 완전한 사랑은 이 세 가지의 균형에서 나옵니다. 당신의 사랑은 지금 어디쯤 와 있나요?</p>
+          <div class="quote-author">
+            <span class="quote-avatar">🌹</span>
+            <div>
+              <div class="quote-name">로버트 스턴버그 (Robert Sternberg)</div>
+              <div class="quote-meta">사랑의 삼각 이론 창시 · 예일대학교 심리학자</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <div class="logo" style="display:inline-block;margin-bottom:1.2rem;">
+            <span class="logo-emoji">💍</span> 알콩달콩
+          </div>
+          <p>결혼을 앞둔 예비부부와 이미 함께하는 모든 부부를 위한 달콤하고 깊은 가이드. 사랑을 더 잘하고 싶은 모든 이에게 바칩니다.</p>
+        </div>
+        <div class="footer-col">
+          <h4>💌 주요 메뉴</h4>
+          <ul>
+            <li><a href="index.html">🏠 홈으로</a></li>
+            <li><a href="topics.html">📖 부부 이야기 칼럼</a></li>
+            <li><a href="test.html">💎 궁합 테스트 전체</a></li>
+            <li><a href="test.html#comprehensive">📊 종합 진단 (40문항)</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>🔥 집중 진단 분야</h4>
+          <ul>
+            <li><a href="test.html">💋 성심리 & 친밀도</a></li>
+            <li><a href="test.html">🍷 대화법 & 소통</a></li>
+            <li><a href="test.html">🌹 로맨틱 데이트</a></li>
+            <li><a href="test.html">👶 미래 가족 계획</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-quote serif">
+          "사랑은 바라보는 것이 아니라, 함께 같은 방향을 바라보는 것이다." — 생텍쥐페리
+        </p>
+        <p class="footer-copy">© 2026 알콩달콩 · All rights reserved.</p>
+      </div>
+    </div>
   </footer>
 
-  <script src="main.js"></script>
+  <script>
+    // ===== HEADER SCROLL =====
+    const header = document.getElementById('main-header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // ===== FALLING PETALS =====
+    const petalsContainer = document.getElementById('petals-container');
+    const petalEmojis = ['🌸','🌹','❤️','💋','🌺','💕','✨','💖','🌷','💎'];
+    for (let i = 0; i < 18; i++) {
+      const petal = document.createElement('div');
+      petal.classList.add('petal');
+      petal.textContent = petalEmojis[Math.floor(Math.random() * petalEmojis.length)];
+      petal.style.cssText = `
+        left: ${Math.random() * 100}%;
+        font-size: ${0.9 + Math.random() * 1.4}rem;
+        animation-duration: ${8 + Math.random() * 14}s;
+        animation-delay: ${Math.random() * -20}s;
+      `;
+      petalsContainer.appendChild(petal);
+    }
+
+    // ===== SCROLL REVEAL =====
+    const reveals = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+    reveals.forEach(el => io.observe(el));
+
+    // ===== TICKER duplicate for infinite =====
+    // Already duplicated in HTML; JS not needed.
+  </script>
 </body>
 </html>

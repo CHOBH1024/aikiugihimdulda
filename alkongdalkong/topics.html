@@ -12,47 +12,94 @@
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9992037844935954" crossorigin="anonymous"></script>
 
-  <title>부부 이야기 | 알콩달콩</title>
+  <title>📖 부부 이야기 | 알콩달콩</title>
   <link rel="stylesheet" href="style.css">
   <style>
     .topics-header {
       text-align: center;
-      padding: 120px 20px 60px;
+      padding: 150px 20px 60px;
     }
-    
+    .topics-header h1 {
+      font-size: clamp(2.2rem, 4vw, 3.8rem);
+      font-family: var(--font-serif);
+      margin-bottom: 1rem;
+    }
+    .topics-header p {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+    .topics-header .badge-row {
+      display: flex;
+      gap: 0.8rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 1.5rem 0;
+    }
+    .topics-header .tbadge {
+      background: rgba(255,42,109,0.1);
+      border: 1px solid rgba(255,42,109,0.25);
+      border-radius: 50px;
+      padding: 5px 16px;
+      font-size: 0.82rem;
+      color: var(--blush);
+    }
+
     .topics-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      margin-bottom: 5rem;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2.2rem;
+      margin-bottom: 6rem;
+      padding: 0 0 2rem;
     }
 
     .topic-card {
-      padding: 2rem;
+      padding: 2.2rem;
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      gap: 0.8rem;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--glass-border);
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      transition: all 0.4s ease;
+    }
+
+    .topic-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(255,42,109,0.4);
+      box-shadow: 0 0 20px rgba(255,42,109,0.15), 0 25px 60px rgba(0,0,0,0.5);
     }
 
     .topic-card h3 {
-      font-size: 1.4rem;
+      font-size: 1.45rem;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
+      font-family: var(--font-serif);
+      color: var(--text-main);
+    }
+
+    .topic-desc-text {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      border-bottom: 1px solid var(--glass-border);
+      padding-bottom: 1rem;
+      margin-bottom: 0.5rem;
     }
 
     .article-list {
       list-style: none;
-      margin-top: 1rem;
       flex-grow: 1;
     }
 
     .article-list li {
-      margin-bottom: 1rem;
-      padding-bottom: 1rem;
-      border-bottom: 1px solid var(--surface-border);
+      margin-bottom: 0.9rem;
+      padding-bottom: 0.9rem;
+      border-bottom: 1px solid rgba(255,42,109,0.07);
     }
-    
+
     .article-list li:last-child {
       border-bottom: none;
       margin-bottom: 0;
@@ -61,39 +108,54 @@
 
     .article-title {
       font-weight: 600;
-      color: var(--primary-color);
-      margin-bottom: 0.5rem;
+      color: var(--rose);
+      margin-bottom: 0.4rem;
       display: block;
+      font-size: 0.98rem;
+      transition: color 0.3s;
     }
 
+    .article-title:hover { color: var(--blush); }
+
     .article-desc {
-      font-size: 0.9rem;
-      color: var(--text-muted);
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      line-height: 1.6;
     }
   </style>
 </head>
 <body>
-  <div class="shape shape-1"></div>
-  <div class="shape shape-2" style="top: 50%; right: 10%; bottom: auto;"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
 
-  <header>
+  <header id="main-header">
     <div class="container nav-container">
-      <div class="logo">
-        <span class="text-gradient">💍 알콩달콩</span>
-      </div>
+      <a href="index.html" class="logo" style="text-decoration:none;">
+        <span class="logo-emoji">💍</span> 알콩달콩
+      </a>
       <nav class="nav-links">
-        <a href="index.html">홈</a>
-        <a href="topics.html">이야기</a>
-        <a href="test.html">궁합 테스트</a>
-        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Theme">☀️</button>
+        <a href="index.html">🏠 홈</a>
+        <a href="topics.html">📖 이야기</a>
+        <a href="test.html">💌 궁합 테스트</a>
       </nav>
     </div>
   </header>
 
   <main class="container">
     <section class="topics-header">
-      <h1 class="text-gradient">우리의 은밀하고 매혹적인 이야기</h1>
-      <p>연애부터 결혼, 그리고 침대 위에서의 솔직한 속마음까지.<br>서로의 영혼과 육체를 더 깊이 교감하게 해줄 주제들입니다.</p>
+      <div class="section-tag" style="margin-bottom:1.2rem;">📖 프리미엄 부부 칼럼 24편</div>
+      <h1><span class="text-gradient">우리의 은밀하고</span><br>매혹적인 이야기들</h1>
+      <div class="badge-row">
+        <span class="tbadge">💋 성심리</span>
+        <span class="tbadge">🍷 대화법</span>
+        <span class="tbadge">🌹 데이트</span>
+        <span class="tbadge">🏠 부부생활</span>
+        <span class="tbadge">🎭 사고방식</span>
+        <span class="tbadge">🌡️ 컨디션</span>
+        <span class="tbadge">👶 가족계획</span>
+        <span class="tbadge">💝 사랑의 언어</span>
+      </div>
+      <p>연애부터 결혼, 침대 위의 솔직한 속마음까지.<br>서로의 영혼과 육체를 더 깊이 교감하게 해줄 8가지 주제, 24편의 이야기.</p>
     </section>
 
     <section class="topics-grid" id="topics-container">
@@ -101,9 +163,18 @@
     </section>
   </main>
 
-  <footer style="text-align: center; padding: 4rem 0; margin-top: 5rem; border-top: 1px solid var(--surface-border);" class="glass">
-    <p style="color: var(--text-muted); font-size: 0.95rem; font-family: var(--font-serif); font-style: italic;">"Love is an irresistible desire to be irresistibly desired."</p>
-    <p style="color: var(--surface-border); font-size: 0.8rem; margin-top: 10px;">© 2026 알콩달콩. All rights reserved.</p>
+  <footer style="padding: 4rem 0; border-top: 1px solid var(--glass-border); background: rgba(5,0,3,0.8); backdrop-filter: blur(20px);">
+    <div class="container" style="display:flex; flex-direction:column; align-items:center; gap:1rem; text-align:center;">
+      <div class="logo" style="font-size:1.6rem;"><span class="logo-emoji">💍</span> 알콩달콩</div>
+      <p style="font-family:var(--font-serif); font-style:italic; color:var(--text-dim); font-size:1rem;">
+        "사랑은 바라보는 것이 아니라, 함께 같은 방향을 바라보는 것이다." — 생텍쥐페리
+      </p>
+      <div style="display:flex; gap:1.5rem; margin-top:0.5rem;">
+        <a href="index.html" style="color:var(--text-dim); font-size:0.88rem;">🏠 홈</a>
+        <a href="test.html" style="color:var(--text-dim); font-size:0.88rem;">💎 테스트</a>
+      </div>
+      <p style="color:rgba(255,42,109,0.25); font-size:0.8rem;">© 2026 알콩달콩 · All rights reserved.</p>
+    </div>
   </footer>
 
   <script src="data_articles.js"></script>
