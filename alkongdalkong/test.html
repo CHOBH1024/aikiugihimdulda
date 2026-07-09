@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>관능적 부부 진단 | 알콩달콩</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    .test-container {
+      max-width: 800px;
+      margin: 120px auto 60px;
+      padding: 4rem 3rem;
+      text-align: center;
+      position: relative;
+    }
+
+    #question-container {
+      margin-top: 2rem;
+      min-height: 350px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .question-title {
+      font-size: 1.6rem;
+      margin-bottom: 2.5rem;
+      line-height: 1.5;
+      font-weight: 500;
+    }
+
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .option-btn {
+      background: rgba(0,0,0,0.3);
+      border: 1px solid var(--surface-border);
+      color: var(--text-main);
+      padding: 1.3rem;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 1.1rem;
+      text-align: center;
+      backdrop-filter: blur(5px);
+    }
+
+    .option-btn:hover {
+      background: var(--primary-gradient);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: var(--neon-glow);
+      border-color: transparent;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 6px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 10px;
+      margin-bottom: 2.5rem;
+      overflow: hidden;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--primary-gradient);
+      width: 0%;
+      transition: width 0.4s ease;
+      box-shadow: var(--neon-glow);
+    }
+
+    .mode-selection {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    
+    .mode-btn {
+      padding: 1.5rem;
+      border-radius: 20px;
+      cursor: pointer;
+      border: 1px solid var(--surface-border);
+      background: rgba(255, 255, 255, 0.05);
+      transition: all 0.3s ease;
+      text-align: left;
+    }
+
+    .mode-btn:hover {
+      background: rgba(255, 42, 109, 0.1);
+      border-color: var(--primary-color);
+      transform: translateY(-3px);
+    }
+
+    .mode-btn h3 {
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+    
+    #category-select-screen {
+      display: none;
+      animation: fadeUp 0.8s ease;
+    }
+
+    .cat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    #result-container {
+      display: none;
+      animation: fadeUp 1s ease-out;
+    }
+    
+    .chart-container {
+      width: 100%;
+      max-width: 500px;
+      margin: 0 auto 2rem;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="shape shape-3"></div>
+
+  <header>
+    <div class="container nav-container">
+      <div class="logo">
+        <span class="text-gradient">💍 알콩달콩</span>
+      </div>
+      <nav class="nav-links">
+        <a href="index.html">홈</a>
+        <a href="topics.html">이야기</a>
+        <a href="test.html">궁합 테스트</a>
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Theme">☀️</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="test-container glass" id="start-screen">
+      <h1 class="text-gradient serif-text">부부 심층 진단</h1>
+      <p>서로의 가장 은밀한 취향부터 현실적인 결혼 생활까지.<br>솔직함만이 완벽한 쾌락과 행복을 가져다줍니다.</p>
+      
+      <div class="mode-selection">
+        <div class="mode-btn" id="btn-comprehensive">
+          <h3>🔥 종합 심층 진단 (40문항)</h3>
+          <p>친밀감, 열정, 헌신, 소통, 애착 안정성의 5대 지표를 레이더 차트로 과학적으로 분석합니다.</p>
+        </div>
+        <div class="mode-btn" id="btn-category">
+          <h3>🎯 분야별 집중 진단 (각 30문항)</h3>
+          <p>특정 주제(스킨십, 부부생활, 데이트 등)에 대해 더 디테일하고 야릇하게 알아봅니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="test-container glass" id="category-select-screen">
+      <h2 class="text-gradient serif-text">어떤 부분을 진단할까요?</h2>
+      <p>원하는 집중 진단 분야를 선택해 주세요.</p>
+      <div class="cat-grid">
+        <button class="btn btn-outline cat-btn" data-cat="intimacy">가장 깊고 은밀한 교감</button>
+        <button class="btn btn-outline cat-btn" data-cat="communication">서로를 잇는 끈적한 대화법</button>
+        <button class="btn btn-outline cat-btn" data-cat="date">어른들의 로맨틱 데이트</button>
+        <button class="btn btn-outline cat-btn" data-cat="married_life">완벽한 부부생활 팀워크</button>
+        <button class="btn btn-outline cat-btn" data-cat="mindset">매혹적인 사고방식 독립성</button>
+        <button class="btn btn-outline cat-btn" data-cat="condition">서로의 힐링 컨디션</button>
+        <button class="btn btn-outline cat-btn" data-cat="future_child">미래의 아이와 가족계획</button>
+        <button class="btn btn-outline cat-btn" data-cat="love_methods">사랑을 표현하는 5가지 언어</button>
+      </div>
+      <br><br>
+      <button class="btn btn-outline" onclick="location.reload()">뒤로 가기</button>
+    </section>
+
+    <section class="test-container glass" id="quiz-screen" style="display: none;">
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress"></div>
+      </div>
+      <div id="question-container">
+        <!-- Question goes here -->
+      </div>
+    </section>
+
+    <section class="test-container glass" id="result-screen" style="display: none;">
+      <h1 class="text-gradient serif-text" id="result-title">과학적 심층 분석 결과</h1>
+      
+      <div class="chart-container" id="chart-wrap">
+        <canvas id="radarChart"></canvas>
+      </div>
+
+      <div id="result-content" style="margin-top: 2.5rem; margin-bottom: 3rem; text-align: left; background: rgba(0,0,0,0.2); padding: 2rem; border-radius: 15px;">
+        <!-- Result text goes here -->
+      </div>
+      <button class="btn btn-outline" onclick="location.reload()">다시 하기</button>
+      <a href="topics.html" class="btn btn-primary" style="margin-left: 10px;">우리를 위한 칼럼 읽기</a>
+    </section>
+  </main>
+
+  <footer style="text-align: center; padding: 4rem 0; margin-top: 5rem; border-top: 1px solid var(--surface-border);" class="glass">
+    <p style="color: var(--text-muted); font-size: 0.95rem; font-family: var(--font-serif); font-style: italic;">"Love is an irresistible desire to be irresistibly desired."</p>
+    <p style="color: var(--surface-border); font-size: 0.8rem; margin-top: 10px;">© 2026 알콩달콩. All rights reserved.</p>
+  </footer>
+
+  <script src="data_test_comprehensive.js"></script>
+  <script src="data_test_categories.js"></script>
+  <script src="data_test_categories_2.js"></script>
+  <script src="data_test_categories_3.js"></script>
+  <script src="data_test_categories_4.js"></script>
+  <script src="main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      let testMode = ''; // 'comprehensive' or 'category'
+      let currentQuestionIndex = 0;
+      let currentTestSet = [];
+      
+      // Scores for comprehensive test (Likert)
+      let compScores = {
+        intimacy: 0, passion: 0, commitment: 0, communication: 0, attachment: 0
+      };
+      
+      // Scores for categorical tests (Ipsative)
+      let catScores = {
+        intimacy: 0, communication: 0, care: 0, romance: 0,
+        mindset: 0, condition: 0, married_life: 0, date: 0
+      };
+
+      const startScreen = document.getElementById('start-screen');
+      const catScreen = document.getElementById('category-select-screen');
+      const quizScreen = document.getElementById('quiz-screen');
+      const resultScreen = document.getElementById('result-screen');
+      const questionContainer = document.getElementById('question-container');
+      const progressFill = document.getElementById('progress');
+      const resultContent = document.getElementById('result-content');
+      let radarChartInstance = null;
+
+      // Comprehensive
+      document.getElementById('btn-comprehensive').addEventListener('click', () => {
+        testMode = 'comprehensive';
+        currentTestSet = comprehensiveTest;
+        startScreen.style.display = 'none';
+        quizScreen.style.display = 'block';
+        showQuestion();
+      });
+
+      // Categories
+      document.getElementById('btn-category').addEventListener('click', () => {
+        startScreen.style.display = 'none';
+        catScreen.style.display = 'block';
+      });
+
+      document.querySelectorAll('.cat-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          if (btn.disabled) return;
+          const cat = e.target.getAttribute('data-cat');
+          testMode = 'category';
+          currentTestSet = categoryTests[cat];
+          catScreen.style.display = 'none';
+          quizScreen.style.display = 'block';
+          showQuestion();
+        });
+      });
+
+      function showQuestion() {
+        if (currentQuestionIndex >= currentTestSet.length) {
+          showResult();
+          return;
+        }
+
+        const q = currentTestSet[currentQuestionIndex];
+        const progress = ((currentQuestionIndex) / currentTestSet.length) * 100;
+        progressFill.style.width = `${progress}%`;
+
+        let optionsHTML = '';
+        
+        if (testMode === 'comprehensive') {
+          // Likert scale 1-5
+          likertOptions.forEach(opt => {
+            optionsHTML += `<button class="option-btn" data-val="${opt.value}">${opt.text}</button>`;
+          });
+        } else {
+          // Category Specific 4-options
+          q.opts.forEach((opt, idx) => {
+            optionsHTML += `<button class="option-btn" data-idx="${idx}" style="text-align:left;">${opt.text}</button>`;
+          });
+        }
+
+        questionContainer.innerHTML = `
+          <h2 class="question-title">Q${currentQuestionIndex + 1}. ${q.q}</h2>
+          <div class="options-grid">
+            ${optionsHTML}
+          </div>
+        `;
+
+        document.querySelectorAll('.option-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            if (testMode === 'comprehensive') {
+              let val = parseInt(e.target.getAttribute('data-val'));
+              if (q.reverse) val = 6 - val;
+              compScores[q.trait] += val;
+            } else {
+              const selectedIdx = e.target.getAttribute('data-idx');
+              const selectedScore = q.opts[selectedIdx].scores;
+              for (const key in selectedScore) {
+                catScores[key] += selectedScore[key];
+              }
+            }
+
+            currentQuestionIndex++;
+            showQuestion();
+          });
+        });
+      }
+
+      function showResult() {
+        quizScreen.style.display = 'none';
+        resultScreen.style.display = 'block';
+
+        if (testMode === 'comprehensive') {
+          document.getElementById('result-title').innerText = "과학적 심층 분석 결과";
+          document.getElementById('chart-wrap').style.display = 'block';
+          
+          const calcPercent = (score) => Math.round(((score - 8) / 32) * 100);
+          const dataVals = [
+            calcPercent(compScores.intimacy),
+            calcPercent(compScores.passion),
+            calcPercent(compScores.commitment),
+            calcPercent(compScores.communication),
+            calcPercent(compScores.attachment)
+          ];
+
+          const ctx = document.getElementById('radarChart').getContext('2d');
+          Chart.defaults.color = '#ffccd5';
+          Chart.defaults.font.family = "'Noto Sans KR', sans-serif";
+          
+          radarChartInstance = new Chart(ctx, {
+            type: 'radar',
+            data: {
+              labels: ['친밀감', '열정', '헌신', '건강한 소통', '애착 안정성'],
+              datasets: [{
+                label: '부부 지수',
+                data: dataVals,
+                backgroundColor: 'rgba(255, 42, 109, 0.4)',
+                borderColor: 'rgba(255, 42, 109, 1)',
+                pointBackgroundColor: '#fff',
+                pointBorderColor: '#ff2a6d',
+                borderWidth: 2,
+              }]
+            },
+            options: {
+              scales: { r: { angleLines: { color: 'rgba(255,255,255,0.1)' }, grid: { color: 'rgba(255,255,255,0.1)' }, pointLabels: { font: { size: 14, weight: 'bold' }, color: '#ffb3c1' }, ticks: { min: 0, max: 100, stepSize: 20, display: false } } },
+              plugins: { legend: { display: false } }
+            }
+          });
+
+          let analysisText = '<h3 class="serif-text text-gradient" style="font-size: 1.5rem; margin-bottom: 1rem;">진단 리포트 요약</h3>';
+          const avg = dataVals.reduce((a, b) => a + b, 0) / 5;
+          if (avg >= 80) analysisText += '<p><strong>[전체 종합]</strong> 매우 건강하고 이상적인 부부 관계입니다.</p>';
+          else if (avg >= 60) analysisText += '<p><strong>[전체 종합]</strong> 대체로 안정적인 부부 관계입니다.</p>';
+          else analysisText += '<p><strong>[전체 종합]</strong> 관계의 위기가 올 수 있는 시기입니다. 진솔한 대화가 시급합니다.</p>';
+
+          analysisText += '<ul style="margin-top: 1rem; color: var(--text-muted); line-height: 1.8;">';
+          analysisText += `<li><strong>열정(${dataVals[1]}점):</strong> 점수가 낮다면 로맨틱한 데이트나 성생활 자극이 필요합니다.</li>`;
+          analysisText += `<li><strong>소통(${dataVals[3]}점):</strong> 점수가 낮다면 가트먼의 4독소(비난,방어,경멸,담쌓기)를 성찰해야 합니다.</li>`;
+          analysisText += `<li><strong>애착 안정성(${dataVals[4]}점):</strong> 근본 토대입니다. 이 점수가 낮다면 신뢰 회복이 우선입니다.</li>`;
+          analysisText += '</ul>';
+          resultContent.innerHTML = analysisText;
+
+        } else {
+          document.getElementById('result-title').innerText = "분야별 집중 진단 완료!";
+          document.getElementById('chart-wrap').style.display = 'none';
+
+          let maxTrait = '';
+          let maxScore = -1;
+          for (const key in catScores) {
+            if (catScores[key] > maxScore) {
+              maxScore = catScores[key];
+              maxTrait = key;
+            }
+          }
+
+          const traitMap = {
+            intimacy: { title: '관능적이고 도발적인 로맨티스트', desc: '몸의 대화를 중요하게 생각하며 부끄러움 없이 솔직한 본능이 매력적입니다.' },
+            communication: { title: '마음을 꿰뚫는 소통의 달인', desc: '깊은 대화를 통해 서로를 이해하려 노력하며, 가장 여린 내면까지 보듬어줍니다.' },
+            care: { title: '따뜻하게 녹아드는 헌신적 케어러', desc: '배우자의 작은 변화나 컨디션을 놓치지 않고 챙겨주어 강력한 안정감을 줍니다.' },
+            romance: { title: '언제나 심장이 뛰는 연애술사', desc: '가벼운 터치와 서프라이즈 이벤트로 부부 관계에 늘 짜릿한 활력을 불어넣습니다.' },
+            mindset: { title: '자유롭고 성숙한 심리적 동반자', desc: '배우자를 통제하려 하지 않고 존중하며, 평온하고 신뢰받는 관계를 이끌어갑니다.' },
+            married_life: { title: '완벽한 시너지를 내는 라이프 파트너', desc: '현실적인 문제를 슬기롭게 해결하며 미래를 함께 그리는 든든한 동반자입니다.' },
+            date: { title: '일상을 축제로 만드는 이벤트 메이커', desc: '단조로운 일상에서 벗어나 새롭고 짜릿한 경험을 통해 행복을 배가시킵니다.' },
+            condition: { title: '안식처가 되어주는 힐링 파트너', desc: '상대방의 지친 몸과 마음을 달래주고 쉴 수 있는 완벽한 휴식처를 제공합니다.' }
+          };
+
+          const resultInfo = traitMap[maxTrait] || { title: '서로를 이해하는 밸런스형 파트너', desc: '다양한 매력을 고루 갖추었습니다.' };
+          resultContent.innerHTML = `
+            <h3 style="color: var(--text-muted); margin-bottom: 0.5rem; font-family: var(--font-sans);">당신의 치명적인 성향은...</h3>
+            <p style="font-size: 1.8rem; color: var(--primary-color); font-family: var(--font-serif); font-weight: 700; margin-bottom: 1.5rem; text-shadow: var(--neon-glow);">${resultInfo.title}</p>
+            <p style="color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto; line-height: 1.8;">${resultInfo.desc}</p>
+          `;
+        }
+      }
+    });
+  </script>
+</body>
+</html>

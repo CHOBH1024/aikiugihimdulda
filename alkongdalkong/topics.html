@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>부부 이야기 | 알콩달콩</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .topics-header {
+      text-align: center;
+      padding: 120px 20px 60px;
+    }
+    
+    .topics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-bottom: 5rem;
+    }
+
+    .topic-card {
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .topic-card h3 {
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .article-list {
+      list-style: none;
+      margin-top: 1rem;
+      flex-grow: 1;
+    }
+
+    .article-list li {
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--surface-border);
+    }
+    
+    .article-list li:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .article-title {
+      font-weight: 600;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .article-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="shape shape-1"></div>
+  <div class="shape shape-2" style="top: 50%; right: 10%; bottom: auto;"></div>
+
+  <header>
+    <div class="container nav-container">
+      <div class="logo">
+        <span class="text-gradient">💍 알콩달콩</span>
+      </div>
+      <nav class="nav-links">
+        <a href="index.html">홈</a>
+        <a href="topics.html">이야기</a>
+        <a href="test.html">궁합 테스트</a>
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Theme">☀️</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="topics-header">
+      <h1 class="text-gradient">우리의 은밀하고 매혹적인 이야기</h1>
+      <p>연애부터 결혼, 그리고 침대 위에서의 솔직한 속마음까지.<br>서로의 영혼과 육체를 더 깊이 교감하게 해줄 주제들입니다.</p>
+    </section>
+
+    <section class="topics-grid" id="topics-container">
+      <!-- Dynamically filled by script -->
+    </section>
+  </main>
+
+  <footer style="text-align: center; padding: 4rem 0; margin-top: 5rem; border-top: 1px solid var(--surface-border);" class="glass">
+    <p style="color: var(--text-muted); font-size: 0.95rem; font-family: var(--font-serif); font-style: italic;">"Love is an irresistible desire to be irresistibly desired."</p>
+    <p style="color: var(--surface-border); font-size: 0.8rem; margin-top: 10px;">© 2026 알콩달콩. All rights reserved.</p>
+  </footer>
+
+  <script src="data_articles.js"></script>
+  <script src="main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const container = document.getElementById('topics-container');
+      
+      alkongArticles.topics.forEach((topic, index) => {
+        const card = document.createElement('div');
+        card.className = 'topic-card glass';
+        card.style.animationDelay = `${index * 0.1}s`;
+        
+        let articlesHTML = '<ul class="article-list">';
+        topic.articles.forEach(article => {
+          articlesHTML += `
+            <li>
+              <span class="article-title">${article.title}</span>
+              <span class="article-desc">${article.content}</span>
+            </li>
+          `;
+        });
+        articlesHTML += '</ul>';
+
+        card.innerHTML = `
+          <h3><span style="font-size: 1.8rem;">${topic.icon}</span> ${topic.title}</h3>
+          <p style="color: var(--text-muted); font-size: 0.95rem;">${topic.description}</p>
+          ${articlesHTML}
+        `;
+        
+        container.appendChild(card);
+      });
+    });
+  </script>
+</body>
+</html>

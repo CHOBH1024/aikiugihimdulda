@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>알콩달콩 | 예비부부를 위한 달콤한 가이드</title>
+  <meta name="description" content="결혼을 앞둔 예비부부를 위한 심리, 대화법, 부부생활, 사랑의 방식 등 모든 것을 담은 달콤한 가이드">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Background Shapes for aesthetics -->
+  <div class="shape shape-1"></div>
+  <div class="shape shape-2"></div>
+
+  <header>
+    <div class="container nav-container">
+      <div class="logo">
+        <span class="text-gradient">💍 알콩달콩</span>
+      </div>
+      <nav class="nav-links">
+        <a href="index.html">홈</a>
+        <a href="topics.html">이야기</a>
+        <a href="test.html">궁합 테스트</a>
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Theme">☀️</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero container">
+      <div class="hero-content glass">
+        <h1>우리가 진짜 <br><span class="text-gradient">부부</span>가 되어가는 시간</h1>
+        <p>설레는 연애를 넘어, 평생을 함께할 동반자로서 필요한 모든 이야기.<br>대화법, 부부생활, 성심리, 그리고 미래의 아이까지.</p>
+        <div class="hero-buttons">
+          <a href="test.html" class="btn btn-primary">우리 궁합 알아보기</a>
+          <a href="topics.html" class="btn btn-outline">부부 이야기 읽기</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="features-section container">
+      <div class="section-header">
+        <h2>어떤 <span class="text-gradient">비밀</span>을 나눌까요?</h2>
+        <p>우리 부부만의 더 깊고 은밀한 8가지 이야기</p>
+      </div>
+      
+      <div class="grid" id="topics-preview">
+        <!-- Will be populated by JS or just static for now -->
+        <div class="card glass">
+          <div class="card-icon">💋</div>
+          <h3 class="serif-text">가장 깊고 은밀한 교감</h3>
+          <p>단순한 행위를 넘어, 부부의 몸과 마음이 하나가 되는 시간.</p>
+        </div>
+        <div class="card glass">
+          <div class="card-icon">🍷</div>
+          <h3 class="serif-text">서로를 잇는 끈적한 대화법</h3>
+          <p>갈등마저 사랑으로 녹여버리는 소통의 마법.</p>
+        </div>
+        <div class="card glass">
+          <div class="card-icon">🌹</div>
+          <h3 class="serif-text">어른들의 로맨틱 데이트</h3>
+          <p>연애 시절의 짜릿함을 일깨워줄 은밀한 데이트 아이디어.</p>
+        </div>
+        <div class="card glass">
+          <div class="card-icon">🎭</div>
+          <h3 class="serif-text">매혹적인 사고방식</h3>
+          <p>서로를 완전히 다른 우주로 인정하고 존중하는 어른의 심리학.</p>
+        </div>
+      </div>
+      <div style="text-align: center; margin-top: 4rem;">
+        <a href="topics.html" class="btn btn-primary">모든 비밀 이야기 열어보기</a>
+      </div>
+    </section>
+  </main>
+
+  <footer style="text-align: center; padding: 4rem 0; margin-top: 5rem; border-top: 1px solid var(--surface-border);" class="glass">
+    <p style="color: var(--text-muted); font-size: 0.95rem; font-family: var(--font-serif); font-style: italic;">"Love is an irresistible desire to be irresistibly desired."</p>
+    <p style="color: var(--surface-border); font-size: 0.8rem; margin-top: 10px;">© 2026 알콩달콩. All rights reserved.</p>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
