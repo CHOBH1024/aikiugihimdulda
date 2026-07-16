@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /admin/
 
 Sitemap: https://aikiugihimdulda.vercel.app/sitemap.xml
+Host: https://aikiugihimdulda.vercel.app
