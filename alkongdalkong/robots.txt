@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /admin/
 
 Sitemap: https://alkongdalkong.vercel.app/sitemap.xml
+Host: https://alkongdalkong.vercel.app
