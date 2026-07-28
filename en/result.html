@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/assets/images/icons/favicon.png" type="image/png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test 결과 | Mirror Inside Parenting</title>
+    <meta name="description" content="당신만의 육아 페르소나 분석 결과를 확인하세요.">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <meta property="og:title" content="Mirror Inside Parenting — 나의 육아 스타일, 거울 속에서 만나보세요 🪞">
+    <meta property="og:description" content="3분이면 충분해요. 당신만의 육아 페르소나를 발견하고, 아이와 더 가까워지는 방법을 알아보세요.">
+    <meta property="og:image" content="https://aikiugihimdulda.vercel.app/assets/images/icons/hello.png">
+    <meta property="og:url" content="https://aikiugihimdulda.vercel.app/">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js" defer></script>
+    <style>
+        .result-wrapper { padding-top: 80px; padding-bottom: 80px; }
+        
+        .no-result { text-align: center; padding: 120px 24px; }
+        .no-result h2 { margin-bottom: 20px; color: var(--text-main); }
+        .no-result p { color: var(--text-body); margin-bottom: 32px; }
+
+        .notice-banner {
+            text-align: center; padding: 12px 24px; font-size: 0.95rem; color: #fff; border-radius: var(--radius-md); margin-bottom: 32px; box-shadow: var(--shadow-soft);
+        }
+        .notice-banner--mbti { background: linear-gradient(135deg, var(--secondary), var(--primary)); }
+        .notice-banner--preview { background: linear-gradient(135deg, #FFDAC1, var(--primary)); color: var(--text-main); font-weight: 700; }
+
+        /* Instagram Photocard Styles */
+        .photocard-container {
+            width: 100%;
+            perspective: 1000px;
+            animation: fadeInUp 0.8s ease both;
+        }
+
+        .photocard {
+            background: var(--bg-card);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
+            border: 1px solid var(--glass-border);
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        .photocard:hover { transform: translateY(-4px); box-shadow: var(--shadow-card-hover); }
+
+        .photocard__image-area {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            background: #fff;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .photocard__image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            animation: zoomIn 10s linear infinite alternate;
+        }
+
+        .photocard__rarity {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--primary);
+            padding: 6px 14px;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            box-shadow: var(--shadow-soft);
+            backdrop-filter: blur(10px);
+        }
+
+        .photocard__content { padding: 32px 24px; text-align: center; }
+
+        .photocard__title {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--text-main);
+            margin-bottom: 12px;
+            word-break: keep-all;
+            line-height: 1.3;
+        }
+
+        .photocard__desc {
+            font-size: 1rem;
+            color: var(--text-body);
+            line-height: 1.6;
+            margin-bottom: 24px;
+            word-break: keep-all;
+        }
+
+        .photocard__tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .tag-pill {
+            background: var(--bg-main);
+            color: var(--text-dim);
+            padding: 6px 14px;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid var(--glass-border);
+        }
+
+        .photocard__radar { width: 100%; height: 260px; margin: 0 auto 20px; position: relative; }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+            margin: 24px 0 0;
+        }
+
+        .btn-insta { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); color: #fff; border: none; font-weight: 700; }
+        .btn-kakao { background: #FEE500; color: #000000; border: none; font-weight: 700; }
+        .btn-kakao:hover { background: #FFD900; }
+
+        /* Insight Section (Instagram Carousel Style) */
+        .carousel-section {
+            width: 100%;
+        }
+        
+        .carousel-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 32px 24px;
+            margin-bottom: 20px;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .carousel-card h3 { font-size: 1.2rem; color: var(--text-main); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+        .carousel-card ul { padding-left: 0; list-style: none; margin: 0; }
+        .carousel-card li { position: relative; padding-left: 24px; margin-bottom: 12px; font-size: 0.95rem; color: var(--text-body); line-height: 1.6; }
+        .carousel-card li::before { content: '•'; position: absolute; left: 6px; color: var(--primary); font-size: 1.2rem; font-weight: bold; }
+
+        /* Detail Dimensions */
+        .dim-card {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px;
+            background: var(--bg-card);
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            margin-bottom: 12px;
+        }
+        
+        .dim-card__icon { font-size: 2rem; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; background: var(--bg-main); border-radius: 12px; }
+        .dim-card__info { flex: 1; }
+        .dim-card__title { font-size: 0.85rem; color: var(--primary); font-weight: 700; margin-bottom: 4px; }
+        .dim-card__type { font-size: 1.1rem; color: var(--text-main); font-weight: 800; }
+
+        /* Off-screen capture area */
+        #captureArea {
+            position: absolute;
+            left: -9999px;
+            top: 0;
+            width: 1080px;
+            height: 1920px; /* 9:16 Story Ratio */
+            background: #FFF5F5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 80px;
+            box-sizing: border-box;
+            z-index: -100;
+            pointer-events: none;
+            visibility: hidden;
+        }
+
+        .capture-card {
+            background: #fff;
+            width: 100%;
+            border-radius: 60px;
+            overflow: hidden;
+            box-shadow: 0 40px 100px rgba(255, 107, 107, 0.15);
+            border: 4px solid #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .capture-img { width: 70%; aspect-ratio: 1/1; object-fit: cover; border-radius: 50%; margin-top: 60px; border: 12px solid #FFF5F5; }
+        .capture-body { padding: 50px 60px 80px; text-align: center; width: 100%; }
+        .capture-tags { font-size: 32px; color: #FF6B6B; font-weight: 800; margin-bottom: 24px; letter-spacing: 1px; display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+        .capture-title { font-size: 80px; color: #2D3748; font-weight: 900; margin-bottom: 30px; line-height: 1.2; word-break: keep-all; }
+        .capture-desc { font-size: 38px; color: #4A5568; line-height: 1.6; word-break: keep-all; padding: 0 40px; }
+        
+        .capture-footer { margin-top: 60px; text-align: center; font-size: 34px; color: #FF6B6B; font-weight: 800; font-family: 'Nunito', sans-serif; display: flex; align-items: center; gap: 16px; }
+        .capture-footer-icon { font-size: 44px; }
+    </style>
+    
+    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.6.0/kakao.min.js" integrity="sha384-6MFdIr0zOira1CHQkedUqJVql0YtcZA1P0nbFz52+3y2B1A2P7Z0mR6+i3+R02T2" crossorigin="anonymous" defer></script>
+    <script>window.addEventListener('load', function() { if (window.Kakao && !Kakao.isInitialized()) Kakao.init('YOUR_KAKAO_APP_KEY'); });</script>
+<script>/* Samsung Internet animation-suppression fix */(function(){function f(){var animated=document.querySelectorAll('.hero__title,.hero__badge,.result-hero__title,.result-hero__overline,.photocard-container');for(var i=0;i<animated.length;i++){if(parseFloat(window.getComputedStyle(animated[i]).opacity)<0.1){var s=document.createElement('style');s.textContent='*,*::before,*::after{animation-duration:0.001s!important;animation-delay:0s!important;animation-iteration-count:1!important;}';document.head.appendChild(s);return;}};}document.addEventListener('DOMContentLoaded',function(){setTimeout(f,800);});})();</script>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#34d399">
+    <!-- Plausible Analytics (가벼운 자가호스팅형 애널리틱스) — plausible.io에서 무료/자가호스팅 계정 생성 후 도메인 인증하면 바로 수집됩니다 -->
+    <script defer data-domain="aikiugihimdulda.vercel.app" src="https://plausible.io/js/script.js"></script>
+</head>
+<body>
+    <!-- Pastel Floating Blobs -->
+    <div class="glow-orb-container">
+        <div class="glow-orb glow-orb--1"></div>
+        <div class="glow-orb glow-orb--2"></div>
+        <div class="glow-orb glow-orb--3"></div>
+    </div>
+
+    <nav class="nav scrolled">
+        <div class="nav__inner">
+            <a href="/index.html" class="nav__logo">🪞 Mirror Inside <span class="nav__logo-sub">Parenting</span></a>
+            <ul class="nav__links" id="navLinks">
+                <li><a href="/columns.html" class="nav__link">육아 Articles</a></li>
+                <li><a href="/gallery.html" class="nav__link">나의 History</a></li>
+                <li><a href="/chemistry.html" class="nav__link">❤️ 육아 궁합 Test</a></li>
+                <li><a href="/about.html" class="nav__link">About</a></li>
+                <li><a href="/test.html" class="nav__cta">🪞 다시 Test하기</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="result-wrapper container" id="resultWrapper">
+        <!-- JS render area -->
+    </div>
+
+    <!-- Hidden Postcard Capture Area -->
+    <div id="postcardArea" class="postcard-wrapper">
+        <div class="postcard-inner">
+            <div class="postcard-quote-mark">"</div>
+            <div class="postcard-text" id="pcText"></div>
+            <div class="postcard-divider"></div>
+            <div class="postcard-author" id="pcAuthor"></div>
+            <div class="postcard-footer">
+                <div class="pc-brand">🪞 Mirror Inside Parenting</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden Capture Area -->
+    <div id="captureArea">
+        <div class="capture-card">
+            <img id="capImg" class="capture-img">
+            <div class="capture-body">
+                <div class="capture-tags" id="capTags"></div>
+                <div class="capture-title" id="capTitle"></div>
+                <div class="capture-desc" id="capDesc"></div>
+            </div>
+        </div>
+        <div class="capture-footer"><span class="capture-footer-icon">🪞</span> Mirror Inside Parenting</div>
+    </div>
+
+    <script src="chemistry_data.js"></script>
+    <script src="data.js"></script>
+    <script>
+        let results = null;
+        let noticeBanner = '';
+        const params = new URLSearchParams(window.location.search);
+
+        if (params.has('mbti')) {
+            const mbti = params.get('mbti').toUpperCase();
+            const combo = MBTI_MAPPING[mbti] || 'balanced';
+            results = generateMockResult(combo);
+            noticeBanner = `<div class="notice-banner notice-banner--mbti">본 결과는 <strong>${mbti}</strong> 성향을 바탕으로 예측한 가상 결과입니다. 정확한 결과는 정식 테스트로 확인하세요!</div>`;
+        } else if (params.has('preview')) {
+            const combo = params.get('preview');
+            results = generateMockResult(combo);
+            noticeBanner = `<div class="notice-banner notice-banner--preview">현재 <strong>미리보기 모드</strong>입니다 👀 나의 진짜 육아 페르소나가 궁금하다면 Test해보세요!</div>`;
+        } else if (params.has('share')) {
+            results = decodeShareableResult(params.get('share'));
+            if (results) {
+                const noteHTML = results.note ? `<br>남긴 메모: "${results.note}"` : '';
+                noticeBanner = `<div class="notice-banner notice-banner--preview">📮 <strong>상담 참고용으로 공유된 결과</strong>입니다. 본인이 아닌 다른 사람이 상담을 위해 전달한 화면일 수 있어요.${noteHTML}<br><small>※ 이 결과는 참고자료이며 전문 상담·치료를 대체하지 않습니다.</small></div>`;
+            }
+        } else {
+            results = loadResults();
+        }
+
+        if (!results) {
+            document.getElementById('resultWrapper').innerHTML = `
+                <div class="no-result">
+                    <h2>아직 Test 결과가 없어요 🥺</h2>
+                    <p>나의 육아 스타일을 먼저 확인해볼까요?</p>
+                    <a href="test.html" class="btn btn--primary btn--large">🪞 Start Diagnostic Test</a>
+                </div>
+            `;
+        } else {
+            try { renderResults(results); } catch(e) { console.error("RENDER ERROR: " + e.stack); }
+        }
+
+        function renderResults(results) {
+            const { overallPersona, dimensionTypes } = results;
+            const wrapper = document.getElementById('resultWrapper');
+            const childAge = localStorage.getItem('mirrorInsideChildAge') || 'toddler';
+            const ageMap = { infant: '영아기 (0~12개월)', toddler: '걸음마기 (1~3세)', preschool: '유아기 (4~7세)', school: '학령기 (8세 이상)' };
+
+            // Set up capture area
+            document.getElementById('capImg').src = overallPersona.image;
+            document.getElementById('capTags').innerHTML = overallPersona.keywords.split(' ').map(k => `<span style="background: rgba(255,107,107,0.1); padding: 8px 24px; border-radius: 30px;">${k}</span>`).join('');
+            document.getElementById('capTitle').innerHTML = overallPersona.name.replace(' ', '<br>');
+            document.getElementById('capDesc').textContent = overallPersona.comfortingWords;
+
+            let dimsHTML = '';
+            DIMENSIONS.forEach(dim => {
+                const typeData = dimensionTypes[dim.id].type;
+                dimsHTML += `
+                    <div class="dim-card">
+                        <div class="dim-card__icon">${dim.icon}</div>
+                        <div class="dim-card__info">
+                            <div class="dim-card__title">${dim.name}</div>
+                            <div class="dim-card__type">${typeData.name}</div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            let deepAnalysisHTML = '';
+            const testMode = localStorage.getItem('mirrorInsideTestMode') || 'lite';
+            if (testMode === 'pro' && results.subtypeIndex !== undefined) {
+                const subtype = overallPersona.subtypes[results.subtypeIndex];
+                deepAnalysisHTML = `
+                `;
+            }
+
+            let recColsHTML = '';
+            if (overallPersona.recommendedColumns) {
+                recColsHTML = `
+                <div style="margin-top: 48px; margin-bottom: 32px;">
+                    <h3 style="font-size: 1.3rem; margin-bottom: 20px; color: var(--text-main); border-bottom: 2px solid var(--glass-border); padding-bottom: 12px;">
+                        📚 ${overallPersona.name.split(' ')[0]} 부모님을 위한 맞춤 추천 Articles
+                    </h3>
+                    <div style="display: flex; flex-direction: column; gap: 16px;">`;
+                overallPersona.recommendedColumns.forEach(col => {
+                    recColsHTML += `
+                        <a href="${col.url}" style="display: block; background: var(--bg-card); padding: 20px; border-radius: 16px; border: 1px solid var(--glass-border); text-decoration: none; transition: all 0.2s;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='var(--shadow-card-hover)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                            <div style="font-size: 0.85rem; color: var(--primary); font-weight: 700; margin-bottom: 8px;">${col.tags}</div>
+                            <h4 style="font-size: 1.1rem; color: var(--text-main); font-weight: 800; line-height: 1.4;">${col.title}</h4>
+                        </a>`;
+                });
+                recColsHTML += `</div></div>`;
+            }
+
+            // 추천 도서 링크 (알라딘 도서 검색으로 연결 — 제휴 파트너 코드가 있다면 URL 끝에 &partner=본인코드 형태로 붙이세요)
+            let bookHTML = '';
+            if (overallPersona.book) {
+                const b = overallPersona.book;
+                const searchUrl = `https://www.aladin.co.kr/search/wsearchresult.aspx?SearchTarget=Book&SearchWord=${encodeURIComponent(b.title.replace(/[「」]/g, ''))}`;
+                bookHTML = `
+                <div style="margin-top: 32px; margin-bottom: 32px; background: var(--bg-card); border: 1px solid var(--glass-border); border-radius: 16px; padding: 24px; display:flex; gap:20px; align-items:center; flex-wrap:wrap; transition: all 0.25s cubic-bezier(0.25,0.8,0.25,1);" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='var(--shadow-card-hover)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                    <img src="${b.img}" alt="${b.title}" style="width:80px; height:110px; object-fit:cover; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.15); flex-shrink:0;">
+                    <div style="flex:1; min-width:180px;">
+                        <div style="font-size:0.8rem; color:var(--primary); font-weight:700; margin-bottom:4px;">📖 ${overallPersona.name.split(' ')[0]} 부모님을 위한 추천 도서</div>
+                        <h4 style="font-size:1.05rem; color:var(--text-main); font-weight:800; margin-bottom:6px;">${b.title}</h4>
+                        <p style="font-size:0.88rem; color:var(--text-body); line-height:1.5; margin-bottom:12px;">${b.desc}</p>
+                        <a href="${searchUrl}" target="_blank" rel="noopener sponsored" class="btn btn--outline" style="display:inline-flex; align-items:center; gap:6px; font-size:0.85rem; padding:8px 16px;">
+                            <i class="fas fa-book" aria-hidden="true"></i> 책 보러가기
+                        </a>
+                    </div>
+                </div>`;
+            }
+
+            wrapper.innerHTML = `
+                ${noticeBanner}
+                
+                <div class="result-layout">
+                    <div class="result-layout__left">
+                        <a href="/columns/bestseller-insights.html" style="display: block; text-decoration: none; margin-bottom: 16px;">
+                            <div style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border: 1px solid rgba(255,255,255,0.1); border-radius: 100px; padding: 10px 20px; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+                                <span style="font-size: 1.1rem;">📚</span>
+                                <span style="color: #f8fafc; font-size: 0.85rem; font-weight: 700; letter-spacing: -0.3px;">본질육아, 삐뽀삐뽀 등 <span style="color:#fbbf24;">육아 베스트셀러 5권</span>의 철학이 반영된 결과입니다</span>
+                                <i class="fas fa-chevron-right" style="color: #94a3b8; font-size: 0.75rem; margin-left: 4px;"></i>
+                            </div>
+                        </a>
+                        <div class="photocard-container" style="margin-bottom:0;">
+                            <div class="photocard" id="photocard">
+                                <div class="photocard__image-area">
+                                    <img src="${overallPersona.imageUrl}" alt="${overallPersona.name}" class="photocard__image">
+                                    <div class="photocard__rarity">✨ ${overallPersona.rarity}</div>
+                                </div>
+                                <div class="photocard__content">
+                                    <div class="photocard__tags" style="margin-bottom: 12px;">
+                                        ${overallPersona.keywords ? overallPersona.keywords.split(' ').map(k => `<span class="tag-pill" style="background: var(--primary-dim); color: var(--primary); border:none;">${k}</span>`).join('') : ''}
+                                    </div>
+                                    <h1 class="photocard__title" style="margin-bottom: 16px;">${overallPersona.name}</h1>
+                                    <p style="font-size: 1.15rem; font-weight: 800; color: var(--primary); margin-bottom: 24px; word-break: keep-all; line-height: 1.5;">${overallPersona.comfortingWords || overallPersona.coreIdentity}</p>
+                                    
+                                    <div style="background: var(--bg-main); border-radius: 16px; padding: 24px; text-align: left; margin-bottom: 24px; border: 1px solid var(--glass-border);">
+                                        <h4 style="font-size: 1rem; color: var(--text-main); margin-bottom: 12px;">💡 양육의 본질</h4>
+                                        <p style="font-size: 0.95rem; color: var(--text-body); line-height: 1.6;">${overallPersona.desc}</p>
+                                    </div>
+
+                                    <div class="fact-bomb-container" id="factBombContainer">
+                                        <div class="fact-bomb-overlay" id="factBombOverlay">
+                                            <i class="fas fa-bomb" style="font-size:2.5rem; color:#ef4444; margin-bottom:12px; filter: drop-shadow(0 4px 10px rgba(239,68,68,0.4));"></i>
+                                            <h4 style="font-size: 1.2rem; font-weight: 800; color: #ef4444; margin-bottom: 8px; letter-spacing: -0.5px;">🚨 열람 주의</h4>
+                                            <p style="font-size: 0.9rem; color: var(--text-body); margin-bottom: 20px; word-break: keep-all; line-height: 1.4;">이 조언은 매우 직설적입니다.<br>뼈 맞을 각오가 되셨다면 해제하세요.</p>
+                                            <button class="btn-unlock-fact" onclick="unlockFactBomb()">🔓 잠금 해제하기</button>
+                                        </div>
+                                        <div class="fact-bomb-content" id="factBombContent">
+                                            <h4 style="font-size: 1.1rem; color: #ef4444; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;"><i class="fas fa-bolt" aria-hidden="true"></i> 성장을 위한 뼈 때리는 조언</h4>
+                                            <p style="font-size: 0.95rem; color: var(--text-main); line-height: 1.6; font-weight: 600; margin-bottom: 24px; word-break: keep-all;">${overallPersona.harshAdvice || '균형을 잃지 않는 것이 가장 중요합니다.'}</p>
+                                            <button class="btn-share-postcard" onclick="downloadPostcard()"><i class="fas fa-camera-retro" aria-hidden="true"></i> 이 조언을 엽서로 저장하기</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="action-buttons">
+                            <button class="btn btn--large btn-insta" onclick="downloadImage()"><i class="fab fa-instagram" aria-hidden="true"></i> 인스타 스토리에 Share Results (이미지 저장)</button>
+                            <button class="btn btn--large btn-kakao" onclick="shareKakao()"><i class="fas fa-comment" aria-hidden="true"></i> 카카오톡으로 결과 보내기</button>
+                            <button class="btn btn--secondary btn--large" onclick="copyResult()"><i class="fas fa-link" aria-hidden="true"></i> 링크 복사하기</button>
+                        </div>
+                        <p style="text-align: center; font-size: 0.85rem; color: var(--text-dim); margin-top: 4px;">
+                            💡 '인스타 스토리 공유' 버튼을 누르면 이미지가 저장됩니다.
+                        </p>
+                    </div>
+
+                    <div class="result-layout__right">
+                        ${deepAnalysisHTML}
+
+                        <div class="carousel-section" style="margin-top:0;">
+                            ${overallPersona.ageAdvice && overallPersona.ageAdvice[childAge] ? `
+                            <div class="carousel-card" style="border-color: var(--primary); background: rgba(52, 211, 153, 0.05);">
+                                <h3>👶 ${ageMap[childAge]} 맞춤 육아 가이드</h3>
+                                <p style="font-size: 1rem; color: var(--text-main); font-weight: 700; line-height: 1.6; word-break: keep-all;">
+                                    ${overallPersona.ageAdvice[childAge]}
+                                </p>
+                            </div>
+                            ` : ''}
+
+                            <div class="carousel-card">
+                                <h3>✨ 나의 빛나는 장점</h3>
+                                <ul>${overallPersona.strengths.map(s => `<li>${s}</li>`).join('')}</ul>
+                            </div>
+                            <div class="carousel-card">
+                                <h3>🥺 육아하며 느끼는 아쉬움</h3>
+                                <ul>${overallPersona.weaknesses.map(s => `<li>${s}</li>`).join('')}</ul>
+                            </div>
+                            
+                            ${overallPersona.deepReflection ? `
+                            <div class="carousel-card" style="background: var(--glass-strong);">
+                                <h3 style="color: #F59E0B;">🪞 나를 깊게 이해하기</h3>
+                                <p style="font-size:1.05rem; font-weight:800; color:var(--text-main); margin-bottom:12px; font-style:italic;">
+                                    "${overallPersona.deepReflection.question}"
+                                </p>
+                                <p style="font-size:0.95rem; color:var(--text-body); line-height:1.6;">
+                                    ${overallPersona.deepReflection.meaning}
+                                </p>
+                            </div>
+                            ` : ''}
+
+                            <div class="carousel-card">
+                                <h3>💡 사각지대 보완 팁</h3>
+                                <p style="font-size:0.95rem; color:var(--text-body); line-height:1.6;">
+                                    <strong style="color:#ef4444;">❌ 무의식적인 반응:</strong><br>${results.simulation.wrong}<br><br>
+                                    <strong style="color:var(--primary);">✅ 추천하는 솔루션:</strong><br>${results.simulation.correct}
+                                </p>
+                            </div>
+                            
+                            <div style="margin-top: 32px;">
+                                <h3 style="font-size: 1.1rem; margin-bottom: 16px; color: var(--text-main); font-weight: 800; text-align:center;">5가지 상세 육아 차원</h3>
+                                ${dimsHTML}
+                            </div>
+                            
+                            <div style="margin-top: 32px; text-align: center;">
+                                <a href="/columns/persona_deepdive.html" class="btn btn--primary" style="width: 100%;">📚 내 페르소나 심층 Articles 읽기</a>
+                            </div>
+                        </div>
+
+                        ${bookHTML}
+                        ${recColsHTML}
+                        ${results.isShared ? '' : `
+                        <div style="margin-top: 32px; background: var(--bg-card); border: 1px solid var(--glass-border); border-radius: 16px; padding: 24px;">
+                            <h3 style="font-size: 1.1rem; margin-bottom: 8px;">📮 상담자와 결과 나누기</h3>
+                            <p style="font-size: 0.88rem; color: var(--text-body); margin-bottom: 16px;">목회자·상담자와 이 결과를 함께 보고 싶다면, 아래에 상담받고 싶은 내용을 간단히 남기고 링크를 만들어 전달하세요. 서버에 저장되지 않고 링크 안에만 담깁니다.</p>
+                            <textarea id="shareNoteInput" placeholder="예: 아이가 요즘 떼를 많이 써서 힘들어요 (선택 입력)" maxlength="300" style="width:100%; min-height:70px; padding:12px; border-radius:10px; border:1px solid var(--glass-border); background:var(--bg-main); color:var(--text-main); font-family:inherit; font-size:0.9rem; resize:vertical;"></textarea>
+                            <button class="btn btn--secondary" style="margin-top:12px;" onclick="generateShareLink()"><i class="fas fa-link" aria-hidden="true"></i> 공유 링크 만들기</button>
+                            <div id="shareLinkBox" style="display:none; margin-top:14px;">
+                                <input type="text" id="shareLinkOutput" readonly style="width:100%; padding:12px; border-radius:10px; border:1px solid var(--glass-border); background:var(--bg-main); color:var(--text-main); font-size:0.85rem; margin-bottom:10px;">
+                                <button class="btn btn--outline" onclick="copyShareLink()"><i class="fas fa-copy" aria-hidden="true"></i> 링크 복사하기</button>
+                            </div>
+                        </div>
+                        `}
+                    </div>
+                </div>
+            `;
+
+            // trigger lock animation if needed
+            if (testMode === 'pro' && results.subtypeIndex !== undefined) {
+                setTimeout(() => {
+                    const lock = document.getElementById('deepAnalysisLock');
+                    const content = document.getElementById('deepAnalysisContent');
+                    if(lock && content) {
+                        lock.style.display = 'none';
+                        content.style.display = 'block';
+                        content.classList.add('fade-in');
+                    }
+                }, 1000);
+            }
+
+        }
+
+        function drawRadarChart(dimensionTypes) {
+            const canvas = document.getElementById('radarCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const dpr = window.devicePixelRatio || 1;
+            
+            const rect = canvas.parentElement.getBoundingClientRect();
+            const size = Math.min(rect.width, 300);
+            
+            canvas.width = size * dpr;
+            canvas.height = size * dpr;
+            canvas.style.width = size + 'px';
+            canvas.style.height = size + 'px';
+            ctx.scale(dpr, dpr);
+
+            const cx = size / 2;
+            const cy = size / 2 + 10;
+            const maxR = size / 2 - 40;
+            const n = 5;
+            const angles = [];
+            for (let i = 0; i < n; i++) {
+                angles.push((Math.PI * 2 * i / n) - Math.PI / 2);
+            }
+
+            const dataValues = DIMENSIONS.map(d => dimensionTypes[d.id].normalizedScore);
+            const labels = DIMENSIONS.map(d => d.name);
+
+            // Draw Grid
+            for (let ring = 1; ring <= 4; ring++) {
+                const r = (maxR / 4) * ring;
+                ctx.beginPath();
+                for (let i = 0; i < n; i++) {
+                    const x = cx + r * Math.cos(angles[i]);
+                    const y = cy + r * Math.sin(angles[i]);
+                    if (i === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                }
+                ctx.closePath();
+                ctx.strokeStyle = 'rgba(0,0,0,0.05)';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+            }
+
+            // Draw Axes & Labels
+            for (let i = 0; i < n; i++) {
+                ctx.beginPath();
+                ctx.moveTo(cx, cy);
+                ctx.lineTo(cx + maxR * Math.cos(angles[i]), cy + maxR * Math.sin(angles[i]));
+                ctx.strokeStyle = 'rgba(0,0,0,0.05)';
+                ctx.stroke();
+
+                const lr = maxR + 20;
+                const x = cx + lr * Math.cos(angles[i]);
+                const y = cy + lr * Math.sin(angles[i]);
+                ctx.font = '700 12px Pretendard';
+                ctx.fillStyle = 'rgba(0,0,0,0.5)';
+                ctx.textAlign = 'center';
+                ctx.fillText(labels[i], x, y + 4);
+            }
+
+            // Draw Data
+            ctx.beginPath();
+            dataValues.forEach((v, i) => {
+                const r = maxR * v;
+                const x = cx + r * Math.cos(angles[i]);
+                const y = cy + r * Math.sin(angles[i]);
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            });
+            ctx.closePath();
+            
+            const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, maxR);
+            grad.addColorStop(0, 'rgba(255, 107, 107, 0.25)');
+            grad.addColorStop(1, 'rgba(255, 218, 193, 0.15)');
+            ctx.fillStyle = grad;
+            ctx.fill();
+            
+            ctx.strokeStyle = '#FF6B6B';
+            ctx.lineWidth = 2.5;
+            ctx.stroke();
+
+            // Draw Dots
+            dataValues.forEach((v, i) => {
+                const r = maxR * v;
+                const x = cx + r * Math.cos(angles[i]);
+                const y = cy + r * Math.sin(angles[i]);
+                
+                ctx.beginPath();
+                ctx.arc(x, y, 9, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255, 107, 107, 0.2)';
+                ctx.fill();
+
+                ctx.beginPath();
+                ctx.arc(x, y, 4, 0, Math.PI * 2);
+                ctx.fillStyle = '#FF6B6B';
+                ctx.fill();
+
+                // Draw Value
+                ctx.font = '800 11px Outfit';
+                ctx.fillStyle = '#FF6B6B';
+                ctx.textAlign = 'center';
+                const textYOffset = y < cy ? -12 : 20;
+                ctx.fillText(Math.round(v * 100) + '%', x, y + textYOffset);
+            });
+        }
+
+        function generateShareLink() {
+            if (!results || results.isShared) return;
+            const note = (document.getElementById('shareNoteInput') || {}).value || '';
+            const code = encodeShareableResult(results, note);
+            const url = `${window.location.origin}${window.location.pathname}?share=${code}`;
+            const output = document.getElementById('shareLinkOutput');
+            output.value = url;
+            document.getElementById('shareLinkBox').style.display = 'block';
+        }
+
+        function copyShareLink() {
+            const output = document.getElementById('shareLinkOutput');
+            output.select();
+            navigator.clipboard.writeText(output.value).then(() => {
+                alert('✅ 링크가 복사되었습니다!');
+            }).catch(() => {
+                alert('복사에 실패했습니다. 직접 선택해서 복사해주세요.');
+            });
+        }
+
+        async function downloadImage() {
+            const btn = document.querySelector('.btn-insta');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin" aria-hidden="true"></i> 이미지 생성 중...';
+            
+            const el = document.getElementById('captureArea');
+            el.style.left = '0';
+            el.style.top = '0';
+            el.style.zIndex = '9999';
+            el.style.visibility = 'visible';
+            
+            try {
+                await document.fonts.ready;
+                await new Promise(r => setTimeout(r, 250));
+                const canvas = await html2canvas(el, { scale: 2, backgroundColor: '#FFF5F5', useCORS: true, logging: false });
+                const link = document.createElement('a');
+                link.download = `mirror_inside_result.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+                btn.innerHTML = '<i class="fas fa-check" aria-hidden="true"></i> 저장 완료! 인스타에 올려보세요';
+            } catch (e) {
+                console.error(e);
+                alert('이미지 저장에 실패했습니다.');
+                btn.innerHTML = originalText;
+            } finally {
+                el.style.left = '-9999px';
+                el.style.zIndex = '-100';
+                el.style.visibility = 'hidden';
+                setTimeout(() => { if (btn.innerHTML.includes('완료')) btn.innerHTML = originalText; }, 3000);
+            }
+        }
+
+        function unlockFactBomb() {
+            const container = document.getElementById('factBombContainer');
+            
+            // Screen Shake Effect
+            container.classList.add('shake-anim');
+            
+            setTimeout(() => {
+                container.classList.remove('shake-anim');
+                container.classList.add('unlocked');
+            }, 600);
+        }
+
+        async function downloadPostcard() {
+            const btn = document.querySelector('.btn-share-postcard');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin" aria-hidden="true"></i> 엽서 굽는 중...';
+            
+            const el = document.getElementById('postcardArea');
+            el.style.left = '0';
+            el.style.top = '0';
+            el.style.zIndex = '9999';
+            el.style.visibility = 'visible';
+            
+            try {
+                // Wait briefly for DOM to settle
+                await new Promise(r => setTimeout(r, 100));
+                await document.fonts.ready;
+                await new Promise(r => setTimeout(r, 250));
+                const canvas = await html2canvas(el, { scale: 3, backgroundColor: '#0F172A', useCORS: true, logging: false });
+                const link = document.createElement('a');
+                link.download = `mirror_inside_fact_bomb.png`;
+                link.href = canvas.toDataURL('image/png', 1.0);
+                link.click();
+                btn.innerHTML = '<i class="fas fa-check" aria-hidden="true"></i> 저장 완료!';
+            } catch (e) {
+                console.error(e);
+                alert('엽서 저장에 실패했습니다.');
+                btn.innerHTML = originalText;
+            } finally {
+                el.style.left = '-9999px';
+                el.style.zIndex = '-100';
+                el.style.visibility = 'hidden';
+                setTimeout(() => { if (btn.innerHTML.includes('완료')) btn.innerHTML = originalText; }, 3000);
+            }
+        }
+
+        function shareKakao() {
+            const baseUrl = 'https://aikiugihimdulda.vercel.app';
+            let shareUrl = baseUrl;
+            if (results && results.overallPersona) {
+                shareUrl = `${baseUrl}/mbti/${results.overallPersona.combo}.html`;
+            }
+
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Mirror Inside 육아 Test',
+                    text: `🪞 Mirror Inside Parenting\n\n나의 육아 페르소나 Test 결과가 나왔어요!\n\n👉 나의 View Results:\n${shareUrl}`,
+                    url: shareUrl
+                }).catch(console.error);
+            } else {
+                navigator.clipboard.writeText(`🪞 Mirror Inside Parenting\n\n나의 육아 페르소나 Test 결과가 나왔어요!\n\n👉 나의 View Results:\n${shareUrl}`).then(() => {
+                    alert('결과 링크와 내용이 클립보드에 복사되었습니다!\n카카오톡 대화창에 붙여넣기 하여 공유해보세요.');
+                }).catch(() => {
+                    alert('클립보드 복사에 실패했습니다. 브라우저의 URL을 직접 복사해 주세요.');
+                });
+            }
+        }
+
+        function copyResult() {
+            if (!results) return;
+            const baseUrl = 'https://aikiugihimdulda.vercel.app';
+            const shareUrl = `${baseUrl}/mbti/${results.overallPersona.combo}.html`;
+
+            let text = `🪞 Mirror Inside Parenting Test 결과\n\n`;
+            text += `✨ 나의 육아 페르소나: ${results.overallPersona.name}\n`;
+            text += `${results.overallPersona.desc}\n\n`;
+            text += `🔗 결과 상세 보기: ${shareUrl}\n`;
+            text += `👉 나도 알아보기: ${baseUrl}/test.html`;
+
+            navigator.clipboard.writeText(text).then(() => {
+                alert('결과 링크가 복사되었습니다!');
+            });
+        }
+    </script>
+    <!-- The Ultimate Tear-Jerker Easter Egg -->
+    <div style="text-align:center; margin-top: 100px; padding-bottom: 40px; opacity: 0.3; transition: opacity 0.3s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.3">
+        <button onclick="openTearJerker()" style="background:none; border:none; color:var(--text-dim); font-size:0.85rem; text-decoration:underline; cursor:pointer; font-family:'Pretendard', sans-serif;">
+            ...양육 고민으로 마음이 지친다면
+        </button>
+    </div>
+
+    <!-- Tear-Jerker Modal -->
+    <div id="tearJerkerModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(15, 23, 42, 0.95); z-index:99999; flex-direction:column; align-items:center; justify-content:center; opacity:0; transition:opacity 1.5s ease;">
+        <div style="max-width: 600px; padding: 40px; text-align:center;">
+            <div style="font-size: 3rem; margin-bottom: 24px; animation: float 3s ease-in-out infinite;">🌌</div>
+            <h2 style="font-size: 1.6rem; color: #F8FAFC; font-weight: 800; margin-bottom: 32px; line-height:1.5;">
+                양육의 무게를 묵묵히 견디는 당신에게
+            </h2>
+            <p style="font-size: 1.1rem; color: #94A3B8; line-height: 1.9; margin-bottom: 24px; word-break: keep-all; text-align: left;">
+                우리가 그토록 아프게 뼈를 때렸는데도, 당신은 창을 닫지 않고 여기까지 스크롤을 내렸습니다.<br><br>
+                왜일까요?<br>
+                당신이 부족한 부모라서가 아닙니다. 당신이 <strong>누구보다 아이를 미치도록 사랑하는 부모</strong>이기 때문입니다.<br><br>
+                어젯밤, 잠든 아이의 이마를 쓸어넘기며 '오늘 화내서 미안해'라고 속으로 눈물 삼켰던 당신의 그 죄책감은, 당신이 얼마나 훌륭한 부모가 되고 싶어 하는지를 증명하는 가장 눈부신 훈장입니다.<br><br>
+                아이에게 완벽한 부모는 필요 없습니다. <strong>오늘 하루 실수했더라도, 내일 다시 안아주려고 노력하는 당신의 그 뒷모습</strong>만으로도 아이의 우주는 이미 완벽하게 따뜻합니다.<br><br>
+                고생하셨습니다. 당신은 이미 충분히 좋은 부모입니다.
+            </p>
+            <button onclick="closeTearJerker()" style="margin-top: 32px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: #F8FAFC; padding: 12px 32px; border-radius: 30px; font-size: 1rem; cursor: pointer; transition: all 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">
+                닫기
+            </button>
+        </div>
+    </div>
+    
+    <script>
+        function openTearJerker() {
+            const modal = document.getElementById('tearJerkerModal');
+            modal.style.display = 'flex';
+            // Trigger reflow
+            void modal.offsetWidth;
+            modal.style.opacity = '1';
+            document.body.style.overflow = 'hidden';
+        }
+        function closeTearJerker() {
+            const modal = document.getElementById('tearJerkerModal');
+            modal.style.opacity = '0';
+            setTimeout(() => {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }, 1500);
+        }
+    </script>
+
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(() => {});
+        });
+      }
+    </script>
+</body>
+</html>
