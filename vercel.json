@@ -12,5 +12,6 @@
       "source": "/((?!en/).*)",
       "destination": "/index.html"
     }
-  ]
+  ],
+  "outputDirectory": "public"
 }

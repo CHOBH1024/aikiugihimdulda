@@ -3,10 +3,6 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "echo 'Static site - no build needed'"
-  },
-  "dependencies": {
-    "marked": "^18.0.5",
-    "puppeteer": "^25.1.0"
+    "build": "node build.js"
   }
 }
