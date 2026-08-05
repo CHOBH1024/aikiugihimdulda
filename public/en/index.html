@@ -1,74 +1,880 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Parenting Radar — Child-Rearing Style Assessment</title>
-  <meta name="description" content="Discover your parenting style and get personalized tips for raising happy, healthy children." />
-  <link rel="canonical" href="https://aikiugihimdulda-family.vercel.app/en/" />
-  <meta property="og:title" content="Parenting Radar — Child-Rearing Style Assessment" />
-  <meta property="og:description" content="Discover your parenting style and get personalized tips for raising happy, healthy children." />
-  <meta property="og:url" content="https://aikiugihimdulda-family.vercel.app/en/" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9992037844935954" crossorigin="anonymous"></script>
-  <style>
-    *{margin:0;padding:0;box-sizing:border-box;font-family:'Pretendard Variable',sans-serif;}
-    body{background:#0a0a0f;color:#f0f0f5;min-height:100vh;}
-    .lang-btn{position:fixed;top:16px;right:16px;z-index:9999;padding:8px 16px;border-radius:999px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);color:#fff;font-size:0.875rem;font-weight:600;cursor:pointer;backdrop-filter:blur(10px);text-decoration:none;transition:all 0.2s;}
-    .lang-btn:hover{background:rgba(255,255,255,0.22);}
-    .hero{min-height:80vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 24px;}
-    .hero h1{font-size:clamp(2rem,5vw,3.5rem);font-weight:800;margin-bottom:8px;background:linear-gradient(135deg,#38bdf8,#818cf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-    .hero .sub{font-size:1.1rem;color:#64748b;margin-bottom:20px;font-weight:500;}
-    .hero p{font-size:1rem;color:#94a3b8;max-width:560px;line-height:1.8;margin-bottom:36px;white-space:pre-line;}
-    .cta-btn{display:inline-block;padding:16px 44px;border-radius:999px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;font-size:1.1rem;font-weight:700;text-decoration:none;transition:transform 0.2s,box-shadow 0.2s;box-shadow:0 8px 24px rgba(99,102,241,0.35);}
-    .cta-btn:hover{transform:scale(1.04);box-shadow:0 12px 32px rgba(99,102,241,0.5);}
-    .features{padding:60px 24px;max-width:900px;margin:0 auto;}
-    .features h2{text-align:center;font-size:1.75rem;font-weight:700;margin-bottom:40px;}
-    .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;}
-    .card{padding:28px;border-radius:20px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);backdrop-filter:blur(12px);}
-    .card .icon{font-size:2rem;margin-bottom:12px;}
-    .card h3{font-size:1rem;font-weight:700;margin-bottom:8px;color:#38bdf8;}
-    .card p{color:#94a3b8;font-size:0.875rem;line-height:1.6;}
-    .cta-section{text-align:center;padding:40px 24px 100px;}
-    .note{color:#475569;font-size:0.825rem;margin-top:16px;line-height:1.6;}
-  </style>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/assets/images/icons/favicon.png" type="image/png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>아이키우기힘들다 | 육아 페르소나·부모 성향 무료 Test. 아이와 나 사이의 패턴을 이해하도록… 무료 Test</title>
+    <meta name="description" content="육아 페르소나·부모 성향 무료 Test. 아이와 나 사이의 패턴을 이해하도록 돕습니다." />
+    <!-- Pretendard Variable CDN -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+    <style>
+      * { font-family: 'Pretendard Variable', 'Pretendard', -apple-system, sans-serif; }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <meta property="og:title" content="아이키우기힘들다" />
+    <meta property="og:description" content="육아 페르소나·부모 성향 무료 Test. 아이와 나 사이의 패턴을 이해하도록 돕습니다." />
+    <meta property="og:image" content="https://aikiugihimdulda.vercel.app/og-image.png" />
+    <meta property="og:url" content="https://aikiugihimdulda.vercel.app/" />
+    <meta property="og:type" content="website" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        /* === Landing Page Specific === */
+        .hero__mascot {
+            width: 180px;
+            height: 180px;
+            margin-bottom: 24px;
+            animation: float 4s ease-in-out infinite;
+            filter: drop-shadow(0 8px 24px rgba(255, 107, 107, 0.15));
+        }
+
+        .how-it-works {
+            padding: 80px 0;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 48px;
+        }
+
+        .step-card {
+            text-align: center;
+            padding: 40px 28px;
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            transition: var(--transition-smooth);
+            position: relative;
+            box-shadow: var(--shadow-card);
+        }
+
+        .step-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--glass-border-hover);
+            box-shadow: var(--shadow-card-hover);
+        }
+
+        .step-num {
+            font-family: 'Nunito', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--peach));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+            margin-bottom: 16px;
+        }
+
+        .step-card h3 {
+            margin-bottom: 10px;
+            color: var(--text-main);
+        }
+
+        .step-card p {
+            color: var(--text-body);
+            font-size: 0.9rem;
+            word-break: keep-all;
+        }
+
+        .dimensions-section {
+            padding: 80px 0;
+        }
+
+        .dimensions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-top: 48px;
+        }
+
+        .cta-section {
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, #FFF0E8 0%, #FFF5F5 50%, #F0E8FF 100%);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-xl);
+            padding: 64px 48px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
+        }
+
+        .cta-box h2 {
+            position: relative;
+            margin-bottom: 16px;
+        }
+
+        .cta-box p {
+            position: relative;
+            color: var(--text-body);
+            font-size: 1.1rem;
+            margin-bottom: 32px;
+            word-break: keep-all;
+        }
+
+        .cta-box .btn { position: relative; }
+
+        /* Feature Section */
+        .features-section { padding: 80px 0; }
+
+        .feature-row {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            margin-bottom: 80px;
+        }
+
+        .feature-row:nth-child(even) { flex-direction: row-reverse; }
+
+        .feature-content { flex: 1; }
+        .feature-visual {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .feature-visual__chart {
+            width: 280px;
+            height: 280px;
+            position: relative;
+        }
+
+        .mini-radar {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Preview Selector Box */
+        .preview-box {
+            margin-top: 36px;
+            padding: 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            max-width: 420px;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: var(--shadow-card);
+        }
+
+        .preview-box__title {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            margin-bottom: 14px;
+            font-weight: 700;
+        }
+
+        .preview-box select {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: var(--radius-sm);
+            border: 2px solid var(--glass-border);
+            background: var(--bg-main);
+            color: var(--text-main);
+            font-size: 0.95rem;
+            font-family: inherit;
+            outline: none;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            -webkit-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M6 8L1 3h10z' fill='%239CA3AF'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+        }
+
+        .preview-box select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
+        }
+
+        .preview-box__row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .preview-box__row select { flex: 1; }
+
+        .preview-box__row .btn {
+            padding: 12px 20px;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        /* Empathy Cards */
+        .empathy-section {
+            padding: 80px 0;
+        }
+
+        .empathy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            margin-top: 40px;
+        }
+
+        .empathy-card {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 28px 24px;
+            text-align: center;
+            transition: var(--transition-smooth);
+            box-shadow: var(--shadow-soft);
+            cursor: pointer;
+        }
+
+        .empathy-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-card-hover);
+            border-color: var(--glass-border-hover);
+        }
+
+        .empathy-card__emoji {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .empathy-card__text {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-main);
+            word-break: keep-all;
+            line-height: 1.5;
+        }
+
+        .empathy-card__sub {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            margin-top: 8px;
+        }
+
+        /* Stats Pill */
+        .stat-pills {
+            display: flex;
+            gap: 16px;
+            margin-top: 48px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .stat-pill {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: 100px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .stat-pill__num {
+            font-family: 'Nunito', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--primary);
+        }
+
+        .stat-pill__label {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .steps { grid-template-columns: 1fr; }
+            .feature-row, .feature-row:nth-child(even) {
+                flex-direction: column;
+                gap: 32px;
+            }
+            .empathy-grid { grid-template-columns: repeat(2, 1fr); }
+            .cta-box { padding: 40px 24px; }
+        }
+
+        @media (max-width: 480px) {
+            .empathy-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+    <!-- Search & AdSense 인증 -->
+    <meta name="google-site-verification" content="Tb_LmHczAZCjYOkU4RJh-m02RB4srmXHH4OFI3dxxGs" />
+    <meta name="google-adsense-account" content="ca-pub-9992037844935954">
+    <meta name="naver-site-verification" content="16578f8f79a3870985d38cddf217b1c67a4c4dad" />
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Mirror Inside Parenting",
+      "applicationCategory": "LifestyleApplication",
+      "operatingSystem": "Web",
+      "description": "3분이면 충분해요. 나만의 육아 페르소나를 발견하고 아이와 더 가까워지는 방법을 알아보세요."
+    }
+    </script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9992037844935954" crossorigin="anonymous"></script>
+<script>/* Samsung Internet animation-suppression fix */(function(){function f(){var el=document.querySelector('.hero__title,.hero__badge');if(!el)return;if(parseFloat(window.getComputedStyle(el).opacity)<0.1){var s=document.createElement('style');s.textContent='*,*::before,*::after{animation-duration:0.001s!important;animation-delay:0s!important;animation-iteration-count:1!important;}';document.head.appendChild(s);}}document.addEventListener('DOMContentLoaded',function(){setTimeout(f,600);});})();</script>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#0f172a" />
+    <!-- Plausible Analytics (가벼운 자가호스팅형 애널리틱스) — plausible.io에서 무료/자가호스팅 계정 생성 후 도메인 인증하면 바로 수집됩니다 -->
+    <script defer data-domain="aikiugihimdulda.vercel.app" src="https://plausible.io/js/script.js"></script>
+  <meta name="keywords" content="육아, 부모 성향, 육아 스트레스, 육아 테스트" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="author" content="아이키우기힘들다" />
+  <link rel="canonical" href="https://aikiugihimdulda.vercel.app/" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:site_name" content="아이키우기힘들다" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="아이키우기힘들다" />
+  <meta name="twitter:description" content="육아 페르소나·부모 성향 무료 Test. 아이와 나 사이의 패턴을 이해하도록 돕습니다." />
+  <script type="application/ld+json" id="seo-jsonld">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "아이키우기힘들다",
+      "url": "https://aikiugihimdulda.vercel.app/",
+      "description": "육아 페르소나·부모 성향 무료 Test. 아이와 나 사이의 패턴을 이해하도록 돕습니다.",
+      "inLanguage": "en-US",
+      "publisher": {
+        "@type": "Organization",
+        "name": "아이키우기힘들다",
+        "url": "https://aikiugihimdulda.vercel.app/"
+      }
+    },
+    {
+      "@type": "WebApplication",
+      "name": "아이키우기힘들다",
+      "url": "https://aikiugihimdulda.vercel.app/",
+      "applicationCategory": "LifestyleApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "KRW"
+      },
+      "description": "육아 페르소나·부모 성향 무료 Test. 아이와 나 사이의 패턴을 이해하도록 돕습니다.",
+      "inLanguage": "en-US"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://aikiugihimdulda.vercel.app/"
+        }
+      ]
+    }
+  ]
+}
+</script>
+  <meta name="naver-site-verification" content="339424d232e425843e983f0b21456b5846ee9090" />
+
+  <link rel="alternate" hreflang="en" href="https://aikiugihimdulda.pomyjo.com/" />
+  <link rel="alternate" hreflang="en" href="https://aikiugihimdulda.pomyjo.com/en/" />
+  <link rel="alternate" hreflang="x-default" href="https://aikiugihimdulda.pomyjo.com/" />
 </head>
 <body>
-  <a href="/" class="lang-btn">🇰🇷 한국어</a>
 
-  <section class="hero">
-    <h1>👶 Parenting Radar</h1>
-    <p class="sub">Child-Rearing Style Assessment</p>
-    <p>Discover your unique parenting style and tendencies.
-Get personalized insights for raising happy, healthy children.</p>
-    <a href="/" class="cta-btn">Find My Parenting Style →</a>
-  </section>
-
-  <section class="features">
-    <h2>Why Take This Assessment?</h2>
-    <div class="cards">
-      <div class="card">
-        <div class="icon">👶</div>
-        <h3>4 Parenting Styles</h3>
-        <p>Authoritative, Authoritarian, Permissive, or Uninvolved — find your style.</p>
-      </div>
-      <div class="card">
-        <div class="icon">📚</div>
-        <h3>Expert-Backed</h3>
-        <p>Assessment based on established developmental psychology research.</p>
-      </div>
-      <div class="card">
-        <div class="icon">🔒</div>
-        <h3>100% Free & Private</h3>
-        <p>No login required. No data stored. Results available instantly.</p>
-      </div>
-
+    <!-- Pastel Floating Blobs -->
+    <div class="glow-orb-container">
+        <div class="glow-orb glow-orb--1"></div>
+        <div class="glow-orb glow-orb--2"></div>
+        <div class="glow-orb glow-orb--3"></div>
     </div>
-  </section>
 
-  <section class="cta-section">
-    <a href="/" class="cta-btn">Find My Parenting Style →</a>
-    <p class="note">* Assessment runs in Korean. Results include parenting style insights and practical tips.</p>
-  </section>
+
+    
+
+
+    
+
+
+    
+
+
+    
+
+
+    
+
+    <!-- Navigation -->
+    <nav class="nav" id="mainNav">
+        <div class="nav__inner">
+            <a href="/index.html" class="nav__logo">
+                🪞 Mirror Inside <span class="nav__logo-sub">Parenting</span>
+            </a>
+            <ul class="nav__links" id="navLinks">
+                <li><a href="/columns.html" class="nav__link">육아 Articles</a></li>
+                <li><a href="/gallery.html" class="nav__link">나의 History</a></li>
+                <li><a href="/chemistry.html" class="nav__link">❤️ 육아 궁합 Test</a></li>
+                <li><a href="/about.html" class="nav__link">About</a></li>
+                <li><a href="/test.html" class="nav__cta">🪞 나의 육아 스타일 알아보기</a></li>
+            </ul>
+            <div class="nav__burger" id="navBurger" onclick="toggleNav()">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <img src="/assets/images/icons/hello.png" alt="미러니 인사" class="hero__mascot">
+
+        <span class="hero__badge">
+            ✨ 3분이면 충분해요
+        </span>
+
+        <h1 class="hero__title">
+            당신은 어떤<br>
+            <span class="text-gradient">부모</span>인가요? 🪞
+        </h1>
+
+        <p class="hero__desc">
+            거울 속 나의 육아 스타일을 발견하고,<br>
+            아이와 더 가까워지는 방법을 알아보세요.
+        </p>
+
+        <div class="hero__actions">
+            <a href="/test.html" class="btn btn--primary btn--large btn--glow" id="heroStartBtn">
+                🪞 나의 육아 스타일 알아보기
+            </a>
+            <a href="#empathy" class="btn btn--secondary btn--large">
+                💬 이런 고민 있으신가요?
+            </a>
+        </div>
+
+        <!-- Preview Selector -->
+        
+        <div class="preview-box" style="max-width: 500px; padding: 24px; text-align: center;">
+            <p class="preview-box__title" style="margin-bottom: 20px;">미리 8가지 유형의 결과를 구경해볼 수 있어요 👀</p>
+            
+            <div style="margin-bottom: 20px;">
+                <button class="btn btn--primary" onclick="openIndexMbtiModal()" style="width:100%;">🤔 내 MBTI로 바로 View Results</button>
+            </div>
+
+            <div id="indexPersonaGrid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+                <!-- Cards injected via JS -->
+            </div>
+        </div>
+
+        <script>
+            const mbtiList = ['INTJ','INTP','ENTJ','ENTP','INFJ','INFP','ENFJ','ENFP','ISTJ','ISFJ','ESTJ','ESFJ','ISTP','ISFP','ESTP','ESFP'];
+            
+            function openIndexMbtiModal() {
+                const grid = document.getElementById('indexMbtiGrid');
+                grid.innerHTML = '';
+                mbtiList.forEach(m => {
+                    const btn = document.createElement('button');
+                    btn.textContent = m;
+                    btn.style.cssText = 'padding:12px 4px; border:2px solid #E2E8F0; border-radius:12px; background:#F8FAFC; color:#1E293B; font-weight:700; cursor:pointer; transition:all 0.2s; font-size:0.95rem;';
+                    btn.onmouseover = () => { btn.style.borderColor='var(--primary)'; btn.style.background='rgba(52,211,153,0.05)'; };
+                    btn.onmouseout = () => { btn.style.borderColor='#E2E8F0'; btn.style.background='#F8FAFC'; };
+                    btn.onclick = () => { window.location.href = 'result.html?mbti=' + m; };
+                    grid.appendChild(btn);
+                });
+                document.getElementById('indexMbtiModal').style.display = 'flex';
+            }
+            function closeIndexMbtiModal() {
+                document.getElementById('indexMbtiModal').style.display = 'none';
+            }
+            document.addEventListener("DOMContentLoaded", () => {
+                const grid = document.getElementById('indexPersonaGrid');
+                if (typeof OVERALL_TITLES !== 'undefined') {
+                    OVERALL_TITLES.forEach(p => {
+                        if (p.combo === 'balanced') return; // Skip balanced to keep 8 grid perfectly symmetrical
+                        const btn = document.createElement('div');
+                        btn.style.cssText = 'background: #F8FAFC; border: 2px solid transparent; border-radius: 12px; padding: 12px 8px; cursor: pointer; transition: all 0.2s; display: flex; flex-direction: column; align-items: center; justify-content: center;';
+                        btn.onmouseover = () => { btn.style.borderColor = 'var(--primary)'; btn.style.transform = 'translateY(-2px)'; btn.style.boxShadow = '0 4px 12px rgba(52,211,153,0.15)'; };
+                        btn.onmouseout = () => { btn.style.borderColor = 'transparent'; btn.style.transform = 'translateY(0)'; btn.style.boxShadow = 'none'; };
+                        btn.onclick = () => window.location.href = 'result.html?preview=' + p.combo;
+                        
+                        btn.innerHTML = `
+                            <img src="${p.imageUrl}" alt="${p.name}" style="width: 40px; height: 40px; object-fit: contain; margin-bottom: 8px;">
+                            <span style="font-size: 0.8rem; font-weight: 700; color: #1E293B; line-height: 1.2; word-break: keep-all;">${p.name}</span>
+                        `;
+                        grid.appendChild(btn);
+                    });
+                }
+            });
+        </script>
+
+        <div class="stat-pills">
+            <div class="stat-pill">
+                <span class="stat-pill__num">20</span>
+                <span class="stat-pill__label">문항</span>
+            </div>
+            <div class="stat-pill">
+                <span class="stat-pill__num">5</span>
+                <span class="stat-pill__label">분석 차원</span>
+            </div>
+            <div class="stat-pill">
+                <span class="stat-pill__num">35</span>
+                <span class="stat-pill__label">페르소나</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Empathy Section -->
+    <section class="empathy-section container" id="empathy">
+        <div class="text-center">
+            <span class="section-tag">💬 공감 키워드</span>
+            <h2>이런 고민, 혹시 있으신가요?</h2>
+            <p class="text-body mt-2" style="max-width:500px; margin-left:auto; margin-right:auto; word-break:keep-all;">
+                누구나 한 번쯤 느끼는 육아 고민들이에요.<br>당신만 그런 게 아니랍니다 🤗
+            </p>
+        </div>
+
+        <div class="empathy-grid">
+            <a href="/test.html" class="empathy-card">
+                <span class="empathy-card__emoji">😤</span>
+                <p class="empathy-card__text">"아이가 자꾸 '싫어!'라고만 해요"</p>
+                <p class="empathy-card__sub">자율성 vs 훈육 궁금하다면</p>
+            </a>
+            <a href="/test.html" class="empathy-card">
+                <span class="empathy-card__emoji">🥺</span>
+                <p class="empathy-card__text">"나는 좋은 부모일까?"</p>
+                <p class="empathy-card__sub">양육 자신감이 흔들릴 때</p>
+            </a>
+            <a href="/test.html" class="empathy-card">
+                <span class="empathy-card__emoji">📱</span>
+                <p class="empathy-card__text">"스마트폰 보여줘도 괜찮을까요?"</p>
+                <p class="empathy-card__sub">미디어 조율이 고민될 때</p>
+            </a>
+            <a href="/test.html" class="empathy-card">
+                <span class="empathy-card__emoji">😴</span>
+                <p class="empathy-card__text">"육아가 너무 힘들어요..."</p>
+                <p class="empathy-card__sub">부모 번아웃이 느껴질 때</p>
+            </a>
+        </div>
+    </section>
+
+    <!-- 5 Dimensions Section -->
+    <section class="dimensions-section container" id="dimensions">
+        <div class="text-center">
+            <span class="section-tag">📊 5가지 분석 차원</span>
+            <h2>나의 육아 스타일, 5가지 렌즈로 볼게요</h2>
+            <p class="text-body mt-2" style="max-width:520px; margin-left:auto; margin-right:auto; word-break:keep-all;">
+                각 차원별로 당신의 양육 성향을 분석해드려요 ✨
+            </p>
+        </div>
+
+        <div class="dimensions-grid" id="dimensionsGrid">
+            <!-- JS에서 동적 생성 -->
+        </div>
+    </section>
+
+    <!-- How it Works -->
+    <section class="how-it-works container" id="how">
+        <div class="text-center">
+            <span class="section-tag">✅ 이렇게 진행돼요</span>
+            <h2>3단계면 끝! 간단하죠? 😊</h2>
+        </div>
+
+        <div class="steps">
+            <div class="step-card">
+                <div class="step-num">01</div>
+                <h3>질문에 답하기 ✍️</h3>
+                <p>실제 육아 상황 20가지에 직관적으로 답해주세요. 약 3~5분이면 충분해요!</p>
+            </div>
+            <div class="step-card">
+                <div class="step-num">02</div>
+                <h3>AI가 분석해요 🔍</h3>
+                <p>발달심리학 기반 알고리즘이 5가지 차원에서 당신의 육아 패턴을 분석해요.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-num">03</div>
+                <h3>결과 확인! 🎉</h3>
+                <p>나만의 육아 페르소나와 맞춤 솔루션을 바로 확인하고 공유할 수 있어요.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features-section container">
+        <div class="feature-row">
+            <div class="feature-content">
+                <span class="section-tag">📈 시각적 분석</span>
+                <h2>레이더 차트로 보는<br>나의 육아 지형</h2>
+                <p class="text-body mt-3" style="word-break:keep-all;">
+                    5가지 차원의 역량을 한눈에 볼 수 있어요. 
+                    단순 점수가 아니라, 나만의 양육 강점과 패턴을 
+                    예쁜 차트로 확인해보세요 📊
+                </p>
+            </div>
+            <div class="feature-visual">
+                <div class="feature-visual__chart">
+                    <canvas id="demoRadar" class="mini-radar"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="feature-row">
+            <div class="feature-content">
+                <span class="section-tag">🛡️ 정직한 결과</span>
+                <h2>솔직한 나를<br>만나는 시간</h2>
+                <p class="text-body mt-3" style="word-break:keep-all;">
+                    "좋은 부모로 보이고 싶은 마음"을 필터링하는 
+                    검증 시스템으로, 진짜 나의 양육 스타일을 
+                    만나볼 수 있어요 🪞
+                </p>
+            </div>
+            <div class="feature-visual">
+                <div style="font-size: 6rem; text-align:center;">🛡️</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section container">
+        <div class="cta-box">
+            <h2>거울 속 나의 육아 스타일,<br><span class="text-gradient">지금 만나보세요</span> 🪞</h2>
+            <p>20문항 · 약 3분 · 완전 무료</p>
+            <a href="/test.html" class="btn btn--primary btn--large btn--glow">
+                🪞 나의 육아 스타일 알아보기
+            </a>
+        </div>
+    </section>
+
+    \n    <script src="chemistry_data.js"></script>
+    <script src="data.js"></script>
+    <script>
+        // === Navigation Scroll Effect ===
+        const nav = document.getElementById('mainNav');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        function toggleNav() {
+            document.getElementById('navLinks').classList.toggle('open');
+        }
+
+        // === Dimension Cards ===
+        const grid = document.getElementById('dimensionsGrid');
+        DIMENSIONS.forEach((dim, i) => {
+            const types = PERSONA_TYPES[dim.id];
+            const card = document.createElement('div');
+            card.className = 'dimension-card';
+            card.style.setProperty('--card-color', dim.color);
+            card.style.animationDelay = `${i * 0.08}s`;
+            card.innerHTML = `
+                <span class="dimension-card__icon">${dim.icon}</span>
+                <div class="dimension-card__sub">${dim.nameEn}</div>
+                <div class="dimension-card__title">${dim.name}</div>
+                <p class="dimension-card__desc">${dim.desc}</p>
+                <div class="dimension-card__types">
+                    ${types.map(t => `<span class="dimension-card__type-tag">${t.name}</span>`).join('')}
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+
+        // === Demo Radar Chart ===
+        function drawDemoRadar() {
+            const canvas = document.getElementById('demoRadar');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const dpr = window.devicePixelRatio || 1;
+            const size = 280;
+            canvas.width = size * dpr;
+            canvas.height = size * dpr;
+            canvas.style.width = size + 'px';
+            canvas.style.height = size + 'px';
+            ctx.scale(dpr, dpr);
+
+            const cx = size / 2;
+            const cy = size / 2;
+            const maxR = size / 2 - 30;
+            const n = 5;
+            const angles = [];
+            for (let i = 0; i < n; i++) {
+                angles.push((Math.PI * 2 * i / n) - Math.PI / 2);
+            }
+
+            // Grid
+            for (let ring = 1; ring <= 4; ring++) {
+                const r = (maxR / 4) * ring;
+                ctx.beginPath();
+                for (let i = 0; i < n; i++) {
+                    const x = cx + r * Math.cos(angles[i]);
+                    const y = cy + r * Math.sin(angles[i]);
+                    if (i === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                }
+                ctx.closePath();
+                ctx.strokeStyle = 'rgba(0, 0, 0, 0.05)';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+            }
+
+            // Axes
+            for (let i = 0; i < n; i++) {
+                ctx.beginPath();
+                ctx.moveTo(cx, cy);
+                ctx.lineTo(cx + maxR * Math.cos(angles[i]), cy + maxR * Math.sin(angles[i]));
+                ctx.strokeStyle = 'rgba(0, 0, 0, 0.05)';
+                ctx.stroke();
+            }
+
+            // Labels
+            const labels = DIMENSIONS.map(d => d.name);
+            ctx.font = '12px Pretendard';
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
+            ctx.textAlign = 'center';
+            labels.forEach((label, i) => {
+                const lr = maxR + 20;
+                const x = cx + lr * Math.cos(angles[i]);
+                const y = cy + lr * Math.sin(angles[i]);
+                ctx.fillText(label, x, y + 4);
+            });
+
+            // Data (demo values)
+            const demoValues = [0.82, 0.65, 0.9, 0.72, 0.78];
+
+            // Fill
+            ctx.beginPath();
+            demoValues.forEach((v, i) => {
+                const r = maxR * v;
+                const x = cx + r * Math.cos(angles[i]);
+                const y = cy + r * Math.sin(angles[i]);
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            });
+            ctx.closePath();
+            const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, maxR);
+            grad.addColorStop(0, 'rgba(255, 107, 107, 0.2)');
+            grad.addColorStop(1, 'rgba(184, 169, 201, 0.15)');
+            ctx.fillStyle = grad;
+            ctx.fill();
+
+            // Stroke
+            ctx.beginPath();
+            demoValues.forEach((v, i) => {
+                const r = maxR * v;
+                const x = cx + r * Math.cos(angles[i]);
+                const y = cy + r * Math.sin(angles[i]);
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            });
+            ctx.closePath();
+            ctx.strokeStyle = 'rgba(255, 107, 107, 0.6)';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            // Dots
+            demoValues.forEach((v, i) => {
+                const r = maxR * v;
+                const x = cx + r * Math.cos(angles[i]);
+                const y = cy + r * Math.sin(angles[i]);
+                ctx.beginPath();
+                ctx.arc(x, y, 5, 0, Math.PI * 2);
+                ctx.fillStyle = '#FF6B6B';
+                ctx.fill();
+                ctx.beginPath();
+                ctx.arc(x, y, 9, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255, 107, 107, 0.15)';
+                ctx.fill();
+            });
+        }
+
+        drawDemoRadar();
+        window.addEventListener('resize', drawDemoRadar);
+
+        // === Intersection Observer for Animations ===
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -40px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.6s ease both';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.dimension-card, .step-card, .feature-row, .empathy-card').forEach(el => {
+            el.style.opacity = '0';
+            observer.observe(el);
+        });
+    </script>
+
+    <!-- Mobile Bottom Navigation -->
+    <nav class="bottom-nav">
+        <div class="bottom-nav__inner">
+            <a href="/index.html" class="bottom-nav__item active">
+                <i class="fas fa-home" aria-hidden="true"></i>
+                <span>Home</span>
+            </a>
+            <a href="/test.html" class="bottom-nav__item">
+                <i class="fas fa-clipboard-check" aria-hidden="true"></i>
+                <span>Test</span>
+            </a>
+            <a href="/columns.html" class="bottom-nav__item">
+                <i class="fas fa-book-open" aria-hidden="true"></i>
+                <span>Articles</span>
+            </a>
+            <a href="/gallery.html" class="bottom-nav__item">
+                <i class="fas fa-images" aria-hidden="true"></i>
+                <span>History</span>
+            </a>
+        </div>
+    </nav>
+
+    
+
+    <!-- MBTI Modal for Index -->
+    <div id="indexMbtiModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center; backdrop-filter:blur(4px);">
+        <div style="background:#fff; width:90%; max-width:400px; border-radius:24px; padding:24px; max-height:80vh; overflow-y:auto; box-shadow:0 20px 40px rgba(0,0,0,0.2); position:relative;">
+            <button onclick="closeIndexMbtiModal()" style="position:absolute; top:16px; right:16px; background:none; border:none; font-size:1.5rem; cursor:pointer; color:#94A3B8;">✕</button>
+            <h3 style="font-size:1.2rem; font-weight:800; margin-bottom:20px; color:#1E293B; text-align:center;">나의 MBTI 선택</h3>
+            <div id="indexMbtiGrid" style="display:grid; grid-template-columns:repeat(4, 1fr); gap:8px;">
+                <!-- Buttons injected via JS -->
+            </div>
+        </div>
+    </div>
+
+
+    
+
+
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(() => {});
+        });
+      }
+    </script>
+
+    
+
+
+    
+
+
+    
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p style="font-size: 1.1rem; margin-bottom: 12px;">🪞 Mirror Inside Parenting</p>
+        <p style="font-size: 0.85rem; color: var(--text-body); margin-bottom: 16px;">함께 성장하는 육아, 거울 속에서 만나요</p>
+        <p>&copy; 2026 Mirror Inside Parenting. All rights reserved.</p>
+        <p style="font-size: 0.75rem; margin-top: 8px; color: var(--text-dim);">
+            <a href="/terms.html">Terms of Service</a> · <a href="/privacy.html">Privacy Policy</a> · <a href="/contact.html">Contact Us</a>
+        </p>
+    </footer>
+
+<section class="seo-content" style="padding:40px 24px;background:#f8f9fa;border-top:1px solid #e9ecef;color:#495057;font-size:14px;line-height:1.8;"><h2 style="font-size:18px;font-weight:700;margin-bottom:12px;color:#343a40;">서비스 About 및 활용 가이드</h2><p>육아가 힘들다고 느끼는 초보 부모님들을 위한 현실적인 육아 정보 플랫폼입니다. 신생아 케어, 수면 교육, 이유식, 아이 발달 단계별 가이드, 훈육 방법 등 다양한 육아 주제를 다룹니다. 아동 심리 전문가들의 조언을 기반으로 아이와 부모가 함께 건강하게 성장하는 방법을 알려드립니다. 육아 스트레스를 줄이고, 행복한 가정을 만들기 위한 실용적인 팁들을 무료로 제공합니다. 아이와 함께 성장하는 부모의 이야기를 담은 이 플랫폼은 실제 육아 현장에서 검증된 정보만을 엄선하여 제공합니다. 관련 키워드: 초보 육아, 신생아 케어, 수면 교육, 아이 발달, 긍정 훈육법</p></section><a href="/" class="en-subpage-btn" style="position:fixed; top:14px; right:14px; z-index:99999; padding:7px 16px; background:rgba(0,242,254,0.18); color:#00f2fe; border:1px solid rgba(0,242,254,0.4); border-radius:20px; font-weight:700; font-size:0.85rem; text-decoration:none; backdrop-filter:blur(12px); box-shadow:0 4px 15px rgba(0,0,0,0.3);">🇰🇷 Korean Version</a>
 </body>
 </html>

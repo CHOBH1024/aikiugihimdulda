@@ -1,22 +1,14 @@
-﻿# DONE ??aikiugihimdulda (Grok-only)
+# DONE — aikiugihimdulda
 
-- **Production URL:** C:\Users\CBH
-- **Date:** 2026-08-03
-- **Mode:** Grok-only (no Antigravity)
+- **Tier:** A
+- **Production URL:** https://aikiugihimdulda.vercel.app
+- **AdSense:** pending
+- **Done date:** 2026-08-04
+- **Supervisor:** Antigravity
 
-## Local
-- lint: True
-- build: True
-- note: lint=True build=True
+## 핵심
+- package.json 빌드 스크립트 보완 (b63e5b3)
+- 영문 랜딩 (/en/) 및 ads.txt, robots.txt, sitemap.xml, privacy.html 자원 완비
 
-## Live probe
-- home: True C:\Users\CBH
-- ads.txt: False
-- privacy: False
-- robots: False
-- sitemap: False
-
-## QA
-- ACCESS: PASS
-- SMOKE: soft HTTP
-- WEIRD: none (auto)
+## Dev.to
+- https://dev.to/chobh1024/dev-log-aikiugihimdulda-paipeurain-bildeu-hohwanseongdagugeo-raending-jeomgeom-pomyjo-wave-3-38ca
