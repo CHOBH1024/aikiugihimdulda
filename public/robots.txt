@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
-Sitemap: https://pomyjo.com/sitemaps/aikiugihimdulda-sitemap.xml
-Sitemap: https://pomyjo.com/aikiugihimdulda/rss.xml
+Disallow: /api/
+Disallow: /admin/
+
+Sitemap: https://aikiugihimdulda.vercel.app/sitemap.xml
+Host: https://aikiugihimdulda.vercel.app
