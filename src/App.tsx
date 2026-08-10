@@ -276,9 +276,28 @@ export function App() {
         )}
       </main>
 
-      <footer className="border-t border-slate-800 py-4 text-center text-[10px] text-slate-500">
-        © 2026 aikiugihimdulda. Live Online Community Connected. Powered by Pomyjo.
+            <footer style={{ borderTop: '1px solid #1e293b', padding: '24px 16px', textAlign: 'center' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: 10, flexWrap: 'wrap', marginBottom: 8 }}>
+          <button
+            onClick={() => {
+              const url = location.href;
+              if (navigator.share) { navigator.share({ title: document.title, url }); }
+              else { navigator.clipboard?.writeText(url).then(() => alert('링크가 복사되었습니다! 공유해보세요 🎉')); }
+            }}
+            style={{ padding: '8px 18px', borderRadius: 999, background: '#6366f1', color: '#fff', fontSize: 12, fontWeight: 700, border: 'none', cursor: 'pointer' }}
+          >
+            📤 결과 공유하기
+          </button>
+          <a
+            href="https://hub.pomyjo.com"
+            style={{ padding: '8px 18px', borderRadius: 999, border: '1px solid #334155', color: '#94a3b8', fontSize: 12, fontWeight: 700, textDecoration: 'none' }}
+          >
+            🧠 더 많은 진단 테스트
+          </a>
+        </div>
+        <p style={{ fontSize: 11, color: '#64748b', margin: 0 }}>© 2026 POMYJO · <a href="https://hub.pomyjo.com" style={{ color: '#8b5cf6' }}>POMYJO 진단 허브</a> · 결과는 참고용입니다</p>
       </footer>
+
     </div>
   );
 }
