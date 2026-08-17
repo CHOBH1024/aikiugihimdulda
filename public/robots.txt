@@ -3,5 +3,5 @@ Allow: /
 Disallow: /api/
 Disallow: /admin/
 
-Sitemap: https://aikiugihimdulda.vercel.app/sitemap.xml
-Host: https://aikiugihimdulda.vercel.app
+Sitemap: https://aikiugihimdulda.pomyjo.com/sitemap.xml
+Host: https://aikiugihimdulda.pomyjo.com
